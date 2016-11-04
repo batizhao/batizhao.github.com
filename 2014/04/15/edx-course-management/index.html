@@ -1,0 +1,699 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="edx,mooc,latex," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hello World" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="在制作课程之前，先要知道下 edX.org 和 edX Edge 的关系。
+edX.org 和 edX Edge从外观来看，这两个站点几乎是一样的，但内容和目的不同。这是两个完全独立的站点，包括所有用户信息、课程数据、数据库、服务器都是独立的。现在有很多的课程都即将在 Edge 毕业，在将来成为 edX 上的正式公开课程。但也有很多课程不需要经过 Edge，而直接在 edX 上开课。官方建议在 e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="edX 学习三：开始课程制作之前">
+<meta property="og:url" content="http://batizhao.me/2014/04/15/edx-course-management/index.html">
+<meta property="og:site_name" content="Hello World">
+<meta property="og:description" content="在制作课程之前，先要知道下 edX.org 和 edX Edge 的关系。
+edX.org 和 edX Edge从外观来看，这两个站点几乎是一样的，但内容和目的不同。这是两个完全独立的站点，包括所有用户信息、课程数据、数据库、服务器都是独立的。现在有很多的课程都即将在 Edge 毕业，在将来成为 edX 上的正式公开课程。但也有很多课程不需要经过 Edge，而直接在 edX 上开课。官方建议在 e">
+<meta property="og:image" content="http://batizhao.me/images/2014-04-15-edx-course-management-edX-org.png">
+<meta property="og:image" content="http://batizhao.me/images/2014-04-15-edx-course-management-studio-edx-org.png">
+<meta property="og:image" content="http://batizhao.me/images/2014-04-15-edx-course-management-edX-Edge.png">
+<meta property="og:image" content="http://batizhao.me/images/2014-04-15-edx-course-management-edX-Edge-home.png">
+<meta property="og:image" content="http://batizhao.me/images/2014-04-15-edx-course-management-edX-Edge-home-101.png">
+<meta property="og:image" content="http://batizhao.me/images/2014-04-15-edx-course-management-studio-edge-edx-org.png">
+<meta property="og:updated_time" content="2016-11-04T09:11:25.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="edX 学习三：开始课程制作之前">
+<meta name="twitter:description" content="在制作课程之前，先要知道下 edX.org 和 edX Edge 的关系。
+edX.org 和 edX Edge从外观来看，这两个站点几乎是一样的，但内容和目的不同。这是两个完全独立的站点，包括所有用户信息、课程数据、数据库、服务器都是独立的。现在有很多的课程都即将在 Edge 毕业，在将来成为 edX 上的正式公开课程。但也有很多课程不需要经过 Edge，而直接在 edX 上开课。官方建议在 e">
+<meta name="twitter:image" content="http://batizhao.me/images/2014-04-15-edx-course-management-edX-org.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://batizhao.me/2014/04/15/edx-course-management/"/>
+
+
+  <title> edX 学习三：开始课程制作之前 | Hello World </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hello World</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                edX 学习三：开始课程制作之前
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-04-15T00:00:00+08:00" content="2014-04-15">
+              2014-04-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mooc/" itemprop="url" rel="index">
+                    <span itemprop="name">mooc</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在制作课程之前，先要知道下 <a href="https://www.edx.org/" target="_blank" rel="external">edX.org</a> 和 <a href="https://edge.edx.org" target="_blank" rel="external">edX Edge</a> 的关系。</p>
+<h2 id="edX-org-和-edX-Edge"><a href="#edX-org-和-edX-Edge" class="headerlink" title="edX.org 和 edX Edge"></a>edX.org 和 edX Edge</h2><p>从外观来看，这两个站点几乎是一样的，但内容和目的不同。这是两个完全独立的站点，包括所有用户信息、课程数据、数据库、服务器都是独立的。现在有很多的课程都即将在 Edge 毕业，在将来成为 edX 上的正式公开课程。但也有很多课程不需要经过 Edge，而直接在 edX 上开课。官方建议在 edX 上正式开课前，先在 Edge 上做一些测试和学习。</p>
+<a id="more"></a>
+<h2 id="edX-org"><a href="#edX-org" class="headerlink" title="edX.org"></a>edX.org</h2><p>edX.org 的在线课程来自 edX 合作伙伴。在和 edX 签定协议之后，可以在 edX.org 上发布公开课程，并开放给来自世界各地的学生。课程通过 studio.edx.org 管理。</p>
+<p>edX.org</p>
+<p><img src="/images/2014-04-15-edx-course-management-edX-org.png" alt=""></p>
+<p>studio.edx.org</p>
+<p><img src="/images/2014-04-15-edx-course-management-studio-edx-org.png" alt=""></p>
+<h2 id="edX-Edge"><a href="#edX-Edge" class="headerlink" title="edX Edge"></a>edX Edge</h2><p>Edge 是一个私有内容站点。在这里课程不是公开的，没有课程目录，也不能被搜索引擎索引，只有受到明确邀请并且知道具体的课程 URL 才可以访问课程。课程通过 studio.edge.edx.org 管理。  </p>
+<p>没有任何公开课程，需要先注册登录</p>
+<p><img src="/images/2014-04-15-edx-course-management-edX-Edge.png" alt=""></p>
+<p>注册激活，登录以后看不到任何课程内容，没有课程目录，也没有 “Find Courses” 按钮</p>
+<p><img src="/images/2014-04-15-edx-course-management-edX-Edge-home.png" alt=""></p>
+<p>只能通过某个 URL，例如官方提供的 <a href="https://edge.edx.org/courses/edX/edX101/How_to_Create_an_edX_Course/about" target="_blank" rel="external">edX101</a> 注册课程</p>
+<p><img src="/images/2014-04-15-edx-course-management-edX-Edge-home-101.png" alt=""></p>
+<p>studio.edge.edx.org，和 edx.org 不同的是这里不需要给 edx 发邮件，只需要点击“Request the Ability to Create Courses”等待审核通过（需要提供大学或者课程相关的名字）。</p>
+<p><img src="/images/2014-04-15-edx-course-management-studio-edge-edx-org.png" alt=""></p>
+<h2 id="制作课程"><a href="#制作课程" class="headerlink" title="制作课程"></a>制作课程</h2><ul>
+<li>LMS（+ Github） – 这种方式结合 Github ，可以直接编辑课程相关 XML 文件，实现课程的版本控制，保留课程修改纪录。通过一个 webhook 实现课程的自动更新。上篇提到的 <a href="https://github.com/mitocw/edx4edx_lite" target="_blank" rel="external">edx4edx_lite</a> 就是这种方式。</li>
+<li>Studio – Studio 是用于构建课程的 edX 工具。这是一种可视化、所见即所得的编辑方式，基于 Web 界面。可以使用 Studio 为学生来创建课程内容、问题、视频和其他资源。使用 Studio，可以管理日程安排和课程团队、设置分级策略、发布课程，等等。可以直接通过浏览器使用的 Studio，不需要任何额外的软件。但只能单人编辑工作、没有课程修改纪录。课程内容数据存储在 MongoDB。</li>
+</ul>
+<h2 id="使用-LaTeX-制作课程"><a href="#使用-LaTeX-制作课程" class="headerlink" title="使用 LaTeX 制作课程"></a>使用 LaTeX 制作课程</h2><p>LaTeX 是一个强大的排版系统，广泛应用于数学、科技、工程等学术领域（本篇 Markdown 格式内容转换成 PDF 时也需要使用到 LaTeX 模板），非常适合于制作一些科学图表、数学公式，很多学术论文都使用了此系统。 MIT 开源了 <a href="https://people.csail.mit.edu/ichuang/edx/latex2edx.php" target="_blank" rel="external">latex2edx</a>，使用 LaTeX 来制作整个或部分 edX 课程。 </p>
+<p>latex2edx 已被用来生产许多 MITX 上 edX 课程，包括 8.01x、8.02x、16.101x 等。它可以通过一个 TEX 模板，同时生成一个在线课程，以及一个 PDF 文件。这种其实是第一种方式。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/edx/" rel="tag">#edx</a>
+          
+            <a href="/tags/mooc/" rel="tag">#mooc</a>
+          
+            <a href="/tags/latex/" rel="tag">#latex</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/04/14/quick-start-to-working-with-the-edx-platform/" rel="next" title="edX 学习二：搭建 edX 平台">
+                <i class="fa fa-chevron-left"></i> edX 学习二：搭建 edX 平台
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/04/18/building-a-course/" rel="prev" title="edX 学习四：制作课程">
+                edX 学习四：制作课程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Bati Zhao" />
+          <p class="site-author-name" itemprop="name">Bati Zhao</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/batizhao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/batizhao" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/zhaobati" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#edX-org-和-edX-Edge"><span class="nav-number">1.</span> <span class="nav-text">edX.org 和 edX Edge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#edX-org"><span class="nav-number">2.</span> <span class="nav-text">edX.org</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#edX-Edge"><span class="nav-number">3.</span> <span class="nav-text">edX Edge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#制作课程"><span class="nav-number">4.</span> <span class="nav-text">制作课程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-LaTeX-制作课程"><span class="nav-number">5.</span> <span class="nav-text">使用 LaTeX 制作课程</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bati Zhao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

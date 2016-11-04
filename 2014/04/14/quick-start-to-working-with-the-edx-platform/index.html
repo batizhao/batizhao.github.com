@@ -1,0 +1,763 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="edx,mooc," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hello World" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="折腾了好几天，试过官方的 edX Developer Stack 和 edX Ubuntu 12.04 installation 两种方法没成功之后，终于按照 Quick Start to working with the edX Platform 这篇文章搞定，缺点就是不是最新的 edX 环境。
+按照官方文档，在安装时主要会卡在两个地方（主要还是网络问题）：
+
+安装 MongoDB（这个地方时间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="edX 学习二：搭建 edX 平台">
+<meta property="og:url" content="http://batizhao.me/2014/04/14/quick-start-to-working-with-the-edx-platform/index.html">
+<meta property="og:site_name" content="Hello World">
+<meta property="og:description" content="折腾了好几天，试过官方的 edX Developer Stack 和 edX Ubuntu 12.04 installation 两种方法没成功之后，终于按照 Quick Start to working with the edX Platform 这篇文章搞定，缺点就是不是最新的 edX 环境。
+按照官方文档，在安装时主要会卡在两个地方（主要还是网络问题）：
+
+安装 MongoDB（这个地方时间">
+<meta property="og:image" content="http://batizhao.me/images/2014-04-14-quick-start-to-working-with-the-edx-platform-1.png">
+<meta property="og:image" content="http://batizhao.me/images/2014-04-14-quick-start-to-working-with-the-edx-platform-2.png">
+<meta property="og:updated_time" content="2016-11-04T09:10:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="edX 学习二：搭建 edX 平台">
+<meta name="twitter:description" content="折腾了好几天，试过官方的 edX Developer Stack 和 edX Ubuntu 12.04 installation 两种方法没成功之后，终于按照 Quick Start to working with the edX Platform 这篇文章搞定，缺点就是不是最新的 edX 环境。
+按照官方文档，在安装时主要会卡在两个地方（主要还是网络问题）：
+
+安装 MongoDB（这个地方时间">
+<meta name="twitter:image" content="http://batizhao.me/images/2014-04-14-quick-start-to-working-with-the-edx-platform-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://batizhao.me/2014/04/14/quick-start-to-working-with-the-edx-platform/"/>
+
+
+  <title> edX 学习二：搭建 edX 平台 | Hello World </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hello World</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                edX 学习二：搭建 edX 平台
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-04-14T00:00:00+08:00" content="2014-04-14">
+              2014-04-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mooc/" itemprop="url" rel="index">
+                    <span itemprop="name">mooc</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>折腾了好几天，试过官方的 <a href="https://github.com/edx/configuration/wiki/edX-Developer-Stack" target="_blank" rel="external">edX Developer Stack</a> 和 <a href="https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-Installation" target="_blank" rel="external">edX Ubuntu 12.04 installation</a> 两种方法没成功之后，终于按照 <a href="https://people.csail.mit.edu/ichuang/edx" target="_blank" rel="external">Quick Start to working with the edX Platform</a> 这篇文章搞定，缺点就是不是最新的 edX 环境。</p>
+<p>按照官方文档，在安装时主要会卡在两个地方（主要还是网络问题）：</p>
+<ul>
+<li>安装 MongoDB（这个地方时间长点还可以执行下去，大概 10 几个小时）</li>
+</ul>
+<p><img src="/images/2014-04-14-quick-start-to-working-with-the-edx-platform-1.png" alt=""></p>
+<ul>
+<li>安装 ORA（花了一天一夜也没执行下去）</li>
+</ul>
+<p><img src="/images/2014-04-14-quick-start-to-working-with-the-edx-platform-2.png" alt=""></p>
+<p>最后这两种方法都放弃，使用了直接下载 box 的方式。就是 box 文件下载需要点时间，我家里 20M 光纤用了 4 个小时左右。</p>
+<a id="more"></a>
+<h1 id="使用-MITxVM-distribution-安装"><a href="#使用-MITxVM-distribution-安装" class="headerlink" title="使用 MITxVM distribution 安装"></a>使用 MITxVM distribution 安装</h1><p>The MITxVM box is built on a base Ubuntu 12.04LTS distribution. The edX platform runs using django/python, and is served via gunicorn and nginx. Virtual Box is used to provide a host-only network, 192.168.42.*. The four edX services listen on eth0 on four separate IP addresses. The system uses mysql for the main database, and mongo for Studio.        </p>
+<p>Installed repos include edx-platform, xqueue, xserver, latex2edx, edx-ora, ease.</p>
+<h2 id="1-安装-Vagrant-和-VirtualBox"><a href="#1-安装-Vagrant-和-VirtualBox" class="headerlink" title="1. 安装 Vagrant 和 VirtualBox"></a>1. 安装 Vagrant 和 VirtualBox</h2><ul>
+<li><a href="http://www.vagrantup.com/" target="_blank" rel="external">Vagrant</a></li>
+<li><a href="https://www.virtualbox.org/" target="_blank" rel="external">VirtualBox</a></li>
+</ul>
+<h2 id="2-下载示例课程-edx4edx-lite-到-data-目录"><a href="#2-下载示例课程-edx4edx-lite-到-data-目录" class="headerlink" title="2. 下载示例课程 edx4edx_lite 到 data 目录"></a>2. 下载示例课程 edx4edx_lite 到 data 目录</h2><pre><code># mkdir mitx-vagrant
+# cd mitx-vagrant
+# mkdir data
+# cd data
+# git clone https://github.com/mitocw/edx4edx_lite.git
+</code></pre><h2 id="3-在-mitx-vagrant-启动虚拟机。"><a href="#3-在-mitx-vagrant-启动虚拟机。" class="headerlink" title="3. 在 mitx-vagrant 启动虚拟机。"></a>3. 在 mitx-vagrant 启动虚拟机。</h2><p>下载 <a href="https://people.csail.mit.edu/ichuang/edx/download.php?file=mitxvm-edx-platform-02sep13a.box" target="_blank" rel="external">mitxvm-edx-platform-02sep13a.box</a> (large file: 3.8 GB) </p>
+<blockquote>
+<p>md5sum: 7d3671a92f8ba4f8e6b54db91a90bc91</p>
+</blockquote>
+<pre><code># vagrant init mitxvm mitxvm-edx-platform-02sep13a.box 
+# vagrant up
+
+...
+==&gt; default: Configuring and enabling network interfaces...
+==&gt; default: Mounting shared folders...
+    default: /vagrant =&gt; /opt/mitx-vagrant
+==&gt; default: VM already provisioned. Run `vagrant provision` or use `--provision` to force it    
+</code></pre><h2 id="4-访问站点"><a href="#4-访问站点" class="headerlink" title="4. 访问站点"></a>4. 访问站点</h2><ul>
+<li><a href="http://192.168.42.2" target="_blank" rel="external">http://192.168.42.2</a> – LMS（www.edx.org，这个环境没有找到 studio.edx.org 对应的站点）</li>
+<li><a href="http://192.168.42.2/admin" target="_blank" rel="external">http://192.168.42.2/admin</a> – LMS 后台管理，需要通过下边的 setstaff 命令激活访问账号</li>
+<li><a href="http://192.168.42.5" target="_blank" rel="external">http://192.168.42.5</a> – Edge（edge.edx.org）</li>
+<li><a href="http://192.168.42.3" target="_blank" rel="external">http://192.168.42.3</a> – Edge Studio (studio.edge.edx.org) </li>
+<li><a href="http://192.168.42.4" target="_blank" rel="external">http://192.168.42.4</a> – Preview    </li>
+</ul>
+<p>登录账号: </p>
+<ul>
+<li>email “xadmin@mitxvm.local”，password “xadmin”。</li>
+<li>如果要创建用户，激活用户需要使用 “xmanage” 命令，否则无法收到激活邮件。</li>
+<li>登录以后，可以看到 edx4edx_lite 这个示例课程。</li>
+</ul>
+<h2 id="5-虚拟机管理"><a href="#5-虚拟机管理" class="headerlink" title="5. 虚拟机管理"></a>5. 虚拟机管理</h2><p>MITx virtual machine Vagrant box 使用 <a href="https://github.com/mitocw/xmanage" target="_blank" rel="external">xmanage</a>：</p>
+<pre><code># vagrant ssh -- xmanage help
+
+ommands available:
+
+restart-lms      - restart the LMS (for vagrant boxes, running at http://192.168.42.2)
+                   This will force re-loading of course data
+restart-cms      - restart the CMS (aka the Studio system)
+restart-edge     - restart the Edge server (part of the Studio system)
+restart-preview  - restart the Preview server (part of the Studio system)
+
+restart-xqueue   - restart the xqueue main system
+restart-consumer - restart the xqueue consumer
+restart-xserver  - restart the xserver (python code grader)
+
+logs &lt;appname&gt;   - view last 100 lines of log file for &lt;appname&gt;
+                   appname should be one of lms, cms, edge, preview, xserver, xqueue
+
+activate &lt;user&gt;  - activate user specified by username &lt;user&gt;
+setstaff &lt;user&gt;  - make user (specified by username &lt;user&gt;) into staff
+
+update-mitx      - update mitx system code (use with care!)
+update           - update this management script (from central repo)
+help             - print out this message, as well as local NOTES.txt file
+</code></pre><h2 id="5-问题"><a href="#5-问题" class="headerlink" title="5. 问题"></a>5. 问题</h2><ul>
+<li><p>Vagrant error : Failed to mount folders in Linux guest</p>
+<pre><code># vagrant ssh
+# sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
+# vagrant reload
+</code></pre></li>
+<li><p>Unknown command: ‘activate_user’        </p>
+<p>  这里发现 xmanage activate 命令不可用，其它命令正常。在 <a href="https://groups.google.com/forum/#!topic/edx-code/mmFqv6688GQ" target="_blank" rel="external">Google Groups</a> 上看到这个问题，但没解决。如果遇到以下错误，这里可以通过 admin 登录来激活。</p>
+<pre><code>$ xmanage activate batizhao
+activating user batizhao
+Unknown command: &apos;activate_user&apos;
+Type &apos;django-admin.py help&apos; for usage.
+To complete the activation, please logout then log back in
+</code></pre></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/edx/" rel="tag">#edx</a>
+          
+            <a href="/tags/mooc/" rel="tag">#mooc</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/04/11/learning-edx-one/" rel="next" title="edX 学习一：了解 edX 相关组件">
+                <i class="fa fa-chevron-left"></i> edX 学习一：了解 edX 相关组件
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/04/15/edx-course-management/" rel="prev" title="edX 学习三：开始课程制作之前">
+                edX 学习三：开始课程制作之前 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Bati Zhao" />
+          <p class="site-author-name" itemprop="name">Bati Zhao</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/batizhao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/batizhao" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/zhaobati" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-MITxVM-distribution-安装"><span class="nav-number">1.</span> <span class="nav-text">使用 MITxVM distribution 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装-Vagrant-和-VirtualBox"><span class="nav-number">1.1.</span> <span class="nav-text">1. 安装 Vagrant 和 VirtualBox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-下载示例课程-edx4edx-lite-到-data-目录"><span class="nav-number">1.2.</span> <span class="nav-text">2. 下载示例课程 edx4edx_lite 到 data 目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-在-mitx-vagrant-启动虚拟机。"><span class="nav-number">1.3.</span> <span class="nav-text">3. 在 mitx-vagrant 启动虚拟机。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-访问站点"><span class="nav-number">1.4.</span> <span class="nav-text">4. 访问站点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-虚拟机管理"><span class="nav-number">1.5.</span> <span class="nav-text">5. 虚拟机管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-问题"><span class="nav-number">1.6.</span> <span class="nav-text">5. 问题</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bati Zhao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

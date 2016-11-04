@@ -1,0 +1,2205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hello World</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://batizhao.me/"/>
+  <updated>2016-11-04T08:21:41.000Z</updated>
+  <id>http://batizhao.me/</id>
+  
+  <author>
+    <name>Bati Zhao</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://batizhao.me/2016/11/04/hello-world/"/>
+    <id>http://batizhao.me/2016/11/04/hello-world/</id>
+    <published>2016-11-04T11:14:49.801Z</published>
+    <updated>2016-11-04T08:21:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<a id="more"></a>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&quot;My New Post&quot;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Run-server&quot;&gt;&lt;a href=&quot;#Run-server&quot; class=&quot;headerlink&quot; title=&quot;Run server&quot;&gt;&lt;/a&gt;Run server&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;$ hexo server&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/server.html&quot;&gt;Server&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>edX 学习四：制作课程</title>
+    <link href="http://batizhao.me/2014/04/18/building-a-course/"/>
+    <id>http://batizhao.me/2014/04/18/building-a-course/</id>
+    <published>2014-04-17T16:00:00.000Z</published>
+    <updated>2016-11-04T09:11:55.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>前边提到，主要有两种方式制作课程：Studio 和 LMS(+Github)。这里对这两种方式做简单的说明。</p>
+<h2 id="Studio"><a href="#Studio" class="headerlink" title="Studio"></a>Studio</h2><p>如果取得制作课程的权限，第一次登录的时候是这样的</p>
+<p><img src="/images/2014-04-18-building-a-course-edx4edx_lite-Studio-1.png" alt=""></p>
+<p>填入课程具体名称、组织、代码（因为需要根据这些信息生成 URL，所以要注意长度和不能包含特殊字符、空格等）</p>
+<p><img src="/images/2014-04-18-building-a-course-edx4edx_lite-Studio-2.png" alt=""></p>
+<a id="more"></a>
+<p>只能看到自己通过 Studio 制作的课程</p>
+<p><img src="/images/2014-04-18-building-a-course-edx4edx_lite-Studio-4.png" alt=""></p>
+<p>edX 的工作人员可以看到所有通过 Studio 制作的课程</p>
+<p><img src="/images/2014-04-18-building-a-course-edx4edx_lite-Studio-3.png" alt=""></p>
+<p>创建成功后进入 Course Outline 页面，可以使用 Checklists 完成课程的制作。</p>
+<p><img src="/images/2014-04-18-building-a-course-edx4edx_lite-Studio-6.png" alt=""></p>
+<p>Add Course Team Members 团队管理员可以添加或删除团队成员，或授予管理员权限给其他团队成员。<br>其他团队成员可以编辑课程。</p>
+<p><img src="/images/2014-04-18-building-a-course-edx4edx_lite-Studio-7.png" alt=""></p>
+<p>Course Outline 对课程内容进行制作</p>
+<p><img src="/images/2014-04-18-building-a-course-edx4edx_lite-Studio-9.png" alt=""></p>
+<p>其它的功能还有：</p>
+<ul>
+<li>课程导入导出</li>
+<li>学生视图（设置课程概览模板、图片、视频、开始结束日期、学生登记日期）</li>
+<li>设置功课类型、分数范围、级别和打分策略</li>
+</ul>
+<p><img src="/images/2014-04-18-building-a-course-edx4edx_lite-Studio-10.png" alt=""></p>
+<p>这些都可以查看 Checklists 中的 Explore edX’s Support Tools 章节。</p>
+<h2 id="LMS-Github"><a href="#LMS-Github" class="headerlink" title="LMS(+Github)"></a>LMS(+Github)</h2><p>环境中的示例课程 <a href="https://github.com/mitocw/edx4edx_lite" target="_blank" rel="external">edx4edx_lite</a> 的所有内容通过 Github 管理，下边是此课程的目录结构。</p>
+<p><img src="/images/2014-04-18-building-a-course-edx4edx_lite.png" alt=""></p>
+<p>首先是 course.xml，内容相当于点击“New Course”填写的内容</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;course url_name=&quot;edx4edx&quot; org=&quot;MITx&quot; course=&quot;edx4edx&quot;/&gt;
+</code></pre><p>course 目录下的课程同名 edx4edx.xml 文件相当于 Course Outline 的顶级目录</p>
+<pre><code>&lt;course graceperiod=&quot;1 day 5 hours 59 minutes 59 seconds&quot; org=&quot;MITx&quot; course=&quot;edx4edx&quot; ispublic=&quot;True&quot; semester=&quot;edx4edx&quot;&gt;
+  &lt;chapter url_name=&quot;Introduction_chapter&quot;/&gt;
+  &lt;chapter url_name=&quot;Assessment_Problems_chapter&quot;/&gt;
+  &lt;chapter url_name=&quot;Author_tools_chapter&quot;/&gt;
+&lt;/course&gt;
+</code></pre><p>Introduction_chapter.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;chapter display_name=&quot;Introduction&quot;&gt;
+  &lt;sequential url_name=&quot;edx4edx_Course_sequential&quot;/&gt;
+&lt;/chapter&gt;
+</code></pre><p>Assessment_Problems_chapter.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;chapter display_name=&quot;Assessment Problems&quot;&gt;
+  &lt;sequential url_name=&quot;Sample_Problems_sequential&quot;/&gt;
+  &lt;sequential url_name=&quot;Advanced_Problems_Custom_Response_and_Randomization_sequential&quot;/&gt;
+  &lt;sequential url_name=&quot;Advanced_Problems_Hints_sequential&quot;/&gt;
+  &lt;sequential url_name=&quot;Advanced_Problems_Scripts_and_Javascript_sequential&quot;/&gt;
+  &lt;sequential url_name=&quot;Advanced_Problems_Code_Grading_sequential&quot;/&gt;
+  &lt;sequential url_name=&quot;Rich_Interface_Examples&quot;/&gt;
+&lt;/chapter&gt;    
+</code></pre><p>edx4edx_Course_sequential.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;sequential format=&quot;&quot; Due=&quot;Dec 12-25&quot; display_name=&quot;edx4edx Course&quot;&gt;
+  &lt;vertical url_name=&quot;edx4edx_Course_vertical&quot;/&gt;
+&lt;/sequential&gt;
+</code></pre><p>edx4edx_Course_vertical.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;vertical display_name=&quot;edx4edx_Course_vertical&quot;&gt;
+  &lt;html url_name=&quot;edx4edx_Course_html&quot;/&gt;
+&lt;/vertical&gt;        
+</code></pre><p>整个层级关系是 course - chapter - sequential - problem(or vertical) - html</p>
+<p><img src="/images/2014-04-18-building-a-course-edx4edx_lite-Studio-11.png" alt="">    </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前边提到，主要有两种方式制作课程：Studio 和 LMS(+Github)。这里对这两种方式做简单的说明。&lt;/p&gt;
+&lt;h2 id=&quot;Studio&quot;&gt;&lt;a href=&quot;#Studio&quot; class=&quot;headerlink&quot; title=&quot;Studio&quot;&gt;&lt;/a&gt;Studio&lt;/h2&gt;&lt;p&gt;如果取得制作课程的权限，第一次登录的时候是这样的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/2014-04-18-building-a-course-edx4edx_lite-Studio-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;填入课程具体名称、组织、代码（因为需要根据这些信息生成 URL，所以要注意长度和不能包含特殊字符、空格等）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/2014-04-18-building-a-course-edx4edx_lite-Studio-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="mooc" scheme="http://batizhao.me/categories/mooc/"/>
+    
+    
+      <category term="edx" scheme="http://batizhao.me/tags/edx/"/>
+    
+      <category term="mooc" scheme="http://batizhao.me/tags/mooc/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>edX 学习三：开始课程制作之前</title>
+    <link href="http://batizhao.me/2014/04/15/edx-course-management/"/>
+    <id>http://batizhao.me/2014/04/15/edx-course-management/</id>
+    <published>2014-04-14T16:00:00.000Z</published>
+    <updated>2016-11-04T09:11:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在制作课程之前，先要知道下 <a href="https://www.edx.org/" target="_blank" rel="external">edX.org</a> 和 <a href="https://edge.edx.org" target="_blank" rel="external">edX Edge</a> 的关系。</p>
+<h2 id="edX-org-和-edX-Edge"><a href="#edX-org-和-edX-Edge" class="headerlink" title="edX.org 和 edX Edge"></a>edX.org 和 edX Edge</h2><p>从外观来看，这两个站点几乎是一样的，但内容和目的不同。这是两个完全独立的站点，包括所有用户信息、课程数据、数据库、服务器都是独立的。现在有很多的课程都即将在 Edge 毕业，在将来成为 edX 上的正式公开课程。但也有很多课程不需要经过 Edge，而直接在 edX 上开课。官方建议在 edX 上正式开课前，先在 Edge 上做一些测试和学习。</p>
+<a id="more"></a>
+<h2 id="edX-org"><a href="#edX-org" class="headerlink" title="edX.org"></a>edX.org</h2><p>edX.org 的在线课程来自 edX 合作伙伴。在和 edX 签定协议之后，可以在 edX.org 上发布公开课程，并开放给来自世界各地的学生。课程通过 studio.edx.org 管理。</p>
+<p>edX.org</p>
+<p><img src="/images/2014-04-15-edx-course-management-edX-org.png" alt=""></p>
+<p>studio.edx.org</p>
+<p><img src="/images/2014-04-15-edx-course-management-studio-edx-org.png" alt=""></p>
+<h2 id="edX-Edge"><a href="#edX-Edge" class="headerlink" title="edX Edge"></a>edX Edge</h2><p>Edge 是一个私有内容站点。在这里课程不是公开的，没有课程目录，也不能被搜索引擎索引，只有受到明确邀请并且知道具体的课程 URL 才可以访问课程。课程通过 studio.edge.edx.org 管理。  </p>
+<p>没有任何公开课程，需要先注册登录</p>
+<p><img src="/images/2014-04-15-edx-course-management-edX-Edge.png" alt=""></p>
+<p>注册激活，登录以后看不到任何课程内容，没有课程目录，也没有 “Find Courses” 按钮</p>
+<p><img src="/images/2014-04-15-edx-course-management-edX-Edge-home.png" alt=""></p>
+<p>只能通过某个 URL，例如官方提供的 <a href="https://edge.edx.org/courses/edX/edX101/How_to_Create_an_edX_Course/about" target="_blank" rel="external">edX101</a> 注册课程</p>
+<p><img src="/images/2014-04-15-edx-course-management-edX-Edge-home-101.png" alt=""></p>
+<p>studio.edge.edx.org，和 edx.org 不同的是这里不需要给 edx 发邮件，只需要点击“Request the Ability to Create Courses”等待审核通过（需要提供大学或者课程相关的名字）。</p>
+<p><img src="/images/2014-04-15-edx-course-management-studio-edge-edx-org.png" alt=""></p>
+<h2 id="制作课程"><a href="#制作课程" class="headerlink" title="制作课程"></a>制作课程</h2><ul>
+<li>LMS（+ Github） – 这种方式结合 Github ，可以直接编辑课程相关 XML 文件，实现课程的版本控制，保留课程修改纪录。通过一个 webhook 实现课程的自动更新。上篇提到的 <a href="https://github.com/mitocw/edx4edx_lite" target="_blank" rel="external">edx4edx_lite</a> 就是这种方式。</li>
+<li>Studio – Studio 是用于构建课程的 edX 工具。这是一种可视化、所见即所得的编辑方式，基于 Web 界面。可以使用 Studio 为学生来创建课程内容、问题、视频和其他资源。使用 Studio，可以管理日程安排和课程团队、设置分级策略、发布课程，等等。可以直接通过浏览器使用的 Studio，不需要任何额外的软件。但只能单人编辑工作、没有课程修改纪录。课程内容数据存储在 MongoDB。</li>
+</ul>
+<h2 id="使用-LaTeX-制作课程"><a href="#使用-LaTeX-制作课程" class="headerlink" title="使用 LaTeX 制作课程"></a>使用 LaTeX 制作课程</h2><p>LaTeX 是一个强大的排版系统，广泛应用于数学、科技、工程等学术领域（本篇 Markdown 格式内容转换成 PDF 时也需要使用到 LaTeX 模板），非常适合于制作一些科学图表、数学公式，很多学术论文都使用了此系统。 MIT 开源了 <a href="https://people.csail.mit.edu/ichuang/edx/latex2edx.php" target="_blank" rel="external">latex2edx</a>，使用 LaTeX 来制作整个或部分 edX 课程。 </p>
+<p>latex2edx 已被用来生产许多 MITX 上 edX 课程，包括 8.01x、8.02x、16.101x 等。它可以通过一个 TEX 模板，同时生成一个在线课程，以及一个 PDF 文件。这种其实是第一种方式。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在制作课程之前，先要知道下 &lt;a href=&quot;https://www.edx.org/&quot;&gt;edX.org&lt;/a&gt; 和 &lt;a href=&quot;https://edge.edx.org&quot;&gt;edX Edge&lt;/a&gt; 的关系。&lt;/p&gt;
+&lt;h2 id=&quot;edX-org-和-edX-Edge&quot;&gt;&lt;a href=&quot;#edX-org-和-edX-Edge&quot; class=&quot;headerlink&quot; title=&quot;edX.org 和 edX Edge&quot;&gt;&lt;/a&gt;edX.org 和 edX Edge&lt;/h2&gt;&lt;p&gt;从外观来看，这两个站点几乎是一样的，但内容和目的不同。这是两个完全独立的站点，包括所有用户信息、课程数据、数据库、服务器都是独立的。现在有很多的课程都即将在 Edge 毕业，在将来成为 edX 上的正式公开课程。但也有很多课程不需要经过 Edge，而直接在 edX 上开课。官方建议在 edX 上正式开课前，先在 Edge 上做一些测试和学习。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="mooc" scheme="http://batizhao.me/categories/mooc/"/>
+    
+    
+      <category term="edx" scheme="http://batizhao.me/tags/edx/"/>
+    
+      <category term="mooc" scheme="http://batizhao.me/tags/mooc/"/>
+    
+      <category term="latex" scheme="http://batizhao.me/tags/latex/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>edX 学习二：搭建 edX 平台</title>
+    <link href="http://batizhao.me/2014/04/14/quick-start-to-working-with-the-edx-platform/"/>
+    <id>http://batizhao.me/2014/04/14/quick-start-to-working-with-the-edx-platform/</id>
+    <published>2014-04-13T16:00:00.000Z</published>
+    <updated>2016-11-04T09:10:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>折腾了好几天，试过官方的 <a href="https://github.com/edx/configuration/wiki/edX-Developer-Stack" target="_blank" rel="external">edX Developer Stack</a> 和 <a href="https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-Installation" target="_blank" rel="external">edX Ubuntu 12.04 installation</a> 两种方法没成功之后，终于按照 <a href="https://people.csail.mit.edu/ichuang/edx" target="_blank" rel="external">Quick Start to working with the edX Platform</a> 这篇文章搞定，缺点就是不是最新的 edX 环境。</p>
+<p>按照官方文档，在安装时主要会卡在两个地方（主要还是网络问题）：</p>
+<ul>
+<li>安装 MongoDB（这个地方时间长点还可以执行下去，大概 10 几个小时）</li>
+</ul>
+<p><img src="/images/2014-04-14-quick-start-to-working-with-the-edx-platform-1.png" alt=""></p>
+<ul>
+<li>安装 ORA（花了一天一夜也没执行下去）</li>
+</ul>
+<p><img src="/images/2014-04-14-quick-start-to-working-with-the-edx-platform-2.png" alt=""></p>
+<p>最后这两种方法都放弃，使用了直接下载 box 的方式。就是 box 文件下载需要点时间，我家里 20M 光纤用了 4 个小时左右。</p>
+<a id="more"></a>
+<h1 id="使用-MITxVM-distribution-安装"><a href="#使用-MITxVM-distribution-安装" class="headerlink" title="使用 MITxVM distribution 安装"></a>使用 MITxVM distribution 安装</h1><p>The MITxVM box is built on a base Ubuntu 12.04LTS distribution. The edX platform runs using django/python, and is served via gunicorn and nginx. Virtual Box is used to provide a host-only network, 192.168.42.*. The four edX services listen on eth0 on four separate IP addresses. The system uses mysql for the main database, and mongo for Studio.        </p>
+<p>Installed repos include edx-platform, xqueue, xserver, latex2edx, edx-ora, ease.</p>
+<h2 id="1-安装-Vagrant-和-VirtualBox"><a href="#1-安装-Vagrant-和-VirtualBox" class="headerlink" title="1. 安装 Vagrant 和 VirtualBox"></a>1. 安装 Vagrant 和 VirtualBox</h2><ul>
+<li><a href="http://www.vagrantup.com/" target="_blank" rel="external">Vagrant</a></li>
+<li><a href="https://www.virtualbox.org/" target="_blank" rel="external">VirtualBox</a></li>
+</ul>
+<h2 id="2-下载示例课程-edx4edx-lite-到-data-目录"><a href="#2-下载示例课程-edx4edx-lite-到-data-目录" class="headerlink" title="2. 下载示例课程 edx4edx_lite 到 data 目录"></a>2. 下载示例课程 edx4edx_lite 到 data 目录</h2><pre><code># mkdir mitx-vagrant
+# cd mitx-vagrant
+# mkdir data
+# cd data
+# git clone https://github.com/mitocw/edx4edx_lite.git
+</code></pre><h2 id="3-在-mitx-vagrant-启动虚拟机。"><a href="#3-在-mitx-vagrant-启动虚拟机。" class="headerlink" title="3. 在 mitx-vagrant 启动虚拟机。"></a>3. 在 mitx-vagrant 启动虚拟机。</h2><p>下载 <a href="https://people.csail.mit.edu/ichuang/edx/download.php?file=mitxvm-edx-platform-02sep13a.box" target="_blank" rel="external">mitxvm-edx-platform-02sep13a.box</a> (large file: 3.8 GB) </p>
+<blockquote>
+<p>md5sum: 7d3671a92f8ba4f8e6b54db91a90bc91</p>
+</blockquote>
+<pre><code># vagrant init mitxvm mitxvm-edx-platform-02sep13a.box 
+# vagrant up
+
+...
+==&gt; default: Configuring and enabling network interfaces...
+==&gt; default: Mounting shared folders...
+    default: /vagrant =&gt; /opt/mitx-vagrant
+==&gt; default: VM already provisioned. Run `vagrant provision` or use `--provision` to force it    
+</code></pre><h2 id="4-访问站点"><a href="#4-访问站点" class="headerlink" title="4. 访问站点"></a>4. 访问站点</h2><ul>
+<li><a href="http://192.168.42.2" target="_blank" rel="external">http://192.168.42.2</a> – LMS（www.edx.org，这个环境没有找到 studio.edx.org 对应的站点）</li>
+<li><a href="http://192.168.42.2/admin" target="_blank" rel="external">http://192.168.42.2/admin</a> – LMS 后台管理，需要通过下边的 setstaff 命令激活访问账号</li>
+<li><a href="http://192.168.42.5" target="_blank" rel="external">http://192.168.42.5</a> – Edge（edge.edx.org）</li>
+<li><a href="http://192.168.42.3" target="_blank" rel="external">http://192.168.42.3</a> – Edge Studio (studio.edge.edx.org) </li>
+<li><a href="http://192.168.42.4" target="_blank" rel="external">http://192.168.42.4</a> – Preview    </li>
+</ul>
+<p>登录账号: </p>
+<ul>
+<li>email “xadmin@mitxvm.local”，password “xadmin”。</li>
+<li>如果要创建用户，激活用户需要使用 “xmanage” 命令，否则无法收到激活邮件。</li>
+<li>登录以后，可以看到 edx4edx_lite 这个示例课程。</li>
+</ul>
+<h2 id="5-虚拟机管理"><a href="#5-虚拟机管理" class="headerlink" title="5. 虚拟机管理"></a>5. 虚拟机管理</h2><p>MITx virtual machine Vagrant box 使用 <a href="https://github.com/mitocw/xmanage" target="_blank" rel="external">xmanage</a>：</p>
+<pre><code># vagrant ssh -- xmanage help
+
+ommands available:
+
+restart-lms      - restart the LMS (for vagrant boxes, running at http://192.168.42.2)
+                   This will force re-loading of course data
+restart-cms      - restart the CMS (aka the Studio system)
+restart-edge     - restart the Edge server (part of the Studio system)
+restart-preview  - restart the Preview server (part of the Studio system)
+
+restart-xqueue   - restart the xqueue main system
+restart-consumer - restart the xqueue consumer
+restart-xserver  - restart the xserver (python code grader)
+
+logs &lt;appname&gt;   - view last 100 lines of log file for &lt;appname&gt;
+                   appname should be one of lms, cms, edge, preview, xserver, xqueue
+
+activate &lt;user&gt;  - activate user specified by username &lt;user&gt;
+setstaff &lt;user&gt;  - make user (specified by username &lt;user&gt;) into staff
+
+update-mitx      - update mitx system code (use with care!)
+update           - update this management script (from central repo)
+help             - print out this message, as well as local NOTES.txt file
+</code></pre><h2 id="5-问题"><a href="#5-问题" class="headerlink" title="5. 问题"></a>5. 问题</h2><ul>
+<li><p>Vagrant error : Failed to mount folders in Linux guest</p>
+<pre><code># vagrant ssh
+# sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
+# vagrant reload
+</code></pre></li>
+<li><p>Unknown command: ‘activate_user’        </p>
+<p>  这里发现 xmanage activate 命令不可用，其它命令正常。在 <a href="https://groups.google.com/forum/#!topic/edx-code/mmFqv6688GQ" target="_blank" rel="external">Google Groups</a> 上看到这个问题，但没解决。如果遇到以下错误，这里可以通过 admin 登录来激活。</p>
+<pre><code>$ xmanage activate batizhao
+activating user batizhao
+Unknown command: &apos;activate_user&apos;
+Type &apos;django-admin.py help&apos; for usage.
+To complete the activation, please logout then log back in
+</code></pre></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;折腾了好几天，试过官方的 &lt;a href=&quot;https://github.com/edx/configuration/wiki/edX-Developer-Stack&quot;&gt;edX Developer Stack&lt;/a&gt; 和 &lt;a href=&quot;https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-Installation&quot;&gt;edX Ubuntu 12.04 installation&lt;/a&gt; 两种方法没成功之后，终于按照 &lt;a href=&quot;https://people.csail.mit.edu/ichuang/edx&quot;&gt;Quick Start to working with the edX Platform&lt;/a&gt; 这篇文章搞定，缺点就是不是最新的 edX 环境。&lt;/p&gt;
+&lt;p&gt;按照官方文档，在安装时主要会卡在两个地方（主要还是网络问题）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安装 MongoDB（这个地方时间长点还可以执行下去，大概 10 几个小时）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;/images/2014-04-14-quick-start-to-working-with-the-edx-platform-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;安装 ORA（花了一天一夜也没执行下去）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;/images/2014-04-14-quick-start-to-working-with-the-edx-platform-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;最后这两种方法都放弃，使用了直接下载 box 的方式。就是 box 文件下载需要点时间，我家里 20M 光纤用了 4 个小时左右。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="mooc" scheme="http://batizhao.me/categories/mooc/"/>
+    
+    
+      <category term="edx" scheme="http://batizhao.me/tags/edx/"/>
+    
+      <category term="mooc" scheme="http://batizhao.me/tags/mooc/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>edX 学习一：了解 edX 相关组件</title>
+    <link href="http://batizhao.me/2014/04/11/learning-edx-one/"/>
+    <id>http://batizhao.me/2014/04/11/learning-edx-one/</id>
+    <published>2014-04-10T16:00:00.000Z</published>
+    <updated>2016-11-04T09:10:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="edX-概览"><a href="#edX-概览" class="headerlink" title="edX 概览"></a>edX 概览</h1><p>edX 平台主要采用 Python 语言实现，还包括了个别的 Ruby 和 Node.js。部分服务使用到了 Java ，数据库使用了 MySQL 和 MongoDB，所有这些代码都是在 AGPL 协议下开源的。</p>
+<p>XBlock 是 edX 的下一代组件架构。对机器学习评分感兴趣可以看 Ease 和 Discern 。部署和配置工具方面可以看 Configuration。各主要组件的详细介绍可以看下边。</p>
+<p><img src="/images/edx.png" alt="edx"></p>
+<a id="more"></a>
+<h1 id="edx-platform"><a href="#edx-platform" class="headerlink" title="edx-platform"></a>edx-platform</h1><p>主代码库 edx-platform 中包含 LMS（Learning Management System）、创作工具（Authoring Tool）、制作环境（Studio）。</p>
+<p>它还包括 XModules（课件组件，在接下来的几个月准备升级到新 XBlock 架构）和不同的评分器。</p>
+<h1 id="XBlock"><a href="#XBlock" class="headerlink" title="XBlock"></a>XBlock</h1><p>XBlock 是一个构造课件的组件。</p>
+<p>XBlock API 目前还处在 pre-alpha，这个代码库中包含了 XBlock 实现的核心代码，一个简单的应用工作台和一个小型的、简单的运行环境。</p>
+<h1 id="ORA-Open-Response-Assessor"><a href="#ORA-Open-Response-Assessor" class="headerlink" title="ORA (Open Response Assessor)"></a>ORA (Open Response Assessor)</h1><p>Open Response Assessor（开放响应评估员）从 XQueue 获得消息，通过机器学习的评分、同行的评分和适当的人工评分，并返回结果到 LMS。</p>
+<h1 id="Discern-和-Ease"><a href="#Discern-和-Ease" class="headerlink" title="Discern 和 Ease"></a>Discern 和 Ease</h1><p>Discern 是一个允许任何人使用的基于机器学习的自动文本化分类 API 服务。提供了一个高性能的、可扩展的解决方案，可以有效地帮助学生学习。反馈是这个过程的一个重要组成部分，该反馈系统非常灵活。注意，你需要 Ease 代码库使用这里所有的功能。</p>
+<p>Ease（增强的 AI 评分引擎）是一个基于机器学习的文本内容分类库。这对于诸如学生论文评分的任务非常有用。它提供预测任意文本和数值得分的功能。这里的目标是提供一个高性能的，可扩展的解决方案，可以预测任意值的目标。请注意，这仅仅是一个库。你需要实现你自己的代码才可以运行。Discern API 是对 Ease 的进一步封装。</p>
+<h1 id="CS-Comments-Service"><a href="#CS-Comments-Service" class="headerlink" title="CS Comments Service"></a>CS Comments Service</h1><p>这是一个独立的评论系统，支持投票和嵌套的评论。它还是一个教师备课和教学目标讨论平台。这个系统的不同之处是用 Ruby 实现，并且用到了 elasticsearch 做分布式实时搜索引擎。</p>
+<h1 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h1><p>Configuration 提供了一个简单、灵活的配置，让任何人都能搭建 edX 平台，运行一个实例。使用 Amazon CloudFormation Template 创建一个新的 AWS 虚拟私有云。配置阶段是由 Ansible 管理的。</p>
+<h1 id="CodeJail"><a href="#CodeJail" class="headerlink" title="CodeJail"></a>CodeJail</h1><p>CodeJail 提供了一个安全沙盒，管理不受信任代码的执行。它的主要目的是为 Python 执行，也可用于其他语言。强制使用 AppArmor ，如果操作系统不支持 AppArmor，那么 CodeJail 不会起到作用。</p>
+<h1 id="XQueue"><a href="#XQueue" class="headerlink" title="XQueue"></a>XQueue</h1><p>XQueue 定义了一个 LMS 和外部服务的接口，实际使用的是 RabbitMQ。例如，当一个学生在 LMS 提交一个问题，它就会被发送到XQueue。XQueue 有一个外部服务分级的机制，然后发回响应到 LMS。</p>
+<h1 id="XServer"><a href="#XServer" class="headerlink" title="XServer"></a>XServer</h1><p>XServer 接受学生从 LMS 提交的代码，并使用课件检查器运行。</p>
+<h1 id="Notifier"><a href="#Notifier" class="headerlink" title="Notifier"></a>Notifier</h1><p>Notifier 为订阅用户发送新内容的每日摘要，目标是最终支持实时和各种类型的内容在不同渠道（如短信）的批量通知。</p>
+<h1 id="Django-wiki"><a href="#Django-wiki" class="headerlink" title="Django-wiki"></a>Django-wiki</h1><p>一个有着出色的界面和复杂的功能的维基系统、知识库。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;edX-概览&quot;&gt;&lt;a href=&quot;#edX-概览&quot; class=&quot;headerlink&quot; title=&quot;edX 概览&quot;&gt;&lt;/a&gt;edX 概览&lt;/h1&gt;&lt;p&gt;edX 平台主要采用 Python 语言实现，还包括了个别的 Ruby 和 Node.js。部分服务使用到了 Java ，数据库使用了 MySQL 和 MongoDB，所有这些代码都是在 AGPL 协议下开源的。&lt;/p&gt;
+&lt;p&gt;XBlock 是 edX 的下一代组件架构。对机器学习评分感兴趣可以看 Ease 和 Discern 。部署和配置工具方面可以看 Configuration。各主要组件的详细介绍可以看下边。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/edx.png&quot; alt=&quot;edx&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="mooc" scheme="http://batizhao.me/categories/mooc/"/>
+    
+    
+      <category term="MOOC" scheme="http://batizhao.me/tags/MOOC/"/>
+    
+      <category term="edX" scheme="http://batizhao.me/tags/edX/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JDK 7 - INSTALL_PARSE_FAILED_NO_CERTIFICATES</title>
+    <link href="http://batizhao.me/2013/11/06/jdk-7---install_parse_failed_no_certificates/"/>
+    <id>http://batizhao.me/2013/11/06/jdk-7---install_parse_failed_no_certificates/</id>
+    <published>2013-11-05T16:00:00.000Z</published>
+    <updated>2016-11-04T09:09:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在 JDK7 环境，在 android deploy 时会出现一个 <code>INSTALL_PARSE_FAILED_NO_CERTIFICATES</code> 的错误。如果使用 Maven 打包，需要在 maven-jarsigner-plugin 中增加以下参数</p>
+<pre><code>&lt;arguments&gt;
+    &lt;argument&gt;-sigalg&lt;/argument&gt;
+    &lt;argument&gt;MD5withRSA&lt;/argument&gt;
+    &lt;argument&gt;-digestalg&lt;/argument&gt;
+    &lt;argument&gt;SHA1&lt;/argument&gt;
+&lt;/arguments&gt;
+</code></pre><p>What is the difference between the Java 1.6 and 1.7 jarsigner</p>
+<pre><code>http://stackoverflow.com/questions/8739564/what-is-the-difference-between-the-java-1-6-and-1-7-jarsigner/    
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 JDK7 环境，在 android deploy 时会出现一个 &lt;code&gt;INSTALL_PARSE_FAILED_NO_CERTIFICATES&lt;/code&gt; 的错误。如果使用 Maven 打包，需要在 maven-jarsigner-plugin 中增加以下参数&lt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://batizhao.me/categories/java/"/>
+    
+    
+      <category term="maven" scheme="http://batizhao.me/tags/maven/"/>
+    
+      <category term="jdk7" scheme="http://batizhao.me/tags/jdk7/"/>
+    
+      <category term="android" scheme="http://batizhao.me/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 Mac10.9 和 JDK7 环境中运行 IntelliJ IDEA</title>
+    <link href="http://batizhao.me/2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/"/>
+    <id>http://batizhao.me/2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/</id>
+    <published>2013-10-30T16:00:00.000Z</published>
+    <updated>2016-11-04T09:08:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>升级到 Mavericks 之后，需要自行安装 JDK 环境。如果你安装了 JDK7，那么在安装之后，在命令行中运行 javac、java 命令没有问题，但是 Eclipse 和 IDEA 都无法启动，系统要求安装 JDK6。</p>
+<a id="more"></a>
+<p>经过以下几个步骤可以恢复正常使用：</p>
+<ul>
+<li><p>找到 /Library/Java/JavaVirtualMachines/jdk1.7.0_XX.jdk/Contents/Info.plist，增加后边的 4 个 string。</p>
+<pre><code>&lt;key&gt;JVMCapabilities&lt;/key&gt;
+&lt;array&gt;
+    &lt;string&gt;CommandLine&lt;/string&gt;
+    &lt;string&gt;JNI&lt;/string&gt;    
+    &lt;string&gt;BundledApp&lt;/string&gt;  
+    &lt;string&gt;WebStart&lt;/string&gt;  
+    &lt;string&gt;Applets&lt;/string&gt;
+&lt;/array&gt;
+</code></pre></li>
+<li><p>找到 /Applications/IntelliJ IDEA XXX.app/Contents/Info.plist file. 修改 JVMVersion 从 1.6* 到 1.7*。</p>
+<pre><code>&lt;key&gt;JVMVersion&lt;/key&gt;
+&lt;string&gt;1.7*&lt;/string&gt;
+</code></pre></li>
+<li><p>启动 IDEA12，按以下步骤选择相应的 JDK Home。</p>
+<pre><code>File - Project Structure - Project - New - JDK
+</code></pre></li>
+<li><p>如果是 Eclipse，那做完第一步就可以正常启动了；如果是 IDEA，那么需要三步都做完整。</p>
+</li>
+</ul>
+<h1 id="mvn-v-error"><a href="#mvn-v-error" class="headerlink" title="mvn -v error"></a>mvn -v error</h1><p># mvn -v</p>
+<pre><code>Error: JAVA_HOME is not defined correctly.
+    We cannot execute /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home/bin/java
+</code></pre><p># vim /etc/profile</p>
+<pre><code>export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
+export PATH=$JAVA_HOME/bin:$PATH    
+</code></pre><p># source /etc/profile</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;升级到 Mavericks 之后，需要自行安装 JDK 环境。如果你安装了 JDK7，那么在安装之后，在命令行中运行 javac、java 命令没有问题，但是 Eclipse 和 IDEA 都无法启动，系统要求安装 JDK6。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://batizhao.me/categories/java/"/>
+    
+    
+      <category term="IDEA12" scheme="http://batizhao.me/tags/IDEA12/"/>
+    
+      <category term="IntelliJ" scheme="http://batizhao.me/tags/IntelliJ/"/>
+    
+      <category term="Mac" scheme="http://batizhao.me/tags/Mac/"/>
+    
+      <category term="Mavericks" scheme="http://batizhao.me/tags/Mavericks/"/>
+    
+      <category term="jdk7" scheme="http://batizhao.me/tags/jdk7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Solr（二）: 整合 MySQL</title>
+    <link href="http://batizhao.me/2013/06/28/solr-and--mysql/"/>
+    <id>http://batizhao.me/2013/06/28/solr-and--mysql/</id>
+    <published>2013-06-27T16:00:00.000Z</published>
+    <updated>2016-11-04T09:08:26.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>找到配置文件：</p>
+<pre><code>${solr/home}/collection1/conf/solrconfig.xml
+</code></pre><p>增加以下配置：    </p>
+<pre><code>&lt;requestHandler name=&quot;/dataimport&quot; class=&quot;org.apache.solr.handler.dataimport.DataImportHandler&quot;&gt;
+      &lt;lst name=&quot;defaults&quot;&gt;
+            &lt;str name=&quot;config&quot;&gt;data-config.xml&lt;/str&gt;
+      &lt;/lst&gt;
+&lt;/requestHandler&gt;
+</code></pre><a id="more"></a>
+<p>在 conf 下新建 data-config.xml</p>
+<pre><code>&lt;dataConfig&gt;
+    &lt;dataSource 
+            type=&quot;JdbcDataSource&quot; 
+            driver=&quot;com.mysql.jdbc.Driver&quot;
+            url=&quot;jdbc:mysql://localhost:3306/test?useUnicode=true&amp;amp;characterEncoding=utf8&quot; 
+            user=&quot;root&quot; 
+            password=&quot;&quot; /&gt;
+    &lt;document name=&quot;documents&quot;&gt;
+        &lt;entity name=&quot;user&quot; pk=&quot;id&quot;
+            query=&quot;select * from user&quot;
+            deltaImportQuery=&quot;select * from user where id=&apos;${dataimporter.delta.id}&apos;&quot;
+            deltaQuery=&quot;select id from user where last_modified &gt; &apos;${dataimporter.last_index_time}&apos;&quot;
+            &lt;field column=&quot;id&quot; name=&quot;id&quot; /&gt;
+            &lt;field column=&quot;username&quot; name=&quot;username&quot; /&gt;
+        &lt;/entity&gt;
+    &lt;/document&gt;
+&lt;/dataConfig&gt;
+</code></pre><p>复制相关的 jar 包到 solr lib</p>
+<pre><code>cp /opt/solr/dist/solr-dataimporthandler-4.3.0.jar /opt/tomcat/webapps/solr/WEB-INF/lib    
+cp /opt/solr/dist/solr-dataimporthandler-extras-4.3.0.jar /opt/tomcat/webapps/solr/WEB-INF/lib
+cp /opt/solr/example/solr-webapp/webapp/WEB-INF/lib/mysql-connector-java-5.1.6.jar /opt/tomcat/webapps/solr/WEB-INF/lib
+</code></pre><p>修改 schema.xml（其它的字段已经存在）</p>
+<pre><code>&lt;field name=&quot;username&quot; type=&quot;text_general&quot; indexed=&quot;true&quot; stored=&quot;true&quot; /&gt;
+</code></pre><p>MySQL 脚本</p>
+<pre><code>CREATE TABLE `user` (
+      `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+      `username` varchar(50) DEFAULT NULL,
+      `last_modified` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (`id`)
+);
+
+INSERT INTO `user` (`id`, `username`, `last_modified`)
+VALUES
+(1001,&apos;zhangsan&apos;,&apos;2013-06-27 13:01:44&apos;),
+(1002,&apos;lisi&apos;,&apos;2013-06-28 14:00:22&apos;),
+(1003,&apos;wangwu&apos;,&apos;2013-06-28 11:04:23&apos;);
+</code></pre><p>批量导入（full-import）：</p>
+<pre><code>http://localhost:8080/solr/dataimport?command=full-import&amp;commit=true 
+</code></pre><p>增量导入（delta-import）：</p>
+<pre><code>http://localhost:8080/solr/dataimport?command=delta-import&amp;commit=true
+</code></pre><p>导入状态查询（status）：</p>
+<pre><code>http://localhost:8080/solr/dataimport 
+</code></pre><p>重新装载配置文件（reload-config）：</p>
+<pre><code>http://localhost:8080/solr/dataimport?command=reload-config 
+</code></pre><p>终止导入（abort）：</p>
+<pre><code>http://localhost:8080/solr/dataimport?command=abort                
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;找到配置文件：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;${solr/home}/collection1/conf/solrconfig.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;增加以下配置：    &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;requestHandler name=&amp;quot;/dataimport&amp;quot; class=&amp;quot;org.apache.solr.handler.dataimport.DataImportHandler&amp;quot;&amp;gt;
+      &amp;lt;lst name=&amp;quot;defaults&amp;quot;&amp;gt;
+            &amp;lt;str name=&amp;quot;config&amp;quot;&amp;gt;data-config.xml&amp;lt;/str&amp;gt;
+      &amp;lt;/lst&amp;gt;
+&amp;lt;/requestHandler&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="solr" scheme="http://batizhao.me/categories/solr/"/>
+    
+    
+      <category term="mysql" scheme="http://batizhao.me/tags/mysql/"/>
+    
+      <category term="solr" scheme="http://batizhao.me/tags/solr/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Solr（一）: 在 Tomcat7 上安装</title>
+    <link href="http://batizhao.me/2013/05/29/installing-solr-on-tomcat/"/>
+    <id>http://batizhao.me/2013/05/29/installing-solr-on-tomcat/</id>
+    <published>2013-05-28T16:00:00.000Z</published>
+    <updated>2016-11-04T09:07:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>创建 solr 安装目录</p>
+<pre><code># mkdir -p /opt/solr
+</code></pre><p>解压缩</p>
+<pre><code># unzip solr.zip -d /opt/solr
+</code></pre><p>这时，可以直接使用 jetty 启动</p>
+<pre><code># cd /opt/solr/example
+# java -jar start.jar    
+</code></pre><a id="more"></a>
+<p>或者部署 war 到 tomcat</p>
+<pre><code>cp /opt/solr/example/webapps/solr.war /opt/tomcat/webapps
+</code></pre><p>启动 tomcat，会遇到一个错误</p>
+<pre><code>Context [/solr] startup failed due to previous errors
+</code></pre><p>查看 localhost.yyyy-mm-dd.log 会发现是一个 SLF4j 的问题</p>
+<pre><code>org.apache.solr.common.SolrException: Could not find necessary SLF4j logging jars. 
+If using Jetty, the SLF4j logging jars need to go in the jetty lib/ext directory. 
+For other containers, the corresponding directory should be used. 
+</code></pre><p>要解决这个问题，执行以下步骤</p>
+<pre><code># cp /opt/solr/example/lib/ext/* /opt/tomcat/webapps/solr/WEB-INF/lib
+# mkdir -p /opt/tomcat/webapps/solr/WEB-INF/classes
+# cp /opt/solr/example/resources/log4j.properties /opt/tomcat/webapps/solr/WEB-INF/classes
+</code></pre><p>最后，需要设置 solr/home，这里直接指向 /opt/solr/example/solr，只需要修改 solr 的 web.xml</p>
+<pre><code>&lt;env-entry&gt;
+   &lt;env-entry-name&gt;solr/home&lt;/env-entry-name&gt;
+   &lt;env-entry-value&gt;/opt/solr/example/solr&lt;/env-entry-value&gt;
+   &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;
+&lt;/env-entry&gt;   
+</code></pre><p>中文的问题，需要修改 tomcat 的 server.xml，在 Connector 中增加以下参数</p>
+<pre><code>URIEncoding=&quot;UTF-8&quot; 
+</code></pre><p>这时，可以再次启动 tomcat 了。               </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;创建 solr 安装目录&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# mkdir -p /opt/solr
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;解压缩&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# unzip solr.zip -d /opt/solr
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这时，可以直接使用 jetty 启动&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# cd /opt/solr/example
+# java -jar start.jar    
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="tomcat" scheme="http://batizhao.me/categories/tomcat/"/>
+    
+    
+      <category term="tomcat" scheme="http://batizhao.me/tags/tomcat/"/>
+    
+      <category term="solr" scheme="http://batizhao.me/tags/solr/"/>
+    
+      <category term="jetty" scheme="http://batizhao.me/tags/jetty/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Simple-Spring-Memcached: AssignCache</title>
+    <link href="http://batizhao.me/2012/09/28/using-simple-spring-memcached-three/"/>
+    <id>http://batizhao.me/2012/09/28/using-simple-spring-memcached-three/</id>
+    <published>2012-09-27T16:00:00.000Z</published>
+    <updated>2016-11-04T09:05:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>接上一篇的 MultiCache ，这篇主要讲一下 AssignCache 的使用。继续解决上一个场景中没有解决的问题。</p>
+<p>根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效</p>
+<p>Method:</p>
+<pre><code>@Override
+@ReadThroughAssignCache(assignedKey = &quot;user/getUsersByRoleIds&quot;, namespace = &quot;user&quot;, expiration = 60)
+public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
+}
+</code></pre><p>SQL:</p>
+<pre><code>&lt;select id=&quot;getUsersByRoleIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
+    SELECT u.id, u.name, r.id as &quot;role.id&quot;, r.name as &quot;role.name&quot;
+    FROM user u, user_role ur, role r
+    WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid in
+    (&lt;iterate conjunction=&quot;,&quot;&gt;
+        #ids[]#
+    &lt;/iterate&gt;) order by r.id
+&lt;/select&gt;
+</code></pre><a id="more"></a>
+<p>Unit Test:</p>
+<pre><code>@Test
+public void testGetUsersByRoleIds() throws Exception {
+    List&lt;Long&gt; list = Arrays.asList(1L, 2L);
+
+    List users = userDao.getUsersByRoleIds(list);
+
+    log.info(&quot;users: &quot; + users);
+
+    assertNotNull(users);
+    assertEquals(3, users.size());
+}    
+</code></pre><p>Log4j log:</p>
+<pre><code>set user:user/getUsersByRoleIds 8 60 378
+
+{&quot;v&quot;:{&quot;java.util.ArrayList&quot;:[{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1000,&quot;name&quot;:&quot;Tom&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}},{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1002,&quot;name&quot;:&quot;Jack&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}},{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1001,&quot;name&quot;:&quot;Jerry&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:2,&quot;name&quot;:&quot;ROLE_USER&quot;}}}}]}}
+</code></pre><p>这个场景不太适合做 @UpdateAssignCache，这里使用 <a href="/java/2012/09/27/using-simple-spring-memcached-one/">Simple-Spring-Memcached: SingleCache</a> 中的 UserCache 类，增加一个方法</p>
+<pre><code>@InvalidateAssignCache(assignedKey = &quot;user/getUsersByRoleIds&quot;, namespace = &quot;user&quot;)
+public void invalidategetUsersByRoleIds(){
+}
+</code></pre><p>然后在 RoleManagerImpl.updateRole() 中增加一句</p>
+<pre><code>userCache.invalidategetUsersByRoleIds();
+</code></pre><p>先执行 DAO Unit Test:</p>
+<pre><code>@Test
+public void testGetUsersByRoleIds() throws Exception {
+    List&lt;Long&gt; list = Arrays.asList(1L, 2L);
+
+    List users = userDao.getUsersByRoleIds(list);
+
+    log.info(&quot;users: &quot; + users);
+
+    assertNotNull(users);
+    assertEquals(3, users.size());
+}
+</code></pre><p>Memcached Log:</p>
+<pre><code>&lt;21 get user:user/getUsersByRoleIds
+&gt;21 END
+&lt;21 set user:user/getUsersByRoleIds 8 60 378
+&gt;21 STORED    
+</code></pre><p>再执行 Service Unit Test:</p>
+<pre><code>@Test
+public void testUpdateRole() throws Exception {
+    Role role = new Role();
+    role.setId(1L);
+    role.setName(&quot;ROLE_ADMIN&quot;);
+
+    roleManager.updateRole(role);
+
+    role = roleManager.getRole(1L);
+
+    log.info(&quot;Role: &quot; + role);
+
+    assertEquals(&quot;ROLE_ADMIN&quot;, role.getName());
+
+}
+</code></pre><p>Memcached Log:</p>
+<pre><code>&lt;21 delete user:user/getUsersByRoleIds
+&gt;21 DELETED            
+</code></pre><p>以上章节的所有代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached" target="_blank" rel="external">Github</a>.</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;接上一篇的 MultiCache ，这篇主要讲一下 AssignCache 的使用。继续解决上一个场景中没有解决的问题。&lt;/p&gt;
+&lt;p&gt;根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效&lt;/p&gt;
+&lt;p&gt;Method:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@Override
+@ReadThroughAssignCache(assignedKey = &amp;quot;user/getUsersByRoleIds&amp;quot;, namespace = &amp;quot;user&amp;quot;, expiration = 60)
+public List&amp;lt;User&amp;gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&amp;lt;Long&amp;gt; ids) {
+    return (List&amp;lt;User&amp;gt;) sqlMapClientTemplate.queryForList(&amp;quot;getUsersByRoleIds&amp;quot;, ids);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;SQL:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;select id=&amp;quot;getUsersByRoleIds&amp;quot; parameterClass=&amp;quot;list&amp;quot; resultClass=&amp;quot;user&amp;quot;&amp;gt;
+    SELECT u.id, u.name, r.id as &amp;quot;role.id&amp;quot;, r.name as &amp;quot;role.name&amp;quot;
+    FROM user u, user_role ur, role r
+    WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid in
+    (&amp;lt;iterate conjunction=&amp;quot;,&amp;quot;&amp;gt;
+        #ids[]#
+    &amp;lt;/iterate&amp;gt;) order by r.id
+&amp;lt;/select&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://batizhao.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+    
+      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
+    
+      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
+    
+      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Simple-Spring-Memcached: MultiCache</title>
+    <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/"/>
+    <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/</id>
+    <published>2012-09-26T16:00:00.000Z</published>
+    <updated>2016-11-04T09:03:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。</p>
+<h2 id="Namespace-和-Key"><a href="#Namespace-和-Key" class="headerlink" title="Namespace 和 Key"></a>Namespace 和 Key</h2><p>这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是</p>
+<ul>
+<li><p>get user:id</p>
+<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
+</li>
+<li><p>set user:id</p>
+<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
+</li>
+</ul>
+<p>如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是</p>
+<ul>
+<li>缓存命中率（大大影响缓存使用效率）</li>
+<li>内容空间（占用更多的内存）</li>
+<li>需要更多的清除操作（程序复杂度增加）</li>
+</ul>
+<a id="more"></a>
+<h2 id="场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存"><a href="#场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存" class="headerlink" title="场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存"></a>场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存</h2><p>Method:</p>
+<pre><code>@Override
+@ReadThroughMultiCache(namespace = &quot;user&quot;, expiration = 60)
+public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider List&lt;Long&gt; ids) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByUserIds&quot;, ids);
+}
+</code></pre><p>SQL:</p>
+<pre><code>&lt;select id=&quot;getUsersByUserIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
+    SELECT u.id, u.name
+    FROM user u
+    WHERE u.id in
+    (&lt;iterate conjunction=&quot;,&quot;&gt;
+        #ids[]#
+    &lt;/iterate&gt;)
+&lt;/select&gt;
+</code></pre><p>Memcached Log:</p>
+<pre><code>&lt;21 get user:1000 user:1001
+&gt;21 sending key user:1000
+&gt;21 END
+&lt;21 set user:1001
+&gt;21 STORED
+</code></pre><p>更新。这里 Batch 调用 updateUser，因为方法没有返回值，所以只能使用 @ParameterDataUpdateContent</p>
+<pre><code>@Override
+@UpdateMultiCache(namespace = &quot;user&quot;, expiration = 60)
+public void updateUsersByUserIds(@ParameterValueKeyProvider @ParameterDataUpdateContent final List&lt;User&gt; users) {
+    sqlMapClientTemplate.execute(new SqlMapClientCallback() {
+        @Override
+        public Object doInSqlMapClient(SqlMapExecutor executor) throws SQLException {
+            executor.startBatch();
+
+            for(User user: users){
+                executor.update(&quot;updateUser&quot;, user);
+            }
+
+            executor.executeBatch();
+
+            return null;
+
+        }
+    });
+}    
+</code></pre><p>看一下 Memcached Log，user:1000 直接从 Cache 返回，只有 user:1001 做了数据库操作。这是因为我在执行    getUsersByUserIds 之前，执行了上一篇中的 getUser(1000L)，先生成了 Cache。        </p>
+<h2 id="场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效"><a href="#场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效" class="headerlink" title="场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效"></a>场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效</h2><p>Method:</p>
+<pre><code>@Override
+@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60)
+public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
+}
+</code></pre><p><em>这里为什么不用 namespace = “user”？</em>   </p>
+<p>SQL:</p>
+<pre><code>&lt;select id=&quot;getUsersByRoleIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
+    SELECT u.id, u.name, r.id as &quot;role.id&quot;, r.name as &quot;role.name&quot;
+    FROM user u, user_role ur, role r
+    WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid in
+    (&lt;iterate conjunction=&quot;,&quot;&gt;
+        #ids[]#
+    &lt;/iterate&gt;)
+&lt;/select&gt;
+</code></pre><p>看一下返回的结果集：</p>
+<pre><code>+------+-------+---------+------------+
+| id   | name  | role.id | role.name  |
++------+-------+---------+------------+
+| 1000 | Tom   |       1 | ROLE_ADMIN |
+| 1001 | Jerry |       2 | ROLE_USER  |
+| 1002 | Jack  |       1 | ROLE_ADMIN |
++------+-------+---------+------------+ 
+</code></pre><p>测试代码是这样的：</p>
+<pre><code>@Test
+public void testGetUsersByRoleIds() throws Exception {
+    List&lt;Long&gt; list = Arrays.asList(1L, 2L);
+
+    List users = userDao.getUsersByRoleIds(list);
+
+    log.info(&quot;users: &quot; + users);
+
+    assertNotNull(users);
+    assertEquals(3, users.size());
+}    
+</code></pre><p>这个方法不会生成任何缓存。SSM 会告诉你</p>
+<pre><code>com.google.code.ssm.aop.ReadThroughMultiCacheAdvice: Did not receive a correlated amount of data from the target method.
+</code></pre><p>因为 SSM 会先根据结果集生成缓存（使用返回对象 User 的 @CacheKeyMethod 方法）</p>
+<pre><code>set user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
+</code></pre><p>但是返回的结果集中没有 1 和 2，就算有，也不是我们想要的 role.id，而是 user.id。刚开始我尝试和 SSM 的开发者沟通<a href="http://code.google.com/p/simple-spring-memcached/issues/detail?id=10" target="_blank" rel="external">这个问题</a>。他让我尝试修改一下 annotation</p>
+<pre><code>@Override
+@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60, option = @ReadThroughMultiCacheOption(generateKeysFromResult = true))
+public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
+}
+</code></pre><p>之后变成这个样子：</p>
+<pre><code>get user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
+
+set user/getUsersByRoleIds:1000 8 60 120
+{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1000,&quot;name&quot;:&quot;Tom&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
+
+set user/getUsersByRoleIds:1001 8 60 121
+{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1001,&quot;name&quot;:&quot;Jerry&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:2,&quot;name&quot;:&quot;ROLE_USER&quot;}}}}}
+
+set user/getUsersByRoleIds:1002 8 60 121
+{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1002,&quot;name&quot;:&quot;Jack&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
+</code></pre><p>在这个返回的 List 中，role.id 不可以做为 Key，因为不是唯一的。试了一下返回 HaspMap，@ReadThroughMultiCache 只支持 List。所以想到两种解决办法：</p>
+<ul>
+<li>循环调用上一篇中的 getUsersByRoleId 方法。</li>
+<li>使用 @ReadThroughAssignCache（缺点是缓存做为一整块，不能像 @ReadThroughMultiCache 一样对单个 User 做操作了），到时只能整体清除。</li>
+</ul>
+<p>第一个方案可以自行试验一下，下一篇讲 AssignCache 如何解决这个问题。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。&lt;/p&gt;
+&lt;h2 id=&quot;Namespace-和-Key&quot;&gt;&lt;a href=&quot;#Namespace-和-Key&quot; class=&quot;headerlink&quot; title=&quot;Namespace 和 Key&quot;&gt;&lt;/a&gt;Namespace 和 Key&lt;/h2&gt;&lt;p&gt;这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;get user:id&lt;/p&gt;
+&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;set user:id&lt;/p&gt;
+&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;缓存命中率（大大影响缓存使用效率）&lt;/li&gt;
+&lt;li&gt;内容空间（占用更多的内存）&lt;/li&gt;
+&lt;li&gt;需要更多的清除操作（程序复杂度增加）&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://batizhao.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+    
+      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
+    
+      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
+    
+      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Simple-Spring-Memcached: SingleCache</title>
+    <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/"/>
+    <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/</id>
+    <published>2012-09-26T16:00:00.000Z</published>
+    <updated>2016-11-04T09:03:43.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。</p>
+<h2 id="首先是接下来的几个内容都会用到的两个-POJO"><a href="#首先是接下来的几个内容都会用到的两个-POJO" class="headerlink" title="首先是接下来的几个内容都会用到的两个 POJO"></a>首先是接下来的几个内容都会用到的两个 POJO</h2><p>Role Model:</p>
+<pre><code>public class Role implements Serializable {
+
+    private static final long serialVersionUID = -4708064835003250669L;
+
+    private Long id;
+
+    private String name;
+
+    @CacheKeyMethod
+    public String cacheKey() {
+        return id.toString();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(
+                this, obj);
+    }
+
+    public int hashCode() {
+        return HashCodeBuilder
+                .reflectionHashCode(this);
+    }
+
+    public String toString() {
+        return ToStringBuilder.reflectionToString(
+                this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+}
+</code></pre><a id="more"></a>
+<p>User Model:</p>
+<pre><code>public class User implements Serializable {
+
+    private static final long serialVersionUID = -822125371522084989L;
+
+    private Long id;
+
+    private String name;
+
+    private Role role;
+
+    @CacheKeyMethod
+    public String cacheKey() {
+        return id.toString();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(
+                this, obj);
+    }
+
+    public int hashCode() {
+        return HashCodeBuilder
+                .reflectionHashCode(this);
+    }
+
+    public String toString() {
+        return ToStringBuilder.reflectionToString(
+                this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+}
+</code></pre><h2 id="场景一：根据某个-user-ID-查询某个-User。在更新时，更新缓存中的这个-User。"><a href="#场景一：根据某个-user-ID-查询某个-User。在更新时，更新缓存中的这个-User。" class="headerlink" title="场景一：根据某个 user ID 查询某个 User。在更新时，更新缓存中的这个 User。"></a>场景一：根据某个 user ID 查询某个 User。在更新时，更新缓存中的这个 User。</h2><p>Method:</p>
+<pre><code>@Override
+@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
+public User getUser(@ParameterValueKeyProvider Long id) {
+    return (User) sqlMapClientTemplate.queryForObject(&quot;getUser&quot;, id);
+}
+
+@Override
+@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
+public void updateUser(@ParameterValueKeyProvider @ParameterDataUpdateContent User user) {
+    sqlMapClientTemplate.update(&quot;updateUser&quot;, user);
+}
+</code></pre><p>SQL:</p>
+<pre><code>&lt;update id=&quot;updateUser&quot; parameterClass=&quot;user&quot;&gt;
+    UPDATE user
+    SET name = #name#
+    WHERE id = #id#
+&lt;/update&gt;
+
+&lt;select id=&quot;getUser&quot; parameterClass=&quot;java.lang.Long&quot; resultClass=&quot;user&quot;&gt;
+    SELECT * FROM user WHERE id = #id#
+&lt;/select&gt;
+</code></pre><p>只要有相同的 namespace</p>
+<ul>
+<li>在 getUser 时，会根据 @ParameterValueKeyProvider 找到 User 对象的 @CacheKeyMethod 方法，到 Memcached 中 get user:id。</li>
+<li>在 updateUser 时，会根据 @ParameterValueKeyProvider 找到 User 对象的 @CacheKeyMethod 方法，到 Memcached 中 set user:id    </li>
+</ul>
+<h2 id="场景二：根据某个-role-ID-查询所有的-User。查询关联两个以上的-Model（User，Role），在更新-Role-时，需要让相关的缓存失效。"><a href="#场景二：根据某个-role-ID-查询所有的-User。查询关联两个以上的-Model（User，Role），在更新-Role-时，需要让相关的缓存失效。" class="headerlink" title="场景二：根据某个 role ID 查询所有的 User。查询关联两个以上的 Model（User，Role），在更新  Role 时，需要让相关的缓存失效。"></a>场景二：根据某个 role ID 查询所有的 User。查询关联两个以上的 Model（User，Role），在更新  Role 时，需要让相关的缓存失效。</h2><p>Method:</p>
+<pre><code>@ReadThroughSingleCache(namespace = &quot;user/list&quot;, expiration = 600)
+public List&lt;User&gt; getUsersByRoleId(@ParameterValueKeyProvider Long id) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleId&quot;, id);
+}
+</code></pre><p>SQL:</p>
+<pre><code>&lt;select id=&quot;getUsersByRoleId&quot; parameterClass=&quot;java.lang.Long&quot; resultClass=&quot;user&quot;&gt;
+    SELECT u.id, u.name, r.id as &quot;role.id&quot;, r.name as &quot;role.name&quot;
+      FROM user u, user_role ur, role r
+     WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid = #id#
+&lt;/select&gt;     
+</code></pre><p>当更新 Role 时:</p>
+<pre><code>@UpdateSingleCache(namespace = &quot;role&quot;, expiration = 60)
+public void updateRole(@ParameterValueKeyProvider @ParameterDataUpdateContent Role role) {
+    sqlMapClientTemplate.update(&quot;updateRole&quot;, role);
+} 
+</code></pre><p>需要让 getUsersByRoleId 的缓存失效。这时最简单的办法是直接使用 annotation  @InvalidateSingleCache</p>
+<pre><code>@UpdateSingleCache(namespace = &quot;role&quot;, expiration = 60)
+@InvalidateSingleCache(namespace = &quot;user/list&quot;)
+public void updateRole(@ParameterValueKeyProvider @ParameterDataUpdateContent Role role) {
+    sqlMapClientTemplate.update(&quot;updateRole&quot;, role);
+}
+</code></pre><p>但是，如果有多个类似的 Cache 需要清除，那这种办法就不适用了。这时可以每个 POJO 定义一个专门用来 invalidate 的类：</p>
+<pre><code>@Component
+public class UserCache {
+
+    @InvalidateSingleCache(namespace = &quot;user/list&quot;)
+    public void invalidateGetUsersByRoleId(@ParameterValueKeyProvider Long id){
+    }
+
+｝
+</code></pre><p>在 Service 中调用相关的方法：</p>
+<pre><code>@Service
+public class RoleManagerImpl implements RoleManager {
+
+    @Autowired
+    private RoleDao roleDao;
+
+    @Autowired
+    private UserCache userCache;
+
+    @Override
+    public void updateRole(Role role) {
+        roleDao.updateRole(role);
+        userCache.invalidateGetUsersByRoleId(role.getId());
+        groupCache.invalidate(role.getId());
+        ...
+    }
+} 
+</code></pre><p>下一篇会讲一下 MultiCache 的使用。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。&lt;/p&gt;
+&lt;h2 id=&quot;首先是接下来的几个内容都会用到的两个-POJO&quot;&gt;&lt;a href=&quot;#首先是接下来的几个内容都会用到的两个-POJO&quot; class=&quot;headerlink&quot; title=&quot;首先是接下来的几个内容都会用到的两个 POJO&quot;&gt;&lt;/a&gt;首先是接下来的几个内容都会用到的两个 POJO&lt;/h2&gt;&lt;p&gt;Role Model:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class Role implements Serializable {
+
+    private static final long serialVersionUID = -4708064835003250669L;
+
+    private Long id;
+
+    private String name;
+
+    @CacheKeyMethod
+    public String cacheKey() {
+        return id.toString();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(
+                this, obj);
+    }
+
+    public int hashCode() {
+        return HashCodeBuilder
+                .reflectionHashCode(this);
+    }
+
+    public String toString() {
+        return ToStringBuilder.reflectionToString(
+                this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://batizhao.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+    
+      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
+    
+      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
+    
+      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Simple-Spring-Memcached Annotation</title>
+    <link href="http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/"/>
+    <id>http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/</id>
+    <published>2012-09-26T16:00:00.000Z</published>
+    <updated>2016-11-04T09:04:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/" target="_blank" rel="external">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/" target="_blank" rel="external">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached" target="_blank" rel="external">ssm3-mybatis2-memcached</a>。</p>
+<h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
+public User getUser(@ParameterValueKeyProvider Long id)
+</code></pre><p>Memcache Log:</p>
+<pre><code>get user:1
+set user:1
+</code></pre><a id="more"></a>
+<h2 id="MultiCache-类"><a href="#MultiCache-类" class="headerlink" title="MultiCache 类"></a>MultiCache 类</h2><p>操作 List 型的 Cache 数据（看做是 SingleCache 的批处理），由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughMultiCache(namespace = &quot;user/getUsersByUserIds&quot;, expiration = 600)
+public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids)
+</code></pre><p>If ids=[1,2,3], Then Memcache Log:</p>
+<pre><code>get user:1 user:2 user:3
+set user:1
+set user:2
+set user:3        
+</code></pre><h2 id="AssignCache-类"><a href="#AssignCache-类" class="headerlink" title="AssignCache 类"></a>AssignCache 类</h2><p>操作所有类型的 Cache 数据。适用于无参方法或者需要自定义 Key 的场景。指定 key 操作 Cache 数据，由 annotation 中的 assignedKey 指定 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughAssignCache(assignedKey = &quot;user/getAllUsers&quot;, namespace = &quot;role&quot;, expiration = 600)
+public List&lt;User&gt; getAllUsers()
+</code></pre><h1 id="2-SingleCache-Annotation"><a href="#2-SingleCache-Annotation" class="headerlink" title="2. SingleCache Annotation"></a>2. SingleCache Annotation</h1><h2 id="ReadThroughSingleCache"><a href="#ReadThroughSingleCache" class="headerlink" title="@ReadThroughSingleCache"></a>@ReadThroughSingleCache</h2><p>作用：生成 Cache。</p>
+<p>过程：</p>
+<ul>
+<li>在执行方法之前先检查缓存。</li>
+<li>如果找到相应的 Key，返回 Value，方法 return。</li>
+<li>如果没有找到相应的 Key，查询数据库，再 set cache，方法 return。</li>
+</ul>
+<p>Key 生成规则：ParameterValueKeyProvider 指定的参数，如果该参数对象中包含 CacheKeyMethod 注解的方法，则调用其方法，否则调用 toString 方法。</p>
+<h2 id="InvalidateSingleCache"><a href="#InvalidateSingleCache" class="headerlink" title="@InvalidateSingleCache"></a>@InvalidateSingleCache</h2><p>作用：清除 Cache 中的数据。</p>
+<p>key 生成规则：</p>
+<ul>
+<li>使用 ParameterValueKeyProvider 注解时，与 ReadThroughSingleCache 一致。</li>
+<li>使用 ReturnValueKeyProvider 注解时，key 为返回的对象的 CacheKeyMethod 或 toString 方法生成。</li>
+</ul>
+<p>Java Code:</p>
+<pre><code>@InvalidateSingleCache(namespace = &quot;user/list&quot;)
+public void invalidateGetUsersByRoleId(@ParameterValueKeyProvider Long id)        
+</code></pre><h2 id="UpdateSingleCache"><a href="#UpdateSingleCache" class="headerlink" title="@UpdateSingleCache"></a>@UpdateSingleCache</h2><p>作用：更新 Cache 中的数据。</p>
+<p>Key 生成规则：ParameterValueKeyProvider 指定。</p>
+<ul>
+<li>ParameterDataUpdateContent：方法参数中的数据，作为更新缓存的数据。</li>
+<li>ReturnDataUpdateContent：方法调用后生成的数据，作为更新缓存的数据。</li>
+<li>上述两个注解，必须与 Update* 系列的注解一起使用。</li>
+</ul>
+<p>Java Code:</p>
+<pre><code>@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
+public void updateUser(@ParameterValueKeyProvider @ParameterDataUpdateContent User user)
+
+@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
+@ReturnDataUpdateContent
+public void updateUser(@ParameterValueKeyProvider User user)
+</code></pre><p>参考：<a href="http://www.colorfuldays.org/program/java/ssm_memcache/" target="_blank" rel="external">使用SSM注解做缓存操作</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;因为公司有的项目还运行在 MyBatis2 上边，并且 &lt;a href=&quot;http://code.google.com/p/simple-spring-memcached/&quot;&gt;SSM&lt;/a&gt; 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 &lt;a href=&quot;http://www.mybatis.org/caches/memcached/&quot;&gt;mybatis-memcached&lt;/a&gt; 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 &lt;a href=&quot;https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached&quot;&gt;ssm3-mybatis2-memcached&lt;/a&gt;。&lt;/p&gt;
+&lt;h1 id=&quot;1-SSM-Annotation&quot;&gt;&lt;a href=&quot;#1-SSM-Annotation&quot; class=&quot;headerlink&quot; title=&quot;1. SSM Annotation&quot;&gt;&lt;/a&gt;1. SSM Annotation&lt;/h1&gt;&lt;h2 id=&quot;SingleCache-类&quot;&gt;&lt;a href=&quot;#SingleCache-类&quot; class=&quot;headerlink&quot; title=&quot;SingleCache 类&quot;&gt;&lt;/a&gt;SingleCache 类&lt;/h2&gt;&lt;p&gt;操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。&lt;/p&gt;
+&lt;p&gt;Java Code:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@ReadThroughSingleCache(namespace = &amp;quot;user&amp;quot;, expiration = 600)
+public User getUser(@ParameterValueKeyProvider Long id)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Memcache Log:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;get user:1
+set user:1
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://batizhao.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+    
+      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
+    
+      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
+    
+      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 CentOS6 上安装 ActiveMQ Service</title>
+    <link href="http://batizhao.me/2012/09/18/installing-activemq-as-a-service-on-centos6/"/>
+    <id>http://batizhao.me/2012/09/18/installing-activemq-as-a-service-on-centos6/</id>
+    <published>2012-09-17T16:00:00.000Z</published>
+    <updated>2016-11-04T09:02:56.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>这里主要讲一下在 CentOS6 x64 上如何把 ActiveMQ5.5 添加到 Service 里自动启动。</p>
+<p>打开配置文件</p>
+<pre><code># vim /opt/activemq    /bin/linux-x86-64/wrapper.conf
+</code></pre><p>修改两个参数</p>
+<pre><code>set.default.ACTIVEMQ_HOME=/opt/activemq
+set.default.ACTIVEMQ_BASE=/opt/activemq
+</code></pre><p>建立一个软链接（用全路径）</p>
+<pre><code># ln -s /opt/activemq/bin/linux-x86-64/activemq /etc/init.d/activemq    
+</code></pre><p>加入到启动项</p>
+<pre><code># chkconfig --add activemq
+</code></pre><p>使用服务</p>
+<pre><code># service activemq start|stop|status    
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这里主要讲一下在 CentOS6 x64 上如何把 ActiveMQ5.5 添加到 Service 里自动启动。&lt;/p&gt;
+&lt;p&gt;打开配置文件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# vim /opt/activemq    /bin/linux-x86-64/wrapper.co
+    
+    </summary>
+    
+      <category term="java" scheme="http://batizhao.me/categories/java/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+    
+      <category term="jms" scheme="http://batizhao.me/tags/jms/"/>
+    
+      <category term="activemq" scheme="http://batizhao.me/tags/activemq/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 CentOS6 上安装 vsftpd</title>
+    <link href="http://batizhao.me/2012/09/17/install-vsftpd-on-centos6/"/>
+    <id>http://batizhao.me/2012/09/17/install-vsftpd-on-centos6/</id>
+    <published>2012-09-16T16:00:00.000Z</published>
+    <updated>2016-11-04T09:02:45.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>vsftpd 是一款在 Linux 发行版中最受推崇的 FTP 服务器程序。特点是小巧轻快，安全易用。<br>vsftpd 的名字代表”very secure FTP daemon”, 安全是它的开发者 Chris Evans 考虑的首要问题之一。在这个 FTP 服务器设计开发的最开始的时候，高安全性就是一个目标。</p>
+<p>在初次安装过程中遇到了很多问题，主要是关于帐号设置的问题，这里纪录一下。</p>
+<a id="more"></a>
+<h1 id="1-安装-vsftpd"><a href="#1-安装-vsftpd" class="headerlink" title="1. 安装 vsftpd"></a>1. 安装 vsftpd</h1><p>通过 yum 安装</p>
+<pre><code># yum install vsftpd
+</code></pre><p>设置开机自动启动    </p>
+<pre><code># chkconfig vsftpd on
+</code></pre><p>启动服务</p>
+<pre><code># service vsftpd start
+Starting vsftpd for vsftpd:                                [  OK  ]
+</code></pre><p>配置防火墙</p>
+<pre><code># vim /etc/sysconfig/iptables    
+</code></pre><p>增加你需要开放的端口</p>
+<pre><code># -A INPUT -m state --state NEW -m tcp -p tcp --dport 21 -j ACCEPT
+</code></pre><p>保存以后重启防火墙</p>
+<pre><code># service iptables restart
+</code></pre><h1 id="2-配置-vsftpd"><a href="#2-配置-vsftpd" class="headerlink" title="2. 配置 vsftpd"></a>2. 配置 vsftpd</h1><p>增加 ftpuser</p>
+<pre><code># useradd -g ftp -s /sbin/nologin ftpuser
+</code></pre><p>设置密码</p>
+<pre><code># passwd ftpuser
+</code></pre><p>修改配置文件</p>
+<pre><code># cd /etc/vsftpd/
+# mv vsftpd.conf vsftpd.conf.bak
+# vim vsftpd.conf
+
+anonymous_enable=NO
+
+#允许登入者有写权限
+write_enable=YES
+
+#允许本地用户访问
+local_enable=YES
+
+#本地用户新增档案时的umask值
+local_umask=022
+
+#定义欢迎话语的字符串
+ftpd_banner=Welcome to FTP server.
+
+#启用上传/下载日志记录
+xferlog_enable=YES
+
+#日志文件所在的路径及名称
+xferlog_file=/var/log/vsftpd.log
+
+#将日志文件写成xferlog的标准格式
+xferlog_std_format=YES
+
+#在chroot_list中列出的用户不允许切换到家目录的上级目录
+chroot_list_enable=YES
+
+#如果chroot_local_user设置了YES，那么chroot_list_file  
+#设置的文件里，是不被chroot的用户(可以向上改变目录)  
+#如果chroot_local_user设置了NO，那么chroot_list_file  
+#设置的文件里，是被chroot的用户(无法向上改变目录)  
+chroot_local_user=YES
+chroot_list_file=/etc/vsftpd/chroot_list
+
+userlist_enable=YES
+userlist_deny=YES
+userlist_file=/etc/vsftpd/user_list
+
+#FTP服务器以standalone模式运行
+listen=YES
+
+#FTP服务器启用PORT模式
+port_enable=YES
+
+#禁用FTP服务器的PASV模式
+pasv_enable=NO
+
+#FTP服务器监听21端口
+listen_port=21
+
+#600秒钟不对FTP服务器进行任何操作，则断开该FTP连接
+idle_session_timeout=600
+
+#建立FTP数据连接的超时时间为120秒
+data_connection_timeout=120
+
+#不限制用户的连接数量
+max_clients=0
+#每个IP与FTP服务器同时建立连接数
+max_per_ip=100
+
+#PAM认证文件
+pam_service_name=vsftpd
+
+use_localtime=YES
+
+#支持ASCII模式
+ascii_upload_enable=YES
+ascii_download_enable=YES
+</code></pre><p>重启</p>
+<pre><code># service vsftpd restart        
+</code></pre><h1 id="3-问题"><a href="#3-问题" class="headerlink" title="3. 问题"></a>3. 问题</h1><ul>
+<li>500 OOPS: cannot change directory:/home/ftpuser</li>
+</ul>
+<pre><code># getsebool -a|grep ftp
+# setsebool -P ftp_home_dir on
+</code></pre><ul>
+<li><p>500 OOPS: could not read chroot() list file:/etc/vsftpd/chroot_list</p>
+<p>  缺少    chroot_list 文件，需要手动建立。</p>
+<pre><code># vim chroot_list
+</code></pre></li>
+<li><p>530 Login incorrect.</p>
+<p>  可能一：</p>
+<pre><code># vim vsftpd.conf
+增加：
+pam_service_name=vsftpd
+</code></pre><p>  可能二：密码不正确。</p>
+</li>
+<li><p>550 Permission denied</p>
+<p>  这个问题可能是多种原因造成的，最常见的是缺少</p>
+<pre><code>write_enable=YES
+</code></pre><p>  但在我的环境中，出现这个问题是因为服务端 iptables、客户端防火墙、vsftpd pasv 三者之间的配置造成的。参考 <a href="http://blog.csdn.net/moreorless/article/details/5289147" target="_blank" rel="external">iptables 中配置 vsftp 的访问</a>    </p>
+<ul>
+<li><p>主动模式下，客户连接 TCP/21，服务器通过 TCP/20 连接客户的随机端口。这种情况下，通过状态防火墙可以解决 </p>
+<p>  iptables -A INPUT -m state –state NEW,RELATED,ESTABLISHED -j ACCEPT</p>
+</li>
+<li><p>被动模式下，客户连接 TCP/21，客户再通过其他端口连接服务器的随机端口。因为服务器在被动模式下没有打开临时端口让 client 连过来，因此需要几个条件：</p>
+<ul>
+<li>client 没有防火墙时，用主动模式连接即可。</li>
+<li>server 没有防火墙时，用被动模式即可。</li>
+<li>双方都有防火墙时，vsftpd 设置被动模式高端口范围，server 打开那段范围，client 用被动模式连接即可。</li>
+<li>加载 ip_conntrack_ftp 模块，使 server 支持 connection tracking，支持临时打洞，client 用被动模式即可。</li>
+<li>server 使用 ip_conntrack_ftp、client 使用 ip_conntrack_ftp 和 ip_nat_ftp，支持临时打洞和临时 NAT 穿越打洞，双方使用主动或被动模式均可。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>因为我 client 和 server 都有防火墙，所以对前边的 vsftpd 设置稍做修改</p>
+<pre><code>#pasv_enable=NO
+pasv_min_port=2222
+pasv_max_port=2322
+</code></pre><p>修改 iptables </p>
+<pre><code>-A INPUT -p tcp --dport 2222:2322 -j ACCEPT
+</code></pre><p>重启</p>
+<pre><code># service iptables restart
+# service vsftpd restart                
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;vsftpd 是一款在 Linux 发行版中最受推崇的 FTP 服务器程序。特点是小巧轻快，安全易用。&lt;br&gt;vsftpd 的名字代表”very secure FTP daemon”, 安全是它的开发者 Chris Evans 考虑的首要问题之一。在这个 FTP 服务器设计开发的最开始的时候，高安全性就是一个目标。&lt;/p&gt;
+&lt;p&gt;在初次安装过程中遇到了很多问题，主要是关于帐号设置的问题，这里纪录一下。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="http://batizhao.me/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="ftp" scheme="http://batizhao.me/tags/ftp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 CentOS6 上安装 memcached</title>
+    <link href="http://batizhao.me/2012/09/07/install-memcached-on-centos6/"/>
+    <id>http://batizhao.me/2012/09/07/install-memcached-on-centos6/</id>
+    <published>2012-09-06T16:00:00.000Z</published>
+    <updated>2016-11-04T09:02:27.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1-安装-libevent"><a href="#1-安装-libevent" class="headerlink" title="1. 安装 libevent"></a>1. 安装 libevent</h1><pre><code># yum list|grep libevent*
+
+libevent.x86_64                        1.4.13-4.el6                     
+libevent.i686                          1.4.13-4.el6                      
+libevent-devel.i686                    1.4.13-4.el6                         
+libevent-devel.x86_64                  1.4.13-4.el6                        
+libevent-doc.noarch                    1.4.13-4.el6                        
+libevent-headers.noarch                1.4.13-4.el6                     
+
+# yum install libevent.x86_64 libevent-devel.x86_64
+</code></pre><a id="more"></a>
+<h1 id="2-安装-memcached"><a href="#2-安装-memcached" class="headerlink" title="2. 安装 memcached"></a>2. 安装 memcached</h1><pre><code># wget http://memcached.googlecode.com/files/memcached-1.4.15.tar.gz
+# tar zxvf memcached-1.4.15.tar.gz
+# cd memcached-1.4.15
+# ./configure
+# make
+# make install
+</code></pre><h1 id="3-使用-memcached"><a href="#3-使用-memcached" class="headerlink" title="3. 使用 memcached"></a>3. 使用 memcached</h1><p>参数</p>
+<pre><code>-p 监听端口
+-l 连接的IP地址,默认是本机
+-d start 启动 memecached 服务
+-d restart 重启
+-d stop|shutdown关闭服务
+-d install 安装
+-d uninstall 卸载
+-u 以身份运行仅在 root 下有效
+-m 最大内存使用，单位 MB，默认 64MB
+-M 内存耗尽时返回错误
+-c 最大同时连接数量,默认是 1024
+-f 块大小增长因为,默认是 1.25
+-n 最小分配空间, key + value + flags 默认48
+-h 显示帮助
+</code></pre><p>启动</p>
+<pre><code># memcached -d -u root
+</code></pre><p>验证</p>
+<pre><code>＃ telnet localhost 11211
+Trying ::1...
+Connected to localhost.
+Escape character is &apos;^]&apos;.
+</code></pre><p>查看当前状态</p>
+<pre><code>＃ stats
+TAT pid 26427
+STAT uptime 2137
+STAT time 1346995532
+STAT version 1.4.15
+STAT libevent 1.4.13-stable
+STAT pointer_size 64
+STAT rusage_user 0.012998
+STAT rusage_system 0.023996
+STAT curr_connections 10
+STAT total_connections 14
+STAT connection_structures 12
+STAT reserved_fds 20
+STAT cmd_get 0
+STAT cmd_set 0
+STAT cmd_flush 0
+STAT cmd_touch 0
+STAT get_hits 0
+STAT get_misses 0
+STAT delete_misses 0
+STAT delete_hits 0
+STAT incr_misses 0
+STAT incr_hits 0
+STAT decr_misses 0
+STAT decr_hits 0
+STAT cas_misses 0
+STAT cas_hits 0
+STAT cas_badval 0
+STAT touch_hits 0
+STAT touch_misses 0
+STAT auth_cmds 0
+STAT auth_errors 0
+STAT bytes_read 68
+STAT bytes_written 2091
+STAT limit_maxbytes 67108864
+STAT accepting_conns 1
+STAT listen_disabled_num 0
+STAT threads 4
+STAT conn_yields 0
+STAT hash_power_level 16
+STAT hash_bytes 524288
+STAT hash_is_expanding 0
+STAT bytes 0
+STAT curr_items 0
+STAT total_items 0
+STAT expired_unfetched 0
+STAT evicted_unfetched 0
+STAT evictions 0
+STAT reclaimed 0
+END
+</code></pre><p>远程使用需要打开 iptables 端口</p>
+<pre><code># vim /etc/sysconfig/iptables
+----
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 11211 -j ACCEPT
+-A INPUT -m state --state NEW -m udp -p udp --dport 11211 -j ACCEPT  
+
+# service iptables restart   
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;1-安装-libevent&quot;&gt;&lt;a href=&quot;#1-安装-libevent&quot; class=&quot;headerlink&quot; title=&quot;1. 安装 libevent&quot;&gt;&lt;/a&gt;1. 安装 libevent&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;# yum list|grep libevent*
+
+libevent.x86_64                        1.4.13-4.el6                     
+libevent.i686                          1.4.13-4.el6                      
+libevent-devel.i686                    1.4.13-4.el6                         
+libevent-devel.x86_64                  1.4.13-4.el6                        
+libevent-doc.noarch                    1.4.13-4.el6                        
+libevent-headers.noarch                1.4.13-4.el6                     
+
+# yum install libevent.x86_64 libevent-devel.x86_64
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="memcached" scheme="http://batizhao.me/categories/memcached/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Maven 自动化构建（dev, test, prod）</title>
+    <link href="http://batizhao.me/2012/08/22/maven-package/"/>
+    <id>http://batizhao.me/2012/08/22/maven-package/</id>
+    <published>2012-08-21T16:00:00.000Z</published>
+    <updated>2016-11-04T09:01:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-需求描述"><a href="#1-需求描述" class="headerlink" title="1. 需求描述"></a>1. 需求描述</h2><ul>
+<li>在项目构建时，需要根据环境的不同生成不同的安装包。不希望每次通过人工修改配置。</li>
+<li>有非常多的不同的 prod 环境配置，100+。</li>
+<li>在 Maven 的多模块项目中，需要有一个完整的 properties 来定义各个不同的环境，而不是分散在各个 Module 中。</li>
+<li>不希望这些 properties 定义在 pom 中，而是需要独立出来，通过动态参数加载。</li>
+<li>最终可以通过 mvn package -Pdev, mvn package -Ptest, mvn package -Pprod 完成各种环境的构建。</li>
+</ul>
+<a id="more"></a>
+<p>项目模块假设是以下的一个结构：</p>
+<pre><code>&lt;modules&gt;
+    &lt;module&gt;cas&lt;/module&gt;
+    &lt;module&gt;core&lt;/module&gt;
+    &lt;module&gt;web&lt;/module&gt;
+    &lt;module&gt;client&lt;/module&gt;
+&lt;/modules&gt;
+</code></pre><p>其中，cas，web，client 是三个 war，core 是个 jar。要完成上述目标，还需要用到 properties-maven-plugin 这个插件，可以把需要定制的 properties 放到一个外部的文件，剥离 pom，并且做到动态加载配置。</p>
+<h2 id="2-maven-assembly-plugin"><a href="#2-maven-assembly-plugin" class="headerlink" title="2. maven-assembly-plugin"></a>2. maven-assembly-plugin</h2><p>一开始想用 maven-assembly-plugin，assembly 功能很强大，可定制的程度很高。试了一下，也可以解决上边的需求。</p>
+<p>pom</p>
+<pre><code>&lt;plugin&gt;
+    &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;
+    &lt;configuration&gt;
+        &lt;descriptor&gt;src/main/assemble/package.xml&lt;/descriptor&gt;
+    &lt;/configuration&gt;
+    &lt;executions&gt;
+        &lt;execution&gt;
+            &lt;id&gt;make-assembly&lt;/id&gt;
+            &lt;phase&gt;package&lt;/phase&gt;
+            &lt;goals&gt;
+                &lt;goal&gt;single&lt;/goal&gt;
+            &lt;/goals&gt;
+        &lt;/execution&gt;
+    &lt;/executions&gt;
+&lt;/plugin&gt;
+</code></pre><p>package.xml</p>
+<pre><code>&lt;assembly xmlns=&quot;http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2&quot;
+      xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+      xsi:schemaLocation=&quot;http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd&quot;&gt;
+
+    &lt;id&gt;distribution&lt;/id&gt;
+    &lt;formats&gt;
+        &lt;format&gt;war&lt;/format&gt;
+    &lt;/formats&gt;
+    &lt;includeBaseDirectory&gt;false&lt;/includeBaseDirectory&gt;
+    &lt;fileSets&gt;
+        &lt;fileSet&gt;
+            &lt;directory&gt;${project.build.directory}/${project.build.finalName}&lt;/directory&gt;
+            &lt;includes&gt;
+                &lt;include&gt;**&lt;/include&gt;
+            &lt;/includes&gt;
+            &lt;excludes&gt;
+                &lt;exclude&gt;**/deploy*.xml&lt;/exclude&gt;
+            &lt;/excludes&gt;
+            &lt;outputDirectory&gt;/&lt;/outputDirectory&gt;
+        &lt;/fileSet&gt;
+        &lt;fileSet&gt;
+            &lt;directory&gt;${project.build.directory}/${project.build.finalName}&lt;/directory&gt;
+            &lt;includes&gt;
+                &lt;include&gt;**/deploy*.xml&lt;/include&gt;
+            &lt;/includes&gt;
+            &lt;filtered&gt;true&lt;/filtered&gt;
+            &lt;outputDirectory&gt;/&lt;/outputDirectory&gt;
+        &lt;/fileSet&gt;
+    &lt;/fileSets&gt;
+&lt;/assembly&gt;
+</code></pre><p>但存在的问题如下：</p>
+<ul>
+<li>如果使用了 assembly，那么如果在配置文件中有变量，你还是需要对 maven-war-plugin 的打包过程进行定制，否则会造成 assembly filter 起作用，war 打出的包中变量没有替换的情况。也是就是如果需要保证 mvn package 构建出的 war 是有效的，既需要定制 assembly，也需要定制 war。</li>
+<li>assembly 生成的文件名默认会附加 @id@ 在文件名上，好像没有配置的方法。</li>
+</ul>
+<p>综上，在这个项目中，因为没有生成不同格式发布包的要求，只需要生成 war，所以，不考虑引入 assembly ，只对 maven-war-plugin 的构建过程进行定制。 </p>
+<h2 id="3-maven-war-plugin"><a href="#3-maven-war-plugin" class="headerlink" title="3. maven-war-plugin"></a>3. maven-war-plugin</h2><p>在 root pom 中：</p>
+<pre><code>&lt;pluginManagement&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.1.1&lt;/version&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/pluginManagement&gt;
+
+&lt;profiles&gt;
+    &lt;profile&gt;
+        &lt;id&gt;test&lt;/id&gt;
+        &lt;properties&gt;
+            &lt;profile&gt;test&lt;/profile&gt;
+        &lt;/properties&gt;
+    &lt;/profile&gt;
+&lt;/profiles&gt;
+
+&lt;properties&gt;
+    &lt;profile&gt;dev&lt;/profile&gt;
+&lt;/properties&gt;
+</code></pre><p>在 root src 下边增加 config 目录，把相关的配置文件放到下边：</p>
+<ul>
+<li>dev.properties</li>
+<li>test.properties</li>
+<li>prod1.properties</li>
+<li>prod2.properties</li>
+<li>…  </li>
+</ul>
+<p>dev 内容：</p>
+<pre><code>ldap.port=389
+ldap.host=ldap.dev.org
+ldap.searchbase=dc\=dev,dc\=org
+ldap.authdn=cn\=Directory Manager
+ldap.passwd=password
+</code></pre><p>test 内容：</p>
+<pre><code>ldap.port=389
+ldap.host=ldap.dev.org
+ldap.searchbase=dc\=test,dc\=org
+ldap.authdn=cn\=Directory Manager
+ldap.passwd=password    
+</code></pre><p>在 cas module pom 中：</p>
+<pre><code>&lt;plugin&gt;
+    &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+    &lt;configuration&gt;
+        &lt;webResources&gt;
+            &lt;!-- 对需要修改参数的配置文件进行配置 filtering --&gt;
+            &lt;resource&gt;
+                &lt;directory&gt;src/main/webapp/WEB-INF&lt;/directory&gt;
+                &lt;includes&gt;
+                    &lt;include&gt;**/deploy*.xml&lt;/include&gt;
+                &lt;/includes&gt;
+                &lt;targetPath&gt;WEB-INF&lt;/targetPath&gt;
+                &lt;filtering&gt;true&lt;/filtering&gt;
+            &lt;/resource&gt;
+        &lt;/webResources&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;
+&lt;plugin&gt;
+    &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+    &lt;artifactId&gt;properties-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;1.0-alpha-2&lt;/version&gt;
+    &lt;executions&gt;
+        &lt;execution&gt;
+            &lt;phase&gt;initialize&lt;/phase&gt;
+            &lt;goals&gt;
+                &lt;goal&gt;read-project-properties&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+                &lt;files&gt;
+                    &lt;!-- 指向 root 目录中的配置文件，并且根据 profile 动态加载文件名 --&gt;                    
+                    &lt;file&gt;${basedir}/../src/config/${profile}.properties&lt;/file&gt;
+                &lt;/files&gt;
+            &lt;/configuration&gt;
+        &lt;/execution&gt;
+    &lt;/executions&gt;
+&lt;/plugin&gt;
+</code></pre><p>现在在 cas module 的根目录运行 mvn package 或者 mvn package -Ptest，可以看到需要修改的 ${ldap.host} 等已经被替换。之后只需要在每个 module 下边对相关的插件进行定制，就可以完成之前的目标。    </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-需求描述&quot;&gt;&lt;a href=&quot;#1-需求描述&quot; class=&quot;headerlink&quot; title=&quot;1. 需求描述&quot;&gt;&lt;/a&gt;1. 需求描述&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;在项目构建时，需要根据环境的不同生成不同的安装包。不希望每次通过人工修改配置。&lt;/li&gt;
+&lt;li&gt;有非常多的不同的 prod 环境配置，100+。&lt;/li&gt;
+&lt;li&gt;在 Maven 的多模块项目中，需要有一个完整的 properties 来定义各个不同的环境，而不是分散在各个 Module 中。&lt;/li&gt;
+&lt;li&gt;不希望这些 properties 定义在 pom 中，而是需要独立出来，通过动态参数加载。&lt;/li&gt;
+&lt;li&gt;最终可以通过 mvn package -Pdev, mvn package -Ptest, mvn package -Pprod 完成各种环境的构建。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="maven" scheme="http://batizhao.me/categories/maven/"/>
+    
+    
+      <category term="maven" scheme="http://batizhao.me/tags/maven/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自定义 CAS assertion 返回值</title>
+    <link href="http://batizhao.me/2012/07/19/setting-cas-assertion/"/>
+    <id>http://batizhao.me/2012/07/19/setting-cas-assertion/</id>
+    <published>2012-07-18T16:00:00.000Z</published>
+    <updated>2016-11-04T08:53:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>这篇主要是讲 CAS 和 LDAP 集成时，如何返回一些特别的内容到 Spring Security 客户端。这样我们可以从 LDAP 取到 user 的 role，<br>和 Spring Security 进行比对授权。但是，CAS 默认配置的 UsernamePasswordCredentialsToPrincipalResolver 不允许我们在与<br>Spring Security 集成时传递回特别的属性信息，所以我们需要对 CAS 进行修改允许我们这样做。</p>
+<p>CAS 提供了高级的配置使客户端与 CAS 服务端进行数据交换。在 CAS 服务器传递 ticket 校验结果时，可以将基于 CAS 认证时查询到的信息进行传递。<br>这些信息以键值对的方式进行传递，并可以包含用户相关的任何数据。我们将会使用这个功能在 CAS 响应中传递用户的属性，包括 GrantedAuthority 信息。</p>
+<a id="more"></a>
+<h2 id="1-deployerConfigContext-xml"><a href="#1-deployerConfigContext-xml" class="headerlink" title="1. deployerConfigContext.xml"></a>1. deployerConfigContext.xml</h2><p>CAS 服务器的 org.jasig.cas.authentication.AuthenticationManager 负责基于提供的凭证信息进行用户认证。<br>与 Spring Security 很相似，实际的认证委托给了一个（或更多）实现了 org.jasig.cas.authentication.handler.AuthenticationHandler 接口的处理类<br>（在 Spring Security 中对应的接口是 AuthenticationProvider ）。</p>
+<p>org.jasig.cas.authentication.principal.CredentialsToPrincipalResolver 用来将传递进来的安全实体信息转换成完整的<br>org.jasig.cas.authentication.principal.Principal（类似于 Spring Security中 UserDetailsService 实现所作的那样）。</p>
+<h2 id="2-默认返回值"><a href="#2-默认返回值" class="headerlink" title="2. 默认返回值"></a>2. 默认返回值</h2><p>HomeController.java</p>
+<pre><code>@Controller
+@RequestMapping(&quot;home&quot;)
+public class HomeController {
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView home() {
+        ModelAndView mv = new ModelAndView(&quot;home&quot;);
+
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        mv.addObject(&quot;auth&quot;, auth);
+        if (auth instanceof CasAuthenticationToken) {
+            mv.addObject(&quot;isCasAuthentication&quot;, Boolean.TRUE);
+        }
+
+        return mv;
+    }
+}
+</code></pre><p>home.jsp</p>
+<pre><code>&lt;h1&gt;View Profile&lt;/h1&gt;
+
+&lt;p&gt;
+    Some information about you, from CAS:
+&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;Auth:&lt;/strong&gt; ${auth}&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;Username:&lt;/strong&gt; ${auth.principal}&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;Credentials:&lt;/strong&gt; ${auth.credentials}&lt;/li&gt;
+    &lt;c:if test=&quot;${isCasAuthentication}&quot;&gt;
+        &lt;li&gt;&lt;strong&gt;Assertion:&lt;/strong&gt; ${auth.assertion}&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Assertion Attributes:&lt;/strong&gt;
+            &lt;c:forEach items=&quot;${auth.assertion.attributes}&quot; var=&quot;attr&quot;&gt;
+                ${attr.key}:${attr.value}&lt;br/&gt;
+            &lt;/c:forEach&gt;
+        &lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Assertion Attribute Principal:&lt;/strong&gt; ${auth.assertion.principal}&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Assertion Principal Attributes:&lt;/strong&gt;
+            &lt;c:forEach items=&quot;${auth.assertion.principal.attributes}&quot; var=&quot;attr&quot;&gt;
+                ${attr.key}:${attr.value}&lt;br/&gt;
+            &lt;/c:forEach&gt;
+        &lt;/li&gt;
+    &lt;/c:if&gt;
+&lt;/ul&gt;
+</code></pre><p>这个 jsp 的返回结果大致是这样的，只可以返回 Username。</p>
+<pre><code>Auth: org.springframework.security.cas.authentication.CasAuthenticationToken@1358c3fc: Principal: org.springframework.security.core.userdetails.User@aa9c3074: Username: zhangsan; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: I&apos;M ZHANGSAN.; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@fffed504: RemoteIpAddress: 127.0.0.1; SessionId: 748C80EE4C063D18F2461486F82FC2C8; Granted Authorities: I&apos;M ZHANGSAN. Assertion: org.jasig.cas.client.validation.AssertionImpl@5b3ba312 Credentials (Service/Proxy Ticket): ST-3-zbmPK3BMjrAmTEwwMlxi-cas
+Username: org.springframework.security.core.userdetails.User@aa9c3074: Username: zhangsan; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: I&apos;M ZHANGSAN.
+Credentials: ST-3-zbmPK3BMjrAmTEwwMlxi-cas
+Assertion: org.jasig.cas.client.validation.AssertionImpl@5b3ba312
+Assertion Attributes:
+Assertion Attribute Principal: zhangsan
+Assertion Principal Attributes: 
+</code></pre><h2 id="3-自定义返回值"><a href="#3-自定义返回值" class="headerlink" title="3. 自定义返回值"></a>3. 自定义返回值</h2><p>我们需要先修改 deployerConfigContext.xml，重新定义 attributeRepository 这个 Bean</p>
+<pre><code>&lt;bean id=&quot;attributeRepository&quot;
+      class=&quot;org.jasig.services.persondir.support.ldap.LdapPersonAttributeDao&quot;&gt;
+    &lt;property name=&quot;contextSource&quot; ref=&quot;contextSource&quot;/&gt;
+    &lt;property name=&quot;requireAllQueryAttributes&quot; value=&quot;true&quot;/&gt;
+    &lt;property name=&quot;baseDN&quot; value=&quot;ou=people,dc=dev,dc=org&quot;/&gt;
+    &lt;property name=&quot;queryAttributeMapping&quot;&gt;
+        &lt;map&gt;
+            &lt;entry key=&quot;username&quot; value=&quot;uid&quot;/&gt;
+        &lt;/map&gt;
+    &lt;/property&gt;
+    &lt;property name=&quot;resultAttributeMapping&quot;&gt;
+        &lt;map&gt;
+            &lt;entry key=&quot;uid&quot; value=&quot;username&quot;/&gt;
+            &lt;entry key=&quot;displayName&quot; value=&quot;displayName&quot;/&gt;
+            &lt;entry key=&quot;description&quot; value=&quot;role&quot;/&gt;
+            &lt;entry key=&quot;telephoneNumber&quot; value=&quot;telephoneNumber&quot;/&gt;
+        &lt;/map&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+</code></pre><p>这个类将 Principal 与后端的 LDAP 目录进行匹配。queryAttributeMapping 属性将 Principal 的 username 域与 LDAP 的<br>uid 属性相匹配。resultAttributeMapping 中的键值对 key 表示 LDAP 中的属性，而 value 表示返回的 assertion 属性。<br>而这个 role  属性就是 GrantedAuthorityFromAssertionAttributesUserDetailsService 要进行查找的。</p>
+<p>在客户端需要配置 GrantedAuthorityFromAssertionAttributesUserDetailsService ，它的工作就是读取 CAS assertion<br>、寻找特定的属性并将属性值与用户的 GrantedAuthority 进行匹配。假设 assertion 返回了一个名为 role 的属性。我们只需要在<br>applicationContext-security.xml 中简单配置一个新的 bean</p>
+<pre><code>&lt;bean id=&quot;authenticationUserDetailsService&quot;
+      class=&quot;org.springframework.security.cas.userdetails.GrantedAuthorityFromAssertionAttributesUserDetailsService&quot;&gt;
+    &lt;constructor-arg&gt;
+        &lt;array&gt;
+            &lt;value&gt;role&lt;/value&gt;
+        &lt;/array&gt;
+    &lt;/constructor-arg&gt;
+&lt;/bean&gt;
+</code></pre><p>但现在还不行，我们还需要在 Server 端做一些工作。继续 deployerConfigContext.xml，找到 UsernamePasswordCredentialsToPrincipalResolver，增加<br>attributeRepository 属性</p>
+<pre><code>&lt;bean class=&quot;org.jasig.cas.authentication.principal.UsernamePasswordCredentialsToPrincipalResolver&quot;&gt;
+    &lt;property name=&quot;attributeRepository&quot; ref=&quot;attributeRepository&quot;/&gt;
+&lt;/bean&gt;
+</code></pre><p>找到 serviceRegistryDao，在所有的 list bean 中增加</p>
+<pre><code>&lt;property name=&quot;ignoreAttributes&quot; value=&quot;true&quot; /&gt;
+</code></pre><p>编辑 WEB-INF/view/jsp/protocol/2.0/casServiceValidationSuccess.jsp，在 cas:user 后边增加以下内容</p>
+<pre><code>&lt;cas:attributes&gt;
+    &lt;c:forEach var=&quot;attr&quot;
+               items=&quot;${assertion.chainedAuthentications[fn:length(assertion.chainedAuthentications)-1].principal.attributes}&quot;
+               varStatus=&quot;loopStatus&quot; begin=&quot;0&quot;
+               end=&quot;${fn:length(assertion.chainedAuthentications[fn:length(assertion.chainedAuthentications)-1].principal.attributes)-1}&quot;
+               step=&quot;1&quot;&gt;
+        &lt;cas:${fn:escapeXml(attr.key)}&gt;${fn:escapeXml(attr.value)}&lt;/cas:${fn:escapeXml(attr.key)}&gt;
+    &lt;/c:forEach&gt;
+&lt;/cas:attributes&gt;
+</code></pre><p>现在可以 mvn package ，重新部署 CAS Server，重新登录访问 home.jsp，可以看到结果多出了一些内容    </p>
+<pre><code>Auth: org.springframework.security.cas.authentication.CasAuthenticationToken@1358c3fc: Principal: org.springframework.security.core.userdetails.User@aa9c3074: Username: zhangsan; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: I&apos;M ZHANGSAN.; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@fffed504: RemoteIpAddress: 127.0.0.1; SessionId: 748C80EE4C063D18F2461486F82FC2C8; Granted Authorities: I&apos;M ZHANGSAN. Assertion: org.jasig.cas.client.validation.AssertionImpl@5b3ba312 Credentials (Service/Proxy Ticket): ST-3-zbmPK3BMjrAmTEwwMlxi-cas
+Username: org.springframework.security.core.userdetails.User@aa9c3074: Username: zhangsan; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_USER.
+Credentials: ST-3-zbmPK3BMjrAmTEwwMlxi-cas
+Assertion: org.jasig.cas.client.validation.AssertionImpl@5b3ba312
+Assertion Attributes:
+Assertion Attribute Principal: zhangsan
+Assertion Principal Attributes: username:zhangsan
+telephoneNumber:18918588940
+role:ROLE_USER.
+displayName:zhangsan
+</code></pre><p>这样在客户端的 Spring Security 中就可以实现授权比对</p>
+<pre><code>&lt;sec:intercept-url pattern=&quot;/user&quot; access=&quot;ROLE_USER&quot;/&gt;
+</code></pre><h2 id="4-参考"><a href="#4-参考" class="headerlink" title="4. 参考"></a>4. 参考</h2><ul>
+<li><a href="http://sishuok.com/forum/blogPost/list/3981.html" target="_blank" rel="external">高级CAS配置</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这篇主要是讲 CAS 和 LDAP 集成时，如何返回一些特别的内容到 Spring Security 客户端。这样我们可以从 LDAP 取到 user 的 role，&lt;br&gt;和 Spring Security 进行比对授权。但是，CAS 默认配置的 UsernamePasswordCredentialsToPrincipalResolver 不允许我们在与&lt;br&gt;Spring Security 集成时传递回特别的属性信息，所以我们需要对 CAS 进行修改允许我们这样做。&lt;/p&gt;
+&lt;p&gt;CAS 提供了高级的配置使客户端与 CAS 服务端进行数据交换。在 CAS 服务器传递 ticket 校验结果时，可以将基于 CAS 认证时查询到的信息进行传递。&lt;br&gt;这些信息以键值对的方式进行传递，并可以包含用户相关的任何数据。我们将会使用这个功能在 CAS 响应中传递用户的属性，包括 GrantedAuthority 信息。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="cas" scheme="http://batizhao.me/categories/cas/"/>
+    
+    
+      <category term="ldap" scheme="http://batizhao.me/tags/ldap/"/>
+    
+      <category term="cas" scheme="http://batizhao.me/tags/cas/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 CentOS6 上安装 Tomcat7</title>
+    <link href="http://batizhao.me/2012/07/17/install-tomcat7-on-centos/"/>
+    <id>http://batizhao.me/2012/07/17/install-tomcat7-on-centos/</id>
+    <published>2012-07-16T16:00:00.000Z</published>
+    <updated>2016-11-04T08:53:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-下载"><a href="#1-下载" class="headerlink" title="1. 下载"></a>1. 下载</h2><pre><code># wget http://mirror.bit.edu.cn/apache/tomcat/tomcat-7/v7.0.29/bin/apache-tomcat-7.0.29.tar.gz
+</code></pre><h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><pre><code># tar -xzvf apache-tomcat-7.0.29.tar.gz
+# mv apache-tomcat-7.0.29 /opt/tomcat7
+# cd /opt/tomcat7
+# bin/startup.sh    
+</code></pre><a id="more"></a>
+<h2 id="3-配置"><a href="#3-配置" class="headerlink" title="3. 配置"></a>3. 配置</h2><p>在生产环境用 root 是不安全的，所以</p>
+<pre><code># useradd -s /sbin/nologin tomcat
+# chown -R tomcat:tomcat /opt/tomcat7
+</code></pre><p>做为 service，和操作系统一起启动</p>
+<pre><code># cd /opt/tomcat7/bin
+# tar -xzvf commons-daemon-native.tar.gz
+# cd commons-daemon-1.0.10-native-src/unix
+# ./configure 
+# make
+# cp jsvc ../..
+# cd ../..
+</code></pre><p>在 daemon.sh 的注释后边，正文最开始增加下边五行内容</p>
+<pre><code># vim daemon.sh
+----
+# chkconfig: 2345 10 90 
+# description: Starts and Stops the Tomcat daemon. 
+
+JAVA_HOME=/usr/java/jdk1.6.0_31
+CATALINA_HOME=/opt/tomcat7
+CATALINA_OPTS=&quot;-Xms1024m -Xmx2048m -XX:PermSize=256m -XX:MaxPermSize=512m&quot; 
+</code></pre><p>增加到 service</p>
+<pre><code># cp daemon.sh /etc/init.d/tomcat
+# chkconfig --add tomcat
+</code></pre><p>检查</p>
+<pre><code># chkconfig --list|grep tomcat
+tomcat             0:关闭    1:关闭    2:启用    3:启用    4:启用    5:启用    6:关闭
+</code></pre><p>打开端口</p>
+<pre><code># vim /etc/sysconfig/iptables
+----
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 8080 -j ACCEPT
+
+# service iptables restart        
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-下载&quot;&gt;&lt;a href=&quot;#1-下载&quot; class=&quot;headerlink&quot; title=&quot;1. 下载&quot;&gt;&lt;/a&gt;1. 下载&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;# wget http://mirror.bit.edu.cn/apache/tomcat/tomcat-7/v7.0.29/bin/apache-tomcat-7.0.29.tar.gz
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;2-安装&quot;&gt;&lt;a href=&quot;#2-安装&quot; class=&quot;headerlink&quot; title=&quot;2. 安装&quot;&gt;&lt;/a&gt;2. 安装&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;# tar -xzvf apache-tomcat-7.0.29.tar.gz
+# mv apache-tomcat-7.0.29 /opt/tomcat7
+# cd /opt/tomcat7
+# bin/startup.sh    
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="http://batizhao.me/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="centos" scheme="http://batizhao.me/tags/centos/"/>
+    
+      <category term="tomcat" scheme="http://batizhao.me/tags/tomcat/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 CentOS6 上安装 BIND（DNS Server）</title>
+    <link href="http://batizhao.me/2012/07/16/install-dns-server-on-centos6/"/>
+    <id>http://batizhao.me/2012/07/16/install-dns-server-on-centos6/</id>
+    <published>2012-07-15T16:00:00.000Z</published>
+    <updated>2016-11-04T08:52:48.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-DNS-安装"><a href="#1-DNS-安装" class="headerlink" title="1. DNS 安装"></a>1. DNS 安装</h2><p>方式一：从官方下载最新的 Release 版本编译安装（生产环境推荐，后边的配置步骤也会以这种方式说明，和 yum 安装的路径不同）</p>
+<p>在安装之前需要先安装 gcc</p>
+<pre><code># yum install gcc.x86_64 gcc-c++.x86_64 gcc-objc++.x86_64
+</code></pre><p>还需要有 openssl</p>
+<pre><code># yum install openssl openssl-devel
+</code></pre><a id="more"></a>
+<p>下载并安装</p>
+<pre><code># wget http://ftp.isc.org/isc/bind9/9.9.1-P1/bind-9.9.1-P1.tar.gz
+# tar -zxvf bind-9.9.1-P1.tar.gz
+# cd bind-9.9.1-P1
+# ./configure --enable-largefile --enable-threads --prefix=/usr/local/named
+# make
+# make install        
+</code></pre><p>查询版本号</p>
+<pre><code># /usr/local/named/sbin/named -v
+----
+BIND 9.9.1-P1    
+</code></pre><p>方式二：使用 yum 安装</p>
+<pre><code># yum -y install bind* caching-nameserver
+</code></pre><p>查询版本号</p>
+<pre><code># named -v
+BIND 9.8.2rc1-RedHat-9.8.2-0.10.rc1.el6        
+</code></pre><h2 id="2-DNS-配置"><a href="#2-DNS-配置" class="headerlink" title="2. DNS 配置"></a>2. DNS 配置</h2><p>安装 RNDC，让其管理 bind</p>
+<pre><code># cd /usr/local/named/etc
+# /usr/local/named/sbin/rndc-confgen &gt; /usr/local/named/etc/rndc.conf
+# tail -n10 rndc.conf |head -n9 |sed -e s/#\//g &gt; named.conf    
+</code></pre><p>更新 Internet 根服务器地址</p>
+<pre><code># cd /usr/local/named/
+# wget ftp://ftp.internic.org/domain/named.root    
+</code></pre><p>配置 named.conf 文件，这是 bind 的主配置文件，最终的内容    </p>
+<pre><code># mkdir -p /usr/local/named/data
+# cd etc
+# vim named.conf
+</code></pre><p>刚才    tail 命令时已经把 rndc.conf 的一部分内容加进来，现在再在前边加入以下内容</p>
+<pre><code>options {
+    directory &quot;/usr/local/named&quot;;
+    pid-file &quot;named.pid&quot;;
+    listen-on port 53 {any;};
+    allow-query {any;};
+    dump-file &quot;/usr/local/named/data/cache_dump.db&quot;;
+    statistics-file &quot;/usr/local/named/data/named_stats.txt&quot;;
+    forward only;               //增加转发功能
+    forwarders {
+            8.8.8.8;
+    };
+
+};
+
+zone &quot;.&quot;  IN {
+    type hint;
+    file &quot;named.root&quot;;
+};
+
+zone &quot;localhost&quot; IN {
+         type master;
+         file &quot;localhost.zone&quot;;
+         allow-update { none; };
+};
+
+zone &quot;0.0.127.in-addr.arpa&quot; IN {
+         type master;
+         file &quot;localhost.rev&quot;;
+         allow-update { none; };
+};
+
+zone &quot;dev.org&quot; IN {
+        type master;
+        file &quot;dev.org.zone&quot;;
+};
+
+zone &quot;247.4.10.in-addr.arpa&quot; IN {
+        type master;
+        file &quot;10.4.247.zone&quot;;            
+};
+</code></pre><p>生成域名相应的配置文件</p>
+<pre><code># cd /usr/local/named
+</code></pre><p>localhost 正向解析文件</p>
+<pre><code># vim localhost.zone
+----
+$TTL 3600
+@    IN SOA  @    root (
+              20100923       ;serial (d. adams)
+              3H             ;refresh
+              15M            ;retry
+              1W             ;expiry
+              3600)          ;minimum
+ IN NS   @
+ IN A    127.0.0.1
+</code></pre><p>localhost 反向解析文件</p>
+<pre><code># vim localhost.rev
+----
+$TTL 3600
+@   IN SOA   localhost.   root.localhost. (
+             20100923      ; serial
+             3600          ; refresh every hour
+             900           ; retry every 15 minutes
+             3600000       ; expire 1000 hours
+             3600)         ; minimun 1 hour
+     IN NS  localhost.
+1    IN PTR localhost.   
+</code></pre><p>dev.org 正向解析文件</p>
+<pre><code># vim dev.org.zone
+----
+$TTL 86400
+@       IN SOA  dns.dev.org root (
+                                        0       ; serial
+                                        1D      ; refresh
+                                        1H      ; retry
+                                        1W      ; expire
+                                        3H )    ; minimum
+@       IN      NS      dns.dev.org.
+cas     IN      A      10.4.247.20
+dns     IN      A       10.4.247.20
+ldap     IN      A       10.4.247.20
+</code></pre><p>dev.org 反向解析文件</p>
+<pre><code># vim 10.4.247.zone
+----
+$TTL 86400
+@       IN SOA  dns.dev.org root (
+                                        0       ; serial
+                                        1D      ; refresh
+                                        1H      ; retry
+                                        1W      ; expire
+                                        3H )    ; minimum
+@       IN      NS      dns.dev.org.
+cas     IN      A       10.4.247.20
+dns     IN      A       10.4.247.20
+ldap     IN     A       10.4.247.20
+20      IN      PTR     cas.dev.org.
+20      IN      PTR     dns.dev.org.
+20      IN      PTR     ldap.dev.org.
+</code></pre><h2 id="3-测试"><a href="#3-测试" class="headerlink" title="3. 测试"></a>3. 测试</h2><p>启动bind</p>
+<pre><code># /usr/local/named/sbin/named -gc /usr/local/named/etc/named.conf &amp;
+----
+16-Jul-2012 10:47:03.896 ----------------------------------------------------
+16-Jul-2012 10:47:03.896 BIND 9 is maintained by Internet Systems Consortium,
+16-Jul-2012 10:47:03.896 Inc. (ISC), a non-profit 501(c)(3) public-benefit 
+16-Jul-2012 10:47:03.896 corporation.  Support and training for BIND 9 are 
+16-Jul-2012 10:47:03.896 available at https://www.isc.org/support
+16-Jul-2012 10:47:03.896 ----------------------------------------------------
+16-Jul-2012 10:47:03.896 adjusted limit on open files from 4096 to 1048576
+16-Jul-2012 10:47:03.896 found 16 CPUs, using 16 worker threads
+16-Jul-2012 10:47:03.896 using 16 UDP listeners per interface
+16-Jul-2012 10:47:03.897 using up to 4096 sockets
+16-Jul-2012 10:47:03.903 loading configuration from &apos;/usr/local/named/etc/named.conf&apos;
+16-Jul-2012 10:47:03.903 reading built-in trusted keys from file &apos;/usr/local/named/etc/bind.keys&apos;
+16-Jul-2012 10:47:03.904 using default UDP/IPv4 port range: [1024, 65535]
+16-Jul-2012 10:47:03.904 using default UDP/IPv6 port range: [1024, 65535]
+16-Jul-2012 10:47:03.905 listening on IPv4 interface lo, 127.0.0.1#53
+16-Jul-2012 10:47:03.911 listening on IPv4 interface em1, 10.4.247.20#53
+16-Jul-2012 10:47:03.916 generating session key for dynamic DNS
+16-Jul-2012 10:47:03.916 sizing zone task pool based on 5 zones
+16-Jul-2012 10:47:03.919 set up managed keys zone for view _default, file &apos;managed-keys.bind&apos;
+16-Jul-2012 10:47:03.922 command channel listening on 127.0.0.1#953
+16-Jul-2012 10:47:03.922 ignoring config file logging statement due to -g option
+16-Jul-2012 10:47:03.922 managed-keys-zone: loaded serial 0
+16-Jul-2012 10:47:03.923 zone 0.0.127.in-addr.arpa/IN: loaded serial 20100923
+16-Jul-2012 10:47:03.924 zone localhost/IN: has no NS records
+16-Jul-2012 10:47:03.924 zone localhost/IN: not loaded due to errors.
+16-Jul-2012 10:47:03.924 zone 247.4.10.in-addr.arpa/IN: loaded serial 0
+16-Jul-2012 10:47:03.924 zone dev.org/IN: loaded serial 0
+16-Jul-2012 10:47:03.925 all zones loaded
+16-Jul-2012 10:47:03.925 running
+</code></pre><p>修改本机的 DNS 设置（如果修改 resolv.conf 的话重启以后会失效）</p>
+<pre><code>#vim /etc/sysconfig/network-scripts/ifcfg-em1
+DNS1=10.4.247.20
+</code></pre><p>安装 nslookup 工具                    </p>
+<pre><code># yum install bind-utils
+# nslookup
+&gt; dns.dev.org
+Server:        10.4.247.20
+Address:    10.4.247.20#53
+
+Name:    dns.dev.org
+Address: 10.4.247.20
+&gt; cas.dev.org
+Server:        10.4.247.20
+Address:    10.4.247.20#53
+
+Name:    cas.dev.org
+Address: 10.4.247.20
+&gt; ldap.dev.org
+Server:        10.4.247.20
+Address:    10.4.247.20#53
+
+Name:    ldap.dev.org
+Address: 10.4.247.20
+&gt; 10.4.247.20
+Server:        10.4.247.20
+Address:    10.4.247.20#53
+
+20.247.4.10.in-addr.arpa    name = dns.dev.org.
+20.247.4.10.in-addr.arpa    name = ldap.dev.org.
+20.247.4.10.in-addr.arpa    name = cas.dev.org.
+</code></pre><p>最后需要把 bind 加入到启动项，随操作系统一起启动</p>
+<pre><code># cd /etc/rc.d
+# vim rc.local
+</code></pre><p>在最后添加</p>
+<pre><code># /usr/local/named/sbin/named -gc /usr/local/named/etc/named.conf &amp;
+</code></pre><h2 id="4-注意"><a href="#4-注意" class="headerlink" title="4. 注意"></a>4. 注意</h2><p>服务一旦运行，基本就不会再关闭，重新加载配置使用</p>
+<pre><code># /usr/local/named/sbin/rndc reload        
+</code></pre><p>如果 iptables 有打开，一定要打开端口</p>
+<pre><code># netstat -tunpl|grep named
+----
+tcp  0  0 10.4.247.20:53  0.0.0.0:*  LISTEN  2987/named          
+tcp  0  0 127.0.0.1:53    0.0.0.0:*  LISTEN  2987/named          
+tcp  0  0 127.0.0.1:953   0.0.0.0:*  LISTEN  2987/named          
+udp  0  0 10.4.247.20:53  0.0.0.0:*          2987/named          
+udp  0  0 127.0.0.1:53    0.0.0.0:*          2987/named
+
+# vim /etc/sysconfig/iptables
+----
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 53 -j ACCEPT
+-A INPUT -m state --state NEW -m udp -p udp --dport 53 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 953 -j ACCEPT  
+
+# service iptables restart                 
+</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;1-DNS-安装&quot;&gt;&lt;a href=&quot;#1-DNS-安装&quot; class=&quot;headerlink&quot; title=&quot;1. DNS 安装&quot;&gt;&lt;/a&gt;1. DNS 安装&lt;/h2&gt;&lt;p&gt;方式一：从官方下载最新的 Release 版本编译安装（生产环境推荐，后边的配置步骤也会以这种方式说明，和 yum 安装的路径不同）&lt;/p&gt;
+&lt;p&gt;在安装之前需要先安装 gcc&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# yum install gcc.x86_64 gcc-c++.x86_64 gcc-objc++.x86_64
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;还需要有 openssl&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# yum install openssl openssl-devel
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="http://batizhao.me/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="dns" scheme="http://batizhao.me/tags/dns/"/>
+    
+  </entry>
+  
+</feed>

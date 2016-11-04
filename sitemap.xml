@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://batizhao.me/2014/04/18/building-a-course/</loc>
+    
+    <lastmod>2016-11-04T09:11:55.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2014/04/15/edx-course-management/</loc>
+    
+    <lastmod>2016-11-04T09:11:25.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2014/04/14/quick-start-to-working-with-the-edx-platform/</loc>
+    
+    <lastmod>2016-11-04T09:10:54.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2014/04/11/learning-edx-one/</loc>
+    
+    <lastmod>2016-11-04T09:10:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2013/11/06/jdk-7---install_parse_failed_no_certificates/</loc>
+    
+    <lastmod>2016-11-04T09:09:18.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/</loc>
+    
+    <lastmod>2016-11-04T09:08:50.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2013/06/28/solr-and--mysql/</loc>
+    
+    <lastmod>2016-11-04T09:08:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2013/05/29/installing-solr-on-tomcat/</loc>
+    
+    <lastmod>2016-11-04T09:07:48.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/09/28/using-simple-spring-memcached-three/</loc>
+    
+    <lastmod>2016-11-04T09:05:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/</loc>
+    
+    <lastmod>2016-11-04T09:04:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/</loc>
+    
+    <lastmod>2016-11-04T09:03:57.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/</loc>
+    
+    <lastmod>2016-11-04T09:03:43.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/09/18/installing-activemq-as-a-service-on-centos6/</loc>
+    
+    <lastmod>2016-11-04T09:02:56.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/09/17/install-vsftpd-on-centos6/</loc>
+    
+    <lastmod>2016-11-04T09:02:45.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/09/07/install-memcached-on-centos6/</loc>
+    
+    <lastmod>2016-11-04T09:02:27.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/08/22/maven-package/</loc>
+    
+    <lastmod>2016-11-04T09:01:50.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/06/15/opendj-error-code-53/</loc>
+    
+    <lastmod>2016-11-04T08:57:53.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/07/19/setting-cas-assertion/</loc>
+    
+    <lastmod>2016-11-04T08:53:24.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/07/17/install-tomcat7-on-centos/</loc>
+    
+    <lastmod>2016-11-04T08:53:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/07/16/install-dns-server-on-centos6/</loc>
+    
+    <lastmod>2016-11-04T08:52:48.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/07/13/install-opendj-on-centos6-with-gui/</loc>
+    
+    <lastmod>2016-11-04T08:52:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/07/12/install-vncserver-for-centos63/</loc>
+    
+    <lastmod>2016-11-04T08:52:03.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/07/06/custom-cas-theme/</loc>
+    
+    <lastmod>2016-11-04T08:51:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/05/08/identity-management/</loc>
+    
+    <lastmod>2016-11-04T08:50:49.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/05/03/step-by-step-two-openidm/</loc>
+    
+    <lastmod>2016-11-04T08:50:29.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/05/02/step-by-step-one-openidm/</loc>
+    
+    <lastmod>2016-11-04T08:50:03.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/04/05/install-openam-on-rhel6/</loc>
+    
+    <lastmod>2016-11-04T08:47:03.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/04/06/installing-the-apache-tomcat-policy-agent/</loc>
+    
+    <lastmod>2016-11-04T08:46:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/04/12/using-openam-develop-dlient-applications/</loc>
+    
+    <lastmod>2016-11-04T08:46:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/04/16/openam-integrate-with-spring-security-3/</loc>
+    
+    <lastmod>2016-11-04T08:45:48.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/04/18/installing-openidm-on-rhel6/</loc>
+    
+    <lastmod>2016-11-04T08:45:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/04/20/using-openidm-with-rest-api/</loc>
+    
+    <lastmod>2016-11-04T08:45:06.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/04/26/reset-mysql-root-password-on-mac/</loc>
+    
+    <lastmod>2016-11-04T08:44:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/03/07/install-rhel6/</loc>
+    
+    <lastmod>2016-11-04T08:26:27.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/03/08/config-yum-on-rhel6/</loc>
+    
+    <lastmod>2016-11-04T08:26:06.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/03/10/install-phpldapadmin-on-rhel6/</loc>
+    
+    <lastmod>2016-11-04T08:25:34.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/03/29/install-java-on-rhel6/</loc>
+    
+    <lastmod>2016-11-04T08:24:27.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/03/29/install-apache2/</loc>
+    
+    <lastmod>2016-11-04T08:23:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/03/29/install-opendj-directory-server-on-rhel6/</loc>
+    
+    <lastmod>2016-11-04T08:23:21.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2016/11/04/hello-world/</loc>
+    
+    <lastmod>2016-11-04T08:21:41.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/categories/index.html</loc>
+    
+    <lastmod>2016-11-04T08:14:57.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/tags/index.html</loc>
+    
+    <lastmod>2016-11-04T08:14:37.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/03/28/install-gcc/</loc>
+    
+    <lastmod>2016-11-04T07:54:12.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/03/09/install-openldap/</loc>
+    
+    <lastmod>2016-11-04T07:53:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/about/index.html</loc>
+    
+    <lastmod>2016-11-04T06:47:26.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/404.html</loc>
+    
+    <lastmod>2016-11-04T06:19:36.000Z</lastmod>
+    
+  </url>
+  
+</urlset>

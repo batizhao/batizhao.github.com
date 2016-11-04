@@ -1,0 +1,687 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="MOOC,edX," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hello World" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="edX 概览edX 平台主要采用 Python 语言实现，还包括了个别的 Ruby 和 Node.js。部分服务使用到了 Java ，数据库使用了 MySQL 和 MongoDB，所有这些代码都是在 AGPL 协议下开源的。
+XBlock 是 edX 的下一代组件架构。对机器学习评分感兴趣可以看 Ease 和 Discern 。部署和配置工具方面可以看 Configuration。各主要组件的详细">
+<meta property="og:type" content="article">
+<meta property="og:title" content="edX 学习一：了解 edX 相关组件">
+<meta property="og:url" content="http://batizhao.me/2014/04/11/learning-edx-one/index.html">
+<meta property="og:site_name" content="Hello World">
+<meta property="og:description" content="edX 概览edX 平台主要采用 Python 语言实现，还包括了个别的 Ruby 和 Node.js。部分服务使用到了 Java ，数据库使用了 MySQL 和 MongoDB，所有这些代码都是在 AGPL 协议下开源的。
+XBlock 是 edX 的下一代组件架构。对机器学习评分感兴趣可以看 Ease 和 Discern 。部署和配置工具方面可以看 Configuration。各主要组件的详细">
+<meta property="og:image" content="http://batizhao.me/images/edx.png">
+<meta property="og:updated_time" content="2016-11-04T09:10:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="edX 学习一：了解 edX 相关组件">
+<meta name="twitter:description" content="edX 概览edX 平台主要采用 Python 语言实现，还包括了个别的 Ruby 和 Node.js。部分服务使用到了 Java ，数据库使用了 MySQL 和 MongoDB，所有这些代码都是在 AGPL 协议下开源的。
+XBlock 是 edX 的下一代组件架构。对机器学习评分感兴趣可以看 Ease 和 Discern 。部署和配置工具方面可以看 Configuration。各主要组件的详细">
+<meta name="twitter:image" content="http://batizhao.me/images/edx.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://batizhao.me/2014/04/11/learning-edx-one/"/>
+
+
+  <title> edX 学习一：了解 edX 相关组件 | Hello World </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hello World</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                edX 学习一：了解 edX 相关组件
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-04-11T00:00:00+08:00" content="2014-04-11">
+              2014-04-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mooc/" itemprop="url" rel="index">
+                    <span itemprop="name">mooc</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="edX-概览"><a href="#edX-概览" class="headerlink" title="edX 概览"></a>edX 概览</h1><p>edX 平台主要采用 Python 语言实现，还包括了个别的 Ruby 和 Node.js。部分服务使用到了 Java ，数据库使用了 MySQL 和 MongoDB，所有这些代码都是在 AGPL 协议下开源的。</p>
+<p>XBlock 是 edX 的下一代组件架构。对机器学习评分感兴趣可以看 Ease 和 Discern 。部署和配置工具方面可以看 Configuration。各主要组件的详细介绍可以看下边。</p>
+<p><img src="/images/edx.png" alt="edx"></p>
+<a id="more"></a>
+<h1 id="edx-platform"><a href="#edx-platform" class="headerlink" title="edx-platform"></a>edx-platform</h1><p>主代码库 edx-platform 中包含 LMS（Learning Management System）、创作工具（Authoring Tool）、制作环境（Studio）。</p>
+<p>它还包括 XModules（课件组件，在接下来的几个月准备升级到新 XBlock 架构）和不同的评分器。</p>
+<h1 id="XBlock"><a href="#XBlock" class="headerlink" title="XBlock"></a>XBlock</h1><p>XBlock 是一个构造课件的组件。</p>
+<p>XBlock API 目前还处在 pre-alpha，这个代码库中包含了 XBlock 实现的核心代码，一个简单的应用工作台和一个小型的、简单的运行环境。</p>
+<h1 id="ORA-Open-Response-Assessor"><a href="#ORA-Open-Response-Assessor" class="headerlink" title="ORA (Open Response Assessor)"></a>ORA (Open Response Assessor)</h1><p>Open Response Assessor（开放响应评估员）从 XQueue 获得消息，通过机器学习的评分、同行的评分和适当的人工评分，并返回结果到 LMS。</p>
+<h1 id="Discern-和-Ease"><a href="#Discern-和-Ease" class="headerlink" title="Discern 和 Ease"></a>Discern 和 Ease</h1><p>Discern 是一个允许任何人使用的基于机器学习的自动文本化分类 API 服务。提供了一个高性能的、可扩展的解决方案，可以有效地帮助学生学习。反馈是这个过程的一个重要组成部分，该反馈系统非常灵活。注意，你需要 Ease 代码库使用这里所有的功能。</p>
+<p>Ease（增强的 AI 评分引擎）是一个基于机器学习的文本内容分类库。这对于诸如学生论文评分的任务非常有用。它提供预测任意文本和数值得分的功能。这里的目标是提供一个高性能的，可扩展的解决方案，可以预测任意值的目标。请注意，这仅仅是一个库。你需要实现你自己的代码才可以运行。Discern API 是对 Ease 的进一步封装。</p>
+<h1 id="CS-Comments-Service"><a href="#CS-Comments-Service" class="headerlink" title="CS Comments Service"></a>CS Comments Service</h1><p>这是一个独立的评论系统，支持投票和嵌套的评论。它还是一个教师备课和教学目标讨论平台。这个系统的不同之处是用 Ruby 实现，并且用到了 elasticsearch 做分布式实时搜索引擎。</p>
+<h1 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h1><p>Configuration 提供了一个简单、灵活的配置，让任何人都能搭建 edX 平台，运行一个实例。使用 Amazon CloudFormation Template 创建一个新的 AWS 虚拟私有云。配置阶段是由 Ansible 管理的。</p>
+<h1 id="CodeJail"><a href="#CodeJail" class="headerlink" title="CodeJail"></a>CodeJail</h1><p>CodeJail 提供了一个安全沙盒，管理不受信任代码的执行。它的主要目的是为 Python 执行，也可用于其他语言。强制使用 AppArmor ，如果操作系统不支持 AppArmor，那么 CodeJail 不会起到作用。</p>
+<h1 id="XQueue"><a href="#XQueue" class="headerlink" title="XQueue"></a>XQueue</h1><p>XQueue 定义了一个 LMS 和外部服务的接口，实际使用的是 RabbitMQ。例如，当一个学生在 LMS 提交一个问题，它就会被发送到XQueue。XQueue 有一个外部服务分级的机制，然后发回响应到 LMS。</p>
+<h1 id="XServer"><a href="#XServer" class="headerlink" title="XServer"></a>XServer</h1><p>XServer 接受学生从 LMS 提交的代码，并使用课件检查器运行。</p>
+<h1 id="Notifier"><a href="#Notifier" class="headerlink" title="Notifier"></a>Notifier</h1><p>Notifier 为订阅用户发送新内容的每日摘要，目标是最终支持实时和各种类型的内容在不同渠道（如短信）的批量通知。</p>
+<h1 id="Django-wiki"><a href="#Django-wiki" class="headerlink" title="Django-wiki"></a>Django-wiki</h1><p>一个有着出色的界面和复杂的功能的维基系统、知识库。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MOOC/" rel="tag">#MOOC</a>
+          
+            <a href="/tags/edX/" rel="tag">#edX</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2013/11/06/jdk-7---install_parse_failed_no_certificates/" rel="next" title="JDK 7 - INSTALL_PARSE_FAILED_NO_CERTIFICATES">
+                <i class="fa fa-chevron-left"></i> JDK 7 - INSTALL_PARSE_FAILED_NO_CERTIFICATES
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/04/14/quick-start-to-working-with-the-edx-platform/" rel="prev" title="edX 学习二：搭建 edX 平台">
+                edX 学习二：搭建 edX 平台 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Bati Zhao" />
+          <p class="site-author-name" itemprop="name">Bati Zhao</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/batizhao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/batizhao" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/zhaobati" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#edX-概览"><span class="nav-number">1.</span> <span class="nav-text">edX 概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#edx-platform"><span class="nav-number">2.</span> <span class="nav-text">edx-platform</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XBlock"><span class="nav-number">3.</span> <span class="nav-text">XBlock</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ORA-Open-Response-Assessor"><span class="nav-number">4.</span> <span class="nav-text">ORA (Open Response Assessor)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Discern-和-Ease"><span class="nav-number">5.</span> <span class="nav-text">Discern 和 Ease</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CS-Comments-Service"><span class="nav-number">6.</span> <span class="nav-text">CS Comments Service</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Configuration"><span class="nav-number">7.</span> <span class="nav-text">Configuration</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CodeJail"><span class="nav-number">8.</span> <span class="nav-text">CodeJail</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XQueue"><span class="nav-number">9.</span> <span class="nav-text">XQueue</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XServer"><span class="nav-number">10.</span> <span class="nav-text">XServer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Notifier"><span class="nav-number">11.</span> <span class="nav-text">Notifier</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Django-wiki"><span class="nav-number">12.</span> <span class="nav-text">Django-wiki</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bati Zhao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

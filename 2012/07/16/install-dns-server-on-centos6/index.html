@@ -1,0 +1,893 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux,dns," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hello World" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="1. DNS 安装方式一：从官方下载最新的 Release 版本编译安装（生产环境推荐，后边的配置步骤也会以这种方式说明，和 yum 安装的路径不同）
+在安装之前需要先安装 gcc
+# yum install gcc.x86_64 gcc-c++.x86_64 gcc-objc++.x86_64
+还需要有 openssl
+# yum install openssl openssl-devel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 CentOS6 上安装 BIND（DNS Server）">
+<meta property="og:url" content="http://batizhao.me/2012/07/16/install-dns-server-on-centos6/index.html">
+<meta property="og:site_name" content="Hello World">
+<meta property="og:description" content="1. DNS 安装方式一：从官方下载最新的 Release 版本编译安装（生产环境推荐，后边的配置步骤也会以这种方式说明，和 yum 安装的路径不同）
+在安装之前需要先安装 gcc
+# yum install gcc.x86_64 gcc-c++.x86_64 gcc-objc++.x86_64
+还需要有 openssl
+# yum install openssl openssl-devel">
+<meta property="og:updated_time" content="2016-11-04T08:52:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在 CentOS6 上安装 BIND（DNS Server）">
+<meta name="twitter:description" content="1. DNS 安装方式一：从官方下载最新的 Release 版本编译安装（生产环境推荐，后边的配置步骤也会以这种方式说明，和 yum 安装的路径不同）
+在安装之前需要先安装 gcc
+# yum install gcc.x86_64 gcc-c++.x86_64 gcc-objc++.x86_64
+还需要有 openssl
+# yum install openssl openssl-devel">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://batizhao.me/2012/07/16/install-dns-server-on-centos6/"/>
+
+
+  <title> 在 CentOS6 上安装 BIND（DNS Server） | Hello World </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Hello World</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                在 CentOS6 上安装 BIND（DNS Server）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-07-16T00:00:00+08:00" content="2012-07-16">
+              2012-07-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-DNS-安装"><a href="#1-DNS-安装" class="headerlink" title="1. DNS 安装"></a>1. DNS 安装</h2><p>方式一：从官方下载最新的 Release 版本编译安装（生产环境推荐，后边的配置步骤也会以这种方式说明，和 yum 安装的路径不同）</p>
+<p>在安装之前需要先安装 gcc</p>
+<pre><code># yum install gcc.x86_64 gcc-c++.x86_64 gcc-objc++.x86_64
+</code></pre><p>还需要有 openssl</p>
+<pre><code># yum install openssl openssl-devel
+</code></pre><a id="more"></a>
+<p>下载并安装</p>
+<pre><code># wget http://ftp.isc.org/isc/bind9/9.9.1-P1/bind-9.9.1-P1.tar.gz
+# tar -zxvf bind-9.9.1-P1.tar.gz
+# cd bind-9.9.1-P1
+# ./configure --enable-largefile --enable-threads --prefix=/usr/local/named
+# make
+# make install        
+</code></pre><p>查询版本号</p>
+<pre><code># /usr/local/named/sbin/named -v
+----
+BIND 9.9.1-P1    
+</code></pre><p>方式二：使用 yum 安装</p>
+<pre><code># yum -y install bind* caching-nameserver
+</code></pre><p>查询版本号</p>
+<pre><code># named -v
+BIND 9.8.2rc1-RedHat-9.8.2-0.10.rc1.el6        
+</code></pre><h2 id="2-DNS-配置"><a href="#2-DNS-配置" class="headerlink" title="2. DNS 配置"></a>2. DNS 配置</h2><p>安装 RNDC，让其管理 bind</p>
+<pre><code># cd /usr/local/named/etc
+# /usr/local/named/sbin/rndc-confgen &gt; /usr/local/named/etc/rndc.conf
+# tail -n10 rndc.conf |head -n9 |sed -e s/#\//g &gt; named.conf    
+</code></pre><p>更新 Internet 根服务器地址</p>
+<pre><code># cd /usr/local/named/
+# wget ftp://ftp.internic.org/domain/named.root    
+</code></pre><p>配置 named.conf 文件，这是 bind 的主配置文件，最终的内容    </p>
+<pre><code># mkdir -p /usr/local/named/data
+# cd etc
+# vim named.conf
+</code></pre><p>刚才    tail 命令时已经把 rndc.conf 的一部分内容加进来，现在再在前边加入以下内容</p>
+<pre><code>options {
+    directory &quot;/usr/local/named&quot;;
+    pid-file &quot;named.pid&quot;;
+    listen-on port 53 {any;};
+    allow-query {any;};
+    dump-file &quot;/usr/local/named/data/cache_dump.db&quot;;
+    statistics-file &quot;/usr/local/named/data/named_stats.txt&quot;;
+    forward only;               //增加转发功能
+    forwarders {
+            8.8.8.8;
+    };
+
+};
+
+zone &quot;.&quot;  IN {
+    type hint;
+    file &quot;named.root&quot;;
+};
+
+zone &quot;localhost&quot; IN {
+         type master;
+         file &quot;localhost.zone&quot;;
+         allow-update { none; };
+};
+
+zone &quot;0.0.127.in-addr.arpa&quot; IN {
+         type master;
+         file &quot;localhost.rev&quot;;
+         allow-update { none; };
+};
+
+zone &quot;dev.org&quot; IN {
+        type master;
+        file &quot;dev.org.zone&quot;;
+};
+
+zone &quot;247.4.10.in-addr.arpa&quot; IN {
+        type master;
+        file &quot;10.4.247.zone&quot;;            
+};
+</code></pre><p>生成域名相应的配置文件</p>
+<pre><code># cd /usr/local/named
+</code></pre><p>localhost 正向解析文件</p>
+<pre><code># vim localhost.zone
+----
+$TTL 3600
+@    IN SOA  @    root (
+              20100923       ;serial (d. adams)
+              3H             ;refresh
+              15M            ;retry
+              1W             ;expiry
+              3600)          ;minimum
+ IN NS   @
+ IN A    127.0.0.1
+</code></pre><p>localhost 反向解析文件</p>
+<pre><code># vim localhost.rev
+----
+$TTL 3600
+@   IN SOA   localhost.   root.localhost. (
+             20100923      ; serial
+             3600          ; refresh every hour
+             900           ; retry every 15 minutes
+             3600000       ; expire 1000 hours
+             3600)         ; minimun 1 hour
+     IN NS  localhost.
+1    IN PTR localhost.   
+</code></pre><p>dev.org 正向解析文件</p>
+<pre><code># vim dev.org.zone
+----
+$TTL 86400
+@       IN SOA  dns.dev.org root (
+                                        0       ; serial
+                                        1D      ; refresh
+                                        1H      ; retry
+                                        1W      ; expire
+                                        3H )    ; minimum
+@       IN      NS      dns.dev.org.
+cas     IN      A      10.4.247.20
+dns     IN      A       10.4.247.20
+ldap     IN      A       10.4.247.20
+</code></pre><p>dev.org 反向解析文件</p>
+<pre><code># vim 10.4.247.zone
+----
+$TTL 86400
+@       IN SOA  dns.dev.org root (
+                                        0       ; serial
+                                        1D      ; refresh
+                                        1H      ; retry
+                                        1W      ; expire
+                                        3H )    ; minimum
+@       IN      NS      dns.dev.org.
+cas     IN      A       10.4.247.20
+dns     IN      A       10.4.247.20
+ldap     IN     A       10.4.247.20
+20      IN      PTR     cas.dev.org.
+20      IN      PTR     dns.dev.org.
+20      IN      PTR     ldap.dev.org.
+</code></pre><h2 id="3-测试"><a href="#3-测试" class="headerlink" title="3. 测试"></a>3. 测试</h2><p>启动bind</p>
+<pre><code># /usr/local/named/sbin/named -gc /usr/local/named/etc/named.conf &amp;
+----
+16-Jul-2012 10:47:03.896 ----------------------------------------------------
+16-Jul-2012 10:47:03.896 BIND 9 is maintained by Internet Systems Consortium,
+16-Jul-2012 10:47:03.896 Inc. (ISC), a non-profit 501(c)(3) public-benefit 
+16-Jul-2012 10:47:03.896 corporation.  Support and training for BIND 9 are 
+16-Jul-2012 10:47:03.896 available at https://www.isc.org/support
+16-Jul-2012 10:47:03.896 ----------------------------------------------------
+16-Jul-2012 10:47:03.896 adjusted limit on open files from 4096 to 1048576
+16-Jul-2012 10:47:03.896 found 16 CPUs, using 16 worker threads
+16-Jul-2012 10:47:03.896 using 16 UDP listeners per interface
+16-Jul-2012 10:47:03.897 using up to 4096 sockets
+16-Jul-2012 10:47:03.903 loading configuration from &apos;/usr/local/named/etc/named.conf&apos;
+16-Jul-2012 10:47:03.903 reading built-in trusted keys from file &apos;/usr/local/named/etc/bind.keys&apos;
+16-Jul-2012 10:47:03.904 using default UDP/IPv4 port range: [1024, 65535]
+16-Jul-2012 10:47:03.904 using default UDP/IPv6 port range: [1024, 65535]
+16-Jul-2012 10:47:03.905 listening on IPv4 interface lo, 127.0.0.1#53
+16-Jul-2012 10:47:03.911 listening on IPv4 interface em1, 10.4.247.20#53
+16-Jul-2012 10:47:03.916 generating session key for dynamic DNS
+16-Jul-2012 10:47:03.916 sizing zone task pool based on 5 zones
+16-Jul-2012 10:47:03.919 set up managed keys zone for view _default, file &apos;managed-keys.bind&apos;
+16-Jul-2012 10:47:03.922 command channel listening on 127.0.0.1#953
+16-Jul-2012 10:47:03.922 ignoring config file logging statement due to -g option
+16-Jul-2012 10:47:03.922 managed-keys-zone: loaded serial 0
+16-Jul-2012 10:47:03.923 zone 0.0.127.in-addr.arpa/IN: loaded serial 20100923
+16-Jul-2012 10:47:03.924 zone localhost/IN: has no NS records
+16-Jul-2012 10:47:03.924 zone localhost/IN: not loaded due to errors.
+16-Jul-2012 10:47:03.924 zone 247.4.10.in-addr.arpa/IN: loaded serial 0
+16-Jul-2012 10:47:03.924 zone dev.org/IN: loaded serial 0
+16-Jul-2012 10:47:03.925 all zones loaded
+16-Jul-2012 10:47:03.925 running
+</code></pre><p>修改本机的 DNS 设置（如果修改 resolv.conf 的话重启以后会失效）</p>
+<pre><code>#vim /etc/sysconfig/network-scripts/ifcfg-em1
+DNS1=10.4.247.20
+</code></pre><p>安装 nslookup 工具                    </p>
+<pre><code># yum install bind-utils
+# nslookup
+&gt; dns.dev.org
+Server:        10.4.247.20
+Address:    10.4.247.20#53
+
+Name:    dns.dev.org
+Address: 10.4.247.20
+&gt; cas.dev.org
+Server:        10.4.247.20
+Address:    10.4.247.20#53
+
+Name:    cas.dev.org
+Address: 10.4.247.20
+&gt; ldap.dev.org
+Server:        10.4.247.20
+Address:    10.4.247.20#53
+
+Name:    ldap.dev.org
+Address: 10.4.247.20
+&gt; 10.4.247.20
+Server:        10.4.247.20
+Address:    10.4.247.20#53
+
+20.247.4.10.in-addr.arpa    name = dns.dev.org.
+20.247.4.10.in-addr.arpa    name = ldap.dev.org.
+20.247.4.10.in-addr.arpa    name = cas.dev.org.
+</code></pre><p>最后需要把 bind 加入到启动项，随操作系统一起启动</p>
+<pre><code># cd /etc/rc.d
+# vim rc.local
+</code></pre><p>在最后添加</p>
+<pre><code># /usr/local/named/sbin/named -gc /usr/local/named/etc/named.conf &amp;
+</code></pre><h2 id="4-注意"><a href="#4-注意" class="headerlink" title="4. 注意"></a>4. 注意</h2><p>服务一旦运行，基本就不会再关闭，重新加载配置使用</p>
+<pre><code># /usr/local/named/sbin/rndc reload        
+</code></pre><p>如果 iptables 有打开，一定要打开端口</p>
+<pre><code># netstat -tunpl|grep named
+----
+tcp  0  0 10.4.247.20:53  0.0.0.0:*  LISTEN  2987/named          
+tcp  0  0 127.0.0.1:53    0.0.0.0:*  LISTEN  2987/named          
+tcp  0  0 127.0.0.1:953   0.0.0.0:*  LISTEN  2987/named          
+udp  0  0 10.4.247.20:53  0.0.0.0:*          2987/named          
+udp  0  0 127.0.0.1:53    0.0.0.0:*          2987/named
+
+# vim /etc/sysconfig/iptables
+----
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 53 -j ACCEPT
+-A INPUT -m state --state NEW -m udp -p udp --dport 53 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 953 -j ACCEPT  
+
+# service iptables restart                 
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
+          
+            <a href="/tags/dns/" rel="tag">#dns</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2012/07/13/install-opendj-on-centos6-with-gui/" rel="next" title="在 CentOS6 上安装 OpenDJ（GUI）">
+                <i class="fa fa-chevron-left"></i> 在 CentOS6 上安装 OpenDJ（GUI）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2012/07/17/install-tomcat7-on-centos/" rel="prev" title="在 CentOS6 上安装 Tomcat7">
+                在 CentOS6 上安装 Tomcat7 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Bati Zhao" />
+          <p class="site-author-name" itemprop="name">Bati Zhao</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/batizhao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/batizhao" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/zhaobati" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-DNS-安装"><span class="nav-number">1.</span> <span class="nav-text">1. DNS 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-DNS-配置"><span class="nav-number">2.</span> <span class="nav-text">2. DNS 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-测试"><span class="nav-number">3.</span> <span class="nav-text">3. 测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-注意"><span class="nav-number">4.</span> <span class="nav-text">4. 注意</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Bati Zhao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
