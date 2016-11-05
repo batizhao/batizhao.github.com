@@ -17,9 +17,9 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://batizhao.me/2016/11/04/hello-world/"/>
-    <id>http://batizhao.me/2016/11/04/hello-world/</id>
-    <published>2016-11-04T15:55:06.484Z</published>
+    <link href="http://batizhao.me/2016/11/05/hello-world/"/>
+    <id>http://batizhao.me/2016/11/05/hello-world/</id>
+    <published>2016-11-05T05:18:48.675Z</published>
     <updated>2016-11-04T08:21:41.000Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
@@ -719,261 +719,6 @@ public List&amp;lt;User&amp;gt; getUsersByRoleIds(@ParameterValueKeyProvider fin
   </entry>
   
   <entry>
-    <title>使用 Simple-Spring-Memcached Annotation</title>
-    <link href="http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/"/>
-    <id>http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/</id>
-    <published>2012-09-26T16:00:00.000Z</published>
-    <updated>2016-11-04T09:04:40.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/" target="_blank" rel="external">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/" target="_blank" rel="external">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached" target="_blank" rel="external">ssm3-mybatis2-memcached</a>。</p>
-<h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
-public User getUser(@ParameterValueKeyProvider Long id)
-</code></pre><p>Memcache Log:</p>
-<pre><code>get user:1
-set user:1
-</code></pre><a id="more"></a>
-<h2 id="MultiCache-类"><a href="#MultiCache-类" class="headerlink" title="MultiCache 类"></a>MultiCache 类</h2><p>操作 List 型的 Cache 数据（看做是 SingleCache 的批处理），由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughMultiCache(namespace = &quot;user/getUsersByUserIds&quot;, expiration = 600)
-public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids)
-</code></pre><p>If ids=[1,2,3], Then Memcache Log:</p>
-<pre><code>get user:1 user:2 user:3
-set user:1
-set user:2
-set user:3        
-</code></pre><h2 id="AssignCache-类"><a href="#AssignCache-类" class="headerlink" title="AssignCache 类"></a>AssignCache 类</h2><p>操作所有类型的 Cache 数据。适用于无参方法或者需要自定义 Key 的场景。指定 key 操作 Cache 数据，由 annotation 中的 assignedKey 指定 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughAssignCache(assignedKey = &quot;user/getAllUsers&quot;, namespace = &quot;role&quot;, expiration = 600)
-public List&lt;User&gt; getAllUsers()
-</code></pre><h1 id="2-SingleCache-Annotation"><a href="#2-SingleCache-Annotation" class="headerlink" title="2. SingleCache Annotation"></a>2. SingleCache Annotation</h1><h2 id="ReadThroughSingleCache"><a href="#ReadThroughSingleCache" class="headerlink" title="@ReadThroughSingleCache"></a>@ReadThroughSingleCache</h2><p>作用：生成 Cache。</p>
-<p>过程：</p>
-<ul>
-<li>在执行方法之前先检查缓存。</li>
-<li>如果找到相应的 Key，返回 Value，方法 return。</li>
-<li>如果没有找到相应的 Key，查询数据库，再 set cache，方法 return。</li>
-</ul>
-<p>Key 生成规则：ParameterValueKeyProvider 指定的参数，如果该参数对象中包含 CacheKeyMethod 注解的方法，则调用其方法，否则调用 toString 方法。</p>
-<h2 id="InvalidateSingleCache"><a href="#InvalidateSingleCache" class="headerlink" title="@InvalidateSingleCache"></a>@InvalidateSingleCache</h2><p>作用：清除 Cache 中的数据。</p>
-<p>key 生成规则：</p>
-<ul>
-<li>使用 ParameterValueKeyProvider 注解时，与 ReadThroughSingleCache 一致。</li>
-<li>使用 ReturnValueKeyProvider 注解时，key 为返回的对象的 CacheKeyMethod 或 toString 方法生成。</li>
-</ul>
-<p>Java Code:</p>
-<pre><code>@InvalidateSingleCache(namespace = &quot;user/list&quot;)
-public void invalidateGetUsersByRoleId(@ParameterValueKeyProvider Long id)        
-</code></pre><h2 id="UpdateSingleCache"><a href="#UpdateSingleCache" class="headerlink" title="@UpdateSingleCache"></a>@UpdateSingleCache</h2><p>作用：更新 Cache 中的数据。</p>
-<p>Key 生成规则：ParameterValueKeyProvider 指定。</p>
-<ul>
-<li>ParameterDataUpdateContent：方法参数中的数据，作为更新缓存的数据。</li>
-<li>ReturnDataUpdateContent：方法调用后生成的数据，作为更新缓存的数据。</li>
-<li>上述两个注解，必须与 Update* 系列的注解一起使用。</li>
-</ul>
-<p>Java Code:</p>
-<pre><code>@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
-public void updateUser(@ParameterValueKeyProvider @ParameterDataUpdateContent User user)
-
-@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
-@ReturnDataUpdateContent
-public void updateUser(@ParameterValueKeyProvider User user)
-</code></pre><p>参考：<a href="http://www.colorfuldays.org/program/java/ssm_memcache/" target="_blank" rel="external">使用SSM注解做缓存操作</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;因为公司有的项目还运行在 MyBatis2 上边，并且 &lt;a href=&quot;http://code.google.com/p/simple-spring-memcached/&quot;&gt;SSM&lt;/a&gt; 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 &lt;a href=&quot;http://www.mybatis.org/caches/memcached/&quot;&gt;mybatis-memcached&lt;/a&gt; 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 &lt;a href=&quot;https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached&quot;&gt;ssm3-mybatis2-memcached&lt;/a&gt;。&lt;/p&gt;
-&lt;h1 id=&quot;1-SSM-Annotation&quot;&gt;&lt;a href=&quot;#1-SSM-Annotation&quot; class=&quot;headerlink&quot; title=&quot;1. SSM Annotation&quot;&gt;&lt;/a&gt;1. SSM Annotation&lt;/h1&gt;&lt;h2 id=&quot;SingleCache-类&quot;&gt;&lt;a href=&quot;#SingleCache-类&quot; class=&quot;headerlink&quot; title=&quot;SingleCache 类&quot;&gt;&lt;/a&gt;SingleCache 类&lt;/h2&gt;&lt;p&gt;操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。&lt;/p&gt;
-&lt;p&gt;Java Code:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@ReadThroughSingleCache(namespace = &amp;quot;user&amp;quot;, expiration = 600)
-public User getUser(@ParameterValueKeyProvider Long id)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Memcache Log:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;get user:1
-set user:1
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://batizhao.me/categories/java/"/>
-    
-    
-      <category term="java" scheme="http://batizhao.me/tags/java/"/>
-    
-      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
-    
-      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
-    
-      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 Simple-Spring-Memcached: MultiCache</title>
-    <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/"/>
-    <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/</id>
-    <published>2012-09-26T16:00:00.000Z</published>
-    <updated>2016-11-04T09:03:57.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。</p>
-<h2 id="Namespace-和-Key"><a href="#Namespace-和-Key" class="headerlink" title="Namespace 和 Key"></a>Namespace 和 Key</h2><p>这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是</p>
-<ul>
-<li><p>get user:id</p>
-<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
-</li>
-<li><p>set user:id</p>
-<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
-</li>
-</ul>
-<p>如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是</p>
-<ul>
-<li>缓存命中率（大大影响缓存使用效率）</li>
-<li>内容空间（占用更多的内存）</li>
-<li>需要更多的清除操作（程序复杂度增加）</li>
-</ul>
-<a id="more"></a>
-<h2 id="场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存"><a href="#场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存" class="headerlink" title="场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存"></a>场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存</h2><p>Method:</p>
-<pre><code>@Override
-@ReadThroughMultiCache(namespace = &quot;user&quot;, expiration = 60)
-public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider List&lt;Long&gt; ids) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByUserIds&quot;, ids);
-}
-</code></pre><p>SQL:</p>
-<pre><code>&lt;select id=&quot;getUsersByUserIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
-    SELECT u.id, u.name
-    FROM user u
-    WHERE u.id in
-    (&lt;iterate conjunction=&quot;,&quot;&gt;
-        #ids[]#
-    &lt;/iterate&gt;)
-&lt;/select&gt;
-</code></pre><p>Memcached Log:</p>
-<pre><code>&lt;21 get user:1000 user:1001
-&gt;21 sending key user:1000
-&gt;21 END
-&lt;21 set user:1001
-&gt;21 STORED
-</code></pre><p>更新。这里 Batch 调用 updateUser，因为方法没有返回值，所以只能使用 @ParameterDataUpdateContent</p>
-<pre><code>@Override
-@UpdateMultiCache(namespace = &quot;user&quot;, expiration = 60)
-public void updateUsersByUserIds(@ParameterValueKeyProvider @ParameterDataUpdateContent final List&lt;User&gt; users) {
-    sqlMapClientTemplate.execute(new SqlMapClientCallback() {
-        @Override
-        public Object doInSqlMapClient(SqlMapExecutor executor) throws SQLException {
-            executor.startBatch();
-
-            for(User user: users){
-                executor.update(&quot;updateUser&quot;, user);
-            }
-
-            executor.executeBatch();
-
-            return null;
-
-        }
-    });
-}    
-</code></pre><p>看一下 Memcached Log，user:1000 直接从 Cache 返回，只有 user:1001 做了数据库操作。这是因为我在执行    getUsersByUserIds 之前，执行了上一篇中的 getUser(1000L)，先生成了 Cache。        </p>
-<h2 id="场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效"><a href="#场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效" class="headerlink" title="场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效"></a>场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效</h2><p>Method:</p>
-<pre><code>@Override
-@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60)
-public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
-}
-</code></pre><p><em>这里为什么不用 namespace = “user”？</em>   </p>
-<p>SQL:</p>
-<pre><code>&lt;select id=&quot;getUsersByRoleIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
-    SELECT u.id, u.name, r.id as &quot;role.id&quot;, r.name as &quot;role.name&quot;
-    FROM user u, user_role ur, role r
-    WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid in
-    (&lt;iterate conjunction=&quot;,&quot;&gt;
-        #ids[]#
-    &lt;/iterate&gt;)
-&lt;/select&gt;
-</code></pre><p>看一下返回的结果集：</p>
-<pre><code>+------+-------+---------+------------+
-| id   | name  | role.id | role.name  |
-+------+-------+---------+------------+
-| 1000 | Tom   |       1 | ROLE_ADMIN |
-| 1001 | Jerry |       2 | ROLE_USER  |
-| 1002 | Jack  |       1 | ROLE_ADMIN |
-+------+-------+---------+------------+ 
-</code></pre><p>测试代码是这样的：</p>
-<pre><code>@Test
-public void testGetUsersByRoleIds() throws Exception {
-    List&lt;Long&gt; list = Arrays.asList(1L, 2L);
-
-    List users = userDao.getUsersByRoleIds(list);
-
-    log.info(&quot;users: &quot; + users);
-
-    assertNotNull(users);
-    assertEquals(3, users.size());
-}    
-</code></pre><p>这个方法不会生成任何缓存。SSM 会告诉你</p>
-<pre><code>com.google.code.ssm.aop.ReadThroughMultiCacheAdvice: Did not receive a correlated amount of data from the target method.
-</code></pre><p>因为 SSM 会先根据结果集生成缓存（使用返回对象 User 的 @CacheKeyMethod 方法）</p>
-<pre><code>set user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
-</code></pre><p>但是返回的结果集中没有 1 和 2，就算有，也不是我们想要的 role.id，而是 user.id。刚开始我尝试和 SSM 的开发者沟通<a href="http://code.google.com/p/simple-spring-memcached/issues/detail?id=10" target="_blank" rel="external">这个问题</a>。他让我尝试修改一下 annotation</p>
-<pre><code>@Override
-@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60, option = @ReadThroughMultiCacheOption(generateKeysFromResult = true))
-public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
-}
-</code></pre><p>之后变成这个样子：</p>
-<pre><code>get user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
-
-set user/getUsersByRoleIds:1000 8 60 120
-{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1000,&quot;name&quot;:&quot;Tom&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
-
-set user/getUsersByRoleIds:1001 8 60 121
-{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1001,&quot;name&quot;:&quot;Jerry&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:2,&quot;name&quot;:&quot;ROLE_USER&quot;}}}}}
-
-set user/getUsersByRoleIds:1002 8 60 121
-{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1002,&quot;name&quot;:&quot;Jack&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
-</code></pre><p>在这个返回的 List 中，role.id 不可以做为 Key，因为不是唯一的。试了一下返回 HaspMap，@ReadThroughMultiCache 只支持 List。所以想到两种解决办法：</p>
-<ul>
-<li>循环调用上一篇中的 getUsersByRoleId 方法。</li>
-<li>使用 @ReadThroughAssignCache（缺点是缓存做为一整块，不能像 @ReadThroughMultiCache 一样对单个 User 做操作了），到时只能整体清除。</li>
-</ul>
-<p>第一个方案可以自行试验一下，下一篇讲 AssignCache 如何解决这个问题。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。&lt;/p&gt;
-&lt;h2 id=&quot;Namespace-和-Key&quot;&gt;&lt;a href=&quot;#Namespace-和-Key&quot; class=&quot;headerlink&quot; title=&quot;Namespace 和 Key&quot;&gt;&lt;/a&gt;Namespace 和 Key&lt;/h2&gt;&lt;p&gt;这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;get user:id&lt;/p&gt;
-&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;set user:id&lt;/p&gt;
-&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;缓存命中率（大大影响缓存使用效率）&lt;/li&gt;
-&lt;li&gt;内容空间（占用更多的内存）&lt;/li&gt;
-&lt;li&gt;需要更多的清除操作（程序复杂度增加）&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://batizhao.me/categories/java/"/>
-    
-    
-      <category term="java" scheme="http://batizhao.me/tags/java/"/>
-    
-      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
-    
-      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
-    
-      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
-    
-  </entry>
-  
-  <entry>
     <title>使用 Simple-Spring-Memcached: SingleCache</title>
     <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/"/>
     <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/</id>
@@ -1209,6 +954,261 @@ public class RoleManagerImpl implements RoleManager {
                 this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://batizhao.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+    
+      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
+    
+      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
+    
+      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Simple-Spring-Memcached: MultiCache</title>
+    <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/"/>
+    <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/</id>
+    <published>2012-09-26T16:00:00.000Z</published>
+    <updated>2016-11-04T09:03:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。</p>
+<h2 id="Namespace-和-Key"><a href="#Namespace-和-Key" class="headerlink" title="Namespace 和 Key"></a>Namespace 和 Key</h2><p>这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是</p>
+<ul>
+<li><p>get user:id</p>
+<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
+</li>
+<li><p>set user:id</p>
+<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
+</li>
+</ul>
+<p>如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是</p>
+<ul>
+<li>缓存命中率（大大影响缓存使用效率）</li>
+<li>内容空间（占用更多的内存）</li>
+<li>需要更多的清除操作（程序复杂度增加）</li>
+</ul>
+<a id="more"></a>
+<h2 id="场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存"><a href="#场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存" class="headerlink" title="场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存"></a>场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存</h2><p>Method:</p>
+<pre><code>@Override
+@ReadThroughMultiCache(namespace = &quot;user&quot;, expiration = 60)
+public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider List&lt;Long&gt; ids) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByUserIds&quot;, ids);
+}
+</code></pre><p>SQL:</p>
+<pre><code>&lt;select id=&quot;getUsersByUserIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
+    SELECT u.id, u.name
+    FROM user u
+    WHERE u.id in
+    (&lt;iterate conjunction=&quot;,&quot;&gt;
+        #ids[]#
+    &lt;/iterate&gt;)
+&lt;/select&gt;
+</code></pre><p>Memcached Log:</p>
+<pre><code>&lt;21 get user:1000 user:1001
+&gt;21 sending key user:1000
+&gt;21 END
+&lt;21 set user:1001
+&gt;21 STORED
+</code></pre><p>更新。这里 Batch 调用 updateUser，因为方法没有返回值，所以只能使用 @ParameterDataUpdateContent</p>
+<pre><code>@Override
+@UpdateMultiCache(namespace = &quot;user&quot;, expiration = 60)
+public void updateUsersByUserIds(@ParameterValueKeyProvider @ParameterDataUpdateContent final List&lt;User&gt; users) {
+    sqlMapClientTemplate.execute(new SqlMapClientCallback() {
+        @Override
+        public Object doInSqlMapClient(SqlMapExecutor executor) throws SQLException {
+            executor.startBatch();
+
+            for(User user: users){
+                executor.update(&quot;updateUser&quot;, user);
+            }
+
+            executor.executeBatch();
+
+            return null;
+
+        }
+    });
+}    
+</code></pre><p>看一下 Memcached Log，user:1000 直接从 Cache 返回，只有 user:1001 做了数据库操作。这是因为我在执行    getUsersByUserIds 之前，执行了上一篇中的 getUser(1000L)，先生成了 Cache。        </p>
+<h2 id="场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效"><a href="#场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效" class="headerlink" title="场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效"></a>场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效</h2><p>Method:</p>
+<pre><code>@Override
+@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60)
+public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
+}
+</code></pre><p><em>这里为什么不用 namespace = “user”？</em>   </p>
+<p>SQL:</p>
+<pre><code>&lt;select id=&quot;getUsersByRoleIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
+    SELECT u.id, u.name, r.id as &quot;role.id&quot;, r.name as &quot;role.name&quot;
+    FROM user u, user_role ur, role r
+    WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid in
+    (&lt;iterate conjunction=&quot;,&quot;&gt;
+        #ids[]#
+    &lt;/iterate&gt;)
+&lt;/select&gt;
+</code></pre><p>看一下返回的结果集：</p>
+<pre><code>+------+-------+---------+------------+
+| id   | name  | role.id | role.name  |
++------+-------+---------+------------+
+| 1000 | Tom   |       1 | ROLE_ADMIN |
+| 1001 | Jerry |       2 | ROLE_USER  |
+| 1002 | Jack  |       1 | ROLE_ADMIN |
++------+-------+---------+------------+ 
+</code></pre><p>测试代码是这样的：</p>
+<pre><code>@Test
+public void testGetUsersByRoleIds() throws Exception {
+    List&lt;Long&gt; list = Arrays.asList(1L, 2L);
+
+    List users = userDao.getUsersByRoleIds(list);
+
+    log.info(&quot;users: &quot; + users);
+
+    assertNotNull(users);
+    assertEquals(3, users.size());
+}    
+</code></pre><p>这个方法不会生成任何缓存。SSM 会告诉你</p>
+<pre><code>com.google.code.ssm.aop.ReadThroughMultiCacheAdvice: Did not receive a correlated amount of data from the target method.
+</code></pre><p>因为 SSM 会先根据结果集生成缓存（使用返回对象 User 的 @CacheKeyMethod 方法）</p>
+<pre><code>set user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
+</code></pre><p>但是返回的结果集中没有 1 和 2，就算有，也不是我们想要的 role.id，而是 user.id。刚开始我尝试和 SSM 的开发者沟通<a href="http://code.google.com/p/simple-spring-memcached/issues/detail?id=10" target="_blank" rel="external">这个问题</a>。他让我尝试修改一下 annotation</p>
+<pre><code>@Override
+@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60, option = @ReadThroughMultiCacheOption(generateKeysFromResult = true))
+public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
+}
+</code></pre><p>之后变成这个样子：</p>
+<pre><code>get user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
+
+set user/getUsersByRoleIds:1000 8 60 120
+{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1000,&quot;name&quot;:&quot;Tom&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
+
+set user/getUsersByRoleIds:1001 8 60 121
+{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1001,&quot;name&quot;:&quot;Jerry&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:2,&quot;name&quot;:&quot;ROLE_USER&quot;}}}}}
+
+set user/getUsersByRoleIds:1002 8 60 121
+{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1002,&quot;name&quot;:&quot;Jack&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
+</code></pre><p>在这个返回的 List 中，role.id 不可以做为 Key，因为不是唯一的。试了一下返回 HaspMap，@ReadThroughMultiCache 只支持 List。所以想到两种解决办法：</p>
+<ul>
+<li>循环调用上一篇中的 getUsersByRoleId 方法。</li>
+<li>使用 @ReadThroughAssignCache（缺点是缓存做为一整块，不能像 @ReadThroughMultiCache 一样对单个 User 做操作了），到时只能整体清除。</li>
+</ul>
+<p>第一个方案可以自行试验一下，下一篇讲 AssignCache 如何解决这个问题。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。&lt;/p&gt;
+&lt;h2 id=&quot;Namespace-和-Key&quot;&gt;&lt;a href=&quot;#Namespace-和-Key&quot; class=&quot;headerlink&quot; title=&quot;Namespace 和 Key&quot;&gt;&lt;/a&gt;Namespace 和 Key&lt;/h2&gt;&lt;p&gt;这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;get user:id&lt;/p&gt;
+&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;set user:id&lt;/p&gt;
+&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;缓存命中率（大大影响缓存使用效率）&lt;/li&gt;
+&lt;li&gt;内容空间（占用更多的内存）&lt;/li&gt;
+&lt;li&gt;需要更多的清除操作（程序复杂度增加）&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://batizhao.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+    
+      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
+    
+      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
+    
+      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Simple-Spring-Memcached Annotation</title>
+    <link href="http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/"/>
+    <id>http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/</id>
+    <published>2012-09-26T16:00:00.000Z</published>
+    <updated>2016-11-04T09:04:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/" target="_blank" rel="external">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/" target="_blank" rel="external">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached" target="_blank" rel="external">ssm3-mybatis2-memcached</a>。</p>
+<h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
+public User getUser(@ParameterValueKeyProvider Long id)
+</code></pre><p>Memcache Log:</p>
+<pre><code>get user:1
+set user:1
+</code></pre><a id="more"></a>
+<h2 id="MultiCache-类"><a href="#MultiCache-类" class="headerlink" title="MultiCache 类"></a>MultiCache 类</h2><p>操作 List 型的 Cache 数据（看做是 SingleCache 的批处理），由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughMultiCache(namespace = &quot;user/getUsersByUserIds&quot;, expiration = 600)
+public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids)
+</code></pre><p>If ids=[1,2,3], Then Memcache Log:</p>
+<pre><code>get user:1 user:2 user:3
+set user:1
+set user:2
+set user:3        
+</code></pre><h2 id="AssignCache-类"><a href="#AssignCache-类" class="headerlink" title="AssignCache 类"></a>AssignCache 类</h2><p>操作所有类型的 Cache 数据。适用于无参方法或者需要自定义 Key 的场景。指定 key 操作 Cache 数据，由 annotation 中的 assignedKey 指定 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughAssignCache(assignedKey = &quot;user/getAllUsers&quot;, namespace = &quot;role&quot;, expiration = 600)
+public List&lt;User&gt; getAllUsers()
+</code></pre><h1 id="2-SingleCache-Annotation"><a href="#2-SingleCache-Annotation" class="headerlink" title="2. SingleCache Annotation"></a>2. SingleCache Annotation</h1><h2 id="ReadThroughSingleCache"><a href="#ReadThroughSingleCache" class="headerlink" title="@ReadThroughSingleCache"></a>@ReadThroughSingleCache</h2><p>作用：生成 Cache。</p>
+<p>过程：</p>
+<ul>
+<li>在执行方法之前先检查缓存。</li>
+<li>如果找到相应的 Key，返回 Value，方法 return。</li>
+<li>如果没有找到相应的 Key，查询数据库，再 set cache，方法 return。</li>
+</ul>
+<p>Key 生成规则：ParameterValueKeyProvider 指定的参数，如果该参数对象中包含 CacheKeyMethod 注解的方法，则调用其方法，否则调用 toString 方法。</p>
+<h2 id="InvalidateSingleCache"><a href="#InvalidateSingleCache" class="headerlink" title="@InvalidateSingleCache"></a>@InvalidateSingleCache</h2><p>作用：清除 Cache 中的数据。</p>
+<p>key 生成规则：</p>
+<ul>
+<li>使用 ParameterValueKeyProvider 注解时，与 ReadThroughSingleCache 一致。</li>
+<li>使用 ReturnValueKeyProvider 注解时，key 为返回的对象的 CacheKeyMethod 或 toString 方法生成。</li>
+</ul>
+<p>Java Code:</p>
+<pre><code>@InvalidateSingleCache(namespace = &quot;user/list&quot;)
+public void invalidateGetUsersByRoleId(@ParameterValueKeyProvider Long id)        
+</code></pre><h2 id="UpdateSingleCache"><a href="#UpdateSingleCache" class="headerlink" title="@UpdateSingleCache"></a>@UpdateSingleCache</h2><p>作用：更新 Cache 中的数据。</p>
+<p>Key 生成规则：ParameterValueKeyProvider 指定。</p>
+<ul>
+<li>ParameterDataUpdateContent：方法参数中的数据，作为更新缓存的数据。</li>
+<li>ReturnDataUpdateContent：方法调用后生成的数据，作为更新缓存的数据。</li>
+<li>上述两个注解，必须与 Update* 系列的注解一起使用。</li>
+</ul>
+<p>Java Code:</p>
+<pre><code>@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
+public void updateUser(@ParameterValueKeyProvider @ParameterDataUpdateContent User user)
+
+@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
+@ReturnDataUpdateContent
+public void updateUser(@ParameterValueKeyProvider User user)
+</code></pre><p>参考：<a href="http://www.colorfuldays.org/program/java/ssm_memcache/" target="_blank" rel="external">使用SSM注解做缓存操作</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;因为公司有的项目还运行在 MyBatis2 上边，并且 &lt;a href=&quot;http://code.google.com/p/simple-spring-memcached/&quot;&gt;SSM&lt;/a&gt; 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 &lt;a href=&quot;http://www.mybatis.org/caches/memcached/&quot;&gt;mybatis-memcached&lt;/a&gt; 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 &lt;a href=&quot;https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached&quot;&gt;ssm3-mybatis2-memcached&lt;/a&gt;。&lt;/p&gt;
+&lt;h1 id=&quot;1-SSM-Annotation&quot;&gt;&lt;a href=&quot;#1-SSM-Annotation&quot; class=&quot;headerlink&quot; title=&quot;1. SSM Annotation&quot;&gt;&lt;/a&gt;1. SSM Annotation&lt;/h1&gt;&lt;h2 id=&quot;SingleCache-类&quot;&gt;&lt;a href=&quot;#SingleCache-类&quot; class=&quot;headerlink&quot; title=&quot;SingleCache 类&quot;&gt;&lt;/a&gt;SingleCache 类&lt;/h2&gt;&lt;p&gt;操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。&lt;/p&gt;
+&lt;p&gt;Java Code:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@ReadThroughSingleCache(namespace = &amp;quot;user&amp;quot;, expiration = 600)
+public User getUser(@ParameterValueKeyProvider Long id)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Memcache Log:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;get user:1
+set user:1
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
