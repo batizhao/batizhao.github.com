@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hello World</title>
-  
+  <title>bzz</title>
+  <subtitle>Coding world, changing world</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://batizhao.me/"/>
@@ -10,7 +10,7 @@
   
   <author>
     <name>Bati Zhao</name>
-    
+    <email>zhaobati@gmail.com</email>
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
