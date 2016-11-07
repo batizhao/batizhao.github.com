@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://batizhao.me/about/index.html</loc>
+    
+    <lastmod>2016-11-07T01:49:55.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://batizhao.me/2014/04/11/learning-edx-one/</loc>
     
     <lastmod>2016-11-04T15:53:56.000Z</lastmod>
@@ -275,7 +282,7 @@
   </url>
   
   <url>
-    <loc>http://batizhao.me/2016/11/05/hello-world/</loc>
+    <loc>http://batizhao.me/2016/11/07/hello-world/</loc>
     
     <lastmod>2016-11-04T08:21:41.000Z</lastmod>
     
@@ -306,13 +313,6 @@
     <loc>http://batizhao.me/2012/03/09/install-openldap/</loc>
     
     <lastmod>2016-11-04T07:53:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://batizhao.me/about/index.html</loc>
-    
-    <lastmod>2016-11-04T06:47:26.000Z</lastmod>
     
   </url>
   
