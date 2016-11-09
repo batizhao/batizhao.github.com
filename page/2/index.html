@@ -444,6 +444,136 @@
             
               
                 
+                <a class="post-title-link" href="/2012/09/27/simple-spring-memcached-annotation/" itemprop="url">
+                  使用 Simple-Spring-Memcached Annotation
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-09-27T00:00:00+08:00" content="2012-09-27">
+              2012-09-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/09/27/simple-spring-memcached-annotation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/27/simple-spring-memcached-annotation/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached">ssm3-mybatis2-memcached</a>。</p>
+<h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
+public User getUser(@ParameterValueKeyProvider Long id)
+</code></pre><p>Memcache Log:</p>
+<pre><code>get user:1
+set user:1
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/09/27/simple-spring-memcached-annotation/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2012/09/27/using-simple-spring-memcached-one/" itemprop="url">
                   使用 Simple-Spring-Memcached: SingleCache
                 </a>
@@ -562,136 +692,6 @@
 </code></pre>
           <div class="post-more-link text-center">
             <a class="btn" href="/2012/09/27/using-simple-spring-memcached-one/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/09/27/simple-spring-memcached-annotation/" itemprop="url">
-                  使用 Simple-Spring-Memcached Annotation
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-09-27T00:00:00+08:00" content="2012-09-27">
-              2012-09-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/09/27/simple-spring-memcached-annotation/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/27/simple-spring-memcached-annotation/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached">ssm3-mybatis2-memcached</a>。</p>
-<h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
-public User getUser(@ParameterValueKeyProvider Long id)
-</code></pre><p>Memcache Log:</p>
-<pre><code>get user:1
-set user:1
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/09/27/simple-spring-memcached-annotation/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://batizhao.me/tags/index.html</loc>
+    
+    <lastmod>2016-11-09T02:28:59.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/categories/index.html</loc>
+    
+    <lastmod>2016-11-09T02:28:59.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://batizhao.me/about/index.html</loc>
     
-    <lastmod>2016-11-07T02:59:01.000Z</lastmod>
+    <lastmod>2016-11-09T02:28:43.000Z</lastmod>
     
   </url>
   
@@ -282,23 +296,9 @@
   </url>
   
   <url>
-    <loc>http://batizhao.me/2016/11/07/hello-world/</loc>
+    <loc>http://batizhao.me/2016/11/09/hello-world/</loc>
     
     <lastmod>2016-11-04T08:21:41.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://batizhao.me/categories/index.html</loc>
-    
-    <lastmod>2016-11-04T08:14:57.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://batizhao.me/tags/index.html</loc>
-    
-    <lastmod>2016-11-04T08:14:37.000Z</lastmod>
     
   </url>
   

@@ -17,9 +17,9 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://batizhao.me/2016/11/07/hello-world/"/>
-    <id>http://batizhao.me/2016/11/07/hello-world/</id>
-    <published>2016-11-07T01:34:10.839Z</published>
+    <link href="http://batizhao.me/2016/11/09/hello-world/"/>
+    <id>http://batizhao.me/2016/11/09/hello-world/</id>
+    <published>2016-11-09T02:34:28.127Z</published>
     <updated>2016-11-04T08:21:41.000Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
@@ -884,6 +884,96 @@ set user/getUsersByRoleIds:1002 8 60 121
   </entry>
   
   <entry>
+    <title>使用 Simple-Spring-Memcached Annotation</title>
+    <link href="http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/"/>
+    <id>http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/</id>
+    <published>2012-09-26T16:00:00.000Z</published>
+    <updated>2016-11-04T09:04:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/" target="_blank" rel="external">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/" target="_blank" rel="external">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached" target="_blank" rel="external">ssm3-mybatis2-memcached</a>。</p>
+<h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
+public User getUser(@ParameterValueKeyProvider Long id)
+</code></pre><p>Memcache Log:</p>
+<pre><code>get user:1
+set user:1
+</code></pre><a id="more"></a>
+<h2 id="MultiCache-类"><a href="#MultiCache-类" class="headerlink" title="MultiCache 类"></a>MultiCache 类</h2><p>操作 List 型的 Cache 数据（看做是 SingleCache 的批处理），由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughMultiCache(namespace = &quot;user/getUsersByUserIds&quot;, expiration = 600)
+public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids)
+</code></pre><p>If ids=[1,2,3], Then Memcache Log:</p>
+<pre><code>get user:1 user:2 user:3
+set user:1
+set user:2
+set user:3        
+</code></pre><h2 id="AssignCache-类"><a href="#AssignCache-类" class="headerlink" title="AssignCache 类"></a>AssignCache 类</h2><p>操作所有类型的 Cache 数据。适用于无参方法或者需要自定义 Key 的场景。指定 key 操作 Cache 数据，由 annotation 中的 assignedKey 指定 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughAssignCache(assignedKey = &quot;user/getAllUsers&quot;, namespace = &quot;role&quot;, expiration = 600)
+public List&lt;User&gt; getAllUsers()
+</code></pre><h1 id="2-SingleCache-Annotation"><a href="#2-SingleCache-Annotation" class="headerlink" title="2. SingleCache Annotation"></a>2. SingleCache Annotation</h1><h2 id="ReadThroughSingleCache"><a href="#ReadThroughSingleCache" class="headerlink" title="@ReadThroughSingleCache"></a>@ReadThroughSingleCache</h2><p>作用：生成 Cache。</p>
+<p>过程：</p>
+<ul>
+<li>在执行方法之前先检查缓存。</li>
+<li>如果找到相应的 Key，返回 Value，方法 return。</li>
+<li>如果没有找到相应的 Key，查询数据库，再 set cache，方法 return。</li>
+</ul>
+<p>Key 生成规则：ParameterValueKeyProvider 指定的参数，如果该参数对象中包含 CacheKeyMethod 注解的方法，则调用其方法，否则调用 toString 方法。</p>
+<h2 id="InvalidateSingleCache"><a href="#InvalidateSingleCache" class="headerlink" title="@InvalidateSingleCache"></a>@InvalidateSingleCache</h2><p>作用：清除 Cache 中的数据。</p>
+<p>key 生成规则：</p>
+<ul>
+<li>使用 ParameterValueKeyProvider 注解时，与 ReadThroughSingleCache 一致。</li>
+<li>使用 ReturnValueKeyProvider 注解时，key 为返回的对象的 CacheKeyMethod 或 toString 方法生成。</li>
+</ul>
+<p>Java Code:</p>
+<pre><code>@InvalidateSingleCache(namespace = &quot;user/list&quot;)
+public void invalidateGetUsersByRoleId(@ParameterValueKeyProvider Long id)        
+</code></pre><h2 id="UpdateSingleCache"><a href="#UpdateSingleCache" class="headerlink" title="@UpdateSingleCache"></a>@UpdateSingleCache</h2><p>作用：更新 Cache 中的数据。</p>
+<p>Key 生成规则：ParameterValueKeyProvider 指定。</p>
+<ul>
+<li>ParameterDataUpdateContent：方法参数中的数据，作为更新缓存的数据。</li>
+<li>ReturnDataUpdateContent：方法调用后生成的数据，作为更新缓存的数据。</li>
+<li>上述两个注解，必须与 Update* 系列的注解一起使用。</li>
+</ul>
+<p>Java Code:</p>
+<pre><code>@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
+public void updateUser(@ParameterValueKeyProvider @ParameterDataUpdateContent User user)
+
+@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
+@ReturnDataUpdateContent
+public void updateUser(@ParameterValueKeyProvider User user)
+</code></pre><p>参考：<a href="http://www.colorfuldays.org/program/java/ssm_memcache/" target="_blank" rel="external">使用SSM注解做缓存操作</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;因为公司有的项目还运行在 MyBatis2 上边，并且 &lt;a href=&quot;http://code.google.com/p/simple-spring-memcached/&quot;&gt;SSM&lt;/a&gt; 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 &lt;a href=&quot;http://www.mybatis.org/caches/memcached/&quot;&gt;mybatis-memcached&lt;/a&gt; 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 &lt;a href=&quot;https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached&quot;&gt;ssm3-mybatis2-memcached&lt;/a&gt;。&lt;/p&gt;
+&lt;h1 id=&quot;1-SSM-Annotation&quot;&gt;&lt;a href=&quot;#1-SSM-Annotation&quot; class=&quot;headerlink&quot; title=&quot;1. SSM Annotation&quot;&gt;&lt;/a&gt;1. SSM Annotation&lt;/h1&gt;&lt;h2 id=&quot;SingleCache-类&quot;&gt;&lt;a href=&quot;#SingleCache-类&quot; class=&quot;headerlink&quot; title=&quot;SingleCache 类&quot;&gt;&lt;/a&gt;SingleCache 类&lt;/h2&gt;&lt;p&gt;操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。&lt;/p&gt;
+&lt;p&gt;Java Code:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@ReadThroughSingleCache(namespace = &amp;quot;user&amp;quot;, expiration = 600)
+public User getUser(@ParameterValueKeyProvider Long id)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Memcache Log:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;get user:1
+set user:1
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://batizhao.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+    
+      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
+    
+      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
+    
+      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用 Simple-Spring-Memcached: SingleCache</title>
     <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/"/>
     <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/</id>
@@ -1119,96 +1209,6 @@ public class RoleManagerImpl implements RoleManager {
                 this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://batizhao.me/categories/java/"/>
-    
-    
-      <category term="java" scheme="http://batizhao.me/tags/java/"/>
-    
-      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
-    
-      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
-    
-      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 Simple-Spring-Memcached Annotation</title>
-    <link href="http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/"/>
-    <id>http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/</id>
-    <published>2012-09-26T16:00:00.000Z</published>
-    <updated>2016-11-04T09:04:40.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/" target="_blank" rel="external">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/" target="_blank" rel="external">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached" target="_blank" rel="external">ssm3-mybatis2-memcached</a>。</p>
-<h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
-public User getUser(@ParameterValueKeyProvider Long id)
-</code></pre><p>Memcache Log:</p>
-<pre><code>get user:1
-set user:1
-</code></pre><a id="more"></a>
-<h2 id="MultiCache-类"><a href="#MultiCache-类" class="headerlink" title="MultiCache 类"></a>MultiCache 类</h2><p>操作 List 型的 Cache 数据（看做是 SingleCache 的批处理），由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughMultiCache(namespace = &quot;user/getUsersByUserIds&quot;, expiration = 600)
-public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids)
-</code></pre><p>If ids=[1,2,3], Then Memcache Log:</p>
-<pre><code>get user:1 user:2 user:3
-set user:1
-set user:2
-set user:3        
-</code></pre><h2 id="AssignCache-类"><a href="#AssignCache-类" class="headerlink" title="AssignCache 类"></a>AssignCache 类</h2><p>操作所有类型的 Cache 数据。适用于无参方法或者需要自定义 Key 的场景。指定 key 操作 Cache 数据，由 annotation 中的 assignedKey 指定 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughAssignCache(assignedKey = &quot;user/getAllUsers&quot;, namespace = &quot;role&quot;, expiration = 600)
-public List&lt;User&gt; getAllUsers()
-</code></pre><h1 id="2-SingleCache-Annotation"><a href="#2-SingleCache-Annotation" class="headerlink" title="2. SingleCache Annotation"></a>2. SingleCache Annotation</h1><h2 id="ReadThroughSingleCache"><a href="#ReadThroughSingleCache" class="headerlink" title="@ReadThroughSingleCache"></a>@ReadThroughSingleCache</h2><p>作用：生成 Cache。</p>
-<p>过程：</p>
-<ul>
-<li>在执行方法之前先检查缓存。</li>
-<li>如果找到相应的 Key，返回 Value，方法 return。</li>
-<li>如果没有找到相应的 Key，查询数据库，再 set cache，方法 return。</li>
-</ul>
-<p>Key 生成规则：ParameterValueKeyProvider 指定的参数，如果该参数对象中包含 CacheKeyMethod 注解的方法，则调用其方法，否则调用 toString 方法。</p>
-<h2 id="InvalidateSingleCache"><a href="#InvalidateSingleCache" class="headerlink" title="@InvalidateSingleCache"></a>@InvalidateSingleCache</h2><p>作用：清除 Cache 中的数据。</p>
-<p>key 生成规则：</p>
-<ul>
-<li>使用 ParameterValueKeyProvider 注解时，与 ReadThroughSingleCache 一致。</li>
-<li>使用 ReturnValueKeyProvider 注解时，key 为返回的对象的 CacheKeyMethod 或 toString 方法生成。</li>
-</ul>
-<p>Java Code:</p>
-<pre><code>@InvalidateSingleCache(namespace = &quot;user/list&quot;)
-public void invalidateGetUsersByRoleId(@ParameterValueKeyProvider Long id)        
-</code></pre><h2 id="UpdateSingleCache"><a href="#UpdateSingleCache" class="headerlink" title="@UpdateSingleCache"></a>@UpdateSingleCache</h2><p>作用：更新 Cache 中的数据。</p>
-<p>Key 生成规则：ParameterValueKeyProvider 指定。</p>
-<ul>
-<li>ParameterDataUpdateContent：方法参数中的数据，作为更新缓存的数据。</li>
-<li>ReturnDataUpdateContent：方法调用后生成的数据，作为更新缓存的数据。</li>
-<li>上述两个注解，必须与 Update* 系列的注解一起使用。</li>
-</ul>
-<p>Java Code:</p>
-<pre><code>@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
-public void updateUser(@ParameterValueKeyProvider @ParameterDataUpdateContent User user)
-
-@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
-@ReturnDataUpdateContent
-public void updateUser(@ParameterValueKeyProvider User user)
-</code></pre><p>参考：<a href="http://www.colorfuldays.org/program/java/ssm_memcache/" target="_blank" rel="external">使用SSM注解做缓存操作</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;因为公司有的项目还运行在 MyBatis2 上边，并且 &lt;a href=&quot;http://code.google.com/p/simple-spring-memcached/&quot;&gt;SSM&lt;/a&gt; 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 &lt;a href=&quot;http://www.mybatis.org/caches/memcached/&quot;&gt;mybatis-memcached&lt;/a&gt; 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 &lt;a href=&quot;https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached&quot;&gt;ssm3-mybatis2-memcached&lt;/a&gt;。&lt;/p&gt;
-&lt;h1 id=&quot;1-SSM-Annotation&quot;&gt;&lt;a href=&quot;#1-SSM-Annotation&quot; class=&quot;headerlink&quot; title=&quot;1. SSM Annotation&quot;&gt;&lt;/a&gt;1. SSM Annotation&lt;/h1&gt;&lt;h2 id=&quot;SingleCache-类&quot;&gt;&lt;a href=&quot;#SingleCache-类&quot; class=&quot;headerlink&quot; title=&quot;SingleCache 类&quot;&gt;&lt;/a&gt;SingleCache 类&lt;/h2&gt;&lt;p&gt;操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。&lt;/p&gt;
-&lt;p&gt;Java Code:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@ReadThroughSingleCache(namespace = &amp;quot;user&amp;quot;, expiration = 600)
-public User getUser(@ParameterValueKeyProvider Long id)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Memcache Log:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;get user:1
-set user:1
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
