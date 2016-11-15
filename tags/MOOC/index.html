@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux,docker," />
+  <meta name="keywords" content="Java, Linux, Spring, Cloud, Docker" />
 
 
 
@@ -90,19 +90,15 @@
 
 
 
-<meta name="description" content="这里使用 Dockerfile 构建一个 Ubuntu 的基础镜像，并且安装了 OpenSSH、Supervisor 等基础服务。使用 Supervisor 可以更好的同时控制多个我们希望执行的程序。
-最新的 Docker 版本建议安装 Docker for Mac，原先的 Docker Toolbox 方式已经不建议使用。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Docker 实战（二）：基于 Dockerfile 构建基础镜像">
-<meta property="og:url" content="http://batizhao.me/2016/11/15/dokcer-two-dockerfile/index.html">
+<meta name="description" content="大处着眼，小处入手。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gunner">
+<meta property="og:url" content="http://batizhao.me/tags/mooc/index.html">
 <meta property="og:site_name" content="Gunner">
-<meta property="og:description" content="这里使用 Dockerfile 构建一个 Ubuntu 的基础镜像，并且安装了 OpenSSH、Supervisor 等基础服务。使用 Supervisor 可以更好的同时控制多个我们希望执行的程序。
-最新的 Docker 版本建议安装 Docker for Mac，原先的 Docker Toolbox 方式已经不建议使用。">
-<meta property="og:updated_time" content="2016-11-15T07:37:42.000Z">
+<meta property="og:description" content="大处着眼，小处入手。">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Docker 实战（二）：基于 Dockerfile 构建基础镜像">
-<meta name="twitter:description" content="这里使用 Dockerfile 构建一个 Ubuntu 的基础镜像，并且安装了 OpenSSH、Supervisor 等基础服务。使用 Supervisor 可以更好的同时控制多个我们希望执行的程序。
-最新的 Docker 版本建议安装 Docker for Mac，原先的 Docker Toolbox 方式已经不建议使用。">
+<meta name="twitter:title" content="Gunner">
+<meta name="twitter:description" content="大处着眼，小处入手。">
 
 
 
@@ -123,10 +119,10 @@
 
 
 
-  <link rel="canonical" href="http://batizhao.me/2016/11/15/dokcer-two-dockerfile/"/>
+  <link rel="canonical" href="http://batizhao.me/tags/mooc/"/>
 
 
-  <title> Docker 实战（二）：基于 Dockerfile 构建基础镜像 | Gunner </title>
+  <title> 标签: mooc | Gunner </title>
   
 
 
@@ -156,7 +152,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
@@ -287,183 +283,130 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                Docker 实战（二）：基于 Dockerfile 构建基础镜像
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-15T12:10:16+08:00" content="2016-11-15">
-              2016-11-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/11/15/dokcer-two-dockerfile/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/15/dokcer-two-dockerfile/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>这里使用 Dockerfile 构建一个 Ubuntu 的基础镜像，并且安装了 OpenSSH、Supervisor 等基础服务。使用 Supervisor 可以更好的同时控制多个我们希望执行的程序。</p>
-<p>最新的 Docker 版本建议安装 <a href="https://www.docker.com" target="_blank" rel="external">Docker for Mac</a>，原先的 Docker Toolbox 方式已经不建议使用。</p>
-<a id="more"></a>
-<h2 id="创建-Dockerfile-脚本"><a href="#创建-Dockerfile-脚本" class="headerlink" title="创建 Dockerfile 脚本"></a>创建 Dockerfile 脚本</h2><figure class="highlight bash"><figcaption><span>Dockerfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Docker file for ubuntu 16</span></div><div class="line">FROM ubuntu:16.04</div><div class="line"></div><div class="line"><span class="comment"># 创建者信息</span></div><div class="line">MAINTAINER batizhao &lt;zhaobati@gmail.com&gt;</div><div class="line"></div><div class="line"><span class="comment"># 使用阿里云镜像</span></div><div class="line">RUN sed -i <span class="string">'s/archive.ubuntu.com/mirrors.aliyun.com/g'</span> /etc/apt/sources.list</div><div class="line"></div><div class="line"><span class="comment"># 安装基础工具包</span></div><div class="line">RUN \</div><div class="line">  apt-get update &amp;&amp; \</div><div class="line">  apt-get -y upgrade &amp;&amp; \</div><div class="line">  apt-get install -y vim openssh-server supervisor &amp;&amp; \</div><div class="line">  rm -rf /var/lib/apt/lists/*</div><div class="line"></div><div class="line"><span class="comment"># 创建 ssh 和 supervisor 目录</span></div><div class="line">RUN mkdir -p /var/run/sshd</div><div class="line">RUN mkdir -p /var/<span class="built_in">log</span>/supervisor</div><div class="line"></div><div class="line"><span class="comment"># 设置 root ssh 远程登录密码为 password</span></div><div class="line">RUN <span class="built_in">echo</span> <span class="string">"root:password"</span> | chpasswd</div><div class="line">RUN sed -i <span class="string">'s/PermitRootLogin prohibit-password/PermitRootLogin yes/'</span> /etc/ssh/sshd_config</div><div class="line">RUN sed <span class="string">'s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g'</span> -i /etc/pam.d/sshd</div><div class="line"></div><div class="line"><span class="comment"># 添加 supervisor 的配置文件</span></div><div class="line">COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf</div><div class="line"></div><div class="line"><span class="comment"># 开放 SSH 22 端口</span></div><div class="line">EXPOSE 22</div><div class="line"></div><div class="line"><span class="comment"># 容器启动命令</span></div><div class="line">CMD [<span class="string">"/usr/bin/supervisord"</span>]</div></pre></td></tr></table></figure>
-<h2 id="创建-Supervisor-脚本"><a href="#创建-Supervisor-脚本" class="headerlink" title="创建 Supervisor 脚本"></a>创建 Supervisor 脚本</h2><figure class="highlight plain"><figcaption><span>在 Dockerfile 文件所在目录创建 supervisord.conf</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[supervisord]</div><div class="line">nodaemon=true</div><div class="line"></div><div class="line">[program:sshd]</div><div class="line">command=/usr/sbin/sshd -D</div></pre></td></tr></table></figure>
-<blockquote><p>在执行以下步骤之前，需要先启动 Docker。</p>
-</blockquote>
-<h2 id="使用-Dockerfile-构建镜像并运行"><a href="#使用-Dockerfile-构建镜像并运行" class="headerlink" title="使用 Dockerfile 构建镜像并运行"></a>使用 Dockerfile 构建镜像并运行</h2><figure class="highlight bash"><figcaption><span>在 Dockerfile 文件所在目录执行命令</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker build -t batizhao/ubuntu .</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><figcaption><span>启动 Docker 容器</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run -p 2200:22 -it batizhao/ubuntu</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><figcaption><span>宿主机做为 SSH 客户端</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh root@localhost -p 2200</div></pre></td></tr></table></figure>
-<h2 id="提交到仓库"><a href="#提交到仓库" class="headerlink" title="提交到仓库"></a>提交到仓库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker push batizhao/ubuntu</div></pre></td></tr></table></figure>
-
-      
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        mooc
+        <small>标签</small>
+      </h2>
     </div>
 
-    <div>
+    
       
+
+  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
         
-
-      
-    </div>
-
-    <div>
-      
+            <a class="post-title-link" href="/2014/04/18/building-a-course/" itemprop="url">
+              
+                <span itemprop="name">edX 学习四：制作课程</span>
+              
+            </a>
         
+      </h1>
 
-      
-    </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2014-04-18T00:00:00+08:00"
+              content="2014-04-18" >
+          04-18
+        </time>
+      </div>
 
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/linux/" rel="tag">#linux</a>
-          
-            <a href="/tags/docker/" rel="tag">#docker</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/11/14/docker-one-install/" rel="next" title="Docker 实战（一）：在 Mac 上安装配置 Docker">
-                <i class="fa fa-chevron-left"></i> Docker 实战（一）：在 Mac 上安装配置 Docker
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
+    
       
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-  <a class="jiathis_button_tsina"></a>
-  <a class="jiathis_button_tqq"></a>
-  <a class="jiathis_button_weixin"></a>
-  <a class="jiathis_button_cqq"></a>
-  <a class="jiathis_button_douban"></a>
-  <a class="jiathis_button_renren"></a>
-  <a class="jiathis_button_qzone"></a>
-  <a class="jiathis_button_kaixin001"></a>
-  <a class="jiathis_button_copy"></a>
-  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
-  <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-  var jiathis_config={
-    hideMore:false
-  }
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<!-- JiaThis Button END -->
 
+  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2014/04/15/edx-course-management/" itemprop="url">
+              
+                <span itemprop="name">edX 学习三：开始课程制作之前</span>
+              
+            </a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2014-04-15T00:00:00+08:00"
+              content="2014-04-15" >
+          04-15
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+    
       
-    </div>
+
+  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2014/04/14/quick-start-to-working-with-the-edx-platform/" itemprop="url">
+              
+                <span itemprop="name">edX 学习二：搭建 edX 平台</span>
+              
+            </a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2014-04-14T00:00:00+08:00"
+              content="2014-04-14" >
+          04-14
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2014/04/11/learning-edx-one/" itemprop="url">
+              
+                <span itemprop="name">edX 学习一：了解 edX 相关组件</span>
+              
+            </a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2014-04-11T00:00:00+08:00"
+              content="2014-04-11" >
+          04-11
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+    
   </div>
+
+  
 
 
           </div>
@@ -471,14 +414,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2016/11/15/dokcer-two-dockerfile/"
-           data-title="Docker 实战（二）：基于 Dockerfile 构建基础镜像" data-url="http://batizhao.me/2016/11/15/dokcer-two-dockerfile/">
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -498,17 +433,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -600,17 +526,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-Dockerfile-脚本"><span class="nav-number">1.</span> <span class="nav-text">创建 Dockerfile 脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-Supervisor-脚本"><span class="nav-number">2.</span> <span class="nav-text">创建 Supervisor 脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Dockerfile-构建镜像并运行"><span class="nav-number">3.</span> <span class="nav-text">使用 Dockerfile 构建镜像并运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交到仓库"><span class="nav-number">4.</span> <span class="nav-text">提交到仓库</span></a></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -707,10 +622,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
-
-
 
   
 
