@@ -307,8 +307,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/11/09/hello-world/" itemprop="url">
-                  Hello World
+                <a class="post-title-link" href="/2016/11/15/dokcer-two-dockerfile/" itemprop="url">
+                  Docker 实战（二）：基于 Dockerfile 构建基础镜像
                 </a>
               
             
@@ -321,19 +321,38 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-09T10:34:28+08:00" content="2016-11-09">
-              2016-11-09
+            <time itemprop="dateCreated" datetime="2016-11-15T12:10:16+08:00" content="2016-11-15">
+              2016-11-15
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/11/09/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/09/hello-world/" itemprop="commentsCount"></span>
+                <a href="/2016/11/15/dokcer-two-dockerfile/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/15/dokcer-two-dockerfile/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -357,16 +376,154 @@
 
       
         
-          <p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/09/hello-world/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <p>这里使用 Dockerfile 构建一个 Ubuntu 的基础镜像，并且安装了 OpenSSH、Supervisor 等基础服务。使用 Supervisor 可以更好的同时控制多个我们希望执行的程序。</p>
+<p>最新的 Docker 版本建议安装 <a href="https://www.docker.com" target="_blank" rel="external">Docker for Mac</a>，原先的 Docker Toolbox 方式已经不建议使用。</p>
+<h2 id="创建-Dockerfile-脚本"><a href="#创建-Dockerfile-脚本" class="headerlink" title="创建 Dockerfile 脚本"></a>创建 Dockerfile 脚本</h2><figure class="highlight bash"><figcaption><span>Dockerfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Docker file for ubuntu 16</span></div><div class="line">FROM ubuntu:16.04</div><div class="line"></div><div class="line"><span class="comment"># 创建者信息</span></div><div class="line">MAINTAINER batizhao &lt;zhaobati@gmail.com&gt;</div><div class="line"></div><div class="line"><span class="comment"># 使用阿里云镜像</span></div><div class="line">RUN sed -i <span class="string">'s/archive.ubuntu.com/mirrors.aliyun.com/g'</span> /etc/apt/sources.list</div><div class="line"></div><div class="line"><span class="comment"># 安装基础工具包</span></div><div class="line">RUN \</div><div class="line">  apt-get update &amp;&amp; \</div><div class="line">  apt-get -y upgrade &amp;&amp; \</div><div class="line">  apt-get install -y vim openssh-server supervisor &amp;&amp; \</div><div class="line">  rm -rf /var/lib/apt/lists/*</div><div class="line"></div><div class="line"><span class="comment"># 创建 ssh 和 supervisor 目录</span></div><div class="line">RUN mkdir -p /var/run/sshd</div><div class="line">RUN mkdir -p /var/<span class="built_in">log</span>/supervisor</div><div class="line"></div><div class="line"><span class="comment"># 设置 root ssh 远程登录密码为 password</span></div><div class="line">RUN <span class="built_in">echo</span> <span class="string">"root:password"</span> | chpasswd</div><div class="line">RUN sed -i <span class="string">'s/PermitRootLogin prohibit-password/PermitRootLogin yes/'</span> /etc/ssh/sshd_config</div><div class="line">RUN sed <span class="string">'s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g'</span> -i /etc/pam.d/sshd</div><div class="line"></div><div class="line"><span class="comment"># 添加 supervisor 的配置文件</span></div><div class="line">COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf</div><div class="line"></div><div class="line"><span class="comment"># 开放 SSH 22 端口</span></div><div class="line">EXPOSE 22</div><div class="line"></div><div class="line"><span class="comment"># 执行以下命令</span></div><div class="line">CMD [<span class="string">"/usr/bin/supervisord"</span>]</div></pre></td></tr></table></figure>
+<blockquote><p>在执行以下步骤之前，需要先启动 Docker。</p>
+</blockquote>
+<h2 id="使用-Dockerfile-构建镜像并运行"><a href="#使用-Dockerfile-构建镜像并运行" class="headerlink" title="使用 Dockerfile 构建镜像并运行"></a>使用 Dockerfile 构建镜像并运行</h2><figure class="highlight bash"><figcaption><span>在 Dockerfile 文件所在目录执行命令</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker build -t batizhao/ubuntu .</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>启动 Docker 容器</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run -p 2200:22 -it batizhao/ubuntu</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>宿主机做为 SSH 客户端</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh root@localhost -p 2200</div></pre></td></tr></table></figure>
+<h2 id="提交到仓库"><a href="#提交到仓库" class="headerlink" title="提交到仓库"></a>提交到仓库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker push batizhao/ubuntu</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/14/docker-one-install/" itemprop="url">
+                  Docker 实战（一）：在 Mac 上安装配置 Docker
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-14T17:19:58+08:00" content="2016-11-14">
+              2016-11-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/14/docker-one-install/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/14/docker-one-install/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="在安装之前"><a href="#在安装之前" class="headerlink" title="在安装之前"></a>在安装之前</h2><p>最新的 Docker 版本建议安装 <a href="https://www.docker.com" target="_blank" rel="external">Docker for Mac</a>，原先的 Docker Toolbox 方式已经不建议使用。</p>
+<blockquote><p>If you already have an installation of Docker Toolbox, please read these topics first to learn how Docker for Mac and Docker Toolbox differ, and how they can coexist.</p>
+<footer><strong>新老两种方法对比以及 Toolbox 的卸载</strong><cite><a href="https://docs.docker.com/docker-for-mac/docker-toolbox/" target="_blank" rel="external">Docker for Mac vs. Docker Toolbox</a></cite></footer></blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote><p>Welcome to Docker for Mac!</p>
+<p>Please read through these topics on how to get started. To give us feedback on your experience with the app and report bugs or problems, log in to our Docker for Mac forum.</p>
+<footer><strong>基本的安装步骤</strong><cite><a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Get started with Docker for Mac</a></cite></footer></blockquote>
+<h2 id="使用镜像库加速"><a href="#使用镜像库加速" class="headerlink" title="使用镜像库加速"></a>使用镜像库加速</h2><p>国内访问 Docker 仓库会比较慢，可以使用 2 个加速地址：</p>
+<ul>
+<li><a href="https://cr.console.aliyun.com" target="_blank" rel="external">阿里云</a></li>
+<li><a href="https://www.daocloud.io/mirror" target="_blank" rel="external">DaoCloud</a></li>
+</ul>
+<p>注册并登录以上地址可以获得专属加速地址。</p>
+<blockquote><p>在 Mac 上，点击桌面顶栏的 Docker 图标，选择 Preferences ，在 Advanced 标签下的 Registry mirrors 列表中加入专属地址。<br>点击 Apply &amp; Restart 按钮使设置生效。</p>
+</blockquote>
+<h2 id="第一个镜像"><a href="#第一个镜像" class="headerlink" title="第一个镜像"></a>第一个镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker pull ubuntu</div><div class="line">Using default tag: latest</div><div class="line">latest: Pulling from library/ubuntu</div><div class="line">Digest: sha256:2d44ae143feeb36f4c898d32ed2ab2dffeb3a573d2d8928646dfc9cb7deb1315</div><div class="line">Status: Image is up to date <span class="keyword">for</span> ubuntu:latest</div></pre></td></tr></table></figure>
+<p>启动 ubuntu 容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run -it ubuntu</div></pre></td></tr></table></figure>
+
+          
         
       
     </div>
@@ -1406,145 +1563,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/09/28/using-simple-spring-memcached-three/" itemprop="url">
-                  使用 Simple-Spring-Memcached: AssignCache
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-09-28T00:00:00+08:00" content="2012-09-28">
-              2012-09-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/09/28/using-simple-spring-memcached-three/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/28/using-simple-spring-memcached-three/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>接上一篇的 MultiCache ，这篇主要讲一下 AssignCache 的使用。继续解决上一个场景中没有解决的问题。</p>
-<p>根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效</p>
-<p>Method:</p>
-<pre><code>@Override
-@ReadThroughAssignCache(assignedKey = &quot;user/getUsersByRoleIds&quot;, namespace = &quot;user&quot;, expiration = 60)
-public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
-}
-</code></pre><p>SQL:</p>
-<pre><code>&lt;select id=&quot;getUsersByRoleIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
-    SELECT u.id, u.name, r.id as &quot;role.id&quot;, r.name as &quot;role.name&quot;
-    FROM user u, user_role ur, role r
-    WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid in
-    (&lt;iterate conjunction=&quot;,&quot;&gt;
-        #ids[]#
-    &lt;/iterate&gt;) order by r.id
-&lt;/select&gt;
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/09/28/using-simple-spring-memcached-three/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1590,7 +1608,7 @@ public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-count">43</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1598,7 +1616,7 @@ public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1607,7 +1625,7 @@ public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

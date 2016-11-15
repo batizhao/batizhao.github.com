@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://batizhao.me/2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/</loc>
+    
+    <lastmod>2016-11-15T07:21:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2016/11/15/dokcer-two-dockerfile/</loc>
+    
+    <lastmod>2016-11-15T07:07:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2016/11/14/docker-one-install/</loc>
+    
+    <lastmod>2016-11-15T07:06:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://batizhao.me/tags/index.html</loc>
     
     <lastmod>2016-11-09T02:28:59.000Z</lastmod>
@@ -54,13 +75,6 @@
     <loc>http://batizhao.me/2013/11/06/jdk-7---install_parse_failed_no_certificates/</loc>
     
     <lastmod>2016-11-04T09:09:18.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://batizhao.me/2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/</loc>
-    
-    <lastmod>2016-11-04T09:08:50.000Z</lastmod>
     
   </url>
   
@@ -292,13 +306,6 @@
     <loc>http://batizhao.me/2012/03/29/install-opendj-directory-server-on-rhel6/</loc>
     
     <lastmod>2016-11-04T08:23:21.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://batizhao.me/2016/11/09/hello-world/</loc>
-    
-    <lastmod>2016-11-04T08:21:41.000Z</lastmod>
     
   </url>
   

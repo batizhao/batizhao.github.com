@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://batizhao.me/"/>
-  <updated>2016-11-04T08:21:41.000Z</updated>
+  <updated>2016-11-15T07:07:40.000Z</updated>
   <id>http://batizhao.me/</id>
   
   <author>
@@ -16,34 +16,77 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://batizhao.me/2016/11/09/hello-world/"/>
-    <id>http://batizhao.me/2016/11/09/hello-world/</id>
-    <published>2016-11-09T02:34:28.127Z</published>
-    <updated>2016-11-04T08:21:41.000Z</updated>
+    <title>Docker 实战（二）：基于 Dockerfile 构建基础镜像</title>
+    <link href="http://batizhao.me/2016/11/15/dokcer-two-dockerfile/"/>
+    <id>http://batizhao.me/2016/11/15/dokcer-two-dockerfile/</id>
+    <published>2016-11-15T04:10:16.000Z</published>
+    <updated>2016-11-15T07:07:40.000Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<a id="more"></a>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+    <content type="html"><![CDATA[<p>这里使用 Dockerfile 构建一个 Ubuntu 的基础镜像，并且安装了 OpenSSH、Supervisor 等基础服务。使用 Supervisor 可以更好的同时控制多个我们希望执行的程序。</p>
+<p>最新的 Docker 版本建议安装 <a href="https://www.docker.com" target="_blank" rel="external">Docker for Mac</a>，原先的 Docker Toolbox 方式已经不建议使用。</p>
+<h2 id="创建-Dockerfile-脚本"><a href="#创建-Dockerfile-脚本" class="headerlink" title="创建 Dockerfile 脚本"></a>创建 Dockerfile 脚本</h2><figure class="highlight bash"><figcaption><span>Dockerfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Docker file for ubuntu 16</span></div><div class="line">FROM ubuntu:16.04</div><div class="line"></div><div class="line"><span class="comment"># 创建者信息</span></div><div class="line">MAINTAINER batizhao &lt;zhaobati@gmail.com&gt;</div><div class="line"></div><div class="line"><span class="comment"># 使用阿里云镜像</span></div><div class="line">RUN sed -i <span class="string">'s/archive.ubuntu.com/mirrors.aliyun.com/g'</span> /etc/apt/sources.list</div><div class="line"></div><div class="line"><span class="comment"># 安装基础工具包</span></div><div class="line">RUN \</div><div class="line">  apt-get update &amp;&amp; \</div><div class="line">  apt-get -y upgrade &amp;&amp; \</div><div class="line">  apt-get install -y vim openssh-server supervisor &amp;&amp; \</div><div class="line">  rm -rf /var/lib/apt/lists/*</div><div class="line"></div><div class="line"><span class="comment"># 创建 ssh 和 supervisor 目录</span></div><div class="line">RUN mkdir -p /var/run/sshd</div><div class="line">RUN mkdir -p /var/<span class="built_in">log</span>/supervisor</div><div class="line"></div><div class="line"><span class="comment"># 设置 root ssh 远程登录密码为 password</span></div><div class="line">RUN <span class="built_in">echo</span> <span class="string">"root:password"</span> | chpasswd</div><div class="line">RUN sed -i <span class="string">'s/PermitRootLogin prohibit-password/PermitRootLogin yes/'</span> /etc/ssh/sshd_config</div><div class="line">RUN sed <span class="string">'s@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g'</span> -i /etc/pam.d/sshd</div><div class="line"></div><div class="line"><span class="comment"># 添加 supervisor 的配置文件</span></div><div class="line">COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf</div><div class="line"></div><div class="line"><span class="comment"># 开放 SSH 22 端口</span></div><div class="line">EXPOSE 22</div><div class="line"></div><div class="line"><span class="comment"># 执行以下命令</span></div><div class="line">CMD [<span class="string">"/usr/bin/supervisord"</span>]</div></pre></td></tr></table></figure>
+<blockquote><p>在执行以下步骤之前，需要先启动 Docker。</p>
+</blockquote>
+<h2 id="使用-Dockerfile-构建镜像并运行"><a href="#使用-Dockerfile-构建镜像并运行" class="headerlink" title="使用 Dockerfile 构建镜像并运行"></a>使用 Dockerfile 构建镜像并运行</h2><figure class="highlight bash"><figcaption><span>在 Dockerfile 文件所在目录执行命令</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker build -t batizhao/ubuntu .</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>启动 Docker 容器</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run -p 2200:22 -it batizhao/ubuntu</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>宿主机做为 SSH 客户端</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh root@localhost -p 2200</div></pre></td></tr></table></figure>
+<h2 id="提交到仓库"><a href="#提交到仓库" class="headerlink" title="提交到仓库"></a>提交到仓库</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker push batizhao/ubuntu</div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&quot;My New Post&quot;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Run-server&quot;&gt;&lt;a href=&quot;#Run-server&quot; class=&quot;headerlink&quot; title=&quot;Run server&quot;&gt;&lt;/a&gt;Run server&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;$ hexo server&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/server.html&quot;&gt;Server&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;这里使用 Dockerfile 构建一个 Ubuntu 的基础镜像，并且安装了 OpenSSH、Supervisor 等基础服务。使用 Supervisor 可以更好的同时控制多个我们希望执行的程序。&lt;/p&gt;
+&lt;p&gt;最新的 Docker 版本建议安装 &lt;a href=&quot;ht
     
     </summary>
     
+      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="docker" scheme="http://batizhao.me/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker 实战（一）：在 Mac 上安装配置 Docker</title>
+    <link href="http://batizhao.me/2016/11/14/docker-one-install/"/>
+    <id>http://batizhao.me/2016/11/14/docker-one-install/</id>
+    <published>2016-11-14T09:19:58.000Z</published>
+    <updated>2016-11-15T07:06:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="在安装之前"><a href="#在安装之前" class="headerlink" title="在安装之前"></a>在安装之前</h2><p>最新的 Docker 版本建议安装 <a href="https://www.docker.com" target="_blank" rel="external">Docker for Mac</a>，原先的 Docker Toolbox 方式已经不建议使用。</p>
+<blockquote><p>If you already have an installation of Docker Toolbox, please read these topics first to learn how Docker for Mac and Docker Toolbox differ, and how they can coexist.</p>
+<footer><strong>新老两种方法对比以及 Toolbox 的卸载</strong><cite><a href="https://docs.docker.com/docker-for-mac/docker-toolbox/" target="_blank" rel="external">Docker for Mac vs. Docker Toolbox</a></cite></footer></blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote><p>Welcome to Docker for Mac!</p>
+<p>Please read through these topics on how to get started. To give us feedback on your experience with the app and report bugs or problems, log in to our Docker for Mac forum.</p>
+<footer><strong>基本的安装步骤</strong><cite><a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Get started with Docker for Mac</a></cite></footer></blockquote>
+<h2 id="使用镜像库加速"><a href="#使用镜像库加速" class="headerlink" title="使用镜像库加速"></a>使用镜像库加速</h2><p>国内访问 Docker 仓库会比较慢，可以使用 2 个加速地址：</p>
+<ul>
+<li><a href="https://cr.console.aliyun.com" target="_blank" rel="external">阿里云</a></li>
+<li><a href="https://www.daocloud.io/mirror" target="_blank" rel="external">DaoCloud</a></li>
+</ul>
+<p>注册并登录以上地址可以获得专属加速地址。</p>
+<blockquote><p>在 Mac 上，点击桌面顶栏的 Docker 图标，选择 Preferences ，在 Advanced 标签下的 Registry mirrors 列表中加入专属地址。<br>点击 Apply &amp; Restart 按钮使设置生效。</p>
+</blockquote>
+<h2 id="第一个镜像"><a href="#第一个镜像" class="headerlink" title="第一个镜像"></a>第一个镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker pull ubuntu</div><div class="line">Using default tag: latest</div><div class="line">latest: Pulling from library/ubuntu</div><div class="line">Digest: sha256:2d44ae143feeb36f4c898d32ed2ab2dffeb3a573d2d8928646dfc9cb7deb1315</div><div class="line">Status: Image is up to date <span class="keyword">for</span> ubuntu:latest</div></pre></td></tr></table></figure>
+<p>启动 ubuntu 容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run -it ubuntu</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;在安装之前&quot;&gt;&lt;a href=&quot;#在安装之前&quot; class=&quot;headerlink&quot; title=&quot;在安装之前&quot;&gt;&lt;/a&gt;在安装之前&lt;/h2&gt;&lt;p&gt;最新的 Docker 版本建议安装 &lt;a href=&quot;https://www.docker.com&quot; target=
+    
+    </summary>
+    
+      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="docker" scheme="http://batizhao.me/tags/docker/"/>
     
   </entry>
   
@@ -390,39 +433,15 @@ To complete the activation, please logout then log back in
     <link href="http://batizhao.me/2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/"/>
     <id>http://batizhao.me/2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/</id>
     <published>2013-10-30T16:00:00.000Z</published>
-    <updated>2016-11-04T09:08:50.000Z</updated>
+    <updated>2016-11-15T07:21:00.000Z</updated>
     
     <content type="html"><![CDATA[<p>升级到 Mavericks 之后，需要自行安装 JDK 环境。如果你安装了 JDK7，那么在安装之后，在命令行中运行 javac、java 命令没有问题，但是 Eclipse 和 IDEA 都无法启动，系统要求安装 JDK6。</p>
 <a id="more"></a>
-<p>经过以下几个步骤可以恢复正常使用：</p>
-<ul>
-<li><p>找到 /Library/Java/JavaVirtualMachines/jdk1.7.0_XX.jdk/Contents/Info.plist，增加后边的 4 个 string。</p>
-<pre><code>&lt;key&gt;JVMCapabilities&lt;/key&gt;
-&lt;array&gt;
-    &lt;string&gt;CommandLine&lt;/string&gt;
-    &lt;string&gt;JNI&lt;/string&gt;    
-    &lt;string&gt;BundledApp&lt;/string&gt;  
-    &lt;string&gt;WebStart&lt;/string&gt;  
-    &lt;string&gt;Applets&lt;/string&gt;
-&lt;/array&gt;
-</code></pre></li>
-<li><p>找到 /Applications/IntelliJ IDEA XXX.app/Contents/Info.plist file. 修改 JVMVersion 从 1.6* 到 1.7*。</p>
-<pre><code>&lt;key&gt;JVMVersion&lt;/key&gt;
-&lt;string&gt;1.7*&lt;/string&gt;
-</code></pre></li>
-<li><p>启动 IDEA12，按以下步骤选择相应的 JDK Home。</p>
-<pre><code>File - Project Structure - Project - New - JDK
-</code></pre></li>
-<li><p>如果是 Eclipse，那做完第一步就可以正常启动了；如果是 IDEA，那么需要三步都做完整。</p>
-</li>
-</ul>
-<h1 id="mvn-v-error"><a href="#mvn-v-error" class="headerlink" title="mvn -v error"></a>mvn -v error</h1><p># mvn -v</p>
-<pre><code>Error: JAVA_HOME is not defined correctly.
-    We cannot execute /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home/bin/java
-</code></pre><p># vim /etc/profile</p>
-<pre><code>export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
-export PATH=$JAVA_HOME/bin:$PATH    
-</code></pre><p># source /etc/profile</p>
+<h2 id="修改-jdk-Info-plist"><a href="#修改-jdk-Info-plist" class="headerlink" title="修改 jdk Info.plist"></a>修改 jdk Info.plist</h2><h3 id="增加后边的-4-个-string。"><a href="#增加后边的-4-个-string。" class="headerlink" title="增加后边的 4 个 string。"></a>增加后边的 4 个 string。</h3><figure class="highlight xml"><figcaption><span>/Library/Java/JavaVirtualMachines/jdk1.7.0_XX.jdk/Contents/Info.plist</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">array</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>CommandLine<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>JNI<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>BundledApp<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>WebStart<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>Applets<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">array</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="修改-IDEA-Info-plist，修改-JVMVersion-从-1-6-到-1-7-。"><a href="#修改-IDEA-Info-plist，修改-JVMVersion-从-1-6-到-1-7-。" class="headerlink" title="修改 IDEA Info.plist，修改 JVMVersion 从 1.6* 到 1.7*。"></a>修改 IDEA Info.plist，修改 JVMVersion 从 1.6* 到 1.7*。</h3><figure class="highlight xml"><figcaption><span>/Applications/IntelliJ IDEA XXX.app/Contents/Info.plist file</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>JVMVersion<span class="tag">&lt;/<span class="name">key</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>1.7*<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="启动-IDEA12，按以下步骤选择相应的-JDK-Home。"><a href="#启动-IDEA12，按以下步骤选择相应的-JDK-Home。" class="headerlink" title="启动 IDEA12，按以下步骤选择相应的 JDK Home。"></a>启动 IDEA12，按以下步骤选择相应的 JDK Home。</h3><pre><code>File - Project Structure - Project - New - JDK
+</code></pre><p>如果是 Eclipse，那做完第一步就可以正常启动了；如果是 IDEA，那么需要三步都做完整。</p>
+<h2 id="修复-mvn-v-错误"><a href="#修复-mvn-v-错误" class="headerlink" title="修复 mvn -v 错误"></a>修复 mvn -v 错误</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ mvn -v</div><div class="line"></div><div class="line">Error: JAVA_HOME is not defined correctly.</div><div class="line">	  We cannot execute /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home/bin/java</div><div class="line"></div><div class="line">$  vim /etc/profile</div><div class="line"></div><div class="line">export JAVA_HOME=`/usr/libexec/java_home -v 1.7`</div><div class="line">export PATH=$JAVA_HOME/bin:$PATH</div><div class="line"></div><div class="line">$  source /etc/profile</div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
@@ -434,15 +453,9 @@ export PATH=$JAVA_HOME/bin:$PATH
       <category term="java" scheme="http://batizhao.me/categories/java/"/>
     
     
-      <category term="IDEA12" scheme="http://batizhao.me/tags/IDEA12/"/>
-    
-      <category term="IntelliJ" scheme="http://batizhao.me/tags/IntelliJ/"/>
-    
-      <category term="Mac" scheme="http://batizhao.me/tags/Mac/"/>
-    
-      <category term="Mavericks" scheme="http://batizhao.me/tags/Mavericks/"/>
-    
       <category term="jdk7" scheme="http://batizhao.me/tags/jdk7/"/>
+    
+      <category term="mac" scheme="http://batizhao.me/tags/mac/"/>
     
   </entry>
   
@@ -884,96 +897,6 @@ set user/getUsersByRoleIds:1002 8 60 121
   </entry>
   
   <entry>
-    <title>使用 Simple-Spring-Memcached Annotation</title>
-    <link href="http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/"/>
-    <id>http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/</id>
-    <published>2012-09-26T16:00:00.000Z</published>
-    <updated>2016-11-04T09:04:40.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/" target="_blank" rel="external">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/" target="_blank" rel="external">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached" target="_blank" rel="external">ssm3-mybatis2-memcached</a>。</p>
-<h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
-public User getUser(@ParameterValueKeyProvider Long id)
-</code></pre><p>Memcache Log:</p>
-<pre><code>get user:1
-set user:1
-</code></pre><a id="more"></a>
-<h2 id="MultiCache-类"><a href="#MultiCache-类" class="headerlink" title="MultiCache 类"></a>MultiCache 类</h2><p>操作 List 型的 Cache 数据（看做是 SingleCache 的批处理），由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughMultiCache(namespace = &quot;user/getUsersByUserIds&quot;, expiration = 600)
-public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids)
-</code></pre><p>If ids=[1,2,3], Then Memcache Log:</p>
-<pre><code>get user:1 user:2 user:3
-set user:1
-set user:2
-set user:3        
-</code></pre><h2 id="AssignCache-类"><a href="#AssignCache-类" class="headerlink" title="AssignCache 类"></a>AssignCache 类</h2><p>操作所有类型的 Cache 数据。适用于无参方法或者需要自定义 Key 的场景。指定 key 操作 Cache 数据，由 annotation 中的 assignedKey 指定 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughAssignCache(assignedKey = &quot;user/getAllUsers&quot;, namespace = &quot;role&quot;, expiration = 600)
-public List&lt;User&gt; getAllUsers()
-</code></pre><h1 id="2-SingleCache-Annotation"><a href="#2-SingleCache-Annotation" class="headerlink" title="2. SingleCache Annotation"></a>2. SingleCache Annotation</h1><h2 id="ReadThroughSingleCache"><a href="#ReadThroughSingleCache" class="headerlink" title="@ReadThroughSingleCache"></a>@ReadThroughSingleCache</h2><p>作用：生成 Cache。</p>
-<p>过程：</p>
-<ul>
-<li>在执行方法之前先检查缓存。</li>
-<li>如果找到相应的 Key，返回 Value，方法 return。</li>
-<li>如果没有找到相应的 Key，查询数据库，再 set cache，方法 return。</li>
-</ul>
-<p>Key 生成规则：ParameterValueKeyProvider 指定的参数，如果该参数对象中包含 CacheKeyMethod 注解的方法，则调用其方法，否则调用 toString 方法。</p>
-<h2 id="InvalidateSingleCache"><a href="#InvalidateSingleCache" class="headerlink" title="@InvalidateSingleCache"></a>@InvalidateSingleCache</h2><p>作用：清除 Cache 中的数据。</p>
-<p>key 生成规则：</p>
-<ul>
-<li>使用 ParameterValueKeyProvider 注解时，与 ReadThroughSingleCache 一致。</li>
-<li>使用 ReturnValueKeyProvider 注解时，key 为返回的对象的 CacheKeyMethod 或 toString 方法生成。</li>
-</ul>
-<p>Java Code:</p>
-<pre><code>@InvalidateSingleCache(namespace = &quot;user/list&quot;)
-public void invalidateGetUsersByRoleId(@ParameterValueKeyProvider Long id)        
-</code></pre><h2 id="UpdateSingleCache"><a href="#UpdateSingleCache" class="headerlink" title="@UpdateSingleCache"></a>@UpdateSingleCache</h2><p>作用：更新 Cache 中的数据。</p>
-<p>Key 生成规则：ParameterValueKeyProvider 指定。</p>
-<ul>
-<li>ParameterDataUpdateContent：方法参数中的数据，作为更新缓存的数据。</li>
-<li>ReturnDataUpdateContent：方法调用后生成的数据，作为更新缓存的数据。</li>
-<li>上述两个注解，必须与 Update* 系列的注解一起使用。</li>
-</ul>
-<p>Java Code:</p>
-<pre><code>@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
-public void updateUser(@ParameterValueKeyProvider @ParameterDataUpdateContent User user)
-
-@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
-@ReturnDataUpdateContent
-public void updateUser(@ParameterValueKeyProvider User user)
-</code></pre><p>参考：<a href="http://www.colorfuldays.org/program/java/ssm_memcache/" target="_blank" rel="external">使用SSM注解做缓存操作</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;因为公司有的项目还运行在 MyBatis2 上边，并且 &lt;a href=&quot;http://code.google.com/p/simple-spring-memcached/&quot;&gt;SSM&lt;/a&gt; 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 &lt;a href=&quot;http://www.mybatis.org/caches/memcached/&quot;&gt;mybatis-memcached&lt;/a&gt; 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 &lt;a href=&quot;https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached&quot;&gt;ssm3-mybatis2-memcached&lt;/a&gt;。&lt;/p&gt;
-&lt;h1 id=&quot;1-SSM-Annotation&quot;&gt;&lt;a href=&quot;#1-SSM-Annotation&quot; class=&quot;headerlink&quot; title=&quot;1. SSM Annotation&quot;&gt;&lt;/a&gt;1. SSM Annotation&lt;/h1&gt;&lt;h2 id=&quot;SingleCache-类&quot;&gt;&lt;a href=&quot;#SingleCache-类&quot; class=&quot;headerlink&quot; title=&quot;SingleCache 类&quot;&gt;&lt;/a&gt;SingleCache 类&lt;/h2&gt;&lt;p&gt;操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。&lt;/p&gt;
-&lt;p&gt;Java Code:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@ReadThroughSingleCache(namespace = &amp;quot;user&amp;quot;, expiration = 600)
-public User getUser(@ParameterValueKeyProvider Long id)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Memcache Log:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;get user:1
-set user:1
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://batizhao.me/categories/java/"/>
-    
-    
-      <category term="java" scheme="http://batizhao.me/tags/java/"/>
-    
-      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
-    
-      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
-    
-      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
-    
-  </entry>
-  
-  <entry>
     <title>使用 Simple-Spring-Memcached: SingleCache</title>
     <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/"/>
     <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/</id>
@@ -1209,6 +1132,96 @@ public class RoleManagerImpl implements RoleManager {
                 this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://batizhao.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+    
+      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
+    
+      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
+    
+      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Simple-Spring-Memcached Annotation</title>
+    <link href="http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/"/>
+    <id>http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/</id>
+    <published>2012-09-26T16:00:00.000Z</published>
+    <updated>2016-11-04T09:04:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/" target="_blank" rel="external">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/" target="_blank" rel="external">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached" target="_blank" rel="external">ssm3-mybatis2-memcached</a>。</p>
+<h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
+public User getUser(@ParameterValueKeyProvider Long id)
+</code></pre><p>Memcache Log:</p>
+<pre><code>get user:1
+set user:1
+</code></pre><a id="more"></a>
+<h2 id="MultiCache-类"><a href="#MultiCache-类" class="headerlink" title="MultiCache 类"></a>MultiCache 类</h2><p>操作 List 型的 Cache 数据（看做是 SingleCache 的批处理），由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughMultiCache(namespace = &quot;user/getUsersByUserIds&quot;, expiration = 600)
+public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids)
+</code></pre><p>If ids=[1,2,3], Then Memcache Log:</p>
+<pre><code>get user:1 user:2 user:3
+set user:1
+set user:2
+set user:3        
+</code></pre><h2 id="AssignCache-类"><a href="#AssignCache-类" class="headerlink" title="AssignCache 类"></a>AssignCache 类</h2><p>操作所有类型的 Cache 数据。适用于无参方法或者需要自定义 Key 的场景。指定 key 操作 Cache 数据，由 annotation 中的 assignedKey 指定 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughAssignCache(assignedKey = &quot;user/getAllUsers&quot;, namespace = &quot;role&quot;, expiration = 600)
+public List&lt;User&gt; getAllUsers()
+</code></pre><h1 id="2-SingleCache-Annotation"><a href="#2-SingleCache-Annotation" class="headerlink" title="2. SingleCache Annotation"></a>2. SingleCache Annotation</h1><h2 id="ReadThroughSingleCache"><a href="#ReadThroughSingleCache" class="headerlink" title="@ReadThroughSingleCache"></a>@ReadThroughSingleCache</h2><p>作用：生成 Cache。</p>
+<p>过程：</p>
+<ul>
+<li>在执行方法之前先检查缓存。</li>
+<li>如果找到相应的 Key，返回 Value，方法 return。</li>
+<li>如果没有找到相应的 Key，查询数据库，再 set cache，方法 return。</li>
+</ul>
+<p>Key 生成规则：ParameterValueKeyProvider 指定的参数，如果该参数对象中包含 CacheKeyMethod 注解的方法，则调用其方法，否则调用 toString 方法。</p>
+<h2 id="InvalidateSingleCache"><a href="#InvalidateSingleCache" class="headerlink" title="@InvalidateSingleCache"></a>@InvalidateSingleCache</h2><p>作用：清除 Cache 中的数据。</p>
+<p>key 生成规则：</p>
+<ul>
+<li>使用 ParameterValueKeyProvider 注解时，与 ReadThroughSingleCache 一致。</li>
+<li>使用 ReturnValueKeyProvider 注解时，key 为返回的对象的 CacheKeyMethod 或 toString 方法生成。</li>
+</ul>
+<p>Java Code:</p>
+<pre><code>@InvalidateSingleCache(namespace = &quot;user/list&quot;)
+public void invalidateGetUsersByRoleId(@ParameterValueKeyProvider Long id)        
+</code></pre><h2 id="UpdateSingleCache"><a href="#UpdateSingleCache" class="headerlink" title="@UpdateSingleCache"></a>@UpdateSingleCache</h2><p>作用：更新 Cache 中的数据。</p>
+<p>Key 生成规则：ParameterValueKeyProvider 指定。</p>
+<ul>
+<li>ParameterDataUpdateContent：方法参数中的数据，作为更新缓存的数据。</li>
+<li>ReturnDataUpdateContent：方法调用后生成的数据，作为更新缓存的数据。</li>
+<li>上述两个注解，必须与 Update* 系列的注解一起使用。</li>
+</ul>
+<p>Java Code:</p>
+<pre><code>@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
+public void updateUser(@ParameterValueKeyProvider @ParameterDataUpdateContent User user)
+
+@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
+@ReturnDataUpdateContent
+public void updateUser(@ParameterValueKeyProvider User user)
+</code></pre><p>参考：<a href="http://www.colorfuldays.org/program/java/ssm_memcache/" target="_blank" rel="external">使用SSM注解做缓存操作</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;因为公司有的项目还运行在 MyBatis2 上边，并且 &lt;a href=&quot;http://code.google.com/p/simple-spring-memcached/&quot;&gt;SSM&lt;/a&gt; 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 &lt;a href=&quot;http://www.mybatis.org/caches/memcached/&quot;&gt;mybatis-memcached&lt;/a&gt; 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 &lt;a href=&quot;https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached&quot;&gt;ssm3-mybatis2-memcached&lt;/a&gt;。&lt;/p&gt;
+&lt;h1 id=&quot;1-SSM-Annotation&quot;&gt;&lt;a href=&quot;#1-SSM-Annotation&quot; class=&quot;headerlink&quot; title=&quot;1. SSM Annotation&quot;&gt;&lt;/a&gt;1. SSM Annotation&lt;/h1&gt;&lt;h2 id=&quot;SingleCache-类&quot;&gt;&lt;a href=&quot;#SingleCache-类&quot; class=&quot;headerlink&quot; title=&quot;SingleCache 类&quot;&gt;&lt;/a&gt;SingleCache 类&lt;/h2&gt;&lt;p&gt;操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。&lt;/p&gt;
+&lt;p&gt;Java Code:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@ReadThroughSingleCache(namespace = &amp;quot;user&amp;quot;, expiration = 600)
+public User getUser(@ParameterValueKeyProvider Long id)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Memcache Log:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;get user:1
+set user:1
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
@@ -1951,252 +1964,6 @@ tomcat             0:关闭    1:关闭    2:启用    3:启用    4:启用    5
       <category term="centos" scheme="http://batizhao.me/tags/centos/"/>
     
       <category term="tomcat" scheme="http://batizhao.me/tags/tomcat/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在 CentOS6 上安装 BIND（DNS Server）</title>
-    <link href="http://batizhao.me/2012/07/16/install-dns-server-on-centos6/"/>
-    <id>http://batizhao.me/2012/07/16/install-dns-server-on-centos6/</id>
-    <published>2012-07-15T16:00:00.000Z</published>
-    <updated>2016-11-04T08:52:48.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-DNS-安装"><a href="#1-DNS-安装" class="headerlink" title="1. DNS 安装"></a>1. DNS 安装</h2><p>方式一：从官方下载最新的 Release 版本编译安装（生产环境推荐，后边的配置步骤也会以这种方式说明，和 yum 安装的路径不同）</p>
-<p>在安装之前需要先安装 gcc</p>
-<pre><code># yum install gcc.x86_64 gcc-c++.x86_64 gcc-objc++.x86_64
-</code></pre><p>还需要有 openssl</p>
-<pre><code># yum install openssl openssl-devel
-</code></pre><a id="more"></a>
-<p>下载并安装</p>
-<pre><code># wget http://ftp.isc.org/isc/bind9/9.9.1-P1/bind-9.9.1-P1.tar.gz
-# tar -zxvf bind-9.9.1-P1.tar.gz
-# cd bind-9.9.1-P1
-# ./configure --enable-largefile --enable-threads --prefix=/usr/local/named
-# make
-# make install        
-</code></pre><p>查询版本号</p>
-<pre><code># /usr/local/named/sbin/named -v
-----
-BIND 9.9.1-P1    
-</code></pre><p>方式二：使用 yum 安装</p>
-<pre><code># yum -y install bind* caching-nameserver
-</code></pre><p>查询版本号</p>
-<pre><code># named -v
-BIND 9.8.2rc1-RedHat-9.8.2-0.10.rc1.el6        
-</code></pre><h2 id="2-DNS-配置"><a href="#2-DNS-配置" class="headerlink" title="2. DNS 配置"></a>2. DNS 配置</h2><p>安装 RNDC，让其管理 bind</p>
-<pre><code># cd /usr/local/named/etc
-# /usr/local/named/sbin/rndc-confgen &gt; /usr/local/named/etc/rndc.conf
-# tail -n10 rndc.conf |head -n9 |sed -e s/#\//g &gt; named.conf    
-</code></pre><p>更新 Internet 根服务器地址</p>
-<pre><code># cd /usr/local/named/
-# wget ftp://ftp.internic.org/domain/named.root    
-</code></pre><p>配置 named.conf 文件，这是 bind 的主配置文件，最终的内容    </p>
-<pre><code># mkdir -p /usr/local/named/data
-# cd etc
-# vim named.conf
-</code></pre><p>刚才    tail 命令时已经把 rndc.conf 的一部分内容加进来，现在再在前边加入以下内容</p>
-<pre><code>options {
-    directory &quot;/usr/local/named&quot;;
-    pid-file &quot;named.pid&quot;;
-    listen-on port 53 {any;};
-    allow-query {any;};
-    dump-file &quot;/usr/local/named/data/cache_dump.db&quot;;
-    statistics-file &quot;/usr/local/named/data/named_stats.txt&quot;;
-    forward only;               //增加转发功能
-    forwarders {
-            8.8.8.8;
-    };
-
-};
-
-zone &quot;.&quot;  IN {
-    type hint;
-    file &quot;named.root&quot;;
-};
-
-zone &quot;localhost&quot; IN {
-         type master;
-         file &quot;localhost.zone&quot;;
-         allow-update { none; };
-};
-
-zone &quot;0.0.127.in-addr.arpa&quot; IN {
-         type master;
-         file &quot;localhost.rev&quot;;
-         allow-update { none; };
-};
-
-zone &quot;dev.org&quot; IN {
-        type master;
-        file &quot;dev.org.zone&quot;;
-};
-
-zone &quot;247.4.10.in-addr.arpa&quot; IN {
-        type master;
-        file &quot;10.4.247.zone&quot;;            
-};
-</code></pre><p>生成域名相应的配置文件</p>
-<pre><code># cd /usr/local/named
-</code></pre><p>localhost 正向解析文件</p>
-<pre><code># vim localhost.zone
-----
-$TTL 3600
-@    IN SOA  @    root (
-              20100923       ;serial (d. adams)
-              3H             ;refresh
-              15M            ;retry
-              1W             ;expiry
-              3600)          ;minimum
- IN NS   @
- IN A    127.0.0.1
-</code></pre><p>localhost 反向解析文件</p>
-<pre><code># vim localhost.rev
-----
-$TTL 3600
-@   IN SOA   localhost.   root.localhost. (
-             20100923      ; serial
-             3600          ; refresh every hour
-             900           ; retry every 15 minutes
-             3600000       ; expire 1000 hours
-             3600)         ; minimun 1 hour
-     IN NS  localhost.
-1    IN PTR localhost.   
-</code></pre><p>dev.org 正向解析文件</p>
-<pre><code># vim dev.org.zone
-----
-$TTL 86400
-@       IN SOA  dns.dev.org root (
-                                        0       ; serial
-                                        1D      ; refresh
-                                        1H      ; retry
-                                        1W      ; expire
-                                        3H )    ; minimum
-@       IN      NS      dns.dev.org.
-cas     IN      A      10.4.247.20
-dns     IN      A       10.4.247.20
-ldap     IN      A       10.4.247.20
-</code></pre><p>dev.org 反向解析文件</p>
-<pre><code># vim 10.4.247.zone
-----
-$TTL 86400
-@       IN SOA  dns.dev.org root (
-                                        0       ; serial
-                                        1D      ; refresh
-                                        1H      ; retry
-                                        1W      ; expire
-                                        3H )    ; minimum
-@       IN      NS      dns.dev.org.
-cas     IN      A       10.4.247.20
-dns     IN      A       10.4.247.20
-ldap     IN     A       10.4.247.20
-20      IN      PTR     cas.dev.org.
-20      IN      PTR     dns.dev.org.
-20      IN      PTR     ldap.dev.org.
-</code></pre><h2 id="3-测试"><a href="#3-测试" class="headerlink" title="3. 测试"></a>3. 测试</h2><p>启动bind</p>
-<pre><code># /usr/local/named/sbin/named -gc /usr/local/named/etc/named.conf &amp;
-----
-16-Jul-2012 10:47:03.896 ----------------------------------------------------
-16-Jul-2012 10:47:03.896 BIND 9 is maintained by Internet Systems Consortium,
-16-Jul-2012 10:47:03.896 Inc. (ISC), a non-profit 501(c)(3) public-benefit 
-16-Jul-2012 10:47:03.896 corporation.  Support and training for BIND 9 are 
-16-Jul-2012 10:47:03.896 available at https://www.isc.org/support
-16-Jul-2012 10:47:03.896 ----------------------------------------------------
-16-Jul-2012 10:47:03.896 adjusted limit on open files from 4096 to 1048576
-16-Jul-2012 10:47:03.896 found 16 CPUs, using 16 worker threads
-16-Jul-2012 10:47:03.896 using 16 UDP listeners per interface
-16-Jul-2012 10:47:03.897 using up to 4096 sockets
-16-Jul-2012 10:47:03.903 loading configuration from &apos;/usr/local/named/etc/named.conf&apos;
-16-Jul-2012 10:47:03.903 reading built-in trusted keys from file &apos;/usr/local/named/etc/bind.keys&apos;
-16-Jul-2012 10:47:03.904 using default UDP/IPv4 port range: [1024, 65535]
-16-Jul-2012 10:47:03.904 using default UDP/IPv6 port range: [1024, 65535]
-16-Jul-2012 10:47:03.905 listening on IPv4 interface lo, 127.0.0.1#53
-16-Jul-2012 10:47:03.911 listening on IPv4 interface em1, 10.4.247.20#53
-16-Jul-2012 10:47:03.916 generating session key for dynamic DNS
-16-Jul-2012 10:47:03.916 sizing zone task pool based on 5 zones
-16-Jul-2012 10:47:03.919 set up managed keys zone for view _default, file &apos;managed-keys.bind&apos;
-16-Jul-2012 10:47:03.922 command channel listening on 127.0.0.1#953
-16-Jul-2012 10:47:03.922 ignoring config file logging statement due to -g option
-16-Jul-2012 10:47:03.922 managed-keys-zone: loaded serial 0
-16-Jul-2012 10:47:03.923 zone 0.0.127.in-addr.arpa/IN: loaded serial 20100923
-16-Jul-2012 10:47:03.924 zone localhost/IN: has no NS records
-16-Jul-2012 10:47:03.924 zone localhost/IN: not loaded due to errors.
-16-Jul-2012 10:47:03.924 zone 247.4.10.in-addr.arpa/IN: loaded serial 0
-16-Jul-2012 10:47:03.924 zone dev.org/IN: loaded serial 0
-16-Jul-2012 10:47:03.925 all zones loaded
-16-Jul-2012 10:47:03.925 running
-</code></pre><p>修改本机的 DNS 设置（如果修改 resolv.conf 的话重启以后会失效）</p>
-<pre><code>#vim /etc/sysconfig/network-scripts/ifcfg-em1
-DNS1=10.4.247.20
-</code></pre><p>安装 nslookup 工具                    </p>
-<pre><code># yum install bind-utils
-# nslookup
-&gt; dns.dev.org
-Server:        10.4.247.20
-Address:    10.4.247.20#53
-
-Name:    dns.dev.org
-Address: 10.4.247.20
-&gt; cas.dev.org
-Server:        10.4.247.20
-Address:    10.4.247.20#53
-
-Name:    cas.dev.org
-Address: 10.4.247.20
-&gt; ldap.dev.org
-Server:        10.4.247.20
-Address:    10.4.247.20#53
-
-Name:    ldap.dev.org
-Address: 10.4.247.20
-&gt; 10.4.247.20
-Server:        10.4.247.20
-Address:    10.4.247.20#53
-
-20.247.4.10.in-addr.arpa    name = dns.dev.org.
-20.247.4.10.in-addr.arpa    name = ldap.dev.org.
-20.247.4.10.in-addr.arpa    name = cas.dev.org.
-</code></pre><p>最后需要把 bind 加入到启动项，随操作系统一起启动</p>
-<pre><code># cd /etc/rc.d
-# vim rc.local
-</code></pre><p>在最后添加</p>
-<pre><code># /usr/local/named/sbin/named -gc /usr/local/named/etc/named.conf &amp;
-</code></pre><h2 id="4-注意"><a href="#4-注意" class="headerlink" title="4. 注意"></a>4. 注意</h2><p>服务一旦运行，基本就不会再关闭，重新加载配置使用</p>
-<pre><code># /usr/local/named/sbin/rndc reload        
-</code></pre><p>如果 iptables 有打开，一定要打开端口</p>
-<pre><code># netstat -tunpl|grep named
-----
-tcp  0  0 10.4.247.20:53  0.0.0.0:*  LISTEN  2987/named          
-tcp  0  0 127.0.0.1:53    0.0.0.0:*  LISTEN  2987/named          
-tcp  0  0 127.0.0.1:953   0.0.0.0:*  LISTEN  2987/named          
-udp  0  0 10.4.247.20:53  0.0.0.0:*          2987/named          
-udp  0  0 127.0.0.1:53    0.0.0.0:*          2987/named
-
-# vim /etc/sysconfig/iptables
-----
--A INPUT -m state --state NEW -m tcp -p tcp --dport 53 -j ACCEPT
--A INPUT -m state --state NEW -m udp -p udp --dport 53 -j ACCEPT
--A INPUT -m state --state NEW -m tcp -p tcp --dport 953 -j ACCEPT  
-
-# service iptables restart                 
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1-DNS-安装&quot;&gt;&lt;a href=&quot;#1-DNS-安装&quot; class=&quot;headerlink&quot; title=&quot;1. DNS 安装&quot;&gt;&lt;/a&gt;1. DNS 安装&lt;/h2&gt;&lt;p&gt;方式一：从官方下载最新的 Release 版本编译安装（生产环境推荐，后边的配置步骤也会以这种方式说明，和 yum 安装的路径不同）&lt;/p&gt;
-&lt;p&gt;在安装之前需要先安装 gcc&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# yum install gcc.x86_64 gcc-c++.x86_64 gcc-objc++.x86_64
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;还需要有 openssl&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# yum install openssl openssl-devel
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="linux" scheme="http://batizhao.me/categories/linux/"/>
-    
-    
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
-    
-      <category term="dns" scheme="http://batizhao.me/tags/dns/"/>
     
   </entry>
   
