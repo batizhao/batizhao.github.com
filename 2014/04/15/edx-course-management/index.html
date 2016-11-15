@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mooc,edx,latex," />
+  <meta name="keywords" content="mooc,edx," />
 
 
 
@@ -104,7 +104,7 @@ edX.org 和 edX Edge从外观来看，这两个站点几乎是一样的，但内
 <meta property="og:image" content="http://batizhao.me/images/2014-04-15-edx-course-management-edX-Edge-home.png">
 <meta property="og:image" content="http://batizhao.me/images/2014-04-15-edx-course-management-edX-Edge-home-101.png">
 <meta property="og:image" content="http://batizhao.me/images/2014-04-15-edx-course-management-studio-edge-edx-org.png">
-<meta property="og:updated_time" content="2016-11-04T09:11:25.000Z">
+<meta property="og:updated_time" content="2016-11-15T07:25:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="edX 学习三：开始课程制作之前">
 <meta name="twitter:description" content="在制作课程之前，先要知道下 edX.org 和 edX Edge 的关系。
@@ -402,7 +402,7 @@ edX.org 和 edX Edge从外观来看，这两个站点几乎是一样的，但内
 <li>LMS（+ Github） – 这种方式结合 Github ，可以直接编辑课程相关 XML 文件，实现课程的版本控制，保留课程修改纪录。通过一个 webhook 实现课程的自动更新。上篇提到的 <a href="https://github.com/mitocw/edx4edx_lite" target="_blank" rel="external">edx4edx_lite</a> 就是这种方式。</li>
 <li>Studio – Studio 是用于构建课程的 edX 工具。这是一种可视化、所见即所得的编辑方式，基于 Web 界面。可以使用 Studio 为学生来创建课程内容、问题、视频和其他资源。使用 Studio，可以管理日程安排和课程团队、设置分级策略、发布课程，等等。可以直接通过浏览器使用的 Studio，不需要任何额外的软件。但只能单人编辑工作、没有课程修改纪录。课程内容数据存储在 MongoDB。</li>
 </ul>
-<h2 id="使用-LaTeX-制作课程"><a href="#使用-LaTeX-制作课程" class="headerlink" title="使用 LaTeX 制作课程"></a>使用 LaTeX 制作课程</h2><p>LaTeX 是一个强大的排版系统，广泛应用于数学、科技、工程等学术领域（本篇 Markdown 格式内容转换成 PDF 时也需要使用到 LaTeX 模板），非常适合于制作一些科学图表、数学公式，很多学术论文都使用了此系统。 MIT 开源了 <a href="https://people.csail.mit.edu/ichuang/edx/latex2edx.php" target="_blank" rel="external">latex2edx</a>，使用 LaTeX 来制作整个或部分 edX 课程。 </p>
+<h2 id="使用-LaTeX-制作课程"><a href="#使用-LaTeX-制作课程" class="headerlink" title="使用 LaTeX 制作课程"></a>使用 LaTeX 制作课程</h2><p>LaTeX 是一个强大的排版系统，广泛应用于数学、科技、工程等学术领域（本篇 Markdown 格式内容转换成 PDF 时也需要使用到 LaTeX 模板），非常适合于制作一些科学图表、数学公式，很多学术论文都使用了此系统。 MIT 开源了 <a href="https://people.csail.mit.edu/ichuang/edx/latex2edx.php" target="_blank" rel="external">latex2edx</a>，使用 LaTeX 来制作整个或部分 edX 课程。</p>
 <p>latex2edx 已被用来生产许多 MITX 上 edX 课程，包括 8.01x、8.02x、16.101x 等。它可以通过一个 TEX 模板，同时生成一个在线课程，以及一个 PDF 文件。这种其实是第一种方式。</p>
 
       
@@ -429,8 +429,6 @@ edX.org 和 edX Edge从外观来看，这两个站点几乎是一样的，但内
             <a href="/tags/mooc/" rel="tag">#mooc</a>
           
             <a href="/tags/edx/" rel="tag">#edx</a>
-          
-            <a href="/tags/latex/" rel="tag">#latex</a>
           
         </div>
       

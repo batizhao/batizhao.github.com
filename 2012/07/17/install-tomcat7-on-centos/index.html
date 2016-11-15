@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux,centos,tomcat," />
+  <meta name="keywords" content="linux,tomcat," />
 
 
 
@@ -102,7 +102,7 @@
 2. 安装# tar -xzvf apache-tomcat-7.0.29.tar.gz
 # mv apache-tomcat-7.0.29 /opt/tomcat7
 # cd /opt/tomcat">
-<meta property="og:updated_time" content="2016-11-04T08:53:08.000Z">
+<meta property="og:updated_time" content="2016-11-15T07:26:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 CentOS6 上安装 Tomcat7">
 <meta name="twitter:description" content="1. 下载# wget http://mirror.bit.edu.cn/apache/tomcat/tomcat-7/v7.0.29/bin/apache-tomcat-7.0.29.tar.gz
@@ -384,7 +384,7 @@
 </code></pre><h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><pre><code># tar -xzvf apache-tomcat-7.0.29.tar.gz
 # mv apache-tomcat-7.0.29 /opt/tomcat7
 # cd /opt/tomcat7
-# bin/startup.sh    
+# bin/startup.sh
 </code></pre><a id="more"></a>
 <h2 id="3-配置"><a href="#3-配置" class="headerlink" title="3. 配置"></a>3. 配置</h2><p>在生产环境用 root 是不安全的，所以</p>
 <pre><code># useradd -s /sbin/nologin tomcat
@@ -393,19 +393,19 @@
 <pre><code># cd /opt/tomcat7/bin
 # tar -xzvf commons-daemon-native.tar.gz
 # cd commons-daemon-1.0.10-native-src/unix
-# ./configure 
+# ./configure
 # make
 # cp jsvc ../..
 # cd ../..
 </code></pre><p>在 daemon.sh 的注释后边，正文最开始增加下边五行内容</p>
 <pre><code># vim daemon.sh
 ----
-# chkconfig: 2345 10 90 
-# description: Starts and Stops the Tomcat daemon. 
+# chkconfig: 2345 10 90
+# description: Starts and Stops the Tomcat daemon.
 
 JAVA_HOME=/usr/java/jdk1.6.0_31
 CATALINA_HOME=/opt/tomcat7
-CATALINA_OPTS=&quot;-Xms1024m -Xmx2048m -XX:PermSize=256m -XX:MaxPermSize=512m&quot; 
+CATALINA_OPTS=&quot;-Xms1024m -Xmx2048m -XX:PermSize=256m -XX:MaxPermSize=512m&quot;
 </code></pre><p>增加到 service</p>
 <pre><code># cp daemon.sh /etc/init.d/tomcat
 # chkconfig --add tomcat
@@ -441,8 +441,6 @@ tomcat             0:关闭    1:关闭    2:启用    3:启用    4:启用    5
         <div class="post-tags">
           
             <a href="/tags/linux/" rel="tag">#linux</a>
-          
-            <a href="/tags/centos/" rel="tag">#centos</a>
           
             <a href="/tags/tomcat/" rel="tag">#tomcat</a>
           

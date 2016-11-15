@@ -2,16 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://batizhao.me/2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/</loc>
+    <loc>http://batizhao.me/2016/11/15/dokcer-two-dockerfile/</loc>
     
-    <lastmod>2016-11-15T07:21:00.000Z</lastmod>
+    <lastmod>2016-11-15T07:28:59.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://batizhao.me/2016/11/15/dokcer-two-dockerfile/</loc>
+    <loc>http://batizhao.me/2012/07/17/install-tomcat7-on-centos/</loc>
     
-    <lastmod>2016-11-15T07:07:40.000Z</lastmod>
+    <lastmod>2016-11-15T07:26:18.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2014/04/15/edx-course-management/</loc>
+    
+    <lastmod>2016-11-15T07:25:16.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2014/04/11/learning-edx-one/</loc>
+    
+    <lastmod>2016-11-15T07:25:00.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/</loc>
+    
+    <lastmod>2016-11-15T07:21:00.000Z</lastmod>
     
   </url>
   
@@ -23,14 +44,14 @@
   </url>
   
   <url>
-    <loc>http://batizhao.me/tags/index.html</loc>
+    <loc>http://batizhao.me/categories/index.html</loc>
     
     <lastmod>2016-11-09T02:28:59.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://batizhao.me/categories/index.html</loc>
+    <loc>http://batizhao.me/tags/index.html</loc>
     
     <lastmod>2016-11-09T02:28:59.000Z</lastmod>
     
@@ -44,23 +65,9 @@
   </url>
   
   <url>
-    <loc>http://batizhao.me/2014/04/11/learning-edx-one/</loc>
-    
-    <lastmod>2016-11-04T15:53:56.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://batizhao.me/2014/04/18/building-a-course/</loc>
     
     <lastmod>2016-11-04T09:11:55.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://batizhao.me/2014/04/15/edx-course-management/</loc>
-    
-    <lastmod>2016-11-04T09:11:25.000Z</lastmod>
     
   </url>
   
@@ -159,13 +166,6 @@
     <loc>http://batizhao.me/2012/07/19/setting-cas-assertion/</loc>
     
     <lastmod>2016-11-04T08:53:24.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://batizhao.me/2012/07/17/install-tomcat7-on-centos/</loc>
-    
-    <lastmod>2016-11-04T08:53:08.000Z</lastmod>
     
   </url>
   
