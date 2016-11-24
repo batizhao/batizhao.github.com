@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux,ldap,sso," />
+  <meta name="keywords" content="Java, Linux, Spring, Cloud, Docker" />
 
 
 
@@ -90,29 +90,15 @@
 
 
 
-<meta name="description" content="本文参照 Installing the Apache Tomcat Policy Agent，在开始之前必须停止 Tomcat。
-在 OpenAM 中配置 Tomcat Agent登录 OpenAM，Access Control - Top Level Realm - Agents - J2EE，在 Agent 下边点击按钮 New
-Name: tomcatAgent
-Password: 1234">
-<meta property="og:type" content="article">
-<meta property="og:title" content="安装 Tomcat Policy Agent">
-<meta property="og:url" content="http://batizhao.me/2012/04/06/installing-the-apache-tomcat-policy-agent/index.html">
+<meta name="description" content="大处着眼，小处入手。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gunner">
+<meta property="og:url" content="http://batizhao.me/tags/linux/page/3/index.html">
 <meta property="og:site_name" content="Gunner">
-<meta property="og:description" content="本文参照 Installing the Apache Tomcat Policy Agent，在开始之前必须停止 Tomcat。
-在 OpenAM 中配置 Tomcat Agent登录 OpenAM，Access Control - Top Level Realm - Agents - J2EE，在 Agent 下边点击按钮 New
-Name: tomcatAgent
-Password: 1234">
-<meta property="og:image" content="http://batizhao.me/images/2012-04-06-installing-the-apache-tomcat-policy-agent-1.png">
-<meta property="og:image" content="http://batizhao.me/images/2012-04-06-installing-the-apache-tomcat-policy-agent-2.png">
-<meta property="og:image" content="http://batizhao.me/images/2012-04-06-installing-the-apache-tomcat-policy-agent-3.png">
-<meta property="og:updated_time" content="2016-11-04T08:46:32.000Z">
+<meta property="og:description" content="大处着眼，小处入手。">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安装 Tomcat Policy Agent">
-<meta name="twitter:description" content="本文参照 Installing the Apache Tomcat Policy Agent，在开始之前必须停止 Tomcat。
-在 OpenAM 中配置 Tomcat Agent登录 OpenAM，Access Control - Top Level Realm - Agents - J2EE，在 Agent 下边点击按钮 New
-Name: tomcatAgent
-Password: 1234">
-<meta name="twitter:image" content="http://batizhao.me/images/2012-04-06-installing-the-apache-tomcat-policy-agent-1.png">
+<meta name="twitter:title" content="Gunner">
+<meta name="twitter:description" content="大处着眼，小处入手。">
 
 
 
@@ -133,10 +119,10 @@ Password: 1234">
 
 
 
-  <link rel="canonical" href="http://batizhao.me/2012/04/06/installing-the-apache-tomcat-policy-agent/"/>
+  <link rel="canonical" href="http://batizhao.me/tags/linux/page/3/"/>
 
 
-  <title> 安装 Tomcat Policy Agent | Gunner </title>
+  <title> 标签: linux | Gunner </title>
   
 
 
@@ -166,7 +152,7 @@ Password: 1234">
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
@@ -297,253 +283,50 @@ Password: 1234">
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                安装 Tomcat Policy Agent
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-04-06T00:00:00+08:00" content="2012-04-06">
-              2012-04-06
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/04/06/installing-the-apache-tomcat-policy-agent/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/04/06/installing-the-apache-tomcat-policy-agent/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p>本文参照 <a href="http://openam.forgerock.org/doc/agent-install-guide/index.html#chap-apache-tomcat" target="_blank" rel="external">Installing the Apache Tomcat Policy Agent</a>，在开始之前必须停止 Tomcat。</p>
-<h2 id="在-OpenAM-中配置-Tomcat-Agent"><a href="#在-OpenAM-中配置-Tomcat-Agent" class="headerlink" title="在 OpenAM 中配置 Tomcat Agent"></a>在 OpenAM 中配置 Tomcat Agent</h2><p>登录 OpenAM，Access Control - Top Level Realm - Agents - J2EE，在 Agent 下边点击按钮 New</p>
-<pre><code>Name: tomcatAgent
-Password: 123456
-Configuration: Centralized
-Server URL: http://openam.example.com:8080/openam
-Agent URL: http://website.example.com:8080/agentapp
-</code></pre><a id="more"></a>
-<h2 id="安装-Tomcat-Policy-Agent"><a href="#安装-Tomcat-Policy-Agent" class="headerlink" title="安装 Tomcat Policy Agent"></a>安装 Tomcat Policy Agent</h2><p>创建密码文件（在需要配置 Agent 的机器）</p>
-<pre><code># umask 366
-# echo 123456 &gt; /var/tmp/passwd
-</code></pre><p>安装</p>
-<pre><code># wget http://download.forgerock.org/downloads/openam/j2eeagents/stable/3.0.3/tomcat_v6_agent_303.zip 
-# cp tomcat_v6_agent_303.zip /opt/tomcat6
-# cd /opt/tomcat6
-# unzip tomcat_v6_agent_303.zip
-# j2ee_agents/tomcat_v6_agent/bin/agentadmin --install
-
-Tomcat Server Config Directory : /opt/tomcat6/conf
-OpenSSO server URL : http://openam.example.com:8080/openam
-$CATALINA_HOME environment variable : /opt/tomcat6
-Tomcat global web.xml filter install : false
-Agent URL : http://website.example.com:8080/agentapp
-Agent Profile name : tomcatAgent
-Agent Profile Password file name : /var/tmp/passwd
-</code></pre><p>拷贝示例程序</p>
-<pre><code># cp j2ee_agents/tomcat_v6_agent/etc/agentapp.war webapps
-# cp j2ee_agents/tomcat_v6_agent/sampleapp/dist/agentsample.war webapps
-</code></pre><p>如果是同一个浏览器，先注销 OpenAM，启动 Tomcat，访问 agentsample，会被重定向到 OpenAM 的登录页面，这时使用 amadmin/password 登录是有问题的。</p>
-<h2 id="在-OpenAM-中配置-Policy"><a href="#在-OpenAM-中配置-Policy" class="headerlink" title="在 OpenAM 中配置 Policy"></a>在 OpenAM 中配置 Policy</h2><p>再次登录 OpenAM，Access Control - Top Level Realm - Subjects，在 User 下边点击 New，新建 4 个测试用户</p>
-<pre><code>ID : user001
-First Name : User
-Last Name : One
-Full Name : User One
-Password : firstuser
-Confirm Password : firstuser
-User Status : Active
-
-ID : user002
-First Name : User
-Last Name : Two
-Full Name : User Two
-Password : seconduser
-Confirm Password : seconduser
-User Status : Active
-
-ID : user003
-First Name : User
-Last Name : Three
-Full Name : User Three
-Password : thirduser
-Confirm Password : thirduser
-User Status : Active
-
-ID : user004
-First Name : User
-Last Name : Four
-Full Name : User Four
-Password : fourthuser
-Confirm Password : fourthuser
-User Status : Active
-</code></pre><p><img src="/images/2012-04-06-installing-the-apache-tomcat-policy-agent-1.png" alt="">    </p>
-<p>Access Control - Top Level Realm - Policies，点击 New Policy，在 Rules 下边点击 New，选择 URL Policy Agent</p>
-<pre><code>Name: URLPolicy
-Resource Name: http://website.example.com:8080/agentsample/*
-Actions : Select and allow both GET and POST
-</code></pre><p>在 Subjects    下边点击 New，选择 OpenAM Identity Subject（如果选择 Authenticated Users，不限制用户）</p>
-<pre><code>Name: userAccess
-Exclusive : Not ticked
-</code></pre><p><img src="/images/2012-04-06-installing-the-apache-tomcat-policy-agent-2.png" alt="">    </p>
-<p>在 New Policy 的 General </p>
-<pre><code>Name：samplePolicy
-</code></pre><p>点击 Save.    </p>
-<p><img src="/images/2012-04-06-installing-the-apache-tomcat-policy-agent-3.png" alt=""></p>
-<p>如果是同一个浏览器，先注销 OpenAM，访问 agentsample，会被重定向到 OpenAM 的登录页面，这时使用 user001，user002 可以正常登录，使用其它用户不可以。</p>
-
-      
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        linux
+        <small>标签</small>
+      </h2>
     </div>
 
-    <div>
+    
       
+
+  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
         
-
-      
-    </div>
-
-    <div>
-      
+            <a class="post-title-link" href="/2012/03/07/install-rhel6/" itemprop="url">
+              
+                <span itemprop="name">在 Parallels for Mac 上安装 RHEL6</span>
+              
+            </a>
         
+      </h1>
 
-      
-    </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2012-03-07T00:00:00+08:00"
+              content="2012-03-07" >
+          03-07
+        </time>
+      </div>
 
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/linux/" rel="tag">#linux</a>
-          
-            <a href="/tags/ldap/" rel="tag">#ldap</a>
-          
-            <a href="/tags/sso/" rel="tag">#sso</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2012/04/05/install-openam-on-rhel6/" rel="next" title="在 RHEL6 上安装 OpenAM">
-                <i class="fa fa-chevron-left"></i> 在 RHEL6 上安装 OpenAM
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2012/04/12/using-openam-develop-dlient-applications/" rel="prev" title="开发 OpenAM Java 客户端应用">
-                开发 OpenAM Java 客户端应用 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-  <a class="jiathis_button_tsina"></a>
-  <a class="jiathis_button_tqq"></a>
-  <a class="jiathis_button_weixin"></a>
-  <a class="jiathis_button_cqq"></a>
-  <a class="jiathis_button_douban"></a>
-  <a class="jiathis_button_renren"></a>
-  <a class="jiathis_button_qzone"></a>
-  <a class="jiathis_button_kaixin001"></a>
-  <a class="jiathis_button_copy"></a>
-  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
-  <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-  var jiathis_config={
-    hideMore:false
-  }
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-
-      
-    </div>
+    
   </div>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/tags/linux/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/tags/linux/">1</a><a class="page-number" href="/tags/linux/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
 
 
           </div>
@@ -551,14 +334,6 @@ Exclusive : Not ticked
 
 
           
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2012/04/06/installing-the-apache-tomcat-policy-agent/"
-           data-title="安装 Tomcat Policy Agent" data-url="http://batizhao.me/2012/04/06/installing-the-apache-tomcat-policy-agent/">
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -578,17 +353,8 @@ Exclusive : Not ticked
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -680,17 +446,6 @@ Exclusive : Not ticked
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在-OpenAM-中配置-Tomcat-Agent"><span class="nav-number">1.</span> <span class="nav-text">在 OpenAM 中配置 Tomcat Agent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Tomcat-Policy-Agent"><span class="nav-number">2.</span> <span class="nav-text">安装 Tomcat Policy Agent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-OpenAM-中配置-Policy"><span class="nav-number">3.</span> <span class="nav-text">在 OpenAM 中配置 Policy</span></a></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -787,10 +542,6 @@ Exclusive : Not ticked
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
-
-
 
   
 

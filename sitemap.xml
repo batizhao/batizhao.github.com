@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://batizhao.me/2016/11/24/docker-three-command/</loc>
+    
+    <lastmod>2016-11-24T09:11:29.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://batizhao.me/2016/11/15/dokcer-two-dockerfile/</loc>
     
     <lastmod>2016-11-15T07:37:42.000Z</lastmod>
@@ -44,14 +51,14 @@
   </url>
   
   <url>
-    <loc>http://batizhao.me/categories/index.html</loc>
+    <loc>http://batizhao.me/tags/index.html</loc>
     
     <lastmod>2016-11-09T02:28:59.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://batizhao.me/tags/index.html</loc>
+    <loc>http://batizhao.me/categories/index.html</loc>
     
     <lastmod>2016-11-09T02:28:59.000Z</lastmod>
     
