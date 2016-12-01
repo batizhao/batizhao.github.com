@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://batizhao.me/"/>
-  <updated>2016-11-25T08:00:05.000Z</updated>
+  <updated>2016-12-01T06:25:22.000Z</updated>
   <id>http://batizhao.me/</id>
   
   <author>
@@ -14,6 +14,54 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker 实战（四）：Docker Compose</title>
+    <link href="http://batizhao.me/2016/12/01/docker-four-docker-compose/"/>
+    <id>http://batizhao.me/2016/12/01/docker-four-docker-compose/</id>
+    <published>2016-12-01T05:31:47.000Z</published>
+    <updated>2016-12-01T06:25:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>之前都是单个 Docker 容器，现在，基于 Docker Compose，你可以同时控制多个相关联的 Docker 容器。<br>比如典型的 Nginx + Tomcat + MySQL 的 Web 架构，只需要几个简单的配置，敲击几个命令，原来可能需要好几个小时的工作，现在几分钟就可以搞定。</p>
+<a id="more"></a>
+<p>使用 Compose 主要由以下三步组成：</p>
+<ul>
+<li>定义 Dockerfile；</li>
+<li>定义 docker-compose.yml；</li>
+<li>运行 docker-compose up 启动所有容器。</li>
+</ul>
+<p>这里会构造一个 HAProxy + 两个 Tomcat 负载均衡的架构。</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">compose-haproxy-web</div><div class="line">- docker-compose.yml</div><div class="line">+ haproxy</div><div class="line">  - haproxy.cfg</div><div class="line">+ web</div><div class="line">  - Dockerfile</div><div class="line">  - index.html</div></pre></td></tr></table></figure>
+<h2 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a>docker-compose.yml</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="attr">weba:</span></div><div class="line"><span class="attr">    build:</span> ./web</div><div class="line"><span class="attr">    expose:</span></div><div class="line"><span class="bullet">        -</span> <span class="number">8080</span></div><div class="line"></div><div class="line"><span class="attr">webb:</span></div><div class="line"><span class="attr">    build:</span> ./web</div><div class="line"><span class="attr">    expose:</span></div><div class="line"><span class="bullet">        -</span> <span class="number">8080</span></div><div class="line"></div><div class="line"><span class="attr">haproxy:</span></div><div class="line"><span class="attr">    image:</span> haproxy:latest</div><div class="line"><span class="attr">    volumes:</span></div><div class="line"><span class="bullet">        -</span> ./haproxy:/haproxy-override</div><div class="line"><span class="bullet">        -</span> ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro</div><div class="line"><span class="attr">    links:</span></div><div class="line"><span class="bullet">        -</span> weba</div><div class="line"><span class="bullet">        -</span> webb</div><div class="line"><span class="attr">    ports:</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"80:80"</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"70:70"</span></div><div class="line"><span class="attr">    expose:</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"80"</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"70"</span></div></pre></td></tr></table></figure>
+<h2 id="haproxy-cfg"><a href="#haproxy-cfg" class="headerlink" title="haproxy.cfg"></a>haproxy.cfg</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">global</div><div class="line">  log 127.0.0.1	local0</div><div class="line">  log 127.0.0.1	local1 notice</div><div class="line">  maxconn 4096</div><div class="line">  daemon</div><div class="line"></div><div class="line">defaults</div><div class="line">  log	global</div><div class="line">  mode	http</div><div class="line">  option	httplog</div><div class="line">  option	dontlognull</div><div class="line">  retries	3</div><div class="line">  option redispatch</div><div class="line">  maxconn	2000</div><div class="line">  timeout connect	5000</div><div class="line">  timeout client	50000</div><div class="line">  timeout server	50000</div><div class="line"></div><div class="line">frontend balancer</div><div class="line">  bind 0.0.0.0:80</div><div class="line">  mode http</div><div class="line">  default_backend servers</div><div class="line"></div><div class="line">backend servers</div><div class="line">  option httpchk OPTIONS /</div><div class="line">  option forwardfor</div><div class="line">  cookie JSESSIONID prefix</div><div class="line">  server tomcat1 weba:8080 cookie JSESSIONID_SERVER_1 check inter 5000</div><div class="line">  server tomcat2 webb:8080 cookie JSESSIONID_SERVER_2 check inter 5000</div><div class="line"></div><div class="line">listen status</div><div class="line">  mode http</div><div class="line">  default_backend servers</div><div class="line">  bind 0.0.0.0:70</div><div class="line">  stats enable</div><div class="line">  stats hide-version</div><div class="line">  stats uri     /stats</div><div class="line">  stats auth    admin:password</div><div class="line">  stats admin if TRUE</div></pre></td></tr></table></figure>
+<h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">FROM batizhao/java:8</div><div class="line"></div><div class="line"># 创建者信息</div><div class="line">MAINTAINER batizhao &lt;zhaobati@gmail.com&gt;</div><div class="line"></div><div class="line"># Install dependencies</div><div class="line">RUN apt-get update &amp;&amp; \</div><div class="line">    apt-get install -y wget tar &amp;&amp; \</div><div class="line">    apt-get clean &amp;&amp; \</div><div class="line">    rm -rf /var/lib/apt/lists/*</div><div class="line"></div><div class="line"># Define commonly used JAVA_HOME variable</div><div class="line">ENV TOMCAT_VERSION 8.5.8</div><div class="line"></div><div class="line"># Get Tomcat</div><div class="line">RUN wget --no-cookies http://ftp.jaist.ac.jp/pub/apache/tomcat/tomcat-8/v$&#123;TOMCAT_VERSION&#125;/bin/apache-tomcat-$&#123;TOMCAT_VERSION&#125;.tar.gz -O /tmp/tomcat.tgz &amp;&amp; \</div><div class="line">    tar xzvf /tmp/tomcat.tgz -C /opt &amp;&amp; \</div><div class="line">    mv /opt/apache-tomcat-$&#123;TOMCAT_VERSION&#125; /opt/tomcat &amp;&amp; \</div><div class="line">    rm /tmp/tomcat.tgz &amp;&amp; \</div><div class="line">    rm -rf /opt/tomcat/webapps/examples &amp;&amp; \</div><div class="line">    rm -rf /opt/tomcat/webapps/docs &amp;&amp; \</div><div class="line">    rm -rf /opt/tomcat/webapps/manager &amp;&amp; \</div><div class="line">    rm -rf /opt/tomcat/webapps/host-manager &amp;&amp; \</div><div class="line">    rm -rf /opt/tomcat/webapps/ROOT/*</div><div class="line"></div><div class="line">ADD index.html /opt/tomcat/webapps/ROOT</div><div class="line"></div><div class="line">ENV CATALINA_HOME /opt/tomcat</div><div class="line">ENV PATH $PATH:$CATALINA_HOME/bin</div><div class="line"></div><div class="line">EXPOSE 8080</div><div class="line">WORKDIR /opt/tomcat</div><div class="line"></div><div class="line"># Launch Tomcat</div><div class="line">CMD [&quot;/opt/tomcat/bin/catalina.sh&quot;, &quot;run&quot;]</div></pre></td></tr></table></figure>
+<h2 id="index-html"><a href="#index-html" class="headerlink" title="index.html"></a>index.html</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hello, Docker.</div></pre></td></tr></table></figure>
+<h2 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ docker-compose up</div><div class="line">Creating composehaproxyweb_webb_1</div><div class="line">Creating composehaproxyweb_weba_1</div><div class="line">Creating composehaproxyweb_haproxy_1</div><div class="line">Attaching to composehaproxyweb_weba_1, composehaproxyweb_webb_1, composehaproxyweb_haproxy_1</div><div class="line">haproxy_1  | &lt;7&gt;haproxy-systemd-wrapper: executing /usr/local/sbin/haproxy -p /run/haproxy.pid -f /usr/local/etc/haproxy/haproxy.cfg -Ds</div><div class="line">webb_1     | 30-Nov-2016 12:50:21.524 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.8</div><div class="line">weba_1     | 30-Nov-2016 12:50:21.531 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/8.5.8</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>访问 <a href="http://localhost" target="_blank" rel="external">http://localhost</a><br>可以看到 Hello, Docker.</p>
+<p>访问 <a href="http://localhost:70/stats" target="_blank" rel="external">http://localhost:70/stats</a><br><img src="/images/2016-12-01-docker-four-docker-compose-haproxy.png" alt=""></p>
+<h2 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h2><p>增加 -d 参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ docker-compose up -d</div><div class="line">Starting composehaproxyweb_webb_1</div><div class="line">Starting composehaproxyweb_weba_1</div><div class="line">Starting composehaproxyweb_haproxy_1</div></pre></td></tr></table></figure>
+<p>查看 compose 进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ docker-compose ps</div><div class="line">           Name                          Command               State                   Ports</div><div class="line">-------------------------------------------------------------------------------------------------------------</div><div class="line">composehaproxyweb_haproxy_1   /docker-entrypoint.sh hapr ...   Up      0.0.0.0:70-&gt;70/tcp, 0.0.0.0:80-&gt;80/tcp</div><div class="line">composehaproxyweb_weba_1      /opt/tomcat/bin/catalina.s ...   Up      8080/tcp</div><div class="line">composehaproxyweb_webb_1      /opt/tomcat/bin/catalina.s ...   Up      8080/tcp</div></pre></td></tr></table></figure></p>
+<p>在 weba 上执行命令，比如 env</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">$ docker-compose run weba env</div><div class="line">PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/tomcat/bin</div><div class="line">HOSTNAME=4fd738ffc9b2</div><div class="line">TERM=xterm</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_PORT=tcp://172.17.0.2:8080</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_PORT_8080_TCP=tcp://172.17.0.2:8080</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_PORT_8080_TCP_ADDR=172.17.0.2</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_PORT_8080_TCP_PORT=8080</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_PORT_8080_TCP_PROTO=tcp</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_NAME=/composehaproxyweb_weba_run_1/composehaproxyweb_weba_1</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_ENV_TOMCAT_VERSION=8.5.8</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_ENV_CATALINA_HOME=/opt/tomcat</div><div class="line">WEBA_PORT=tcp://172.17.0.2:8080</div><div class="line">WEBA_PORT_8080_TCP=tcp://172.17.0.2:8080</div><div class="line">WEBA_PORT_8080_TCP_ADDR=172.17.0.2</div><div class="line">WEBA_PORT_8080_TCP_PORT=8080</div><div class="line">WEBA_PORT_8080_TCP_PROTO=tcp</div><div class="line">WEBA_NAME=/composehaproxyweb_weba_run_1/weba</div><div class="line">WEBA_ENV_TOMCAT_VERSION=8.5.8</div><div class="line">WEBA_ENV_CATALINA_HOME=/opt/tomcat</div><div class="line">WEBA_1_PORT=tcp://172.17.0.2:8080</div><div class="line">WEBA_1_PORT_8080_TCP=tcp://172.17.0.2:8080</div><div class="line">WEBA_1_PORT_8080_TCP_ADDR=172.17.0.2</div><div class="line">WEBA_1_PORT_8080_TCP_PORT=8080</div><div class="line">WEBA_1_PORT_8080_TCP_PROTO=tcp</div><div class="line">WEBA_1_NAME=/composehaproxyweb_weba_run_1/weba_1</div><div class="line">WEBA_1_ENV_TOMCAT_VERSION=8.5.8</div><div class="line">WEBA_1_ENV_CATALINA_HOME=/opt/tomcat</div><div class="line">TOMCAT_VERSION=8.5.8</div><div class="line">CATALINA_HOME=/opt/tomcat</div><div class="line">HOME=/root</div></pre></td></tr></table></figure>
+<p>停止后台进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ docker-compose stop</div><div class="line">Stopping composehaproxyweb_haproxy_1 ... done</div><div class="line">Stopping composehaproxyweb_webb_1 ... done</div><div class="line">Stopping composehaproxyweb_weba_1 ... done</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;之前都是单个 Docker 容器，现在，基于 Docker Compose，你可以同时控制多个相关联的 Docker 容器。&lt;br&gt;比如典型的 Nginx + Tomcat + MySQL 的 Web 架构，只需要几个简单的配置，敲击几个命令，原来可能需要好几个小时的工作，现在几分钟就可以搞定。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="docker" scheme="http://batizhao.me/tags/docker/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker 实战（三）：Docker 常用命令</title>
@@ -777,171 +825,6 @@ public List&amp;lt;User&amp;gt; getUsersByRoleIds(@ParameterValueKeyProvider fin
   </entry>
   
   <entry>
-    <title>使用 Simple-Spring-Memcached: MultiCache</title>
-    <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/"/>
-    <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/</id>
-    <published>2012-09-26T16:00:00.000Z</published>
-    <updated>2016-11-04T09:03:57.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。</p>
-<h2 id="Namespace-和-Key"><a href="#Namespace-和-Key" class="headerlink" title="Namespace 和 Key"></a>Namespace 和 Key</h2><p>这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是</p>
-<ul>
-<li><p>get user:id</p>
-<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
-</li>
-<li><p>set user:id</p>
-<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
-</li>
-</ul>
-<p>如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是</p>
-<ul>
-<li>缓存命中率（大大影响缓存使用效率）</li>
-<li>内容空间（占用更多的内存）</li>
-<li>需要更多的清除操作（程序复杂度增加）</li>
-</ul>
-<a id="more"></a>
-<h2 id="场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存"><a href="#场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存" class="headerlink" title="场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存"></a>场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存</h2><p>Method:</p>
-<pre><code>@Override
-@ReadThroughMultiCache(namespace = &quot;user&quot;, expiration = 60)
-public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider List&lt;Long&gt; ids) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByUserIds&quot;, ids);
-}
-</code></pre><p>SQL:</p>
-<pre><code>&lt;select id=&quot;getUsersByUserIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
-    SELECT u.id, u.name
-    FROM user u
-    WHERE u.id in
-    (&lt;iterate conjunction=&quot;,&quot;&gt;
-        #ids[]#
-    &lt;/iterate&gt;)
-&lt;/select&gt;
-</code></pre><p>Memcached Log:</p>
-<pre><code>&lt;21 get user:1000 user:1001
-&gt;21 sending key user:1000
-&gt;21 END
-&lt;21 set user:1001
-&gt;21 STORED
-</code></pre><p>更新。这里 Batch 调用 updateUser，因为方法没有返回值，所以只能使用 @ParameterDataUpdateContent</p>
-<pre><code>@Override
-@UpdateMultiCache(namespace = &quot;user&quot;, expiration = 60)
-public void updateUsersByUserIds(@ParameterValueKeyProvider @ParameterDataUpdateContent final List&lt;User&gt; users) {
-    sqlMapClientTemplate.execute(new SqlMapClientCallback() {
-        @Override
-        public Object doInSqlMapClient(SqlMapExecutor executor) throws SQLException {
-            executor.startBatch();
-
-            for(User user: users){
-                executor.update(&quot;updateUser&quot;, user);
-            }
-
-            executor.executeBatch();
-
-            return null;
-
-        }
-    });
-}    
-</code></pre><p>看一下 Memcached Log，user:1000 直接从 Cache 返回，只有 user:1001 做了数据库操作。这是因为我在执行    getUsersByUserIds 之前，执行了上一篇中的 getUser(1000L)，先生成了 Cache。        </p>
-<h2 id="场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效"><a href="#场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效" class="headerlink" title="场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效"></a>场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效</h2><p>Method:</p>
-<pre><code>@Override
-@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60)
-public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
-}
-</code></pre><p><em>这里为什么不用 namespace = “user”？</em>   </p>
-<p>SQL:</p>
-<pre><code>&lt;select id=&quot;getUsersByRoleIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
-    SELECT u.id, u.name, r.id as &quot;role.id&quot;, r.name as &quot;role.name&quot;
-    FROM user u, user_role ur, role r
-    WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid in
-    (&lt;iterate conjunction=&quot;,&quot;&gt;
-        #ids[]#
-    &lt;/iterate&gt;)
-&lt;/select&gt;
-</code></pre><p>看一下返回的结果集：</p>
-<pre><code>+------+-------+---------+------------+
-| id   | name  | role.id | role.name  |
-+------+-------+---------+------------+
-| 1000 | Tom   |       1 | ROLE_ADMIN |
-| 1001 | Jerry |       2 | ROLE_USER  |
-| 1002 | Jack  |       1 | ROLE_ADMIN |
-+------+-------+---------+------------+ 
-</code></pre><p>测试代码是这样的：</p>
-<pre><code>@Test
-public void testGetUsersByRoleIds() throws Exception {
-    List&lt;Long&gt; list = Arrays.asList(1L, 2L);
-
-    List users = userDao.getUsersByRoleIds(list);
-
-    log.info(&quot;users: &quot; + users);
-
-    assertNotNull(users);
-    assertEquals(3, users.size());
-}    
-</code></pre><p>这个方法不会生成任何缓存。SSM 会告诉你</p>
-<pre><code>com.google.code.ssm.aop.ReadThroughMultiCacheAdvice: Did not receive a correlated amount of data from the target method.
-</code></pre><p>因为 SSM 会先根据结果集生成缓存（使用返回对象 User 的 @CacheKeyMethod 方法）</p>
-<pre><code>set user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
-</code></pre><p>但是返回的结果集中没有 1 和 2，就算有，也不是我们想要的 role.id，而是 user.id。刚开始我尝试和 SSM 的开发者沟通<a href="http://code.google.com/p/simple-spring-memcached/issues/detail?id=10" target="_blank" rel="external">这个问题</a>。他让我尝试修改一下 annotation</p>
-<pre><code>@Override
-@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60, option = @ReadThroughMultiCacheOption(generateKeysFromResult = true))
-public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
-}
-</code></pre><p>之后变成这个样子：</p>
-<pre><code>get user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
-
-set user/getUsersByRoleIds:1000 8 60 120
-{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1000,&quot;name&quot;:&quot;Tom&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
-
-set user/getUsersByRoleIds:1001 8 60 121
-{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1001,&quot;name&quot;:&quot;Jerry&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:2,&quot;name&quot;:&quot;ROLE_USER&quot;}}}}}
-
-set user/getUsersByRoleIds:1002 8 60 121
-{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1002,&quot;name&quot;:&quot;Jack&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
-</code></pre><p>在这个返回的 List 中，role.id 不可以做为 Key，因为不是唯一的。试了一下返回 HaspMap，@ReadThroughMultiCache 只支持 List。所以想到两种解决办法：</p>
-<ul>
-<li>循环调用上一篇中的 getUsersByRoleId 方法。</li>
-<li>使用 @ReadThroughAssignCache（缺点是缓存做为一整块，不能像 @ReadThroughMultiCache 一样对单个 User 做操作了），到时只能整体清除。</li>
-</ul>
-<p>第一个方案可以自行试验一下，下一篇讲 AssignCache 如何解决这个问题。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。&lt;/p&gt;
-&lt;h2 id=&quot;Namespace-和-Key&quot;&gt;&lt;a href=&quot;#Namespace-和-Key&quot; class=&quot;headerlink&quot; title=&quot;Namespace 和 Key&quot;&gt;&lt;/a&gt;Namespace 和 Key&lt;/h2&gt;&lt;p&gt;这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;get user:id&lt;/p&gt;
-&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;set user:id&lt;/p&gt;
-&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;缓存命中率（大大影响缓存使用效率）&lt;/li&gt;
-&lt;li&gt;内容空间（占用更多的内存）&lt;/li&gt;
-&lt;li&gt;需要更多的清除操作（程序复杂度增加）&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://batizhao.me/categories/java/"/>
-    
-    
-      <category term="java" scheme="http://batizhao.me/tags/java/"/>
-    
-      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
-    
-      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
-    
-      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
-    
-  </entry>
-  
-  <entry>
     <title>使用 Simple-Spring-Memcached: SingleCache</title>
     <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/"/>
     <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/</id>
@@ -1195,6 +1078,171 @@ public class RoleManagerImpl implements RoleManager {
   </entry>
   
   <entry>
+    <title>使用 Simple-Spring-Memcached: MultiCache</title>
+    <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/"/>
+    <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/</id>
+    <published>2012-09-26T16:00:00.000Z</published>
+    <updated>2016-11-04T09:03:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。</p>
+<h2 id="Namespace-和-Key"><a href="#Namespace-和-Key" class="headerlink" title="Namespace 和 Key"></a>Namespace 和 Key</h2><p>这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是</p>
+<ul>
+<li><p>get user:id</p>
+<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
+</li>
+<li><p>set user:id</p>
+<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
+</li>
+</ul>
+<p>如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是</p>
+<ul>
+<li>缓存命中率（大大影响缓存使用效率）</li>
+<li>内容空间（占用更多的内存）</li>
+<li>需要更多的清除操作（程序复杂度增加）</li>
+</ul>
+<a id="more"></a>
+<h2 id="场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存"><a href="#场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存" class="headerlink" title="场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存"></a>场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存</h2><p>Method:</p>
+<pre><code>@Override
+@ReadThroughMultiCache(namespace = &quot;user&quot;, expiration = 60)
+public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider List&lt;Long&gt; ids) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByUserIds&quot;, ids);
+}
+</code></pre><p>SQL:</p>
+<pre><code>&lt;select id=&quot;getUsersByUserIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
+    SELECT u.id, u.name
+    FROM user u
+    WHERE u.id in
+    (&lt;iterate conjunction=&quot;,&quot;&gt;
+        #ids[]#
+    &lt;/iterate&gt;)
+&lt;/select&gt;
+</code></pre><p>Memcached Log:</p>
+<pre><code>&lt;21 get user:1000 user:1001
+&gt;21 sending key user:1000
+&gt;21 END
+&lt;21 set user:1001
+&gt;21 STORED
+</code></pre><p>更新。这里 Batch 调用 updateUser，因为方法没有返回值，所以只能使用 @ParameterDataUpdateContent</p>
+<pre><code>@Override
+@UpdateMultiCache(namespace = &quot;user&quot;, expiration = 60)
+public void updateUsersByUserIds(@ParameterValueKeyProvider @ParameterDataUpdateContent final List&lt;User&gt; users) {
+    sqlMapClientTemplate.execute(new SqlMapClientCallback() {
+        @Override
+        public Object doInSqlMapClient(SqlMapExecutor executor) throws SQLException {
+            executor.startBatch();
+
+            for(User user: users){
+                executor.update(&quot;updateUser&quot;, user);
+            }
+
+            executor.executeBatch();
+
+            return null;
+
+        }
+    });
+}    
+</code></pre><p>看一下 Memcached Log，user:1000 直接从 Cache 返回，只有 user:1001 做了数据库操作。这是因为我在执行    getUsersByUserIds 之前，执行了上一篇中的 getUser(1000L)，先生成了 Cache。        </p>
+<h2 id="场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效"><a href="#场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效" class="headerlink" title="场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效"></a>场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效</h2><p>Method:</p>
+<pre><code>@Override
+@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60)
+public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
+}
+</code></pre><p><em>这里为什么不用 namespace = “user”？</em>   </p>
+<p>SQL:</p>
+<pre><code>&lt;select id=&quot;getUsersByRoleIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
+    SELECT u.id, u.name, r.id as &quot;role.id&quot;, r.name as &quot;role.name&quot;
+    FROM user u, user_role ur, role r
+    WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid in
+    (&lt;iterate conjunction=&quot;,&quot;&gt;
+        #ids[]#
+    &lt;/iterate&gt;)
+&lt;/select&gt;
+</code></pre><p>看一下返回的结果集：</p>
+<pre><code>+------+-------+---------+------------+
+| id   | name  | role.id | role.name  |
++------+-------+---------+------------+
+| 1000 | Tom   |       1 | ROLE_ADMIN |
+| 1001 | Jerry |       2 | ROLE_USER  |
+| 1002 | Jack  |       1 | ROLE_ADMIN |
++------+-------+---------+------------+ 
+</code></pre><p>测试代码是这样的：</p>
+<pre><code>@Test
+public void testGetUsersByRoleIds() throws Exception {
+    List&lt;Long&gt; list = Arrays.asList(1L, 2L);
+
+    List users = userDao.getUsersByRoleIds(list);
+
+    log.info(&quot;users: &quot; + users);
+
+    assertNotNull(users);
+    assertEquals(3, users.size());
+}    
+</code></pre><p>这个方法不会生成任何缓存。SSM 会告诉你</p>
+<pre><code>com.google.code.ssm.aop.ReadThroughMultiCacheAdvice: Did not receive a correlated amount of data from the target method.
+</code></pre><p>因为 SSM 会先根据结果集生成缓存（使用返回对象 User 的 @CacheKeyMethod 方法）</p>
+<pre><code>set user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
+</code></pre><p>但是返回的结果集中没有 1 和 2，就算有，也不是我们想要的 role.id，而是 user.id。刚开始我尝试和 SSM 的开发者沟通<a href="http://code.google.com/p/simple-spring-memcached/issues/detail?id=10" target="_blank" rel="external">这个问题</a>。他让我尝试修改一下 annotation</p>
+<pre><code>@Override
+@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60, option = @ReadThroughMultiCacheOption(generateKeysFromResult = true))
+public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
+}
+</code></pre><p>之后变成这个样子：</p>
+<pre><code>get user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
+
+set user/getUsersByRoleIds:1000 8 60 120
+{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1000,&quot;name&quot;:&quot;Tom&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
+
+set user/getUsersByRoleIds:1001 8 60 121
+{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1001,&quot;name&quot;:&quot;Jerry&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:2,&quot;name&quot;:&quot;ROLE_USER&quot;}}}}}
+
+set user/getUsersByRoleIds:1002 8 60 121
+{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1002,&quot;name&quot;:&quot;Jack&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
+</code></pre><p>在这个返回的 List 中，role.id 不可以做为 Key，因为不是唯一的。试了一下返回 HaspMap，@ReadThroughMultiCache 只支持 List。所以想到两种解决办法：</p>
+<ul>
+<li>循环调用上一篇中的 getUsersByRoleId 方法。</li>
+<li>使用 @ReadThroughAssignCache（缺点是缓存做为一整块，不能像 @ReadThroughMultiCache 一样对单个 User 做操作了），到时只能整体清除。</li>
+</ul>
+<p>第一个方案可以自行试验一下，下一篇讲 AssignCache 如何解决这个问题。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。&lt;/p&gt;
+&lt;h2 id=&quot;Namespace-和-Key&quot;&gt;&lt;a href=&quot;#Namespace-和-Key&quot; class=&quot;headerlink&quot; title=&quot;Namespace 和 Key&quot;&gt;&lt;/a&gt;Namespace 和 Key&lt;/h2&gt;&lt;p&gt;这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;get user:id&lt;/p&gt;
+&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;set user:id&lt;/p&gt;
+&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;缓存命中率（大大影响缓存使用效率）&lt;/li&gt;
+&lt;li&gt;内容空间（占用更多的内存）&lt;/li&gt;
+&lt;li&gt;需要更多的清除操作（程序复杂度增加）&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://batizhao.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+    
+      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
+    
+      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
+    
+      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用 Simple-Spring-Memcached Annotation</title>
     <link href="http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/"/>
     <id>http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/</id>
@@ -1289,20 +1337,20 @@ set user:1
     <link href="http://batizhao.me/2012/09/18/installing-activemq-as-a-service-on-centos6/"/>
     <id>http://batizhao.me/2012/09/18/installing-activemq-as-a-service-on-centos6/</id>
     <published>2012-09-17T16:00:00.000Z</published>
-    <updated>2016-11-04T09:02:56.000Z</updated>
+    <updated>2016-12-01T06:05:45.000Z</updated>
     
     <content type="html"><![CDATA[<p>这里主要讲一下在 CentOS6 x64 上如何把 ActiveMQ5.5 添加到 Service 里自动启动。</p>
 <p>打开配置文件</p>
 <pre><code># vim /opt/activemq    /bin/linux-x86-64/wrapper.conf
 </code></pre><p>修改两个参数</p>
 <pre><code>set.default.ACTIVEMQ_HOME=/opt/activemq
-set.default.ACTIVEMQ_BASE=/opt/activemq
-</code></pre><p>建立一个软链接（用全路径）</p>
+</code></pre><p>  set.default.ACTIVEMQ_BASE=/opt/activemq</p>
+<p>建立一个软链接（用全路径）</p>
 <pre><code># ln -s /opt/activemq/bin/linux-x86-64/activemq /etc/init.d/activemq    
 </code></pre><p>加入到启动项</p>
 <pre><code># chkconfig --add activemq
 </code></pre><p>使用服务</p>
-<pre><code># service activemq start|stop|status    
+<pre><code># service activemq start|stop|status
 </code></pre>]]></content>
     
     <summary type="html">
@@ -1797,149 +1845,6 @@ ldap.passwd=password
     
     
       <category term="maven" scheme="http://batizhao.me/tags/maven/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>自定义 CAS assertion 返回值</title>
-    <link href="http://batizhao.me/2012/07/19/setting-cas-assertion/"/>
-    <id>http://batizhao.me/2012/07/19/setting-cas-assertion/</id>
-    <published>2012-07-18T16:00:00.000Z</published>
-    <updated>2016-11-04T08:53:24.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>这篇主要是讲 CAS 和 LDAP 集成时，如何返回一些特别的内容到 Spring Security 客户端。这样我们可以从 LDAP 取到 user 的 role，<br>和 Spring Security 进行比对授权。但是，CAS 默认配置的 UsernamePasswordCredentialsToPrincipalResolver 不允许我们在与<br>Spring Security 集成时传递回特别的属性信息，所以我们需要对 CAS 进行修改允许我们这样做。</p>
-<p>CAS 提供了高级的配置使客户端与 CAS 服务端进行数据交换。在 CAS 服务器传递 ticket 校验结果时，可以将基于 CAS 认证时查询到的信息进行传递。<br>这些信息以键值对的方式进行传递，并可以包含用户相关的任何数据。我们将会使用这个功能在 CAS 响应中传递用户的属性，包括 GrantedAuthority 信息。</p>
-<a id="more"></a>
-<h2 id="1-deployerConfigContext-xml"><a href="#1-deployerConfigContext-xml" class="headerlink" title="1. deployerConfigContext.xml"></a>1. deployerConfigContext.xml</h2><p>CAS 服务器的 org.jasig.cas.authentication.AuthenticationManager 负责基于提供的凭证信息进行用户认证。<br>与 Spring Security 很相似，实际的认证委托给了一个（或更多）实现了 org.jasig.cas.authentication.handler.AuthenticationHandler 接口的处理类<br>（在 Spring Security 中对应的接口是 AuthenticationProvider ）。</p>
-<p>org.jasig.cas.authentication.principal.CredentialsToPrincipalResolver 用来将传递进来的安全实体信息转换成完整的<br>org.jasig.cas.authentication.principal.Principal（类似于 Spring Security中 UserDetailsService 实现所作的那样）。</p>
-<h2 id="2-默认返回值"><a href="#2-默认返回值" class="headerlink" title="2. 默认返回值"></a>2. 默认返回值</h2><p>HomeController.java</p>
-<pre><code>@Controller
-@RequestMapping(&quot;home&quot;)
-public class HomeController {
-
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView home() {
-        ModelAndView mv = new ModelAndView(&quot;home&quot;);
-
-        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        mv.addObject(&quot;auth&quot;, auth);
-        if (auth instanceof CasAuthenticationToken) {
-            mv.addObject(&quot;isCasAuthentication&quot;, Boolean.TRUE);
-        }
-
-        return mv;
-    }
-}
-</code></pre><p>home.jsp</p>
-<pre><code>&lt;h1&gt;View Profile&lt;/h1&gt;
-
-&lt;p&gt;
-    Some information about you, from CAS:
-&lt;/p&gt;
-&lt;ul&gt;
-    &lt;li&gt;&lt;strong&gt;Auth:&lt;/strong&gt; ${auth}&lt;/li&gt;
-    &lt;li&gt;&lt;strong&gt;Username:&lt;/strong&gt; ${auth.principal}&lt;/li&gt;
-    &lt;li&gt;&lt;strong&gt;Credentials:&lt;/strong&gt; ${auth.credentials}&lt;/li&gt;
-    &lt;c:if test=&quot;${isCasAuthentication}&quot;&gt;
-        &lt;li&gt;&lt;strong&gt;Assertion:&lt;/strong&gt; ${auth.assertion}&lt;/li&gt;
-        &lt;li&gt;&lt;strong&gt;Assertion Attributes:&lt;/strong&gt;
-            &lt;c:forEach items=&quot;${auth.assertion.attributes}&quot; var=&quot;attr&quot;&gt;
-                ${attr.key}:${attr.value}&lt;br/&gt;
-            &lt;/c:forEach&gt;
-        &lt;/li&gt;
-        &lt;li&gt;&lt;strong&gt;Assertion Attribute Principal:&lt;/strong&gt; ${auth.assertion.principal}&lt;/li&gt;
-        &lt;li&gt;&lt;strong&gt;Assertion Principal Attributes:&lt;/strong&gt;
-            &lt;c:forEach items=&quot;${auth.assertion.principal.attributes}&quot; var=&quot;attr&quot;&gt;
-                ${attr.key}:${attr.value}&lt;br/&gt;
-            &lt;/c:forEach&gt;
-        &lt;/li&gt;
-    &lt;/c:if&gt;
-&lt;/ul&gt;
-</code></pre><p>这个 jsp 的返回结果大致是这样的，只可以返回 Username。</p>
-<pre><code>Auth: org.springframework.security.cas.authentication.CasAuthenticationToken@1358c3fc: Principal: org.springframework.security.core.userdetails.User@aa9c3074: Username: zhangsan; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: I&apos;M ZHANGSAN.; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@fffed504: RemoteIpAddress: 127.0.0.1; SessionId: 748C80EE4C063D18F2461486F82FC2C8; Granted Authorities: I&apos;M ZHANGSAN. Assertion: org.jasig.cas.client.validation.AssertionImpl@5b3ba312 Credentials (Service/Proxy Ticket): ST-3-zbmPK3BMjrAmTEwwMlxi-cas
-Username: org.springframework.security.core.userdetails.User@aa9c3074: Username: zhangsan; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: I&apos;M ZHANGSAN.
-Credentials: ST-3-zbmPK3BMjrAmTEwwMlxi-cas
-Assertion: org.jasig.cas.client.validation.AssertionImpl@5b3ba312
-Assertion Attributes:
-Assertion Attribute Principal: zhangsan
-Assertion Principal Attributes: 
-</code></pre><h2 id="3-自定义返回值"><a href="#3-自定义返回值" class="headerlink" title="3. 自定义返回值"></a>3. 自定义返回值</h2><p>我们需要先修改 deployerConfigContext.xml，重新定义 attributeRepository 这个 Bean</p>
-<pre><code>&lt;bean id=&quot;attributeRepository&quot;
-      class=&quot;org.jasig.services.persondir.support.ldap.LdapPersonAttributeDao&quot;&gt;
-    &lt;property name=&quot;contextSource&quot; ref=&quot;contextSource&quot;/&gt;
-    &lt;property name=&quot;requireAllQueryAttributes&quot; value=&quot;true&quot;/&gt;
-    &lt;property name=&quot;baseDN&quot; value=&quot;ou=people,dc=dev,dc=org&quot;/&gt;
-    &lt;property name=&quot;queryAttributeMapping&quot;&gt;
-        &lt;map&gt;
-            &lt;entry key=&quot;username&quot; value=&quot;uid&quot;/&gt;
-        &lt;/map&gt;
-    &lt;/property&gt;
-    &lt;property name=&quot;resultAttributeMapping&quot;&gt;
-        &lt;map&gt;
-            &lt;entry key=&quot;uid&quot; value=&quot;username&quot;/&gt;
-            &lt;entry key=&quot;displayName&quot; value=&quot;displayName&quot;/&gt;
-            &lt;entry key=&quot;description&quot; value=&quot;role&quot;/&gt;
-            &lt;entry key=&quot;telephoneNumber&quot; value=&quot;telephoneNumber&quot;/&gt;
-        &lt;/map&gt;
-    &lt;/property&gt;
-&lt;/bean&gt;
-</code></pre><p>这个类将 Principal 与后端的 LDAP 目录进行匹配。queryAttributeMapping 属性将 Principal 的 username 域与 LDAP 的<br>uid 属性相匹配。resultAttributeMapping 中的键值对 key 表示 LDAP 中的属性，而 value 表示返回的 assertion 属性。<br>而这个 role  属性就是 GrantedAuthorityFromAssertionAttributesUserDetailsService 要进行查找的。</p>
-<p>在客户端需要配置 GrantedAuthorityFromAssertionAttributesUserDetailsService ，它的工作就是读取 CAS assertion<br>、寻找特定的属性并将属性值与用户的 GrantedAuthority 进行匹配。假设 assertion 返回了一个名为 role 的属性。我们只需要在<br>applicationContext-security.xml 中简单配置一个新的 bean</p>
-<pre><code>&lt;bean id=&quot;authenticationUserDetailsService&quot;
-      class=&quot;org.springframework.security.cas.userdetails.GrantedAuthorityFromAssertionAttributesUserDetailsService&quot;&gt;
-    &lt;constructor-arg&gt;
-        &lt;array&gt;
-            &lt;value&gt;role&lt;/value&gt;
-        &lt;/array&gt;
-    &lt;/constructor-arg&gt;
-&lt;/bean&gt;
-</code></pre><p>但现在还不行，我们还需要在 Server 端做一些工作。继续 deployerConfigContext.xml，找到 UsernamePasswordCredentialsToPrincipalResolver，增加<br>attributeRepository 属性</p>
-<pre><code>&lt;bean class=&quot;org.jasig.cas.authentication.principal.UsernamePasswordCredentialsToPrincipalResolver&quot;&gt;
-    &lt;property name=&quot;attributeRepository&quot; ref=&quot;attributeRepository&quot;/&gt;
-&lt;/bean&gt;
-</code></pre><p>找到 serviceRegistryDao，在所有的 list bean 中增加</p>
-<pre><code>&lt;property name=&quot;ignoreAttributes&quot; value=&quot;true&quot; /&gt;
-</code></pre><p>编辑 WEB-INF/view/jsp/protocol/2.0/casServiceValidationSuccess.jsp，在 cas:user 后边增加以下内容</p>
-<pre><code>&lt;cas:attributes&gt;
-    &lt;c:forEach var=&quot;attr&quot;
-               items=&quot;${assertion.chainedAuthentications[fn:length(assertion.chainedAuthentications)-1].principal.attributes}&quot;
-               varStatus=&quot;loopStatus&quot; begin=&quot;0&quot;
-               end=&quot;${fn:length(assertion.chainedAuthentications[fn:length(assertion.chainedAuthentications)-1].principal.attributes)-1}&quot;
-               step=&quot;1&quot;&gt;
-        &lt;cas:${fn:escapeXml(attr.key)}&gt;${fn:escapeXml(attr.value)}&lt;/cas:${fn:escapeXml(attr.key)}&gt;
-    &lt;/c:forEach&gt;
-&lt;/cas:attributes&gt;
-</code></pre><p>现在可以 mvn package ，重新部署 CAS Server，重新登录访问 home.jsp，可以看到结果多出了一些内容    </p>
-<pre><code>Auth: org.springframework.security.cas.authentication.CasAuthenticationToken@1358c3fc: Principal: org.springframework.security.core.userdetails.User@aa9c3074: Username: zhangsan; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: I&apos;M ZHANGSAN.; Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@fffed504: RemoteIpAddress: 127.0.0.1; SessionId: 748C80EE4C063D18F2461486F82FC2C8; Granted Authorities: I&apos;M ZHANGSAN. Assertion: org.jasig.cas.client.validation.AssertionImpl@5b3ba312 Credentials (Service/Proxy Ticket): ST-3-zbmPK3BMjrAmTEwwMlxi-cas
-Username: org.springframework.security.core.userdetails.User@aa9c3074: Username: zhangsan; Password: [PROTECTED]; Enabled: true; AccountNonExpired: true; credentialsNonExpired: true; AccountNonLocked: true; Granted Authorities: ROLE_USER.
-Credentials: ST-3-zbmPK3BMjrAmTEwwMlxi-cas
-Assertion: org.jasig.cas.client.validation.AssertionImpl@5b3ba312
-Assertion Attributes:
-Assertion Attribute Principal: zhangsan
-Assertion Principal Attributes: username:zhangsan
-telephoneNumber:18918588940
-role:ROLE_USER.
-displayName:zhangsan
-</code></pre><p>这样在客户端的 Spring Security 中就可以实现授权比对</p>
-<pre><code>&lt;sec:intercept-url pattern=&quot;/user&quot; access=&quot;ROLE_USER&quot;/&gt;
-</code></pre><h2 id="4-参考"><a href="#4-参考" class="headerlink" title="4. 参考"></a>4. 参考</h2><ul>
-<li><a href="http://sishuok.com/forum/blogPost/list/3981.html" target="_blank" rel="external">高级CAS配置</a></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这篇主要是讲 CAS 和 LDAP 集成时，如何返回一些特别的内容到 Spring Security 客户端。这样我们可以从 LDAP 取到 user 的 role，&lt;br&gt;和 Spring Security 进行比对授权。但是，CAS 默认配置的 UsernamePasswordCredentialsToPrincipalResolver 不允许我们在与&lt;br&gt;Spring Security 集成时传递回特别的属性信息，所以我们需要对 CAS 进行修改允许我们这样做。&lt;/p&gt;
-&lt;p&gt;CAS 提供了高级的配置使客户端与 CAS 服务端进行数据交换。在 CAS 服务器传递 ticket 校验结果时，可以将基于 CAS 认证时查询到的信息进行传递。&lt;br&gt;这些信息以键值对的方式进行传递，并可以包含用户相关的任何数据。我们将会使用这个功能在 CAS 响应中传递用户的属性，包括 GrantedAuthority 信息。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="cas" scheme="http://batizhao.me/categories/cas/"/>
-    
-    
-      <category term="ldap" scheme="http://batizhao.me/tags/ldap/"/>
-    
-      <category term="cas" scheme="http://batizhao.me/tags/cas/"/>
     
   </entry>
   

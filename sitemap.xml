@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://batizhao.me/2016/12/01/docker-four-docker-compose/</loc>
+    
+    <lastmod>2016-12-01T06:25:22.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2012/09/18/installing-activemq-as-a-service-on-centos6/</loc>
+    
+    <lastmod>2016-12-01T06:05:45.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://batizhao.me/2016/11/24/docker-three-command/</loc>
     
     <lastmod>2016-11-25T08:00:05.000Z</lastmod>
@@ -131,13 +145,6 @@
     <loc>http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/</loc>
     
     <lastmod>2016-11-04T09:03:43.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://batizhao.me/2012/09/18/installing-activemq-as-a-service-on-centos6/</loc>
-    
-    <lastmod>2016-11-04T09:02:56.000Z</lastmod>
     
   </url>
   
