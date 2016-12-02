@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://batizhao.me/"/>
-  <updated>2016-12-01T06:25:22.000Z</updated>
+  <updated>2016-12-02T03:09:42.000Z</updated>
   <id>http://batizhao.me/</id>
   
   <author>
@@ -14,6 +14,108 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker 实战（五）：Docker Swarm Mode</title>
+    <link href="http://batizhao.me/2016/12/02/docker-five-swarm-mode/"/>
+    <id>http://batizhao.me/2016/12/02/docker-five-swarm-mode/</id>
+    <published>2016-12-01T23:39:15.000Z</published>
+    <updated>2016-12-02T03:09:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在 <a href="http://batizhao.me/2016/12/01/docker-four-docker-compose/">Docker Compose</a> 中，我们可以在单台机器上操作多个相关联的 Docker 容器组成负载均衡集群。<br>那如果我们需要一个分布式的环境中，跨多台主机呢？<br>在 Docker 1.12 以上版本中，有个新的东西叫做 <a href="https://docs.docker.com/engine/swarm/" target="_blank" rel="external">Swarm Mode</a>。<br>不同于之前版本的 <a href="https://docs.docker.com/swarm/" target="_blank" rel="external">Docker Swarm</a>（还需要 pull swarm），Swarm Mode 已经集成在 Docker Engine 中。</p>
+<a id="more"></a>
+<h2 id="主要特性"><a href="#主要特性" class="headerlink" title="主要特性"></a>主要特性</h2><h3 id="内置于-Docker-Engine-的集群管理"><a href="#内置于-Docker-Engine-的集群管理" class="headerlink" title="内置于 Docker Engine 的集群管理"></a>内置于 Docker Engine 的集群管理</h3><p>可以直接用 Docker Engine CLI 来创建 Swarm 集群，并在该集群上部署服务。你不再需要额外的编排软件来创建或管理 Swarm 集群了。</p>
+<h3 id="去中心化设计"><a href="#去中心化设计" class="headerlink" title="去中心化设计"></a>去中心化设计</h3><p>不同于在部署时就确定节点之间的关系, 新的 Swarm 模式选择在运行时动态地处理这些关系, 你可以用 Docker Engine 部署 manager 和 worker 这两种不同的节点。 这意味着你可以从一个磁盘镜像搭建整个 Swarm 。</p>
+<h3 id="声明式服务模型"><a href="#声明式服务模型" class="headerlink" title="声明式服务模型"></a>声明式服务模型</h3><p>Docker Engine 使用一种声明式方法来定义各种服务的状态。譬如，你可以描述一个由 web 前端服务，消息队列服务和数据库后台组成的应用。</p>
+<h3 id="服务扩缩"><a href="#服务扩缩" class="headerlink" title="服务扩缩"></a>服务扩缩</h3><p>你可以通过 docker service scale 命令轻松地增加或减少某个服务的任务数。</p>
+<h3 id="集群状态维护"><a href="#集群状态维护" class="headerlink" title="集群状态维护"></a>集群状态维护</h3><p>Swarm 管理节点会一直监控集群状态，并依据你给出的期望状态与集群真实状态间的区别来进行调节。譬如，你为一个服务设置了10个任务副本，如果某台运行着该服务两个副本的工作节点停止工作了，管理节点会创建两个新的副本来替掉上述异常终止的副本。 Swarm 管理节点这个新的副本分配到了正常运行的工作节点上。</p>
+<h3 id="跨主机网络"><a href="#跨主机网络" class="headerlink" title="跨主机网络"></a>跨主机网络</h3><p>你可以为你的服务指定一个 overlay 网络。在服务初始化或着更新时，Swarm 管理节点自动的为容器在 overlay 网络上分配地址。</p>
+<h3 id="服务发现"><a href="#服务发现" class="headerlink" title="服务发现"></a>服务发现</h3><p>Swarm 管理节点在集群中自动的为每个服务分配唯一的 DNS name 并为容器配置负载均衡。利用内嵌在 Swarm 中的 DNS 服务器你可以找到每个运行在集群中的容器。</p>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><p>你可以把服务的端口暴露给一个集群外部的负载均衡器。 在 Swarm 集群内部你可以决定如何在节点间分发服务的容器。</p>
+<h3 id="默认-TLS-加密"><a href="#默认-TLS-加密" class="headerlink" title="默认 TLS 加密"></a>默认 TLS 加密</h3><p>Swarm 集群中的节点间通信是强制加密的。你可以选择使用自签名的根证书或者来自第三方认证的证书。</p>
+<h3 id="滚动更新"><a href="#滚动更新" class="headerlink" title="滚动更新"></a>滚动更新</h3><p>docker service 允许你自定义更新的间隔时间, 并依次更新你的容器, docker 会按照你设置的更新时间依次更新你的容器, 如果发生了错误, 还可以回滚到之前的状态。</p>
+<blockquote><footer><strong>原文链接</strong><cite><a href="https://dataman.gitbooks.io/crane/content/overview/Introduction-of-Docker-Swarm-Mode.html" target="_blank" rel="external">Swarm 模式</a></cite></footer></blockquote>
+<h2 id="准备三台主机"><a href="#准备三台主机" class="headerlink" title="准备三台主机"></a>准备三台主机</h2><p>你可以找三台物理主机，如果在单机环境做测试，可以使用 Docker Machine 创建三台 Docker 主机 manager、worker1、worker2。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker-machine create <span class="_">-d</span> virtualbox manager</div><div class="line">$ docker-machine create <span class="_">-d</span> virtualbox worker1</div><div class="line">$ docker-machine create <span class="_">-d</span> virtualbox worker2</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在 Docker for Mac 中，已经不需要 VirtualBox，而是使用 HyperKit，所以这里需要先安装最新版本的 VirtualBox。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker-machine ls</div><div class="line">NAME      ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER    ERRORS</div><div class="line">manager   -        virtualbox   Running   tcp://192.168.99.101:2376           v1.12.3</div><div class="line">worker1   -        virtualbox   Running   tcp://192.168.99.102:2376           v1.12.3</div><div class="line">worker2   *        virtualbox   Running   tcp://192.168.99.103:2376           v1.12.3</div></pre></td></tr></table></figure>
+<h2 id="创建-Swarm"><a href="#创建-Swarm" class="headerlink" title="创建 Swarm"></a>创建 Swarm</h2><h3 id="确认-manager-节点的-ip-地址"><a href="#确认-manager-节点的-ip-地址" class="headerlink" title="确认 manager 节点的 ip 地址"></a>确认 manager 节点的 ip 地址</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker-machine ip manager</div><div class="line">192.168.99.101</div></pre></td></tr></table></figure>
+<h3 id="初始化-swarm"><a href="#初始化-swarm" class="headerlink" title="初始化 swarm"></a>初始化 swarm</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$ docker swarm init --advertise-addr 192.168.99.101</div><div class="line">Swarm initialized: current node (3pniknvvlt9hb5bjpdnwkp5zr) is now a manager.</div><div class="line"></div><div class="line">To add a worker to this swarm, run the following <span class="built_in">command</span>:</div><div class="line"></div><div class="line">    docker swarm join \</div><div class="line">    --token SWMTKN-1-3gxjh13dqeabze16assdjhng71gy4x7pvu2lqh8fdj22ttg02d-dnkw6tbxbh6so5f0ng7ukiysb \</div><div class="line">    192.168.99.101:2377</div><div class="line"></div><div class="line">To add a manager to this swarm, run <span class="string">'docker swarm join-token manager'</span> and follow the instructions.</div></pre></td></tr></table></figure>
+<h3 id="查看-token"><a href="#查看-token" class="headerlink" title="查看 token"></a>查看 token</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ docker swarm join-token manager</div><div class="line">To add a manager to this swarm, run the following <span class="built_in">command</span>:</div><div class="line"></div><div class="line">    docker swarm join \</div><div class="line">    --token SWMTKN-1-3gxjh13dqeabze16assdjhng71gy4x7pvu2lqh8fdj22ttg02d-dnkw6tbxbh6so5f0ng7ukiysb \</div><div class="line">    192.168.99.101:2377</div></pre></td></tr></table></figure>
+<h3 id="查看节点"><a href="#查看节点" class="headerlink" title="查看节点"></a>查看节点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker node ls</div><div class="line">ID                           HOSTNAME  STATUS  AVAILABILITY  MANAGER STATUS</div><div class="line">3pniknvvlt9hb5bjpdnwkp5zr *  manager   Ready   Active        Leader</div></pre></td></tr></table></figure>
+<h2 id="加入节点"><a href="#加入节点" class="headerlink" title="加入节点"></a>加入节点</h2><p>这里有 2 种办法进入 worker1，先新开一个终端窗口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">eval</span> $(docker-machine env worker1)</div></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker-machine ssh worker1</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这里建议打开 3 个终端窗口，分别执行 $ eval $(docker-machine env <machine-name>) 进入 manager、worker1、worker2 三台主机。</machine-name></p>
+</blockquote>
+<p>进入 worker1 后执行 <strong>查看 token</strong> 下的那段命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker swarm join \</div><div class="line">  --token SWMTKN-1-3gxjh13dqeabze16assdjhng71gy4x7pvu2lqh8fdj22ttg02d-dnkw6tbxbh6so5f0ng7ukiysb \</div><div class="line">  192.168.99.101:2377  </div></pre></td></tr></table></figure></p>
+<p>同样的方式进入 worker2 执行上述相同的命令。</p>
+<p>回到 manager 查看节点<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker node ls</div><div class="line">ID                           HOSTNAME  STATUS  AVAILABILITY  MANAGER STATUS</div><div class="line">1s6uw7ew22xhvy5trv2ejnncd    worker2   Ready   Active</div><div class="line">3pniknvvlt9hb5bjpdnwkp5zr *  manager   Ready   Active        Leader</div><div class="line">beh2b7riuqv7oz5nhbhuvmr0t    worker1   Ready   Active</div></pre></td></tr></table></figure></p>
+<h2 id="部署服务"><a href="#部署服务" class="headerlink" title="部署服务"></a>部署服务</h2><p>在创建 3 个节点完成后，现在可以在上边部署服务。<br>现在还是回到 manager 节点</p>
+<p>创建服务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker service create --replicas 1 --name helloworld alpine ping docker.com</div><div class="line">doq2uzfwm3c5fukhksv50ewsf</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>name</strong> 指定容器名字<br><strong>replicas</strong> 只复制一个实例<br><strong>alpine</strong> ping docker.com 定义一个 Alpine Linux container 并执行 ping docker.com 命令。</p>
+</blockquote>
+<p>查看服务实例<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker service ls</div><div class="line">ID            NAME        REPLICAS  IMAGE        COMMAND</div><div class="line">doq2uzfwm3c5  helloworld  1/1       alpine       ping docker.com</div></pre></td></tr></table></figure></p>
+<h2 id="检查服务"><a href="#检查服务" class="headerlink" title="检查服务"></a>检查服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ docker service inspect --pretty helloworld</div><div class="line">ID:		doq2uzfwm3c5fukhksv50ewsf</div><div class="line">Name:		helloworld</div><div class="line">Mode:		Replicated</div><div class="line"> Replicas:	1</div><div class="line">Placement:</div><div class="line">UpdateConfig:</div><div class="line"> Parallelism:	1</div><div class="line"> On failure:	pause</div><div class="line">ContainerSpec:</div><div class="line"> Image:		alpine</div><div class="line"> Args:		ping docker.com</div><div class="line">Resources:</div></pre></td></tr></table></figure>
+<p>查看服务运行在哪个节点<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker service ps helloworld</div><div class="line">ID                         NAME          IMAGE   NODE     DESIRED STATE  CURRENT STATE          ERROR</div><div class="line">c81lt2t8ride9ioduqv86i0v7  helloworld.1  alpine  manager  Running        Running 7 minutes ago</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这里要关注 DESIRED STATE 和 LAST STATE 两个状态。</p>
+</blockquote>
+<p>在服务所在节点查看进程，这里是 manager<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES</div><div class="line">458df9db3e9a        alpine:latest       <span class="string">"ping docker.com"</span>        10 minutes ago      Up 10 minutes                           helloworld.1.c81lt2t8ride9ioduqv86i0v7</div></pre></td></tr></table></figure></p>
+<h2 id="服务扩展"><a href="#服务扩展" class="headerlink" title="服务扩展"></a>服务扩展</h2><p>还在是 manager 节点，通过命令，我们可以改变集群中的节点实例。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker service scale &lt;SERVICE-ID&gt;=&lt;NUMBER-OF-TASKS&gt;</div></pre></td></tr></table></figure>
+<p>在这里，我们把 helloworld 实例扩展到 5 个<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker service scale helloworld=5</div><div class="line">helloworld scaled to 5</div></pre></td></tr></table></figure></p>
+<p>查看服务实例运行节点分布<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ docker service ps helloworld</div><div class="line">ID                         NAME          IMAGE   NODE     DESIRED STATE  CURRENT STATE           ERROR</div><div class="line">c81lt2t8ride9ioduqv86i0v7  helloworld.1  alpine  manager  Running        Running 20 minutes ago</div><div class="line">b98r4ypet6b9doiof1bb0aq68  helloworld.2  alpine  worker1  Running        Running 5 seconds ago</div><div class="line">20hkvi1i3ihur0x17a989qvpy  helloworld.3  alpine  manager  Running        Running 8 seconds ago</div><div class="line">472p0ykqnwtjvmo10bx1kutz8  helloworld.4  alpine  worker2  Running        Running 2 seconds ago</div><div class="line">dfmx6i4aunk27m8xstavncwxa  helloworld.5  alpine  worker1  Running        Running 2 seconds ago</div></pre></td></tr></table></figure></p>
+<p>可以看到，manager 和 worker1 有 2 个实例，worker2 有 1 个实例。</p>
+<p>到 manager 上执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS               NAMES</div><div class="line">e90f1e77d7aa        alpine:latest       <span class="string">"ping docker.com"</span>        About a minute ago   Up About a minute                       helloworld.3.20hkvi1i3ihur0x17a989qvpy</div><div class="line">458df9db3e9a        alpine:latest       <span class="string">"ping docker.com"</span>        22 minutes ago       Up 22 minutes                           helloworld.1.c81lt2t8ride9ioduqv86i0v7</div></pre></td></tr></table></figure></p>
+<p>到 worker1 上执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES</div><div class="line">806eb838fd86        alpine:latest       <span class="string">"ping docker.com"</span>        2 minutes ago       Up 2 minutes                            helloworld.5.dfmx6i4aunk27m8xstavncwxa</div><div class="line">faa01a019dcf        alpine:latest       <span class="string">"ping docker.com"</span>        2 minutes ago       Up 2 minutes                            helloworld.2.b98r4ypet6b9doiof1bb0aq68</div></pre></td></tr></table></figure></p>
+<p>到 worker2 上执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES</div><div class="line">f020134c72bb        alpine:latest       <span class="string">"ping docker.com"</span>        2 minutes ago       Up 2 minutes                            helloworld.4.472p0ykqnwtjvmo10bx1kutz8</div></pre></td></tr></table></figure></p>
+<h2 id="删除服务"><a href="#删除服务" class="headerlink" title="删除服务"></a>删除服务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker service rm helloworld</div></pre></td></tr></table></figure>
+<p>确认是否删除<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker service inspect helloworld</div><div class="line">[]</div><div class="line">Error: no such service: helloworld</div></pre></td></tr></table></figure></p>
+<h2 id="滚动更新-1"><a href="#滚动更新-1" class="headerlink" title="滚动更新"></a>滚动更新</h2><p>这里我们会先部署 3 个 Redis 3.0.6 实例到 swarm 节点，然后再更新到 3.0.7。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ docker service create \</div><div class="line">  --replicas 3 \</div><div class="line">  --name redis \</div><div class="line">  --update-delay 10s \</div><div class="line">  redis:3.0.6</div><div class="line">0knduq4z4vae02wvc33vz5b0u</div></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>update-delay</strong> 实例之间的更新延时时间. 可以使用秒 s、分钟 m 或者 小时 h。例如 10m30s 就是延时 10分30秒。<br>默认情况同一时间更新一个实例。可以通过 <strong>–update-parallelism</strong> 配置同时更新的个数。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker service ps redis</div><div class="line">ID                         NAME     IMAGE        NODE     DESIRED STATE  CURRENT STATE             ERROR</div><div class="line">27mlfg8pqlvz9w4yky1q9fxm7  redis.1  redis:3.0.6  worker1  Running        Running 2 seconds ago</div><div class="line">ejlctv6j92caxapd7g2bll0bo  redis.2  redis:3.0.6  manager  Running        Preparing 16 seconds ago</div><div class="line">3l0nu4zt99kecwig1sfie1km9  redis.3  redis:3.0.6  worker2  Running        Preparing 16 seconds ago</div></pre></td></tr></table></figure>
+<blockquote>
+<p>这里要关注 <strong>CURRENT STATE</strong>，上边的状态说明 worker1 实例已经 Running，但 manager 和 worker2 还在 Preparing。<br>到各自主机上用 <strong>docker ps</strong> 可以证明这一点。等待片刻，所有实例的 <strong>CURRENT STATE</strong> 都变成 Running。</p>
+</blockquote>
+<p>看最后的 Running 时间，第二个节点晚了 7 分钟，第三个节点晚了 16 分钟，三个实例全部启动成功。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker service ps redis</div><div class="line">ID                         NAME     IMAGE        NODE     DESIRED STATE  CURRENT STATE           ERROR</div><div class="line">27mlfg8pqlvz9w4yky1q9fxm7  redis.1  redis:3.0.6  worker1  Running        Running 18 minutes ago</div><div class="line">ejlctv6j92caxapd7g2bll0bo  redis.2  redis:3.0.6  manager  Running        Running 2 minutes ago</div><div class="line">3l0nu4zt99kecwig1sfie1km9  redis.3  redis:3.0.6  worker2  Running        Running 11 minutes ago</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>如果想看各个 redis 实例的启动日志，你可以 <strong>docker ps</strong> 拿到容器 ID，然后 <strong>docker logs CONTAINER_ID</strong> 看到 redis 的启动日志。<br>如果想知道在最后一个实例启动之前 16 分钟内三个实例发生了什么事情，你需要 <strong>docker-machine ssh NODE_NAME</strong> ，看 /var/log/docker.log 中的内容。</p>
+</blockquote>
+<p>接下来，我们更新 redis 实例到 3.0.7<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker service update --image redis:3.0.7 redis</div><div class="line">redis</div></pre></td></tr></table></figure></p>
+<p>因为之前已经在各个节点更新过 3.0.7 镜像，省略了下载新镜像的过程，所以这次更新在 2 分钟之内全部完成。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ docker service ps redis</div><div class="line">ID                         NAME         IMAGE        NODE     DESIRED STATE  CURRENT STATE                ERROR</div><div class="line">cf3stbcfz3zdmw5mgogya6amd  redis.1      redis:3.0.7  manager  Running        Running 2 minutes ago</div><div class="line">27mlfg8pqlvz9w4yky1q9fxm7   \_ redis.1  redis:3.0.6  worker1  Shutdown       Shutdown 2 minutes ago</div><div class="line">ewv52c73p0klbx6hmofxm72ti  redis.2      redis:3.0.7  worker2  Running        Running about a minute ago</div><div class="line">ejlctv6j92caxapd7g2bll0bo   \_ redis.2  redis:3.0.6  manager  Shutdown       Shutdown about a minute ago</div><div class="line">4rcaexit4kupwcjrxdnjftgln  redis.3      redis:3.0.7  worker1  Running        Running about a minute ago</div><div class="line">3l0nu4zt99kecwig1sfie1km9   \_ redis.3  redis:3.0.6  worker2  Shutdown       Shutdown about a minute ago</div></pre></td></tr></table></figure></p>
+<h2 id="拉掉节点"><a href="#拉掉节点" class="headerlink" title="拉掉节点"></a>拉掉节点</h2><p>有时，比如计划维护时间，您需要将节点设置为不可用。 <strong>DRAIN</strong> 可用性防止节点从 swarm 管理器接收新任务。<br>它还意味着管理器停止在节点上运行的任务，并在具有 <strong>ACTIVE</strong> 可用性的节点上启动副本任务。</p>
+<p>拉掉 worker1 节点<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker node update --availability drain worker1</div><div class="line">worker1</div></pre></td></tr></table></figure></p>
+<p>这时看到 worker1 节点已经 Shutdown，并且在 worker2 上启动了一个新的 redis 实例。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ docker service ps redis</div><div class="line">ID                         NAME         IMAGE        NODE     DESIRED STATE  CURRENT STATE            ERROR</div><div class="line">cf3stbcfz3zdmw5mgogya6amd  redis.1      redis:3.0.7  manager  Running        Running 13 minutes ago</div><div class="line">27mlfg8pqlvz9w4yky1q9fxm7   \_ redis.1  redis:3.0.6  worker1  Shutdown       Shutdown 13 minutes ago</div><div class="line">ewv52c73p0klbx6hmofxm72ti  redis.2      redis:3.0.7  worker2  Running        Running 12 minutes ago</div><div class="line">ejlctv6j92caxapd7g2bll0bo   \_ redis.2  redis:3.0.6  manager  Shutdown       Shutdown 12 minutes ago</div><div class="line">80zf0ykluvhhmydro7egm04iu  redis.3      redis:3.0.7  worker2  Running        Running 17 seconds ago</div><div class="line">4rcaexit4kupwcjrxdnjftgln   \_ redis.3  redis:3.0.7  worker1  Shutdown       Shutdown 35 seconds ago</div><div class="line">3l0nu4zt99kecwig1sfie1km9   \_ redis.3  redis:3.0.6  worker2  Shutdown       Shutdown 13 minutes ago</div></pre></td></tr></table></figure></p>
+<p>恢复 worker1 节点<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker node update --availability active worker1</div><div class="line">worker1</div></pre></td></tr></table></figure></p>
+<p>查看 worker1 节点状态已经 Active<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ docker node inspect --pretty worker1</div><div class="line">ID:			beh2b7riuqv7oz5nhbhuvmr0t</div><div class="line">Hostname:		worker1</div><div class="line">Joined at:		2016-11-30 09:29:10.681020915 +0000 utc</div><div class="line">Status:</div><div class="line"> State:			Ready</div><div class="line"> Availability:		Active</div><div class="line">...</div></pre></td></tr></table></figure></p>
+<p>现在 worker1 可以接收新的任务了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ docker service scale redis=5</div><div class="line">redis scaled to 5</div></pre></td></tr></table></figure></p>
+<p>可以看到在 worker1 上启动了 2 个新的 redis 实例<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ docker service ps redis</div><div class="line">ID                         NAME         IMAGE        NODE     DESIRED STATE  CURRENT STATE            ERROR</div><div class="line">cf3stbcfz3zdmw5mgogya6amd  redis.1      redis:3.0.7  manager  Running        Running 20 minutes ago</div><div class="line">27mlfg8pqlvz9w4yky1q9fxm7   \_ redis.1  redis:3.0.6  worker1  Shutdown       Shutdown 20 minutes ago</div><div class="line">ewv52c73p0klbx6hmofxm72ti  redis.2      redis:3.0.7  worker2  Running        Running 19 minutes ago</div><div class="line">ejlctv6j92caxapd7g2bll0bo   \_ redis.2  redis:3.0.6  manager  Shutdown       Shutdown 19 minutes ago</div><div class="line">80zf0ykluvhhmydro7egm04iu  redis.3      redis:3.0.7  worker2  Running        Running 7 minutes ago</div><div class="line">4rcaexit4kupwcjrxdnjftgln   \_ redis.3  redis:3.0.7  worker1  Shutdown       Shutdown 7 minutes ago</div><div class="line">3l0nu4zt99kecwig1sfie1km9   \_ redis.3  redis:3.0.6  worker2  Shutdown       Shutdown 20 minutes ago</div><div class="line">79dffeo1l7etwc731b5lgrgac  redis.4      redis:3.0.7  worker1  Running        Running 12 seconds ago</div><div class="line">5eyb4lhp16m9n2ob2bkifpeqw  redis.5      redis:3.0.7  worker1  Running        Running 12 seconds ago</div></pre></td></tr></table></figure></p>
+<p>-EOF-</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 &lt;a href=&quot;http://batizhao.me/2016/12/01/docker-four-docker-compose/&quot;&gt;Docker Compose&lt;/a&gt; 中，我们可以在单台机器上操作多个相关联的 Docker 容器组成负载均衡集群。&lt;br&gt;那如果我们需要一个分布式的环境中，跨多台主机呢？&lt;br&gt;在 Docker 1.12 以上版本中，有个新的东西叫做 &lt;a href=&quot;https://docs.docker.com/engine/swarm/&quot;&gt;Swarm Mode&lt;/a&gt;。&lt;br&gt;不同于之前版本的 &lt;a href=&quot;https://docs.docker.com/swarm/&quot;&gt;Docker Swarm&lt;/a&gt;（还需要 pull swarm），Swarm Mode 已经集成在 Docker Engine 中。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="docker" scheme="http://batizhao.me/tags/docker/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker 实战（四）：Docker Compose</title>
@@ -825,6 +927,171 @@ public List&amp;lt;User&amp;gt; getUsersByRoleIds(@ParameterValueKeyProvider fin
   </entry>
   
   <entry>
+    <title>使用 Simple-Spring-Memcached: MultiCache</title>
+    <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/"/>
+    <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/</id>
+    <published>2012-09-26T16:00:00.000Z</published>
+    <updated>2016-11-04T09:03:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。</p>
+<h2 id="Namespace-和-Key"><a href="#Namespace-和-Key" class="headerlink" title="Namespace 和 Key"></a>Namespace 和 Key</h2><p>这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是</p>
+<ul>
+<li><p>get user:id</p>
+<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
+</li>
+<li><p>set user:id</p>
+<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
+</li>
+</ul>
+<p>如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是</p>
+<ul>
+<li>缓存命中率（大大影响缓存使用效率）</li>
+<li>内容空间（占用更多的内存）</li>
+<li>需要更多的清除操作（程序复杂度增加）</li>
+</ul>
+<a id="more"></a>
+<h2 id="场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存"><a href="#场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存" class="headerlink" title="场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存"></a>场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存</h2><p>Method:</p>
+<pre><code>@Override
+@ReadThroughMultiCache(namespace = &quot;user&quot;, expiration = 60)
+public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider List&lt;Long&gt; ids) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByUserIds&quot;, ids);
+}
+</code></pre><p>SQL:</p>
+<pre><code>&lt;select id=&quot;getUsersByUserIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
+    SELECT u.id, u.name
+    FROM user u
+    WHERE u.id in
+    (&lt;iterate conjunction=&quot;,&quot;&gt;
+        #ids[]#
+    &lt;/iterate&gt;)
+&lt;/select&gt;
+</code></pre><p>Memcached Log:</p>
+<pre><code>&lt;21 get user:1000 user:1001
+&gt;21 sending key user:1000
+&gt;21 END
+&lt;21 set user:1001
+&gt;21 STORED
+</code></pre><p>更新。这里 Batch 调用 updateUser，因为方法没有返回值，所以只能使用 @ParameterDataUpdateContent</p>
+<pre><code>@Override
+@UpdateMultiCache(namespace = &quot;user&quot;, expiration = 60)
+public void updateUsersByUserIds(@ParameterValueKeyProvider @ParameterDataUpdateContent final List&lt;User&gt; users) {
+    sqlMapClientTemplate.execute(new SqlMapClientCallback() {
+        @Override
+        public Object doInSqlMapClient(SqlMapExecutor executor) throws SQLException {
+            executor.startBatch();
+
+            for(User user: users){
+                executor.update(&quot;updateUser&quot;, user);
+            }
+
+            executor.executeBatch();
+
+            return null;
+
+        }
+    });
+}    
+</code></pre><p>看一下 Memcached Log，user:1000 直接从 Cache 返回，只有 user:1001 做了数据库操作。这是因为我在执行    getUsersByUserIds 之前，执行了上一篇中的 getUser(1000L)，先生成了 Cache。        </p>
+<h2 id="场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效"><a href="#场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效" class="headerlink" title="场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效"></a>场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效</h2><p>Method:</p>
+<pre><code>@Override
+@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60)
+public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
+}
+</code></pre><p><em>这里为什么不用 namespace = “user”？</em>   </p>
+<p>SQL:</p>
+<pre><code>&lt;select id=&quot;getUsersByRoleIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
+    SELECT u.id, u.name, r.id as &quot;role.id&quot;, r.name as &quot;role.name&quot;
+    FROM user u, user_role ur, role r
+    WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid in
+    (&lt;iterate conjunction=&quot;,&quot;&gt;
+        #ids[]#
+    &lt;/iterate&gt;)
+&lt;/select&gt;
+</code></pre><p>看一下返回的结果集：</p>
+<pre><code>+------+-------+---------+------------+
+| id   | name  | role.id | role.name  |
++------+-------+---------+------------+
+| 1000 | Tom   |       1 | ROLE_ADMIN |
+| 1001 | Jerry |       2 | ROLE_USER  |
+| 1002 | Jack  |       1 | ROLE_ADMIN |
++------+-------+---------+------------+ 
+</code></pre><p>测试代码是这样的：</p>
+<pre><code>@Test
+public void testGetUsersByRoleIds() throws Exception {
+    List&lt;Long&gt; list = Arrays.asList(1L, 2L);
+
+    List users = userDao.getUsersByRoleIds(list);
+
+    log.info(&quot;users: &quot; + users);
+
+    assertNotNull(users);
+    assertEquals(3, users.size());
+}    
+</code></pre><p>这个方法不会生成任何缓存。SSM 会告诉你</p>
+<pre><code>com.google.code.ssm.aop.ReadThroughMultiCacheAdvice: Did not receive a correlated amount of data from the target method.
+</code></pre><p>因为 SSM 会先根据结果集生成缓存（使用返回对象 User 的 @CacheKeyMethod 方法）</p>
+<pre><code>set user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
+</code></pre><p>但是返回的结果集中没有 1 和 2，就算有，也不是我们想要的 role.id，而是 user.id。刚开始我尝试和 SSM 的开发者沟通<a href="http://code.google.com/p/simple-spring-memcached/issues/detail?id=10" target="_blank" rel="external">这个问题</a>。他让我尝试修改一下 annotation</p>
+<pre><code>@Override
+@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60, option = @ReadThroughMultiCacheOption(generateKeysFromResult = true))
+public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
+}
+</code></pre><p>之后变成这个样子：</p>
+<pre><code>get user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
+
+set user/getUsersByRoleIds:1000 8 60 120
+{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1000,&quot;name&quot;:&quot;Tom&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
+
+set user/getUsersByRoleIds:1001 8 60 121
+{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1001,&quot;name&quot;:&quot;Jerry&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:2,&quot;name&quot;:&quot;ROLE_USER&quot;}}}}}
+
+set user/getUsersByRoleIds:1002 8 60 121
+{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1002,&quot;name&quot;:&quot;Jack&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
+</code></pre><p>在这个返回的 List 中，role.id 不可以做为 Key，因为不是唯一的。试了一下返回 HaspMap，@ReadThroughMultiCache 只支持 List。所以想到两种解决办法：</p>
+<ul>
+<li>循环调用上一篇中的 getUsersByRoleId 方法。</li>
+<li>使用 @ReadThroughAssignCache（缺点是缓存做为一整块，不能像 @ReadThroughMultiCache 一样对单个 User 做操作了），到时只能整体清除。</li>
+</ul>
+<p>第一个方案可以自行试验一下，下一篇讲 AssignCache 如何解决这个问题。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。&lt;/p&gt;
+&lt;h2 id=&quot;Namespace-和-Key&quot;&gt;&lt;a href=&quot;#Namespace-和-Key&quot; class=&quot;headerlink&quot; title=&quot;Namespace 和 Key&quot;&gt;&lt;/a&gt;Namespace 和 Key&lt;/h2&gt;&lt;p&gt;这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;get user:id&lt;/p&gt;
+&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;set user:id&lt;/p&gt;
+&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;缓存命中率（大大影响缓存使用效率）&lt;/li&gt;
+&lt;li&gt;内容空间（占用更多的内存）&lt;/li&gt;
+&lt;li&gt;需要更多的清除操作（程序复杂度增加）&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://batizhao.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+    
+      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
+    
+      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
+    
+      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
+    
+  </entry>
+  
+  <entry>
     <title>使用 Simple-Spring-Memcached: SingleCache</title>
     <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/"/>
     <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/</id>
@@ -1061,171 +1328,6 @@ public class RoleManagerImpl implements RoleManager {
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://batizhao.me/categories/java/"/>
-    
-    
-      <category term="java" scheme="http://batizhao.me/tags/java/"/>
-    
-      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
-    
-      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
-    
-      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 Simple-Spring-Memcached: MultiCache</title>
-    <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/"/>
-    <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/</id>
-    <published>2012-09-26T16:00:00.000Z</published>
-    <updated>2016-11-04T09:03:57.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。</p>
-<h2 id="Namespace-和-Key"><a href="#Namespace-和-Key" class="headerlink" title="Namespace 和 Key"></a>Namespace 和 Key</h2><p>这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是</p>
-<ul>
-<li><p>get user:id</p>
-<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
-</li>
-<li><p>set user:id</p>
-<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
-</li>
-</ul>
-<p>如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是</p>
-<ul>
-<li>缓存命中率（大大影响缓存使用效率）</li>
-<li>内容空间（占用更多的内存）</li>
-<li>需要更多的清除操作（程序复杂度增加）</li>
-</ul>
-<a id="more"></a>
-<h2 id="场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存"><a href="#场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存" class="headerlink" title="场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存"></a>场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存</h2><p>Method:</p>
-<pre><code>@Override
-@ReadThroughMultiCache(namespace = &quot;user&quot;, expiration = 60)
-public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider List&lt;Long&gt; ids) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByUserIds&quot;, ids);
-}
-</code></pre><p>SQL:</p>
-<pre><code>&lt;select id=&quot;getUsersByUserIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
-    SELECT u.id, u.name
-    FROM user u
-    WHERE u.id in
-    (&lt;iterate conjunction=&quot;,&quot;&gt;
-        #ids[]#
-    &lt;/iterate&gt;)
-&lt;/select&gt;
-</code></pre><p>Memcached Log:</p>
-<pre><code>&lt;21 get user:1000 user:1001
-&gt;21 sending key user:1000
-&gt;21 END
-&lt;21 set user:1001
-&gt;21 STORED
-</code></pre><p>更新。这里 Batch 调用 updateUser，因为方法没有返回值，所以只能使用 @ParameterDataUpdateContent</p>
-<pre><code>@Override
-@UpdateMultiCache(namespace = &quot;user&quot;, expiration = 60)
-public void updateUsersByUserIds(@ParameterValueKeyProvider @ParameterDataUpdateContent final List&lt;User&gt; users) {
-    sqlMapClientTemplate.execute(new SqlMapClientCallback() {
-        @Override
-        public Object doInSqlMapClient(SqlMapExecutor executor) throws SQLException {
-            executor.startBatch();
-
-            for(User user: users){
-                executor.update(&quot;updateUser&quot;, user);
-            }
-
-            executor.executeBatch();
-
-            return null;
-
-        }
-    });
-}    
-</code></pre><p>看一下 Memcached Log，user:1000 直接从 Cache 返回，只有 user:1001 做了数据库操作。这是因为我在执行    getUsersByUserIds 之前，执行了上一篇中的 getUser(1000L)，先生成了 Cache。        </p>
-<h2 id="场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效"><a href="#场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效" class="headerlink" title="场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效"></a>场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效</h2><p>Method:</p>
-<pre><code>@Override
-@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60)
-public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
-}
-</code></pre><p><em>这里为什么不用 namespace = “user”？</em>   </p>
-<p>SQL:</p>
-<pre><code>&lt;select id=&quot;getUsersByRoleIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
-    SELECT u.id, u.name, r.id as &quot;role.id&quot;, r.name as &quot;role.name&quot;
-    FROM user u, user_role ur, role r
-    WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid in
-    (&lt;iterate conjunction=&quot;,&quot;&gt;
-        #ids[]#
-    &lt;/iterate&gt;)
-&lt;/select&gt;
-</code></pre><p>看一下返回的结果集：</p>
-<pre><code>+------+-------+---------+------------+
-| id   | name  | role.id | role.name  |
-+------+-------+---------+------------+
-| 1000 | Tom   |       1 | ROLE_ADMIN |
-| 1001 | Jerry |       2 | ROLE_USER  |
-| 1002 | Jack  |       1 | ROLE_ADMIN |
-+------+-------+---------+------------+ 
-</code></pre><p>测试代码是这样的：</p>
-<pre><code>@Test
-public void testGetUsersByRoleIds() throws Exception {
-    List&lt;Long&gt; list = Arrays.asList(1L, 2L);
-
-    List users = userDao.getUsersByRoleIds(list);
-
-    log.info(&quot;users: &quot; + users);
-
-    assertNotNull(users);
-    assertEquals(3, users.size());
-}    
-</code></pre><p>这个方法不会生成任何缓存。SSM 会告诉你</p>
-<pre><code>com.google.code.ssm.aop.ReadThroughMultiCacheAdvice: Did not receive a correlated amount of data from the target method.
-</code></pre><p>因为 SSM 会先根据结果集生成缓存（使用返回对象 User 的 @CacheKeyMethod 方法）</p>
-<pre><code>set user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
-</code></pre><p>但是返回的结果集中没有 1 和 2，就算有，也不是我们想要的 role.id，而是 user.id。刚开始我尝试和 SSM 的开发者沟通<a href="http://code.google.com/p/simple-spring-memcached/issues/detail?id=10" target="_blank" rel="external">这个问题</a>。他让我尝试修改一下 annotation</p>
-<pre><code>@Override
-@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60, option = @ReadThroughMultiCacheOption(generateKeysFromResult = true))
-public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
-}
-</code></pre><p>之后变成这个样子：</p>
-<pre><code>get user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
-
-set user/getUsersByRoleIds:1000 8 60 120
-{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1000,&quot;name&quot;:&quot;Tom&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
-
-set user/getUsersByRoleIds:1001 8 60 121
-{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1001,&quot;name&quot;:&quot;Jerry&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:2,&quot;name&quot;:&quot;ROLE_USER&quot;}}}}}
-
-set user/getUsersByRoleIds:1002 8 60 121
-{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1002,&quot;name&quot;:&quot;Jack&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
-</code></pre><p>在这个返回的 List 中，role.id 不可以做为 Key，因为不是唯一的。试了一下返回 HaspMap，@ReadThroughMultiCache 只支持 List。所以想到两种解决办法：</p>
-<ul>
-<li>循环调用上一篇中的 getUsersByRoleId 方法。</li>
-<li>使用 @ReadThroughAssignCache（缺点是缓存做为一整块，不能像 @ReadThroughMultiCache 一样对单个 User 做操作了），到时只能整体清除。</li>
-</ul>
-<p>第一个方案可以自行试验一下，下一篇讲 AssignCache 如何解决这个问题。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。&lt;/p&gt;
-&lt;h2 id=&quot;Namespace-和-Key&quot;&gt;&lt;a href=&quot;#Namespace-和-Key&quot; class=&quot;headerlink&quot; title=&quot;Namespace 和 Key&quot;&gt;&lt;/a&gt;Namespace 和 Key&lt;/h2&gt;&lt;p&gt;这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;get user:id&lt;/p&gt;
-&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;set user:id&lt;/p&gt;
-&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;缓存命中率（大大影响缓存使用效率）&lt;/li&gt;
-&lt;li&gt;内容空间（占用更多的内存）&lt;/li&gt;
-&lt;li&gt;需要更多的清除操作（程序复杂度增加）&lt;/li&gt;
-&lt;/ul&gt;
     
     </summary>
     
@@ -1668,183 +1770,6 @@ libevent-headers.noarch                1.4.13-4.el6
       <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
     
       <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Maven 自动化构建（dev, test, prod）</title>
-    <link href="http://batizhao.me/2012/08/22/maven-package/"/>
-    <id>http://batizhao.me/2012/08/22/maven-package/</id>
-    <published>2012-08-21T16:00:00.000Z</published>
-    <updated>2016-11-04T09:01:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-需求描述"><a href="#1-需求描述" class="headerlink" title="1. 需求描述"></a>1. 需求描述</h2><ul>
-<li>在项目构建时，需要根据环境的不同生成不同的安装包。不希望每次通过人工修改配置。</li>
-<li>有非常多的不同的 prod 环境配置，100+。</li>
-<li>在 Maven 的多模块项目中，需要有一个完整的 properties 来定义各个不同的环境，而不是分散在各个 Module 中。</li>
-<li>不希望这些 properties 定义在 pom 中，而是需要独立出来，通过动态参数加载。</li>
-<li>最终可以通过 mvn package -Pdev, mvn package -Ptest, mvn package -Pprod 完成各种环境的构建。</li>
-</ul>
-<a id="more"></a>
-<p>项目模块假设是以下的一个结构：</p>
-<pre><code>&lt;modules&gt;
-    &lt;module&gt;cas&lt;/module&gt;
-    &lt;module&gt;core&lt;/module&gt;
-    &lt;module&gt;web&lt;/module&gt;
-    &lt;module&gt;client&lt;/module&gt;
-&lt;/modules&gt;
-</code></pre><p>其中，cas，web，client 是三个 war，core 是个 jar。要完成上述目标，还需要用到 properties-maven-plugin 这个插件，可以把需要定制的 properties 放到一个外部的文件，剥离 pom，并且做到动态加载配置。</p>
-<h2 id="2-maven-assembly-plugin"><a href="#2-maven-assembly-plugin" class="headerlink" title="2. maven-assembly-plugin"></a>2. maven-assembly-plugin</h2><p>一开始想用 maven-assembly-plugin，assembly 功能很强大，可定制的程度很高。试了一下，也可以解决上边的需求。</p>
-<p>pom</p>
-<pre><code>&lt;plugin&gt;
-    &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;
-    &lt;configuration&gt;
-        &lt;descriptor&gt;src/main/assemble/package.xml&lt;/descriptor&gt;
-    &lt;/configuration&gt;
-    &lt;executions&gt;
-        &lt;execution&gt;
-            &lt;id&gt;make-assembly&lt;/id&gt;
-            &lt;phase&gt;package&lt;/phase&gt;
-            &lt;goals&gt;
-                &lt;goal&gt;single&lt;/goal&gt;
-            &lt;/goals&gt;
-        &lt;/execution&gt;
-    &lt;/executions&gt;
-&lt;/plugin&gt;
-</code></pre><p>package.xml</p>
-<pre><code>&lt;assembly xmlns=&quot;http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2&quot;
-      xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-      xsi:schemaLocation=&quot;http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd&quot;&gt;
-
-    &lt;id&gt;distribution&lt;/id&gt;
-    &lt;formats&gt;
-        &lt;format&gt;war&lt;/format&gt;
-    &lt;/formats&gt;
-    &lt;includeBaseDirectory&gt;false&lt;/includeBaseDirectory&gt;
-    &lt;fileSets&gt;
-        &lt;fileSet&gt;
-            &lt;directory&gt;${project.build.directory}/${project.build.finalName}&lt;/directory&gt;
-            &lt;includes&gt;
-                &lt;include&gt;**&lt;/include&gt;
-            &lt;/includes&gt;
-            &lt;excludes&gt;
-                &lt;exclude&gt;**/deploy*.xml&lt;/exclude&gt;
-            &lt;/excludes&gt;
-            &lt;outputDirectory&gt;/&lt;/outputDirectory&gt;
-        &lt;/fileSet&gt;
-        &lt;fileSet&gt;
-            &lt;directory&gt;${project.build.directory}/${project.build.finalName}&lt;/directory&gt;
-            &lt;includes&gt;
-                &lt;include&gt;**/deploy*.xml&lt;/include&gt;
-            &lt;/includes&gt;
-            &lt;filtered&gt;true&lt;/filtered&gt;
-            &lt;outputDirectory&gt;/&lt;/outputDirectory&gt;
-        &lt;/fileSet&gt;
-    &lt;/fileSets&gt;
-&lt;/assembly&gt;
-</code></pre><p>但存在的问题如下：</p>
-<ul>
-<li>如果使用了 assembly，那么如果在配置文件中有变量，你还是需要对 maven-war-plugin 的打包过程进行定制，否则会造成 assembly filter 起作用，war 打出的包中变量没有替换的情况。也是就是如果需要保证 mvn package 构建出的 war 是有效的，既需要定制 assembly，也需要定制 war。</li>
-<li>assembly 生成的文件名默认会附加 @id@ 在文件名上，好像没有配置的方法。</li>
-</ul>
-<p>综上，在这个项目中，因为没有生成不同格式发布包的要求，只需要生成 war，所以，不考虑引入 assembly ，只对 maven-war-plugin 的构建过程进行定制。 </p>
-<h2 id="3-maven-war-plugin"><a href="#3-maven-war-plugin" class="headerlink" title="3. maven-war-plugin"></a>3. maven-war-plugin</h2><p>在 root pom 中：</p>
-<pre><code>&lt;pluginManagement&gt;
-    &lt;plugins&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.1.1&lt;/version&gt;
-        &lt;/plugin&gt;
-    &lt;/plugins&gt;
-&lt;/pluginManagement&gt;
-
-&lt;profiles&gt;
-    &lt;profile&gt;
-        &lt;id&gt;test&lt;/id&gt;
-        &lt;properties&gt;
-            &lt;profile&gt;test&lt;/profile&gt;
-        &lt;/properties&gt;
-    &lt;/profile&gt;
-&lt;/profiles&gt;
-
-&lt;properties&gt;
-    &lt;profile&gt;dev&lt;/profile&gt;
-&lt;/properties&gt;
-</code></pre><p>在 root src 下边增加 config 目录，把相关的配置文件放到下边：</p>
-<ul>
-<li>dev.properties</li>
-<li>test.properties</li>
-<li>prod1.properties</li>
-<li>prod2.properties</li>
-<li>…  </li>
-</ul>
-<p>dev 内容：</p>
-<pre><code>ldap.port=389
-ldap.host=ldap.dev.org
-ldap.searchbase=dc\=dev,dc\=org
-ldap.authdn=cn\=Directory Manager
-ldap.passwd=password
-</code></pre><p>test 内容：</p>
-<pre><code>ldap.port=389
-ldap.host=ldap.dev.org
-ldap.searchbase=dc\=test,dc\=org
-ldap.authdn=cn\=Directory Manager
-ldap.passwd=password    
-</code></pre><p>在 cas module pom 中：</p>
-<pre><code>&lt;plugin&gt;
-    &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
-    &lt;configuration&gt;
-        &lt;webResources&gt;
-            &lt;!-- 对需要修改参数的配置文件进行配置 filtering --&gt;
-            &lt;resource&gt;
-                &lt;directory&gt;src/main/webapp/WEB-INF&lt;/directory&gt;
-                &lt;includes&gt;
-                    &lt;include&gt;**/deploy*.xml&lt;/include&gt;
-                &lt;/includes&gt;
-                &lt;targetPath&gt;WEB-INF&lt;/targetPath&gt;
-                &lt;filtering&gt;true&lt;/filtering&gt;
-            &lt;/resource&gt;
-        &lt;/webResources&gt;
-    &lt;/configuration&gt;
-&lt;/plugin&gt;
-&lt;plugin&gt;
-    &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
-    &lt;artifactId&gt;properties-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;1.0-alpha-2&lt;/version&gt;
-    &lt;executions&gt;
-        &lt;execution&gt;
-            &lt;phase&gt;initialize&lt;/phase&gt;
-            &lt;goals&gt;
-                &lt;goal&gt;read-project-properties&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-                &lt;files&gt;
-                    &lt;!-- 指向 root 目录中的配置文件，并且根据 profile 动态加载文件名 --&gt;                    
-                    &lt;file&gt;${basedir}/../src/config/${profile}.properties&lt;/file&gt;
-                &lt;/files&gt;
-            &lt;/configuration&gt;
-        &lt;/execution&gt;
-    &lt;/executions&gt;
-&lt;/plugin&gt;
-</code></pre><p>现在在 cas module 的根目录运行 mvn package 或者 mvn package -Ptest，可以看到需要修改的 ${ldap.host} 等已经被替换。之后只需要在每个 module 下边对相关的插件进行定制，就可以完成之前的目标。    </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1-需求描述&quot;&gt;&lt;a href=&quot;#1-需求描述&quot; class=&quot;headerlink&quot; title=&quot;1. 需求描述&quot;&gt;&lt;/a&gt;1. 需求描述&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;在项目构建时，需要根据环境的不同生成不同的安装包。不希望每次通过人工修改配置。&lt;/li&gt;
-&lt;li&gt;有非常多的不同的 prod 环境配置，100+。&lt;/li&gt;
-&lt;li&gt;在 Maven 的多模块项目中，需要有一个完整的 properties 来定义各个不同的环境，而不是分散在各个 Module 中。&lt;/li&gt;
-&lt;li&gt;不希望这些 properties 定义在 pom 中，而是需要独立出来，通过动态参数加载。&lt;/li&gt;
-&lt;li&gt;最终可以通过 mvn package -Pdev, mvn package -Ptest, mvn package -Pprod 完成各种环境的构建。&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="maven" scheme="http://batizhao.me/categories/maven/"/>
-    
-    
-      <category term="maven" scheme="http://batizhao.me/tags/maven/"/>
     
   </entry>
   

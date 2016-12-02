@@ -307,6 +307,128 @@
             
               
                 
+                <a class="post-title-link" href="/2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/" itemprop="url">
+                  在 Mac10.9 和 JDK7 环境中运行 IntelliJ IDEA
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2013-10-31T00:00:00+08:00" content="2013-10-31">
+              2013-10-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>升级到 Mavericks 之后，需要自行安装 JDK 环境。如果你安装了 JDK7，那么在安装之后，在命令行中运行 javac、java 命令没有问题，但是 Eclipse 和 IDEA 都无法启动，系统要求安装 JDK6。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2013/06/28/solr-and--mysql/" itemprop="url">
                   Solr（二）: 整合 MySQL
                 </a>
@@ -705,6 +827,143 @@ public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&
             
               
                 
+                <a class="post-title-link" href="/2012/09/27/using-simple-spring-memcached-two/" itemprop="url">
+                  使用 Simple-Spring-Memcached: MultiCache
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-09-27T00:00:00+08:00" content="2012-09-27">
+              2012-09-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/09/27/using-simple-spring-memcached-two/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/27/using-simple-spring-memcached-two/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。</p>
+<h2 id="Namespace-和-Key"><a href="#Namespace-和-Key" class="headerlink" title="Namespace 和 Key"></a>Namespace 和 Key</h2><p>这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是</p>
+<ul>
+<li><p>get user:id</p>
+<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
+</li>
+<li><p>set user:id</p>
+<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
+</li>
+</ul>
+<p>如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是</p>
+<ul>
+<li>缓存命中率（大大影响缓存使用效率）</li>
+<li>内容空间（占用更多的内存）</li>
+<li>需要更多的清除操作（程序复杂度增加）</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/09/27/using-simple-spring-memcached-two/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2012/09/27/using-simple-spring-memcached-one/" itemprop="url">
                   使用 Simple-Spring-Memcached: SingleCache
                 </a>
@@ -823,143 +1082,6 @@ public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&
 </code></pre>
           <div class="post-more-link text-center">
             <a class="btn" href="/2012/09/27/using-simple-spring-memcached-one/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/09/27/using-simple-spring-memcached-two/" itemprop="url">
-                  使用 Simple-Spring-Memcached: MultiCache
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-09-27T00:00:00+08:00" content="2012-09-27">
-              2012-09-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/09/27/using-simple-spring-memcached-two/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/27/using-simple-spring-memcached-two/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。</p>
-<h2 id="Namespace-和-Key"><a href="#Namespace-和-Key" class="headerlink" title="Namespace 和 Key"></a>Namespace 和 Key</h2><p>这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是</p>
-<ul>
-<li><p>get user:id</p>
-<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
-</li>
-<li><p>set user:id</p>
-<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
-</li>
-</ul>
-<p>如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是</p>
-<ul>
-<li>缓存命中率（大大影响缓存使用效率）</li>
-<li>内容空间（占用更多的内存）</li>
-<li>需要更多的清除操作（程序复杂度增加）</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/09/27/using-simple-spring-memcached-two/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1505,134 +1627,6 @@ libevent-headers.noarch                1.4.13-4.el6
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/08/22/maven-package/" itemprop="url">
-                  Maven 自动化构建（dev, test, prod）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-08-22T00:00:00+08:00" content="2012-08-22">
-              2012-08-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/maven/" itemprop="url" rel="index">
-                    <span itemprop="name">maven</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/08/22/maven-package/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/08/22/maven-package/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="1-需求描述"><a href="#1-需求描述" class="headerlink" title="1. 需求描述"></a>1. 需求描述</h2><ul>
-<li>在项目构建时，需要根据环境的不同生成不同的安装包。不希望每次通过人工修改配置。</li>
-<li>有非常多的不同的 prod 环境配置，100+。</li>
-<li>在 Maven 的多模块项目中，需要有一个完整的 properties 来定义各个不同的环境，而不是分散在各个 Module 中。</li>
-<li>不希望这些 properties 定义在 pom 中，而是需要独立出来，通过动态参数加载。</li>
-<li>最终可以通过 mvn package -Pdev, mvn package -Ptest, mvn package -Pprod 完成各种环境的构建。</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/08/22/maven-package/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1678,7 +1672,7 @@ libevent-headers.noarch                1.4.13-4.el6
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">46</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
