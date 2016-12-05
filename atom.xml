@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://batizhao.me/"/>
-  <updated>2016-12-02T08:15:41.000Z</updated>
+  <updated>2016-12-05T02:50:28.000Z</updated>
   <id>http://batizhao.me/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://batizhao.me/2016/12/02/docker-five-swarm-mode/"/>
     <id>http://batizhao.me/2016/12/02/docker-five-swarm-mode/</id>
     <published>2016-12-01T23:39:15.000Z</published>
-    <updated>2016-12-02T08:15:41.000Z</updated>
+    <updated>2016-12-05T02:50:28.000Z</updated>
     
     <content type="html"><![CDATA[<p>在 <a href="http://batizhao.me/2016/12/01/docker-four-docker-compose/">Docker Compose</a> 中，我们可以在单台机器上操作多个相关联的 Docker 容器组成负载均衡集群。<br>那如果我们需要一个分布式的环境中，跨多台主机呢？<br>在 Docker 1.12 以上版本中，有个新的东西叫做 <a href="https://docs.docker.com/engine/swarm/" target="_blank" rel="external">Swarm Mode</a>。<br>不同于之前版本的 <a href="https://docs.docker.com/swarm/" target="_blank" rel="external">Docker Swarm</a>（还需要 pull swarm），Swarm Mode 已经集成在 Docker Engine 中。</p>
 <a id="more"></a>
@@ -118,10 +118,10 @@
 <li><a href="http://192.168.99.102:8080" target="_blank" rel="external">http://192.168.99.102:8080</a></li>
 <li><a href="http://192.168.99.103:8080" target="_blank" rel="external">http://192.168.99.103:8080</a></li>
 </ul>
-<p>架构如下（官方图）<br><img src="https://docs.docker.com/engine/swarm/images/ingress-routing-mesh.png" alt=""></p>
+<p>架构如下（官方图）<br><img src="/images/ingress-routing-mesh.png" alt=""></p>
 <p>如果你要发布一个新的端口<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker service update \</div><div class="line">  --publish-add &lt;PUBLISHED-PORT&gt;:&lt;TARGET-PORT&gt; \</div><div class="line">  my-web</div></pre></td></tr></table></figure></p>
 <h3 id="配置一个负载均衡器"><a href="#配置一个负载均衡器" class="headerlink" title="配置一个负载均衡器"></a>配置一个负载均衡器</h3><p>前边实现了节点中 service 的负载均衡。<br>我们可以在 Swarm Load Balance 之前再加一层负载均衡器，实现节点之间的负载均衡。<br>具体的实现这里就不再描述，可以自己编写 haproxy.cfg 和 Dockerfile 构建 Docker HAProxy 镜像。</p>
-<p>架构如下（官方图）<br><img src="https://docs.docker.com/engine/swarm/images/ingress-lb.png" alt=""></p>
+<p>架构如下（官方图）<br><img src="/images/ingress-lb.png" alt=""></p>
 <p>-EOF-</p>
 ]]></content>
     
@@ -145,7 +145,7 @@
     <link href="http://batizhao.me/2016/12/01/docker-four-docker-compose/"/>
     <id>http://batizhao.me/2016/12/01/docker-four-docker-compose/</id>
     <published>2016-12-01T05:31:47.000Z</published>
-    <updated>2016-12-01T06:25:22.000Z</updated>
+    <updated>2016-12-05T02:49:29.000Z</updated>
     
     <content type="html"><![CDATA[<p>之前都是单个 Docker 容器，现在，基于 Docker Compose，你可以同时控制多个相关联的 Docker 容器。<br>比如典型的 Nginx + Tomcat + MySQL 的 Web 架构，只需要几个简单的配置，敲击几个命令，原来可能需要好几个小时的工作，现在几分钟就可以搞定。</p>
 <a id="more"></a>
@@ -171,6 +171,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">$ docker-compose run weba env</div><div class="line">PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/tomcat/bin</div><div class="line">HOSTNAME=4fd738ffc9b2</div><div class="line">TERM=xterm</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_PORT=tcp://172.17.0.2:8080</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_PORT_8080_TCP=tcp://172.17.0.2:8080</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_PORT_8080_TCP_ADDR=172.17.0.2</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_PORT_8080_TCP_PORT=8080</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_PORT_8080_TCP_PROTO=tcp</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_NAME=/composehaproxyweb_weba_run_1/composehaproxyweb_weba_1</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_ENV_TOMCAT_VERSION=8.5.8</div><div class="line">COMPOSEHAPROXYWEB_WEBA_1_ENV_CATALINA_HOME=/opt/tomcat</div><div class="line">WEBA_PORT=tcp://172.17.0.2:8080</div><div class="line">WEBA_PORT_8080_TCP=tcp://172.17.0.2:8080</div><div class="line">WEBA_PORT_8080_TCP_ADDR=172.17.0.2</div><div class="line">WEBA_PORT_8080_TCP_PORT=8080</div><div class="line">WEBA_PORT_8080_TCP_PROTO=tcp</div><div class="line">WEBA_NAME=/composehaproxyweb_weba_run_1/weba</div><div class="line">WEBA_ENV_TOMCAT_VERSION=8.5.8</div><div class="line">WEBA_ENV_CATALINA_HOME=/opt/tomcat</div><div class="line">WEBA_1_PORT=tcp://172.17.0.2:8080</div><div class="line">WEBA_1_PORT_8080_TCP=tcp://172.17.0.2:8080</div><div class="line">WEBA_1_PORT_8080_TCP_ADDR=172.17.0.2</div><div class="line">WEBA_1_PORT_8080_TCP_PORT=8080</div><div class="line">WEBA_1_PORT_8080_TCP_PROTO=tcp</div><div class="line">WEBA_1_NAME=/composehaproxyweb_weba_run_1/weba_1</div><div class="line">WEBA_1_ENV_TOMCAT_VERSION=8.5.8</div><div class="line">WEBA_1_ENV_CATALINA_HOME=/opt/tomcat</div><div class="line">TOMCAT_VERSION=8.5.8</div><div class="line">CATALINA_HOME=/opt/tomcat</div><div class="line">HOME=/root</div></pre></td></tr></table></figure>
 <p>停止后台进程</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ docker-compose stop</div><div class="line">Stopping composehaproxyweb_haproxy_1 ... done</div><div class="line">Stopping composehaproxyweb_webb_1 ... done</div><div class="line">Stopping composehaproxyweb_weba_1 ... done</div></pre></td></tr></table></figure>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="No-such-image"><a href="#No-such-image" class="headerlink" title="No such image"></a>No such image</h3><p>这是缓存造成的一个问题，可能由于你直接手动删除了 compose 生成的 image。<br>你可以通过 <strong>docker-compose ps</strong> 查看，也通过 <strong>docker-compose rm</strong> 直接清除。<br>想要避免这个问题，你需要 <strong>docker-compose down</strong>。</p>
 ]]></content>
     
     <summary type="html">

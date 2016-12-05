@@ -96,13 +96,13 @@
 <meta property="og:url" content="http://batizhao.me/2016/12/02/docker-five-swarm-mode/index.html">
 <meta property="og:site_name" content="Gunner">
 <meta property="og:description" content="在 Docker Compose 中，我们可以在单台机器上操作多个相关联的 Docker 容器组成负载均衡集群。那如果我们需要一个分布式的环境中，跨多台主机呢？在 Docker 1.12 以上版本中，有个新的东西叫做 Swarm Mode。不同于之前版本的 Docker Swarm（还需要 pull swarm），Swarm Mode 已经集成在 Docker Engine 中。">
-<meta property="og:image" content="https://docs.docker.com/engine/swarm/images/ingress-routing-mesh.png">
-<meta property="og:image" content="https://docs.docker.com/engine/swarm/images/ingress-lb.png">
-<meta property="og:updated_time" content="2016-12-02T08:15:41.000Z">
+<meta property="og:image" content="http://batizhao.me/images/ingress-routing-mesh.png">
+<meta property="og:image" content="http://batizhao.me/images/ingress-lb.png">
+<meta property="og:updated_time" content="2016-12-05T02:50:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 实战（五）：Docker Swarm Mode">
 <meta name="twitter:description" content="在 Docker Compose 中，我们可以在单台机器上操作多个相关联的 Docker 容器组成负载均衡集群。那如果我们需要一个分布式的环境中，跨多台主机呢？在 Docker 1.12 以上版本中，有个新的东西叫做 Swarm Mode。不同于之前版本的 Docker Swarm（还需要 pull swarm），Swarm Mode 已经集成在 Docker Engine 中。">
-<meta name="twitter:image" content="https://docs.docker.com/engine/swarm/images/ingress-routing-mesh.png">
+<meta name="twitter:image" content="http://batizhao.me/images/ingress-routing-mesh.png">
 
 
 
@@ -470,10 +470,10 @@
 <li><a href="http://192.168.99.102:8080" target="_blank" rel="external">http://192.168.99.102:8080</a></li>
 <li><a href="http://192.168.99.103:8080" target="_blank" rel="external">http://192.168.99.103:8080</a></li>
 </ul>
-<p>架构如下（官方图）<br><img src="https://docs.docker.com/engine/swarm/images/ingress-routing-mesh.png" alt=""></p>
+<p>架构如下（官方图）<br><img src="/images/ingress-routing-mesh.png" alt=""></p>
 <p>如果你要发布一个新的端口<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ docker service update \</div><div class="line">  --publish-add &lt;PUBLISHED-PORT&gt;:&lt;TARGET-PORT&gt; \</div><div class="line">  my-web</div></pre></td></tr></table></figure></p>
 <h3 id="配置一个负载均衡器"><a href="#配置一个负载均衡器" class="headerlink" title="配置一个负载均衡器"></a>配置一个负载均衡器</h3><p>前边实现了节点中 service 的负载均衡。<br>我们可以在 Swarm Load Balance 之前再加一层负载均衡器，实现节点之间的负载均衡。<br>具体的实现这里就不再描述，可以自己编写 haproxy.cfg 和 Dockerfile 构建 Docker HAProxy 镜像。</p>
-<p>架构如下（官方图）<br><img src="https://docs.docker.com/engine/swarm/images/ingress-lb.png" alt=""></p>
+<p>架构如下（官方图）<br><img src="/images/ingress-lb.png" alt=""></p>
 <p>-EOF-</p>
 
       
