@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://batizhao.me/"/>
-  <updated>2016-12-05T02:50:28.000Z</updated>
+  <updated>2016-12-09T02:28:24.000Z</updated>
   <id>http://batizhao.me/</id>
   
   <author>
@@ -14,6 +14,48 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker 实战（六）：使用 Docker Compose 搭建 Web 集群</title>
+    <link href="http://batizhao.me/2016/12/09/docker-six-docker-compose-cluster/"/>
+    <id>http://batizhao.me/2016/12/09/docker-six-docker-compose-cluster/</id>
+    <published>2016-12-09T01:49:43.000Z</published>
+    <updated>2016-12-09T02:28:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在 <a href="http://batizhao.me/2016/12/01/docker-four-docker-compose/">实战（四）</a> 中，使用 HAProxy 和 Tomcat 搭建了一个简单的 Tomcat 集群。<br>这节会去掉 Tomcat，使用 Spring Boot 和 MySQL 组成一个比较典型的负载均衡集群。</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">compose-haproxy-web</div><div class="line">- docker-compose.yml</div><div class="line">+ haproxy</div><div class="line">  - haproxy.cfg</div><div class="line">+ web</div><div class="line">  - paper-0.0.1-SNAPSHOT.jar</div></pre></td></tr></table></figure>
+<h2 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a>docker-compose.yml</h2><h3 id="MySQL-配置"><a href="#MySQL-配置" class="headerlink" title="MySQL 配置"></a>MySQL 配置</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="attr">image:</span> batizhao/mysql</div><div class="line"><span class="attr">environment:</span></div><div class="line"><span class="attr">  MYSQL_ROOT_PASSWORD:</span> password</div><div class="line"><span class="attr">  MYSQL_DATABASE:</span> paper</div><div class="line"><span class="attr">  MYSQL_ROOT_HOST:</span> <span class="string">"%"</span></div><div class="line"><span class="attr">expose:</span></div><div class="line"><span class="bullet">  -</span> <span class="string">"3306"</span></div></pre></td></tr></table></figure>
+<p><strong>MYSQL_DATABASE</strong> 需要在启动时创建 paper 数据库。<br><strong>MYSQL_ROOT_HOST</strong> 在 mysql user 中增加客户端远程访问的权限。</p>
+<p>在 batizhao/mysql 这个镜像中，有一个自定义的 my.cnf 文件，主要是定义了 bind-address ，否则会遇到 CommunicationsException: Communications link failure 的错误，还有一些服务端、客户端 UTF-8 编码的定义。</p>
+<h3 id="Web-配置"><a href="#Web-配置" class="headerlink" title="Web 配置"></a>Web 配置</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="attr">image:</span> batizhao/java:<span class="number">8</span></div><div class="line"><span class="attr">command:</span> java -jar opt/paper.jar</div><div class="line"><span class="attr">volumes:</span></div><div class="line"><span class="bullet">  -</span> ./web/paper<span class="bullet">-0.0</span><span class="number">.1</span>-SNAPSHOT.jar:/opt/paper.jar</div><div class="line"><span class="attr">depends_on:</span></div><div class="line"><span class="bullet">  -</span> <span class="string">"mysql"</span></div><div class="line"><span class="attr">links:</span></div><div class="line"><span class="bullet">  -</span> <span class="string">"mysql:database"</span></div><div class="line"><span class="attr">expose:</span></div><div class="line"><span class="bullet">  -</span> <span class="string">"8080"</span></div><div class="line"><span class="attr">environment:</span></div><div class="line"><span class="bullet">  -</span> SPRING_DATASOURCE_URL=jdbc:mysql://database:<span class="number">3306</span>/paper?useUnicode=<span class="literal">true</span>&amp;useSSL=<span class="literal">false</span></div><div class="line"><span class="bullet">  -</span> SPRING_DATASOURCE_USERNAME=root</div><div class="line"><span class="bullet">  -</span> SPRING_DATASOURCE_PASSWORD=password</div><div class="line"><span class="bullet">  -</span> SPRING_DATASOURCE_SQL-SCRIPT-ENCODING=UTF<span class="bullet">-8</span></div></pre></td></tr></table></figure>
+<p><strong>volumes</strong> 这个 Spring Boot 应用在 <a href="https://github.com/batizhao/paper" target="_blank" rel="external">Github</a>，可以自己打包放到 web 目录。<br><strong>SPRING_DATASOURCE_SQL-SCRIPT-ENCODING</strong> 这个配置必须要有，否则初始化脚本会插入乱码到数据库。已经确定和 MySQL 无关，因为在宿主机启动 App 直接连接 MySQL 容器，并且在启动后插入中文数据都没有问题。只是在容器中启动 App 初始化时才会乱码，后来改 Web 容器编码也不起作用，加上这个配置就好了。</p>
+<h3 id="全部的-compose-配置"><a href="#全部的-compose-配置" class="headerlink" title="全部的 compose 配置"></a>全部的 compose 配置</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="attr">version:</span> <span class="string">'2'</span></div><div class="line"><span class="attr">services:</span></div><div class="line"><span class="attr">  mysql:</span></div><div class="line"><span class="attr">      image:</span> batizhao/mysql</div><div class="line"><span class="attr">      environment:</span></div><div class="line"><span class="attr">        MYSQL_ROOT_PASSWORD:</span> password</div><div class="line"><span class="attr">        MYSQL_DATABASE:</span> paper</div><div class="line"><span class="attr">        MYSQL_ROOT_HOST:</span> <span class="string">"%"</span></div><div class="line"><span class="attr">      expose:</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"3306"</span></div><div class="line"></div><div class="line"><span class="attr">  weba:</span></div><div class="line"><span class="attr">      image:</span> batizhao/java:<span class="number">8</span></div><div class="line"><span class="attr">      command:</span> java -jar opt/paper.jar</div><div class="line"><span class="attr">      volumes:</span></div><div class="line"><span class="bullet">        -</span> ./web/paper<span class="bullet">-0.0</span><span class="number">.1</span>-SNAPSHOT.jar:/opt/paper.jar</div><div class="line"><span class="attr">      depends_on:</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"mysql"</span></div><div class="line"><span class="attr">      links:</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"mysql:database"</span></div><div class="line"><span class="attr">      expose:</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"8080"</span></div><div class="line"><span class="attr">      environment:</span></div><div class="line"><span class="bullet">        -</span> SPRING_DATASOURCE_URL=jdbc:mysql://database:<span class="number">3306</span>/paper?useUnicode=<span class="literal">true</span>&amp;useSSL=<span class="literal">false</span></div><div class="line"><span class="bullet">        -</span> SPRING_DATASOURCE_USERNAME=root</div><div class="line"><span class="bullet">        -</span> SPRING_DATASOURCE_PASSWORD=password</div><div class="line"><span class="bullet">        -</span> SPRING_DATASOURCE_SQL-SCRIPT-ENCODING=UTF<span class="bullet">-8</span></div><div class="line"></div><div class="line"><span class="attr">  webb:</span></div><div class="line"><span class="attr">      image:</span> batizhao/java:<span class="number">8</span></div><div class="line"><span class="attr">      command:</span> java -jar opt/paper.jar</div><div class="line"><span class="attr">      volumes:</span></div><div class="line"><span class="bullet">        -</span> ./web/paper<span class="bullet">-0.0</span><span class="number">.1</span>-SNAPSHOT.jar:/opt/paper.jar</div><div class="line"><span class="attr">      depends_on:</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"mysql"</span></div><div class="line"><span class="attr">      links:</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"mysql:database"</span></div><div class="line"><span class="attr">      expose:</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"8080"</span></div><div class="line"><span class="attr">      environment:</span></div><div class="line"><span class="bullet">        -</span> SPRING_DATASOURCE_URL=jdbc:mysql://database:<span class="number">3306</span>/paper?useUnicode=<span class="literal">true</span>&amp;useSSL=<span class="literal">false</span></div><div class="line"><span class="bullet">        -</span> SPRING_DATASOURCE_USERNAME=root</div><div class="line"><span class="bullet">        -</span> SPRING_DATASOURCE_PASSWORD=password</div><div class="line"><span class="bullet">        -</span> SPRING_DATASOURCE_SQL-SCRIPT-ENCODING=UTF<span class="bullet">-8</span></div><div class="line"></div><div class="line"><span class="attr">  haproxy:</span></div><div class="line"><span class="attr">      image:</span> haproxy</div><div class="line"><span class="attr">      volumes:</span></div><div class="line"><span class="bullet">        -</span> ./haproxy:/haproxy-override</div><div class="line"><span class="bullet">        -</span> ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro</div><div class="line"><span class="attr">      links:</span></div><div class="line"><span class="bullet">        -</span> weba</div><div class="line"><span class="bullet">        -</span> webb</div><div class="line"><span class="attr">      ports:</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"80:80"</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"70:70"</span></div><div class="line"><span class="attr">      expose:</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"80"</span></div><div class="line"><span class="bullet">        -</span> <span class="string">"70"</span></div></pre></td></tr></table></figure>
+<h2 id="haproxy-cfg"><a href="#haproxy-cfg" class="headerlink" title="haproxy.cfg"></a>haproxy.cfg</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">global</div><div class="line">  log 127.0.0.1	local0</div><div class="line">  log 127.0.0.1	local1 notice</div><div class="line">  maxconn 4096</div><div class="line">  daemon</div><div class="line"></div><div class="line">defaults</div><div class="line">  log	global</div><div class="line">  mode	http</div><div class="line">  option	httplog</div><div class="line">  option	dontlognull</div><div class="line">  retries	3</div><div class="line">  option redispatch</div><div class="line">  maxconn	2000</div><div class="line">  timeout connect	5000</div><div class="line">  timeout client	50000</div><div class="line">  timeout server	50000</div><div class="line"></div><div class="line">frontend balancer</div><div class="line">  bind 0.0.0.0:80</div><div class="line">  mode http</div><div class="line">  default_backend servers</div><div class="line"></div><div class="line">backend servers</div><div class="line">  option httpchk OPTIONS /</div><div class="line">  option forwardfor</div><div class="line">  cookie JSESSIONID prefix</div><div class="line">  server tomcat1 weba:8080 cookie JSESSIONID_SERVER_1 check inter 5000</div><div class="line">  server tomcat2 webb:8080 cookie JSESSIONID_SERVER_2 check inter 5000</div><div class="line"></div><div class="line">listen status</div><div class="line">  mode http</div><div class="line">  default_backend servers</div><div class="line">  bind 0.0.0.0:70</div><div class="line">  stats enable</div><div class="line">  stats hide-version</div><div class="line">  stats uri     /stats</div><div class="line">  stats auth    admin:password</div><div class="line">  stats admin if TRUE</div></pre></td></tr></table></figure>
+<h2 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ docker-compose up</div><div class="line">Creating network &quot;composehaproxyweb_default&quot; with the default driver</div><div class="line">Creating composehaproxyweb_mysql_1</div><div class="line">Creating composehaproxyweb_webb_1</div><div class="line">Creating composehaproxyweb_weba_1</div><div class="line">Creating composehaproxyweb_haproxy_1</div><div class="line">Attaching to composehaproxyweb_mysql_1, composehaproxyweb_webb_1, composehaproxyweb_weba_1, composehaproxyweb_haproxy_1</div><div class="line">mysql_1    | Initializing database</div><div class="line">haproxy_1  | &lt;7&gt;haproxy-systemd-wrapper: executing /usr/local/sbin/haproxy -p /run/haproxy.pid -f /usr/local/etc/haproxy/haproxy.cfg -Ds</div><div class="line">mysql_1    | Database initialized</div><div class="line">mysql_1    | MySQL init process in progress...</div></pre></td></tr></table></figure>
+<p>访问 <a href="http://localhost" target="_blank" rel="external">http://localhost</a><br>使用 admin/123456 可以登录系统。</p>
+<p>访问 <a href="http://localhost:70/stats" target="_blank" rel="external">http://localhost:70/stats</a><br>使用 admin/password 可以看到集群状态。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 &lt;a href=&quot;http://batizhao.me/2016/12/01/docker-four-docker-compose/&quot;&gt;实战（四）&lt;/a&gt; 中，使用 HAProxy 和 Tomcat 搭建了一个简单的 Tomcat 集群。&lt;br&gt;这节会去掉 Tomcat
+    
+    </summary>
+    
+      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="mysql" scheme="http://batizhao.me/tags/mysql/"/>
+    
+      <category term="tomcat" scheme="http://batizhao.me/tags/tomcat/"/>
+    
+      <category term="docker" scheme="http://batizhao.me/tags/docker/"/>
+    
+      <category term="haproxy" scheme="http://batizhao.me/tags/haproxy/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker 实战（五）：Docker Swarm Mode</title>
@@ -672,9 +714,9 @@ To complete the activation, please logout then log back in
       <category term="java" scheme="http://batizhao.me/categories/java/"/>
     
     
-      <category term="mac" scheme="http://batizhao.me/tags/mac/"/>
-    
       <category term="jdk7" scheme="http://batizhao.me/tags/jdk7/"/>
+    
+      <category term="mac" scheme="http://batizhao.me/tags/mac/"/>
     
   </entry>
   
@@ -933,6 +975,96 @@ public List&amp;lt;User&amp;gt; getUsersByRoleIds(@ParameterValueKeyProvider fin
         #ids[]#
     &amp;lt;/iterate&amp;gt;) order by r.id
 &amp;lt;/select&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://batizhao.me/categories/java/"/>
+    
+    
+      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+    
+      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
+    
+      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
+    
+      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Simple-Spring-Memcached Annotation</title>
+    <link href="http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/"/>
+    <id>http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/</id>
+    <published>2012-09-26T16:00:00.000Z</published>
+    <updated>2016-11-04T09:04:40.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/" target="_blank" rel="external">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/" target="_blank" rel="external">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached" target="_blank" rel="external">ssm3-mybatis2-memcached</a>。</p>
+<h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
+public User getUser(@ParameterValueKeyProvider Long id)
+</code></pre><p>Memcache Log:</p>
+<pre><code>get user:1
+set user:1
+</code></pre><a id="more"></a>
+<h2 id="MultiCache-类"><a href="#MultiCache-类" class="headerlink" title="MultiCache 类"></a>MultiCache 类</h2><p>操作 List 型的 Cache 数据（看做是 SingleCache 的批处理），由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughMultiCache(namespace = &quot;user/getUsersByUserIds&quot;, expiration = 600)
+public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids)
+</code></pre><p>If ids=[1,2,3], Then Memcache Log:</p>
+<pre><code>get user:1 user:2 user:3
+set user:1
+set user:2
+set user:3        
+</code></pre><h2 id="AssignCache-类"><a href="#AssignCache-类" class="headerlink" title="AssignCache 类"></a>AssignCache 类</h2><p>操作所有类型的 Cache 数据。适用于无参方法或者需要自定义 Key 的场景。指定 key 操作 Cache 数据，由 annotation 中的 assignedKey 指定 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughAssignCache(assignedKey = &quot;user/getAllUsers&quot;, namespace = &quot;role&quot;, expiration = 600)
+public List&lt;User&gt; getAllUsers()
+</code></pre><h1 id="2-SingleCache-Annotation"><a href="#2-SingleCache-Annotation" class="headerlink" title="2. SingleCache Annotation"></a>2. SingleCache Annotation</h1><h2 id="ReadThroughSingleCache"><a href="#ReadThroughSingleCache" class="headerlink" title="@ReadThroughSingleCache"></a>@ReadThroughSingleCache</h2><p>作用：生成 Cache。</p>
+<p>过程：</p>
+<ul>
+<li>在执行方法之前先检查缓存。</li>
+<li>如果找到相应的 Key，返回 Value，方法 return。</li>
+<li>如果没有找到相应的 Key，查询数据库，再 set cache，方法 return。</li>
+</ul>
+<p>Key 生成规则：ParameterValueKeyProvider 指定的参数，如果该参数对象中包含 CacheKeyMethod 注解的方法，则调用其方法，否则调用 toString 方法。</p>
+<h2 id="InvalidateSingleCache"><a href="#InvalidateSingleCache" class="headerlink" title="@InvalidateSingleCache"></a>@InvalidateSingleCache</h2><p>作用：清除 Cache 中的数据。</p>
+<p>key 生成规则：</p>
+<ul>
+<li>使用 ParameterValueKeyProvider 注解时，与 ReadThroughSingleCache 一致。</li>
+<li>使用 ReturnValueKeyProvider 注解时，key 为返回的对象的 CacheKeyMethod 或 toString 方法生成。</li>
+</ul>
+<p>Java Code:</p>
+<pre><code>@InvalidateSingleCache(namespace = &quot;user/list&quot;)
+public void invalidateGetUsersByRoleId(@ParameterValueKeyProvider Long id)        
+</code></pre><h2 id="UpdateSingleCache"><a href="#UpdateSingleCache" class="headerlink" title="@UpdateSingleCache"></a>@UpdateSingleCache</h2><p>作用：更新 Cache 中的数据。</p>
+<p>Key 生成规则：ParameterValueKeyProvider 指定。</p>
+<ul>
+<li>ParameterDataUpdateContent：方法参数中的数据，作为更新缓存的数据。</li>
+<li>ReturnDataUpdateContent：方法调用后生成的数据，作为更新缓存的数据。</li>
+<li>上述两个注解，必须与 Update* 系列的注解一起使用。</li>
+</ul>
+<p>Java Code:</p>
+<pre><code>@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
+public void updateUser(@ParameterValueKeyProvider @ParameterDataUpdateContent User user)
+
+@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
+@ReturnDataUpdateContent
+public void updateUser(@ParameterValueKeyProvider User user)
+</code></pre><p>参考：<a href="http://www.colorfuldays.org/program/java/ssm_memcache/" target="_blank" rel="external">使用SSM注解做缓存操作</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;因为公司有的项目还运行在 MyBatis2 上边，并且 &lt;a href=&quot;http://code.google.com/p/simple-spring-memcached/&quot;&gt;SSM&lt;/a&gt; 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 &lt;a href=&quot;http://www.mybatis.org/caches/memcached/&quot;&gt;mybatis-memcached&lt;/a&gt; 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 &lt;a href=&quot;https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached&quot;&gt;ssm3-mybatis2-memcached&lt;/a&gt;。&lt;/p&gt;
+&lt;h1 id=&quot;1-SSM-Annotation&quot;&gt;&lt;a href=&quot;#1-SSM-Annotation&quot; class=&quot;headerlink&quot; title=&quot;1. SSM Annotation&quot;&gt;&lt;/a&gt;1. SSM Annotation&lt;/h1&gt;&lt;h2 id=&quot;SingleCache-类&quot;&gt;&lt;a href=&quot;#SingleCache-类&quot; class=&quot;headerlink&quot; title=&quot;SingleCache 类&quot;&gt;&lt;/a&gt;SingleCache 类&lt;/h2&gt;&lt;p&gt;操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。&lt;/p&gt;
+&lt;p&gt;Java Code:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@ReadThroughSingleCache(namespace = &amp;quot;user&amp;quot;, expiration = 600)
+public User getUser(@ParameterValueKeyProvider Long id)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Memcache Log:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;get user:1
+set user:1
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
@@ -1369,96 +1501,6 @@ public class RoleManagerImpl implements RoleManager {
   </entry>
   
   <entry>
-    <title>使用 Simple-Spring-Memcached Annotation</title>
-    <link href="http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/"/>
-    <id>http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/</id>
-    <published>2012-09-26T16:00:00.000Z</published>
-    <updated>2016-11-04T09:04:40.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/" target="_blank" rel="external">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/" target="_blank" rel="external">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached" target="_blank" rel="external">ssm3-mybatis2-memcached</a>。</p>
-<h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
-public User getUser(@ParameterValueKeyProvider Long id)
-</code></pre><p>Memcache Log:</p>
-<pre><code>get user:1
-set user:1
-</code></pre><a id="more"></a>
-<h2 id="MultiCache-类"><a href="#MultiCache-类" class="headerlink" title="MultiCache 类"></a>MultiCache 类</h2><p>操作 List 型的 Cache 数据（看做是 SingleCache 的批处理），由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughMultiCache(namespace = &quot;user/getUsersByUserIds&quot;, expiration = 600)
-public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids)
-</code></pre><p>If ids=[1,2,3], Then Memcache Log:</p>
-<pre><code>get user:1 user:2 user:3
-set user:1
-set user:2
-set user:3        
-</code></pre><h2 id="AssignCache-类"><a href="#AssignCache-类" class="headerlink" title="AssignCache 类"></a>AssignCache 类</h2><p>操作所有类型的 Cache 数据。适用于无参方法或者需要自定义 Key 的场景。指定 key 操作 Cache 数据，由 annotation 中的 assignedKey 指定 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughAssignCache(assignedKey = &quot;user/getAllUsers&quot;, namespace = &quot;role&quot;, expiration = 600)
-public List&lt;User&gt; getAllUsers()
-</code></pre><h1 id="2-SingleCache-Annotation"><a href="#2-SingleCache-Annotation" class="headerlink" title="2. SingleCache Annotation"></a>2. SingleCache Annotation</h1><h2 id="ReadThroughSingleCache"><a href="#ReadThroughSingleCache" class="headerlink" title="@ReadThroughSingleCache"></a>@ReadThroughSingleCache</h2><p>作用：生成 Cache。</p>
-<p>过程：</p>
-<ul>
-<li>在执行方法之前先检查缓存。</li>
-<li>如果找到相应的 Key，返回 Value，方法 return。</li>
-<li>如果没有找到相应的 Key，查询数据库，再 set cache，方法 return。</li>
-</ul>
-<p>Key 生成规则：ParameterValueKeyProvider 指定的参数，如果该参数对象中包含 CacheKeyMethod 注解的方法，则调用其方法，否则调用 toString 方法。</p>
-<h2 id="InvalidateSingleCache"><a href="#InvalidateSingleCache" class="headerlink" title="@InvalidateSingleCache"></a>@InvalidateSingleCache</h2><p>作用：清除 Cache 中的数据。</p>
-<p>key 生成规则：</p>
-<ul>
-<li>使用 ParameterValueKeyProvider 注解时，与 ReadThroughSingleCache 一致。</li>
-<li>使用 ReturnValueKeyProvider 注解时，key 为返回的对象的 CacheKeyMethod 或 toString 方法生成。</li>
-</ul>
-<p>Java Code:</p>
-<pre><code>@InvalidateSingleCache(namespace = &quot;user/list&quot;)
-public void invalidateGetUsersByRoleId(@ParameterValueKeyProvider Long id)        
-</code></pre><h2 id="UpdateSingleCache"><a href="#UpdateSingleCache" class="headerlink" title="@UpdateSingleCache"></a>@UpdateSingleCache</h2><p>作用：更新 Cache 中的数据。</p>
-<p>Key 生成规则：ParameterValueKeyProvider 指定。</p>
-<ul>
-<li>ParameterDataUpdateContent：方法参数中的数据，作为更新缓存的数据。</li>
-<li>ReturnDataUpdateContent：方法调用后生成的数据，作为更新缓存的数据。</li>
-<li>上述两个注解，必须与 Update* 系列的注解一起使用。</li>
-</ul>
-<p>Java Code:</p>
-<pre><code>@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
-public void updateUser(@ParameterValueKeyProvider @ParameterDataUpdateContent User user)
-
-@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
-@ReturnDataUpdateContent
-public void updateUser(@ParameterValueKeyProvider User user)
-</code></pre><p>参考：<a href="http://www.colorfuldays.org/program/java/ssm_memcache/" target="_blank" rel="external">使用SSM注解做缓存操作</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;因为公司有的项目还运行在 MyBatis2 上边，并且 &lt;a href=&quot;http://code.google.com/p/simple-spring-memcached/&quot;&gt;SSM&lt;/a&gt; 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 &lt;a href=&quot;http://www.mybatis.org/caches/memcached/&quot;&gt;mybatis-memcached&lt;/a&gt; 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 &lt;a href=&quot;https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached&quot;&gt;ssm3-mybatis2-memcached&lt;/a&gt;。&lt;/p&gt;
-&lt;h1 id=&quot;1-SSM-Annotation&quot;&gt;&lt;a href=&quot;#1-SSM-Annotation&quot; class=&quot;headerlink&quot; title=&quot;1. SSM Annotation&quot;&gt;&lt;/a&gt;1. SSM Annotation&lt;/h1&gt;&lt;h2 id=&quot;SingleCache-类&quot;&gt;&lt;a href=&quot;#SingleCache-类&quot; class=&quot;headerlink&quot; title=&quot;SingleCache 类&quot;&gt;&lt;/a&gt;SingleCache 类&lt;/h2&gt;&lt;p&gt;操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。&lt;/p&gt;
-&lt;p&gt;Java Code:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@ReadThroughSingleCache(namespace = &amp;quot;user&amp;quot;, expiration = 600)
-public User getUser(@ParameterValueKeyProvider Long id)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Memcache Log:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;get user:1
-set user:1
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://batizhao.me/categories/java/"/>
-    
-    
-      <category term="java" scheme="http://batizhao.me/tags/java/"/>
-    
-      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
-    
-      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
-    
-      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
-    
-  </entry>
-  
-  <entry>
     <title>在 CentOS6 上安装 ActiveMQ Service</title>
     <link href="http://batizhao.me/2012/09/18/installing-activemq-as-a-service-on-centos6/"/>
     <id>http://batizhao.me/2012/09/18/installing-activemq-as-a-service-on-centos6/</id>
@@ -1663,137 +1705,6 @@ pasv_max_port=2322
       <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
     
       <category term="ftp" scheme="http://batizhao.me/tags/ftp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在 CentOS6 上安装 memcached</title>
-    <link href="http://batizhao.me/2012/09/07/install-memcached-on-centos6/"/>
-    <id>http://batizhao.me/2012/09/07/install-memcached-on-centos6/</id>
-    <published>2012-09-06T16:00:00.000Z</published>
-    <updated>2016-11-04T09:02:27.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="1-安装-libevent"><a href="#1-安装-libevent" class="headerlink" title="1. 安装 libevent"></a>1. 安装 libevent</h1><pre><code># yum list|grep libevent*
-
-libevent.x86_64                        1.4.13-4.el6                     
-libevent.i686                          1.4.13-4.el6                      
-libevent-devel.i686                    1.4.13-4.el6                         
-libevent-devel.x86_64                  1.4.13-4.el6                        
-libevent-doc.noarch                    1.4.13-4.el6                        
-libevent-headers.noarch                1.4.13-4.el6                     
-
-# yum install libevent.x86_64 libevent-devel.x86_64
-</code></pre><a id="more"></a>
-<h1 id="2-安装-memcached"><a href="#2-安装-memcached" class="headerlink" title="2. 安装 memcached"></a>2. 安装 memcached</h1><pre><code># wget http://memcached.googlecode.com/files/memcached-1.4.15.tar.gz
-# tar zxvf memcached-1.4.15.tar.gz
-# cd memcached-1.4.15
-# ./configure
-# make
-# make install
-</code></pre><h1 id="3-使用-memcached"><a href="#3-使用-memcached" class="headerlink" title="3. 使用 memcached"></a>3. 使用 memcached</h1><p>参数</p>
-<pre><code>-p 监听端口
--l 连接的IP地址,默认是本机
--d start 启动 memecached 服务
--d restart 重启
--d stop|shutdown关闭服务
--d install 安装
--d uninstall 卸载
--u 以身份运行仅在 root 下有效
--m 最大内存使用，单位 MB，默认 64MB
--M 内存耗尽时返回错误
--c 最大同时连接数量,默认是 1024
--f 块大小增长因为,默认是 1.25
--n 最小分配空间, key + value + flags 默认48
--h 显示帮助
-</code></pre><p>启动</p>
-<pre><code># memcached -d -u root
-</code></pre><p>验证</p>
-<pre><code>＃ telnet localhost 11211
-Trying ::1...
-Connected to localhost.
-Escape character is &apos;^]&apos;.
-</code></pre><p>查看当前状态</p>
-<pre><code>＃ stats
-TAT pid 26427
-STAT uptime 2137
-STAT time 1346995532
-STAT version 1.4.15
-STAT libevent 1.4.13-stable
-STAT pointer_size 64
-STAT rusage_user 0.012998
-STAT rusage_system 0.023996
-STAT curr_connections 10
-STAT total_connections 14
-STAT connection_structures 12
-STAT reserved_fds 20
-STAT cmd_get 0
-STAT cmd_set 0
-STAT cmd_flush 0
-STAT cmd_touch 0
-STAT get_hits 0
-STAT get_misses 0
-STAT delete_misses 0
-STAT delete_hits 0
-STAT incr_misses 0
-STAT incr_hits 0
-STAT decr_misses 0
-STAT decr_hits 0
-STAT cas_misses 0
-STAT cas_hits 0
-STAT cas_badval 0
-STAT touch_hits 0
-STAT touch_misses 0
-STAT auth_cmds 0
-STAT auth_errors 0
-STAT bytes_read 68
-STAT bytes_written 2091
-STAT limit_maxbytes 67108864
-STAT accepting_conns 1
-STAT listen_disabled_num 0
-STAT threads 4
-STAT conn_yields 0
-STAT hash_power_level 16
-STAT hash_bytes 524288
-STAT hash_is_expanding 0
-STAT bytes 0
-STAT curr_items 0
-STAT total_items 0
-STAT expired_unfetched 0
-STAT evicted_unfetched 0
-STAT evictions 0
-STAT reclaimed 0
-END
-</code></pre><p>远程使用需要打开 iptables 端口</p>
-<pre><code># vim /etc/sysconfig/iptables
-----
--A INPUT -m state --state NEW -m tcp -p tcp --dport 11211 -j ACCEPT
--A INPUT -m state --state NEW -m udp -p udp --dport 11211 -j ACCEPT  
-
-# service iptables restart   
-</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;1-安装-libevent&quot;&gt;&lt;a href=&quot;#1-安装-libevent&quot; class=&quot;headerlink&quot; title=&quot;1. 安装 libevent&quot;&gt;&lt;/a&gt;1. 安装 libevent&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;# yum list|grep libevent*
-
-libevent.x86_64                        1.4.13-4.el6                     
-libevent.i686                          1.4.13-4.el6                      
-libevent-devel.i686                    1.4.13-4.el6                         
-libevent-devel.x86_64                  1.4.13-4.el6                        
-libevent-doc.noarch                    1.4.13-4.el6                        
-libevent-headers.noarch                1.4.13-4.el6                     
-
-# yum install libevent.x86_64 libevent-devel.x86_64
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="memcached" scheme="http://batizhao.me/categories/memcached/"/>
-    
-    
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
-    
-      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
     
   </entry>
   

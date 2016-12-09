@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://batizhao.me/2016/12/09/docker-six-docker-compose-cluster/</loc>
+    
+    <lastmod>2016-12-09T02:28:24.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://batizhao.me/2016/12/02/docker-five-swarm-mode/</loc>
     
     <lastmod>2016-12-05T02:50:28.000Z</lastmod>
@@ -72,14 +79,14 @@
   </url>
   
   <url>
-    <loc>http://batizhao.me/categories/index.html</loc>
+    <loc>http://batizhao.me/tags/index.html</loc>
     
     <lastmod>2016-11-09T02:28:59.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://batizhao.me/tags/index.html</loc>
+    <loc>http://batizhao.me/categories/index.html</loc>
     
     <lastmod>2016-11-09T02:28:59.000Z</lastmod>
     
