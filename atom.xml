@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://batizhao.me/"/>
-  <updated>2016-12-09T02:28:24.000Z</updated>
+  <updated>2016-12-09T02:33:41.000Z</updated>
   <id>http://batizhao.me/</id>
   
   <author>
@@ -20,10 +20,11 @@
     <link href="http://batizhao.me/2016/12/09/docker-six-docker-compose-cluster/"/>
     <id>http://batizhao.me/2016/12/09/docker-six-docker-compose-cluster/</id>
     <published>2016-12-09T01:49:43.000Z</published>
-    <updated>2016-12-09T02:28:24.000Z</updated>
+    <updated>2016-12-09T02:33:41.000Z</updated>
     
     <content type="html"><![CDATA[<p>在 <a href="http://batizhao.me/2016/12/01/docker-four-docker-compose/">实战（四）</a> 中，使用 HAProxy 和 Tomcat 搭建了一个简单的 Tomcat 集群。<br>这节会去掉 Tomcat，使用 Spring Boot 和 MySQL 组成一个比较典型的负载均衡集群。</p>
 <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">compose-haproxy-web</div><div class="line">- docker-compose.yml</div><div class="line">+ haproxy</div><div class="line">  - haproxy.cfg</div><div class="line">+ web</div><div class="line">  - paper-0.0.1-SNAPSHOT.jar</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <h2 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a>docker-compose.yml</h2><h3 id="MySQL-配置"><a href="#MySQL-配置" class="headerlink" title="MySQL 配置"></a>MySQL 配置</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="attr">image:</span> batizhao/mysql</div><div class="line"><span class="attr">environment:</span></div><div class="line"><span class="attr">  MYSQL_ROOT_PASSWORD:</span> password</div><div class="line"><span class="attr">  MYSQL_DATABASE:</span> paper</div><div class="line"><span class="attr">  MYSQL_ROOT_HOST:</span> <span class="string">"%"</span></div><div class="line"><span class="attr">expose:</span></div><div class="line"><span class="bullet">  -</span> <span class="string">"3306"</span></div></pre></td></tr></table></figure>
 <p><strong>MYSQL_DATABASE</strong> 需要在启动时创建 paper 数据库。<br><strong>MYSQL_ROOT_HOST</strong> 在 mysql user 中增加客户端远程访问的权限。</p>
 <p>在 batizhao/mysql 这个镜像中，有一个自定义的 my.cnf 文件，主要是定义了 bind-address ，否则会遇到 CommunicationsException: Communications link failure 的错误，还有一些服务端、客户端 UTF-8 编码的定义。</p>
@@ -38,7 +39,8 @@
     
     <summary type="html">
     
-      &lt;p&gt;在 &lt;a href=&quot;http://batizhao.me/2016/12/01/docker-four-docker-compose/&quot;&gt;实战（四）&lt;/a&gt; 中，使用 HAProxy 和 Tomcat 搭建了一个简单的 Tomcat 集群。&lt;br&gt;这节会去掉 Tomcat
+      &lt;p&gt;在 &lt;a href=&quot;http://batizhao.me/2016/12/01/docker-four-docker-compose/&quot;&gt;实战（四）&lt;/a&gt; 中，使用 HAProxy 和 Tomcat 搭建了一个简单的 Tomcat 集群。&lt;br&gt;这节会去掉 Tomcat，使用 Spring Boot 和 MySQL 组成一个比较典型的负载均衡集群。&lt;/p&gt;
+&lt;h2 id=&quot;目录&quot;&gt;&lt;a href=&quot;#目录&quot; class=&quot;headerlink&quot; title=&quot;目录&quot;&gt;&lt;/a&gt;目录&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;compose-haproxy-web&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;- docker-compose.yml&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;+ haproxy&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  - haproxy.cfg&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;+ web&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  - paper-0.0.1-SNAPSHOT.jar&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
