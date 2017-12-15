@@ -90,19 +90,18 @@
 
 
 
-<meta name="description" content="在安装之前最新的 Docker 版本建议安装 Docker for Mac，原先的 Docker Toolbox 方式已经不建议使用。
-If you already have an installation of Docker Toolbox, please read these topics first to learn how Docker for Mac and Docker Toolbox">
+<meta name="description" content="在安装之前最新的 Docker 版本建议安装 Docker for Mac，原先的 Docker Toolbox 方式已经不建议使用。 If you already have an installation of Docker Toolbox, please read these topics first to learn how Docker for Mac and Docker Toolbox">
+<meta name="keywords" content="linux,docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker 实战（一）：在 Mac 上安装配置 Docker">
 <meta property="og:url" content="http://batizhao.me/2016/11/14/docker-one-install/index.html">
 <meta property="og:site_name" content="Gunner">
-<meta property="og:description" content="在安装之前最新的 Docker 版本建议安装 Docker for Mac，原先的 Docker Toolbox 方式已经不建议使用。
-If you already have an installation of Docker Toolbox, please read these topics first to learn how Docker for Mac and Docker Toolbox">
+<meta property="og:description" content="在安装之前最新的 Docker 版本建议安装 Docker for Mac，原先的 Docker Toolbox 方式已经不建议使用。 If you already have an installation of Docker Toolbox, please read these topics first to learn how Docker for Mac and Docker Toolbox">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-11-15T07:37:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 实战（一）：在 Mac 上安装配置 Docker">
-<meta name="twitter:description" content="在安装之前最新的 Docker 版本建议安装 Docker for Mac，原先的 Docker Toolbox 方式已经不建议使用。
-If you already have an installation of Docker Toolbox, please read these topics first to learn how Docker for Mac and Docker Toolbox">
+<meta name="twitter:description" content="在安装之前最新的 Docker 版本建议安装 Docker for Mac，原先的 Docker Toolbox 方式已经不建议使用。 If you already have an installation of Docker Toolbox, please read these topics first to learn how Docker for Mac and Docker Toolbox">
 
 
 
@@ -374,24 +373,24 @@ If you already have an installation of Docker Toolbox, please read these topics 
       
 
       
-        <h2 id="在安装之前"><a href="#在安装之前" class="headerlink" title="在安装之前"></a>在安装之前</h2><p>最新的 Docker 版本建议安装 <a href="https://www.docker.com" target="_blank" rel="external">Docker for Mac</a>，原先的 Docker Toolbox 方式已经不建议使用。</p>
+        <h2 id="在安装之前"><a href="#在安装之前" class="headerlink" title="在安装之前"></a>在安装之前</h2><p>最新的 Docker 版本建议安装 <a href="https://www.docker.com" target="_blank" rel="noopener">Docker for Mac</a>，原先的 Docker Toolbox 方式已经不建议使用。</p>
 <blockquote><p>If you already have an installation of Docker Toolbox, please read these topics first to learn how Docker for Mac and Docker Toolbox differ, and how they can coexist.</p>
-<footer><strong>新老两种方法对比以及 Toolbox 的卸载</strong><cite><a href="https://docs.docker.com/docker-for-mac/docker-toolbox/" target="_blank" rel="external">Docker for Mac vs. Docker Toolbox</a></cite></footer></blockquote>
+<footer><strong>新老两种方法对比以及 Toolbox 的卸载</strong><cite><a href="https://docs.docker.com/docker-for-mac/docker-toolbox/" target="_blank" rel="noopener">Docker for Mac vs. Docker Toolbox</a></cite></footer></blockquote>
 <a id="more"></a>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote><p>Welcome to Docker for Mac!</p>
 <p>Please read through these topics on how to get started. To give us feedback on your experience with the app and report bugs or problems, log in to our Docker for Mac forum.</p>
-<footer><strong>基本的安装步骤</strong><cite><a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="external">Get started with Docker for Mac</a></cite></footer></blockquote>
+<footer><strong>基本的安装步骤</strong><cite><a href="https://docs.docker.com/docker-for-mac/" target="_blank" rel="noopener">Get started with Docker for Mac</a></cite></footer></blockquote>
 <h2 id="使用镜像库加速"><a href="#使用镜像库加速" class="headerlink" title="使用镜像库加速"></a>使用镜像库加速</h2><p>国内访问 Docker 仓库会比较慢，可以使用 2 个加速地址：</p>
 <ul>
-<li><a href="https://cr.console.aliyun.com" target="_blank" rel="external">阿里云</a></li>
-<li><a href="https://www.daocloud.io/mirror" target="_blank" rel="external">DaoCloud</a></li>
+<li><a href="https://cr.console.aliyun.com" target="_blank" rel="noopener">阿里云</a></li>
+<li><a href="https://www.daocloud.io/mirror" target="_blank" rel="noopener">DaoCloud</a></li>
 </ul>
 <p>注册并登录以上地址可以获得专属加速地址。</p>
 <blockquote><p>在 Mac 上，点击桌面顶栏的 Docker 图标，选择 Preferences ，在 Advanced 标签下的 Registry mirrors 列表中加入专属地址。<br>点击 Apply &amp; Restart 按钮使设置生效。</p>
 </blockquote>
-<h2 id="第一个镜像"><a href="#第一个镜像" class="headerlink" title="第一个镜像"></a>第一个镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ docker pull ubuntu</div><div class="line">Using default tag: latest</div><div class="line">latest: Pulling from library/ubuntu</div><div class="line">Digest: sha256:2d44ae143feeb36f4c898d32ed2ab2dffeb3a573d2d8928646dfc9cb7deb1315</div><div class="line">Status: Image is up to date <span class="keyword">for</span> ubuntu:latest</div></pre></td></tr></table></figure>
+<h2 id="第一个镜像"><a href="#第一个镜像" class="headerlink" title="第一个镜像"></a>第一个镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull ubuntu</span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from library/ubuntu</span><br><span class="line">Digest: sha256:2d44ae143feeb36f4c898d32ed2ab2dffeb3a573d2d8928646dfc9cb7deb1315</span><br><span class="line">Status: Image is up to date <span class="keyword">for</span> ubuntu:latest</span><br></pre></td></tr></table></figure>
 <p>启动 ubuntu 容器</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker run -it ubuntu</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it ubuntu</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -530,7 +529,7 @@ If you already have an installation of Docker Toolbox, please read these topics 
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -547,7 +546,7 @@ If you already have an installation of Docker Toolbox, please read these topics 
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -618,7 +617,7 @@ If you already have an installation of Docker Toolbox, please read these topics 
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在安装之前"><span class="nav-number">1.</span> <span class="nav-text">在安装之前</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用镜像库加速"><span class="nav-number">3.</span> <span class="nav-text">使用镜像库加速</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一个镜像"><span class="nav-number">4.</span> <span class="nav-text">第一个镜像</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#在安装之前"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x5728;&#x5B89;&#x88C5;&#x4E4B;&#x524D;" class="headerlink" title="&#x5728;&#x5B89;&#x88C5;&#x4E4B;&#x524D;"></a>&#x5728;&#x5B89;&#x88C5;&#x4E4B;&#x524D;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;" class="headerlink" title="&#x5B89;&#x88C5;"></a>&#x5B89;&#x88C5;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用镜像库加速"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;&#x955C;&#x50CF;&#x5E93;&#x52A0;&#x901F;" class="headerlink" title="&#x4F7F;&#x7528;&#x955C;&#x50CF;&#x5E93;&#x52A0;&#x901F;"></a>&#x4F7F;&#x7528;&#x955C;&#x50CF;&#x5E93;&#x52A0;&#x901F;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一个镜像"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x7B2C;&#x4E00;&#x4E2A;&#x955C;&#x50CF;" class="headerlink" title="&#x7B2C;&#x4E00;&#x4E2A;&#x955C;&#x50CF;"></a>&#x7B2C;&#x4E00;&#x4E2A;&#x955C;&#x50CF;</span></a></li></ol></div>
             
           </div>
         </section>

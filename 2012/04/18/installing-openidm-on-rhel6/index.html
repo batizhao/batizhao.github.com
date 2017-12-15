@@ -90,34 +90,18 @@
 
 
 
-<meta name="description" content="确认 Java 环境，需要 update 24 以上版本。
-# java -version
-java version &amp;quot;1.6.0_31&amp;quot;
-Java(TM) SE Runtime Environment (build 1.6.0_31-b04)
-Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01, mixed mode)
-下载
-#">
+<meta name="description" content="确认 Java 环境，需要 update 24 以上版本。 # java -version java version &amp;quot;1.6.0_31&amp;quot; Java(TM) SE Runtime Environment (build 1.6.0_31-b04) Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01, mixed mode) 下载 #">
+<meta name="keywords" content="linux,ldap,sso">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 RHEL6 上安装 OpenIDM">
 <meta property="og:url" content="http://batizhao.me/2012/04/18/installing-openidm-on-rhel6/index.html">
 <meta property="og:site_name" content="Gunner">
-<meta property="og:description" content="确认 Java 环境，需要 update 24 以上版本。
-# java -version
-java version &amp;quot;1.6.0_31&amp;quot;
-Java(TM) SE Runtime Environment (build 1.6.0_31-b04)
-Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01, mixed mode)
-下载
-#">
+<meta property="og:description" content="确认 Java 环境，需要 update 24 以上版本。 # java -version java version &amp;quot;1.6.0_31&amp;quot; Java(TM) SE Runtime Environment (build 1.6.0_31-b04) Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01, mixed mode) 下载 #">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-11-04T08:45:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 RHEL6 上安装 OpenIDM">
-<meta name="twitter:description" content="确认 Java 环境，需要 update 24 以上版本。
-# java -version
-java version &amp;quot;1.6.0_31&amp;quot;
-Java(TM) SE Runtime Environment (build 1.6.0_31-b04)
-Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01, mixed mode)
-下载
-#">
+<meta name="twitter:description" content="确认 Java 环境，需要 update 24 以上版本。 # java -version java version &amp;quot;1.6.0_31&amp;quot; Java(TM) SE Runtime Environment (build 1.6.0_31-b04) Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01, mixed mode) 下载 #">
 
 
 
@@ -404,7 +388,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01, mixed mode)
 </code></pre><p>默认情况，OpenIDM 监听在 8080 和 8443 端口，这里因为和 OpenAM 用的同一台 Server，所以修改为 9090，9443。</p>
 <pre><code># cd openidm
 # vim conf/jetty.xml
-</code></pre><p>如果在生产环境，需要替换默认的 OrientDB。这里替换为 MySQL。下载 <a href="http://www.mysql.com/downloads/connector/j/" target="_blank" rel="external">MySQL Connector/J</a>     解压缩以后</p>
+</code></pre><p>如果在生产环境，需要替换默认的 OrientDB。这里替换为 MySQL。下载 <a href="http://www.mysql.com/downloads/connector/j/" target="_blank" rel="noopener">MySQL Connector/J</a>     解压缩以后</p>
 <pre><code># cp mysql-connector-java-5.1.19-bin.jar /opt/openidm/bundle/
 # cd /opt/openidm/conf
 # mv repo.orientdb.json repo.orientdb.json.bak
@@ -482,8 +466,8 @@ Id   State          Name
 [   8] [active       ] org.forgerock.openidm.authentication
 [  10] [active       ] org.forgerock.openidm.provisioner
 -&gt;
-</code></pre><p>如果看到     email 和 orientdb 是 unsatisfied，repo.jdbc 是 active 就成功了。如果有其它的 unsatisfied<br>检查 openidm/logs 或者查看 <a href="http://openidm.forgerock.org/doc/integrators-guide/index.html#chap-troubleshooting" target="_blank" rel="external">Troubleshooting</a>。</p>
-<p>现在访问：<a href="http://openam.example.com:9090/system/console" target="_blank" rel="external">http://openam.example.com:9090/system/console</a>, 使用 admin/admin 登录控制台。</p>
+</code></pre><p>如果看到     email 和 orientdb 是 unsatisfied，repo.jdbc 是 active 就成功了。如果有其它的 unsatisfied<br>检查 openidm/logs 或者查看 <a href="http://openidm.forgerock.org/doc/integrators-guide/index.html#chap-troubleshooting" target="_blank" rel="noopener">Troubleshooting</a>。</p>
+<p>现在访问：<a href="http://openam.example.com:9090/system/console" target="_blank" rel="noopener">http://openam.example.com:9090/system/console</a>, 使用 admin/admin 登录控制台。</p>
 
       
     </div>
@@ -624,7 +608,7 @@ Id   State          Name
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -641,7 +625,7 @@ Id   State          Name
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

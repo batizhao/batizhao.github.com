@@ -90,31 +90,18 @@
 
 
 
-<meta name="description" content="1. 需求描述
-在项目构建时，需要根据环境的不同生成不同的安装包。不希望每次通过人工修改配置。
-有非常多的不同的 prod 环境配置，100+。
-在 Maven 的多模块项目中，需要有一个完整的 properties 来定义各个不同的环境，而不是分散在各个 Module 中。
-不希望这些 properties 定义在 pom 中，而是需要独立出来，通过动态参数加载。
-最终可以通过 mvn pack">
+<meta name="description" content="1. 需求描述 在项目构建时，需要根据环境的不同生成不同的安装包。不希望每次通过人工修改配置。 有非常多的不同的 prod 环境配置，100+。 在 Maven 的多模块项目中，需要有一个完整的 properties 来定义各个不同的环境，而不是分散在各个 Module 中。 不希望这些 properties 定义在 pom 中，而是需要独立出来，通过动态参数加载。 最终可以通过 mvn pack">
+<meta name="keywords" content="maven">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Maven 自动化构建（dev, test, prod）">
 <meta property="og:url" content="http://batizhao.me/2012/08/22/maven-package/index.html">
 <meta property="og:site_name" content="Gunner">
-<meta property="og:description" content="1. 需求描述
-在项目构建时，需要根据环境的不同生成不同的安装包。不希望每次通过人工修改配置。
-有非常多的不同的 prod 环境配置，100+。
-在 Maven 的多模块项目中，需要有一个完整的 properties 来定义各个不同的环境，而不是分散在各个 Module 中。
-不希望这些 properties 定义在 pom 中，而是需要独立出来，通过动态参数加载。
-最终可以通过 mvn pack">
+<meta property="og:description" content="1. 需求描述 在项目构建时，需要根据环境的不同生成不同的安装包。不希望每次通过人工修改配置。 有非常多的不同的 prod 环境配置，100+。 在 Maven 的多模块项目中，需要有一个完整的 properties 来定义各个不同的环境，而不是分散在各个 Module 中。 不希望这些 properties 定义在 pom 中，而是需要独立出来，通过动态参数加载。 最终可以通过 mvn pack">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-11-04T09:01:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven 自动化构建（dev, test, prod）">
-<meta name="twitter:description" content="1. 需求描述
-在项目构建时，需要根据环境的不同生成不同的安装包。不希望每次通过人工修改配置。
-有非常多的不同的 prod 环境配置，100+。
-在 Maven 的多模块项目中，需要有一个完整的 properties 来定义各个不同的环境，而不是分散在各个 Module 中。
-不希望这些 properties 定义在 pom 中，而是需要独立出来，通过动态参数加载。
-最终可以通过 mvn pack">
+<meta name="twitter:description" content="1. 需求描述 在项目构建时，需要根据环境的不同生成不同的安装包。不希望每次通过人工修改配置。 有非常多的不同的 prod 环境配置，100+。 在 Maven 的多模块项目中，需要有一个完整的 properties 来定义各个不同的环境，而不是分散在各个 Module 中。 不希望这些 properties 定义在 pom 中，而是需要独立出来，通过动态参数加载。 最终可以通过 mvn pack">
 
 
 
@@ -671,7 +658,7 @@ ldap.passwd=password
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -688,7 +675,7 @@ ldap.passwd=password
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -759,7 +746,7 @@ ldap.passwd=password
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-需求描述"><span class="nav-number">1.</span> <span class="nav-text">1. 需求描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-maven-assembly-plugin"><span class="nav-number">2.</span> <span class="nav-text">2. maven-assembly-plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-maven-war-plugin"><span class="nav-number">3.</span> <span class="nav-text">3. maven-war-plugin</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-需求描述"><span class="nav-number">1.</span> <span class="nav-text"><a href="#1-&#x9700;&#x6C42;&#x63CF;&#x8FF0;" class="headerlink" title="1. &#x9700;&#x6C42;&#x63CF;&#x8FF0;"></a>1. &#x9700;&#x6C42;&#x63CF;&#x8FF0;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-maven-assembly-plugin"><span class="nav-number">2.</span> <span class="nav-text"><a href="#2-maven-assembly-plugin" class="headerlink" title="2. maven-assembly-plugin"></a>2. maven-assembly-plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-maven-war-plugin"><span class="nav-number">3.</span> <span class="nav-text"><a href="#3-maven-war-plugin" class="headerlink" title="3. maven-war-plugin"></a>3. maven-war-plugin</span></a></li></ol></div>
             
           </div>
         </section>

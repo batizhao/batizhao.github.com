@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://batizhao.me/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/</loc>
+    
+    <lastmod>2017-12-15T07:31:59.468Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2017/12/14/share-shasdowsocks-to-http/</loc>
+    
+    <lastmod>2017-12-15T06:41:53.348Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://batizhao.me/2016/11/24/docker-three-command/</loc>
     
     <lastmod>2017-08-03T04:51:37.000Z</lastmod>

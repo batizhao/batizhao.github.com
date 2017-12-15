@@ -90,30 +90,20 @@
 
 
 
-<meta name="description" content="1. 方案一
-调用 OpenIDM REST API 管理组织、用户（CRUD，需要开发）。
-通过 OpenIDM Core Service 推送数据到 OpenDJ（LDAP）、业务系统数据库。
-需要至少提供两台 Linux（RHEL6）主机，增加的系统服务有 OpenDJ、OpenIDM、OpenAM、MySQL、身份管理 Web 服务。
-OpenDJ 和 MySQL 在一台机器（做数据备份）">
+<meta name="description" content="1. 方案一 调用 OpenIDM REST API 管理组织、用户（CRUD，需要开发）。 通过 OpenIDM Core Service 推送数据到 OpenDJ（LDAP）、业务系统数据库。 需要至少提供两台 Linux（RHEL6）主机，增加的系统服务有 OpenDJ、OpenIDM、OpenAM、MySQL、身份管理 Web 服务。 OpenDJ 和 MySQL 在一台机器（做数据备份）">
+<meta name="keywords" content="ldap,sso">
 <meta property="og:type" content="article">
 <meta property="og:title" content="统一身份管理和单点登录">
 <meta property="og:url" content="http://batizhao.me/2012/05/08/identity-management/index.html">
 <meta property="og:site_name" content="Gunner">
-<meta property="og:description" content="1. 方案一
-调用 OpenIDM REST API 管理组织、用户（CRUD，需要开发）。
-通过 OpenIDM Core Service 推送数据到 OpenDJ（LDAP）、业务系统数据库。
-需要至少提供两台 Linux（RHEL6）主机，增加的系统服务有 OpenDJ、OpenIDM、OpenAM、MySQL、身份管理 Web 服务。
-OpenDJ 和 MySQL 在一台机器（做数据备份）">
+<meta property="og:description" content="1. 方案一 调用 OpenIDM REST API 管理组织、用户（CRUD，需要开发）。 通过 OpenIDM Core Service 推送数据到 OpenDJ（LDAP）、业务系统数据库。 需要至少提供两台 Linux（RHEL6）主机，增加的系统服务有 OpenDJ、OpenIDM、OpenAM、MySQL、身份管理 Web 服务。 OpenDJ 和 MySQL 在一台机器（做数据备份）">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://batizhao.me/images/2012-05-08-identity-management-1.png">
 <meta property="og:image" content="http://batizhao.me/images/2012-05-08-identity-management-2.png">
 <meta property="og:updated_time" content="2016-11-04T08:50:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="统一身份管理和单点登录">
-<meta name="twitter:description" content="1. 方案一
-调用 OpenIDM REST API 管理组织、用户（CRUD，需要开发）。
-通过 OpenIDM Core Service 推送数据到 OpenDJ（LDAP）、业务系统数据库。
-需要至少提供两台 Linux（RHEL6）主机，增加的系统服务有 OpenDJ、OpenIDM、OpenAM、MySQL、身份管理 Web 服务。
-OpenDJ 和 MySQL 在一台机器（做数据备份）">
+<meta name="twitter:description" content="1. 方案一 调用 OpenIDM REST API 管理组织、用户（CRUD，需要开发）。 通过 OpenIDM Core Service 推送数据到 OpenDJ（LDAP）、业务系统数据库。 需要至少提供两台 Linux（RHEL6）主机，增加的系统服务有 OpenDJ、OpenIDM、OpenAM、MySQL、身份管理 Web 服务。 OpenDJ 和 MySQL 在一台机器（做数据备份）">
 <meta name="twitter:image" content="http://batizhao.me/images/2012-05-08-identity-management-1.png">
 
 
@@ -449,7 +439,7 @@ OpenDJ 和 MySQL 在一台机器（做数据备份）">
 <li>如果不能重新初始化组织、用户数据，那么需要建立遗留业务系统和底层身份管理平台的映射关系。</li>
 <li>屏蔽遗留业务系统的认证模块。</li>
 <li>如果权限控制要求不是很复杂，可以使用 OpenAM 完成统一的业务系统授权和访问控制。否则可以自己开发 OpenAM 授权插件或者业务系统自己实现。</li>
-<li>安装 OpenAM Agent 或者使用 SDK 开发简单的认证接口。可参考<br><a href="http://batizhao.github.com/java/2012/04/16/openam-integrate-with-spring-security-3/" target="_blank" rel="external">开发 OpenAM Spring Security 3 客户端</a><br>和<br><a href="http://batizhao.github.com/java/2012/04/12/using-openam-develop-dlient-applications/" target="_blank" rel="external">开发 OpenAM Java 客户端</a>。</li>
+<li>安装 OpenAM Agent 或者使用 SDK 开发简单的认证接口。可参考<br><a href="http://batizhao.github.com/java/2012/04/16/openam-integrate-with-spring-security-3/" target="_blank" rel="noopener">开发 OpenAM Spring Security 3 客户端</a><br>和<br><a href="http://batizhao.github.com/java/2012/04/12/using-openam-develop-dlient-applications/" target="_blank" rel="noopener">开发 OpenAM Java 客户端</a>。</li>
 </ul>
 
       
@@ -589,7 +579,7 @@ OpenDJ 和 MySQL 在一台机器（做数据备份）">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -606,7 +596,7 @@ OpenDJ 和 MySQL 在一台机器（做数据备份）">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -677,7 +667,7 @@ OpenDJ 和 MySQL 在一台机器（做数据备份）">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-方案一"><span class="nav-number">1.</span> <span class="nav-text">1. 方案一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-方案二"><span class="nav-number">2.</span> <span class="nav-text">2. 方案二</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-都需要注意的"><span class="nav-number">3.</span> <span class="nav-text">3. 都需要注意的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-对于新的业务系统"><span class="nav-number">4.</span> <span class="nav-text">4. 对于新的业务系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-对于遗留业务系统"><span class="nav-number">5.</span> <span class="nav-text">5. 对于遗留业务系统</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-方案一"><span class="nav-number">1.</span> <span class="nav-text"><a href="#1-&#x65B9;&#x6848;&#x4E00;" class="headerlink" title="1. &#x65B9;&#x6848;&#x4E00;"></a>1. &#x65B9;&#x6848;&#x4E00;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-方案二"><span class="nav-number">2.</span> <span class="nav-text"><a href="#2-&#x65B9;&#x6848;&#x4E8C;" class="headerlink" title="2. &#x65B9;&#x6848;&#x4E8C;"></a>2. &#x65B9;&#x6848;&#x4E8C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-都需要注意的"><span class="nav-number">3.</span> <span class="nav-text"><a href="#3-&#x90FD;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;" class="headerlink" title="3. &#x90FD;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;"></a>3. &#x90FD;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-对于新的业务系统"><span class="nav-number">4.</span> <span class="nav-text"><a href="#4-&#x5BF9;&#x4E8E;&#x65B0;&#x7684;&#x4E1A;&#x52A1;&#x7CFB;&#x7EDF;" class="headerlink" title="4. &#x5BF9;&#x4E8E;&#x65B0;&#x7684;&#x4E1A;&#x52A1;&#x7CFB;&#x7EDF;"></a>4. &#x5BF9;&#x4E8E;&#x65B0;&#x7684;&#x4E1A;&#x52A1;&#x7CFB;&#x7EDF;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-对于遗留业务系统"><span class="nav-number">5.</span> <span class="nav-text"><a href="#5-&#x5BF9;&#x4E8E;&#x9057;&#x7559;&#x4E1A;&#x52A1;&#x7CFB;&#x7EDF;" class="headerlink" title="5. &#x5BF9;&#x4E8E;&#x9057;&#x7559;&#x4E1A;&#x52A1;&#x7CFB;&#x7EDF;"></a>5. &#x5BF9;&#x4E8E;&#x9057;&#x7559;&#x4E1A;&#x52A1;&#x7CFB;&#x7EDF;</span></a></li></ol></div>
             
           </div>
         </section>

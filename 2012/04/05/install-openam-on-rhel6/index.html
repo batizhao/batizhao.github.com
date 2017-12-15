@@ -91,11 +91,13 @@
 
 
 <meta name="description" content="由于参加 Cloud Foundry 和清明假期，这个系列中断了几天。从今天开始继续。官网“provides the community with a new home for Sun Microsystems’ OpenSSO product.”和 CAS 类似，也是 SSO 的一个实现。本人也简单玩过 CAS，相对来讲，OpenAM 提供了图形安装界面，CAS 基本都需要修改配置文件。并且 O">
+<meta name="keywords" content="linux,ldap,sso">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 RHEL6 上安装 OpenAM">
 <meta property="og:url" content="http://batizhao.me/2012/04/05/install-openam-on-rhel6/index.html">
 <meta property="og:site_name" content="Gunner">
 <meta property="og:description" content="由于参加 Cloud Foundry 和清明假期，这个系列中断了几天。从今天开始继续。官网“provides the community with a new home for Sun Microsystems’ OpenSSO product.”和 CAS 类似，也是 SSO 的一个实现。本人也简单玩过 CAS，相对来讲，OpenAM 提供了图形安装界面，CAS 基本都需要修改配置文件。并且 O">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://batizhao.me/images/2012-04-05-install-openam-on-rhel6-1.png">
 <meta property="og:image" content="http://batizhao.me/images/2012-04-05-install-openam-on-rhel6-2.png">
 <meta property="og:image" content="http://batizhao.me/images/2012-04-05-install-openam-on-rhel6-3.png">
@@ -377,8 +379,8 @@
       
 
       
-        <p>由于参加 Cloud Foundry 和清明假期，这个系列中断了几天。从今天开始继续。<br>官网“provides the community with a new home for Sun Microsystems’ OpenSSO product.”<br>和 <a href="http://www.jasig.org/cas" target="_blank" rel="external">CAS</a> 类似，也是 SSO 的一个实现。本人也简单玩过 CAS，相对来讲，<br>OpenAM 提供了图形安装界面，CAS 基本都需要修改配置文件。并且 OpenAM 对应用系统的侵入性可能更小一些。 </p>
-<p>这里使用了 <a href="http://download.forgerock.org/downloads/openam/openam_20120228.war" target="_blank" rel="external">Nightly Build</a>，因为<br>9 以前的版本默认还不支持 OpenDJ。具体的安装过程可以看 <a href="http://openam.forgerock.org/doc/install-guide/index/chap-install-core.html" target="_blank" rel="external">Installing OpenAM Core Services</a>，<br>这里只写一些关键点。</p>
+        <p>由于参加 Cloud Foundry 和清明假期，这个系列中断了几天。从今天开始继续。<br>官网“provides the community with a new home for Sun Microsystems’ OpenSSO product.”<br>和 <a href="http://www.jasig.org/cas" target="_blank" rel="noopener">CAS</a> 类似，也是 SSO 的一个实现。本人也简单玩过 CAS，相对来讲，<br>OpenAM 提供了图形安装界面，CAS 基本都需要修改配置文件。并且 OpenAM 对应用系统的侵入性可能更小一些。 </p>
+<p>这里使用了 <a href="http://download.forgerock.org/downloads/openam/openam_20120228.war" target="_blank" rel="noopener">Nightly Build</a>，因为<br>9 以前的版本默认还不支持 OpenDJ。具体的安装过程可以看 <a href="http://openam.forgerock.org/doc/install-guide/index/chap-install-core.html" target="_blank" rel="noopener">Installing OpenAM Core Services</a>，<br>这里只写一些关键点。</p>
 <a id="more"></a>
 <p>在安装之前，需要设置 JVM 参数，否则会报 OOM。主要是 PermSize 的问题。在 catalina.sh 中加入</p>
 <pre><code>export JAVA_OPTS=&apos;-Xms1024m -Xmx2048m -XX:PermSize=256m -XX:MaxPermSize=256m&apos;
@@ -388,7 +390,7 @@
 </code></pre><p>在 OpenDJ 中建立 Base DN</p>
 <p><img src="/images/2012-04-05-install-openam-on-rhel6-1.png" alt=""></p>
 <p>这里是测试环境，没有 DNS，所以需要修改 hosts。OpenDJ 和 OpenAM 都安装到 openam.example.com，OpenDJ 监听在 1389 端口。<br>强烈建议生产环境使用 DNS，因为在配置中需要多次用到域名属性。</p>
-<p>这时可以启动 tomcat，访问 <a href="http://openam.example.com:8080/openam" target="_blank" rel="external">http://openam.example.com:8080/openam</a> 进行配置。</p>
+<p>这时可以启动 tomcat，访问 <a href="http://openam.example.com:8080/openam" target="_blank" rel="noopener">http://openam.example.com:8080/openam</a> 进行配置。</p>
 <p>在安装过程中，如果遇到错误，查看 install.log，尝试删除 OpenDJ 中两个 Base DN 下的所有子条目，并执行以下命令重新配置 OpenAM</p>
 <pre><code>rm -rf $HOME/openam $HOME/.openssocfg
 </code></pre><p>Step 2     </p>
@@ -400,7 +402,7 @@
 <p>OpenDJ</p>
 <p><img src="/images/2012-04-05-install-openam-on-rhel6-5.png" alt=""></p>
 <p>配置完成后，使用 amadmin/password 登录系统。</p>
-<p>如果要完成后边的 Sample，需要下载 <a href="http://mcraig.org/ldif/Example.ldif" target="_blank" rel="external">Example.ldif</a> 导入 OpenDJ。<br>还需要下载 <a href="http://download.forgerock.org/downloads/openam/openam_nightly_20120228.zip" target="_blank" rel="external">Nightly Build</a>，<br>在这个包中，会有一些附加工具和示例应用。</p>
+<p>如果要完成后边的 Sample，需要下载 <a href="http://mcraig.org/ldif/Example.ldif" target="_blank" rel="noopener">Example.ldif</a> 导入 OpenDJ。<br>还需要下载 <a href="http://download.forgerock.org/downloads/openam/openam_nightly_20120228.zip" target="_blank" rel="noopener">Nightly Build</a>，<br>在这个包中，会有一些附加工具和示例应用。</p>
 
       
     </div>
@@ -541,7 +543,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -558,7 +560,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

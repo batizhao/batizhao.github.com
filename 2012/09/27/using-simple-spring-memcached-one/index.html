@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="java,memcached,spring,mybatis," />
+  <meta name="keywords" content="java,spring,memcached,mybatis," />
 
 
 
@@ -90,28 +90,18 @@
 
 
 
-<meta name="description" content="上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。
-首先是接下来的几个内容都会用到的两个 POJORole Model:
-public class Role implements Serializable {
-
-    private static final long serialVersionUID = -4708064835003250669L;">
+<meta name="description" content="上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。 首先是接下来的几个内容都会用到的两个 POJORole Model: public class Role implements Serializable {      private static final long serialVersionUID = -4708064835003250669L;">
+<meta name="keywords" content="java,spring,memcached,mybatis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用 Simple-Spring-Memcached: SingleCache">
 <meta property="og:url" content="http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/index.html">
 <meta property="og:site_name" content="Gunner">
-<meta property="og:description" content="上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。
-首先是接下来的几个内容都会用到的两个 POJORole Model:
-public class Role implements Serializable {
-
-    private static final long serialVersionUID = -4708064835003250669L;">
+<meta property="og:description" content="上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。 首先是接下来的几个内容都会用到的两个 POJORole Model: public class Role implements Serializable {      private static final long serialVersionUID = -4708064835003250669L;">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-11-04T09:03:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Simple-Spring-Memcached: SingleCache">
-<meta name="twitter:description" content="上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。
-首先是接下来的几个内容都会用到的两个 POJORole Model:
-public class Role implements Serializable {
-
-    private static final long serialVersionUID = -4708064835003250669L;">
+<meta name="twitter:description" content="上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。 首先是接下来的几个内容都会用到的两个 POJORole Model: public class Role implements Serializable {      private static final long serialVersionUID = -4708064835003250669L;">
 
 
 
@@ -586,9 +576,9 @@ public class RoleManagerImpl implements RoleManager {
           
             <a href="/tags/java/" rel="tag">#java</a>
           
-            <a href="/tags/memcached/" rel="tag">#memcached</a>
-          
             <a href="/tags/spring/" rel="tag">#spring</a>
+          
+            <a href="/tags/memcached/" rel="tag">#memcached</a>
           
             <a href="/tags/mybatis/" rel="tag">#mybatis</a>
           
@@ -599,8 +589,8 @@ public class RoleManagerImpl implements RoleManager {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2012/09/18/installing-activemq-as-a-service-on-centos6/" rel="next" title="在 CentOS6 上安装 ActiveMQ Service">
-                <i class="fa fa-chevron-left"></i> 在 CentOS6 上安装 ActiveMQ Service
+              <a href="/2012/09/27/simple-spring-memcached-annotation/" rel="next" title="使用 Simple-Spring-Memcached Annotation">
+                <i class="fa fa-chevron-left"></i> 使用 Simple-Spring-Memcached Annotation
               </a>
             
           </div>
@@ -704,7 +694,7 @@ public class RoleManagerImpl implements RoleManager {
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -721,7 +711,7 @@ public class RoleManagerImpl implements RoleManager {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -792,7 +782,7 @@ public class RoleManagerImpl implements RoleManager {
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#首先是接下来的几个内容都会用到的两个-POJO"><span class="nav-number">1.</span> <span class="nav-text">首先是接下来的几个内容都会用到的两个 POJO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#场景一：根据某个-user-ID-查询某个-User。在更新时，更新缓存中的这个-User。"><span class="nav-number">2.</span> <span class="nav-text">场景一：根据某个 user ID 查询某个 User。在更新时，更新缓存中的这个 User。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#场景二：根据某个-role-ID-查询所有的-User。查询关联两个以上的-Model（User，Role），在更新-Role-时，需要让相关的缓存失效。"><span class="nav-number">3.</span> <span class="nav-text">场景二：根据某个 role ID 查询所有的 User。查询关联两个以上的 Model（User，Role），在更新  Role 时，需要让相关的缓存失效。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#首先是接下来的几个内容都会用到的两个-POJO"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x9996;&#x5148;&#x662F;&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x51E0;&#x4E2A;&#x5185;&#x5BB9;&#x90FD;&#x4F1A;&#x7528;&#x5230;&#x7684;&#x4E24;&#x4E2A;-POJO" class="headerlink" title="&#x9996;&#x5148;&#x662F;&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x51E0;&#x4E2A;&#x5185;&#x5BB9;&#x90FD;&#x4F1A;&#x7528;&#x5230;&#x7684;&#x4E24;&#x4E2A; POJO"></a>&#x9996;&#x5148;&#x662F;&#x63A5;&#x4E0B;&#x6765;&#x7684;&#x51E0;&#x4E2A;&#x5185;&#x5BB9;&#x90FD;&#x4F1A;&#x7528;&#x5230;&#x7684;&#x4E24;&#x4E2A; POJO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#场景一：根据某个-user-ID-查询某个-User。在更新时，更新缓存中的这个-User。"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x573A;&#x666F;&#x4E00;&#xFF1A;&#x6839;&#x636E;&#x67D0;&#x4E2A;-user-ID-&#x67E5;&#x8BE2;&#x67D0;&#x4E2A;-User&#x3002;&#x5728;&#x66F4;&#x65B0;&#x65F6;&#xFF0C;&#x66F4;&#x65B0;&#x7F13;&#x5B58;&#x4E2D;&#x7684;&#x8FD9;&#x4E2A;-User&#x3002;" class="headerlink" title="&#x573A;&#x666F;&#x4E00;&#xFF1A;&#x6839;&#x636E;&#x67D0;&#x4E2A; user ID &#x67E5;&#x8BE2;&#x67D0;&#x4E2A; User&#x3002;&#x5728;&#x66F4;&#x65B0;&#x65F6;&#xFF0C;&#x66F4;&#x65B0;&#x7F13;&#x5B58;&#x4E2D;&#x7684;&#x8FD9;&#x4E2A; User&#x3002;"></a>&#x573A;&#x666F;&#x4E00;&#xFF1A;&#x6839;&#x636E;&#x67D0;&#x4E2A; user ID &#x67E5;&#x8BE2;&#x67D0;&#x4E2A; User&#x3002;&#x5728;&#x66F4;&#x65B0;&#x65F6;&#xFF0C;&#x66F4;&#x65B0;&#x7F13;&#x5B58;&#x4E2D;&#x7684;&#x8FD9;&#x4E2A; User&#x3002;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#场景二：根据某个-role-ID-查询所有的-User。查询关联两个以上的-Model（User，Role），在更新-Role-时，需要让相关的缓存失效。"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x573A;&#x666F;&#x4E8C;&#xFF1A;&#x6839;&#x636E;&#x67D0;&#x4E2A;-role-ID-&#x67E5;&#x8BE2;&#x6240;&#x6709;&#x7684;-User&#x3002;&#x67E5;&#x8BE2;&#x5173;&#x8054;&#x4E24;&#x4E2A;&#x4EE5;&#x4E0A;&#x7684;-Model&#xFF08;User&#xFF0C;Role&#xFF09;&#xFF0C;&#x5728;&#x66F4;&#x65B0;-Role-&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x8BA9;&#x76F8;&#x5173;&#x7684;&#x7F13;&#x5B58;&#x5931;&#x6548;&#x3002;" class="headerlink" title="&#x573A;&#x666F;&#x4E8C;&#xFF1A;&#x6839;&#x636E;&#x67D0;&#x4E2A; role ID &#x67E5;&#x8BE2;&#x6240;&#x6709;&#x7684; User&#x3002;&#x67E5;&#x8BE2;&#x5173;&#x8054;&#x4E24;&#x4E2A;&#x4EE5;&#x4E0A;&#x7684; Model&#xFF08;User&#xFF0C;Role&#xFF09;&#xFF0C;&#x5728;&#x66F4;&#x65B0;  Role &#x65F6;&#xFF0C;&#x9700;&#x8981;&#x8BA9;&#x76F8;&#x5173;&#x7684;&#x7F13;&#x5B58;&#x5931;&#x6548;&#x3002;"></a>&#x573A;&#x666F;&#x4E8C;&#xFF1A;&#x6839;&#x636E;&#x67D0;&#x4E2A; role ID &#x67E5;&#x8BE2;&#x6240;&#x6709;&#x7684; User&#x3002;&#x67E5;&#x8BE2;&#x5173;&#x8054;&#x4E24;&#x4E2A;&#x4EE5;&#x4E0A;&#x7684; Model&#xFF08;User&#xFF0C;Role&#xFF09;&#xFF0C;&#x5728;&#x66F4;&#x65B0;  Role &#x65F6;&#xFF0C;&#x9700;&#x8981;&#x8BA9;&#x76F8;&#x5173;&#x7684;&#x7F13;&#x5B58;&#x5931;&#x6548;&#x3002;</span></a></li></ol></div>
             
           </div>
         </section>

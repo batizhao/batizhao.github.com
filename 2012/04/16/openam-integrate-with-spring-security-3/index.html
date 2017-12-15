@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ldap,sso,java," />
+  <meta name="keywords" content="ldap,java,sso," />
 
 
 
@@ -90,25 +90,18 @@
 
 
 
-<meta name="description" content="在开始 Maven 之前，需要先引入一个包，这个包的作用和原来的 Agent 的功能是一样的。这个包需要自己从源码编译，mvn install 或者 mvn deploy 加入到自己的仓库中。这样在 pom.xml 中可以引入
-&amp;lt;dependency&amp;gt;
-    &amp;lt;groupId&amp;gt;com.sun.identity.provider&amp;lt;/groupId&amp;gt;
-    &amp;l">
+<meta name="description" content="在开始 Maven 之前，需要先引入一个包，这个包的作用和原来的 Agent 的功能是一样的。这个包需要自己从源码编译，mvn install 或者 mvn deploy 加入到自己的仓库中。这样在 pom.xml 中可以引入 &amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.sun.identity.provider&amp;lt;/groupId&amp;gt;     &amp;l">
+<meta name="keywords" content="ldap,java,sso">
 <meta property="og:type" content="article">
 <meta property="og:title" content="开发 OpenAM Spring Security 3 客户端应用">
 <meta property="og:url" content="http://batizhao.me/2012/04/16/openam-integrate-with-spring-security-3/index.html">
 <meta property="og:site_name" content="Gunner">
-<meta property="og:description" content="在开始 Maven 之前，需要先引入一个包，这个包的作用和原来的 Agent 的功能是一样的。这个包需要自己从源码编译，mvn install 或者 mvn deploy 加入到自己的仓库中。这样在 pom.xml 中可以引入
-&amp;lt;dependency&amp;gt;
-    &amp;lt;groupId&amp;gt;com.sun.identity.provider&amp;lt;/groupId&amp;gt;
-    &amp;l">
+<meta property="og:description" content="在开始 Maven 之前，需要先引入一个包，这个包的作用和原来的 Agent 的功能是一样的。这个包需要自己从源码编译，mvn install 或者 mvn deploy 加入到自己的仓库中。这样在 pom.xml 中可以引入 &amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.sun.identity.provider&amp;lt;/groupId&amp;gt;     &amp;l">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-11-04T08:45:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发 OpenAM Spring Security 3 客户端应用">
-<meta name="twitter:description" content="在开始 Maven 之前，需要先引入一个包，这个包的作用和原来的 Agent 的功能是一样的。这个包需要自己从源码编译，mvn install 或者 mvn deploy 加入到自己的仓库中。这样在 pom.xml 中可以引入
-&amp;lt;dependency&amp;gt;
-    &amp;lt;groupId&amp;gt;com.sun.identity.provider&amp;lt;/groupId&amp;gt;
-    &amp;l">
+<meta name="twitter:description" content="在开始 Maven 之前，需要先引入一个包，这个包的作用和原来的 Agent 的功能是一样的。这个包需要自己从源码编译，mvn install 或者 mvn deploy 加入到自己的仓库中。这样在 pom.xml 中可以引入 &amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;com.sun.identity.provider&amp;lt;/groupId&amp;gt;     &amp;l">
 
 
 
@@ -380,7 +373,7 @@
       
 
       
-        <p>在开始 Maven 之前，需要先引入一个包，这个包的作用和原来的 Agent 的功能是一样的。这个包需要自己从<a href="http://sources.forgerock.org/browse/openam/trunk/opensso/extensions/spring2provider/provider?r=HEAD" target="_blank" rel="external">源码</a>编译，<br><code>mvn install</code> 或者 <code>mvn deploy</code> 加入到自己的仓库中。这样在 pom.xml 中可以引入</p>
+        <p>在开始 Maven 之前，需要先引入一个包，这个包的作用和原来的 Agent 的功能是一样的。这个包需要自己从<a href="http://sources.forgerock.org/browse/openam/trunk/opensso/extensions/spring2provider/provider?r=HEAD" target="_blank" rel="noopener">源码</a>编译，<br><code>mvn install</code> 或者 <code>mvn deploy</code> 加入到自己的仓库中。这样在 pom.xml 中可以引入</p>
 <pre><code>&lt;dependency&gt;
     &lt;groupId&gt;com.sun.identity.provider&lt;/groupId&gt;
     &lt;artifactId&gt;opensso-springsecurity&lt;/artifactId&gt;
@@ -388,7 +381,7 @@
 &lt;/dependency&gt;
 </code></pre><p>确保 AMConfig.properties 和 applicationContext-security.xml 里的 OpenAM 相关配置正确。</p>
 <pre><code>com.sun.identity.loginurl=http://openam.example.com:8080/openam/UI/Login
-</code></pre><p>然后运行 <code>mvn package</code>，打包以后放到 Tomcat 运行。这里要确认没有配置 Tomcat Agent<br>的全局 OpenAM Filter，这里也不需要在项目的 web.xml 中增加 Filter 配置。<br>完整的代码在 <a href="https://github.com/batizhao/openam-java-sample" target="_blank" rel="external">Github</a>。</p>
+</code></pre><p>然后运行 <code>mvn package</code>，打包以后放到 Tomcat 运行。这里要确认没有配置 Tomcat Agent<br>的全局 OpenAM Filter，这里也不需要在项目的 web.xml 中增加 Filter 配置。<br>完整的代码在 <a href="https://github.com/batizhao/openam-java-sample" target="_blank" rel="noopener">Github</a>。</p>
 
       
     </div>
@@ -413,9 +406,9 @@
           
             <a href="/tags/ldap/" rel="tag">#ldap</a>
           
-            <a href="/tags/sso/" rel="tag">#sso</a>
-          
             <a href="/tags/java/" rel="tag">#java</a>
+          
+            <a href="/tags/sso/" rel="tag">#sso</a>
           
         </div>
       
@@ -529,7 +522,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -546,7 +539,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

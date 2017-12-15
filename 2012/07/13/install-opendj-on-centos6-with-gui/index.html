@@ -90,14 +90,14 @@
 
 
 
-<meta name="description" content="之前有一篇有讲到在 RHEL6 上安装 OpenDJ，主要是讲通过命令行的方式安装，这次讲一下通过图形界面安装。
-服务器设置这一步主要是 host name 的设置。要确保这个域名可以被解析，否则会抛出 javax.naming.CommunicationException: 0.0.0.0:4444 的异常。临时解决办法是在 hosts 中增加一条纪录 127.0.0.1   idams">
+<meta name="description" content="之前有一篇有讲到在 RHEL6 上安装 OpenDJ，主要是讲通过命令行的方式安装，这次讲一下通过图形界面安装。 服务器设置这一步主要是 host name 的设置。要确保这个域名可以被解析，否则会抛出 javax.naming.CommunicationException: 0.0.0.0:4444 的异常。临时解决办法是在 hosts 中增加一条纪录 127.0.0.1   idams">
+<meta name="keywords" content="linux,ldap,sso">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 CentOS6 上安装 OpenDJ（GUI）">
 <meta property="og:url" content="http://batizhao.me/2012/07/13/install-opendj-on-centos6-with-gui/index.html">
 <meta property="og:site_name" content="Gunner">
-<meta property="og:description" content="之前有一篇有讲到在 RHEL6 上安装 OpenDJ，主要是讲通过命令行的方式安装，这次讲一下通过图形界面安装。
-服务器设置这一步主要是 host name 的设置。要确保这个域名可以被解析，否则会抛出 javax.naming.CommunicationException: 0.0.0.0:4444 的异常。临时解决办法是在 hosts 中增加一条纪录 127.0.0.1   idams">
+<meta property="og:description" content="之前有一篇有讲到在 RHEL6 上安装 OpenDJ，主要是讲通过命令行的方式安装，这次讲一下通过图形界面安装。 服务器设置这一步主要是 host name 的设置。要确保这个域名可以被解析，否则会抛出 javax.naming.CommunicationException: 0.0.0.0:4444 的异常。临时解决办法是在 hosts 中增加一条纪录 127.0.0.1   idams">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-1.png">
 <meta property="og:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-2.png">
 <meta property="og:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-3.png">
@@ -112,8 +112,7 @@
 <meta property="og:updated_time" content="2016-11-04T08:52:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 CentOS6 上安装 OpenDJ（GUI）">
-<meta name="twitter:description" content="之前有一篇有讲到在 RHEL6 上安装 OpenDJ，主要是讲通过命令行的方式安装，这次讲一下通过图形界面安装。
-服务器设置这一步主要是 host name 的设置。要确保这个域名可以被解析，否则会抛出 javax.naming.CommunicationException: 0.0.0.0:4444 的异常。临时解决办法是在 hosts 中增加一条纪录 127.0.0.1   idams">
+<meta name="twitter:description" content="之前有一篇有讲到在 RHEL6 上安装 OpenDJ，主要是讲通过命令行的方式安装，这次讲一下通过图形界面安装。 服务器设置这一步主要是 host name 的设置。要确保这个域名可以被解析，否则会抛出 javax.naming.CommunicationException: 0.0.0.0:4444 的异常。临时解决办法是在 hosts 中增加一条纪录 127.0.0.1   idams">
 <meta name="twitter:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-1.png">
 
 
@@ -386,7 +385,7 @@
       
 
       
-        <p>之前有一篇有讲到<a href="http://batizhao.github.com/linux/2012/03/29/install-opendj-directory-server-on-rhel6/" target="_blank" rel="external">在 RHEL6 上安装 OpenDJ</a>，<br>主要是讲通过命令行的方式安装，这次讲一下通过图形界面安装。</p>
+        <p>之前有一篇有讲到<a href="http://batizhao.github.com/linux/2012/03/29/install-opendj-directory-server-on-rhel6/" target="_blank" rel="noopener">在 RHEL6 上安装 OpenDJ</a>，<br>主要是讲通过命令行的方式安装，这次讲一下通过图形界面安装。</p>
 <h2 id="服务器设置"><a href="#服务器设置" class="headerlink" title="服务器设置"></a>服务器设置</h2><p>这一步主要是 host name 的设置。要确保这个域名可以被解析，否则会抛出 javax.naming.CommunicationException: 0.0.0.0:4444 的异常。<br>临时解决办法是在 hosts 中增加一条纪录 127.0.0.1   idams</p>
 <p><img src="/images/2012-07-13-install-opendj-on-centos6-with-gui-1.png" alt=""></p>
 <a id="more"></a>
@@ -552,7 +551,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -569,7 +568,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -640,7 +639,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器设置"><span class="nav-number">1.</span> <span class="nav-text">服务器设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制选项"><span class="nav-number">2.</span> <span class="nav-text">复制选项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化数据"><span class="nav-number">3.</span> <span class="nav-text">初始化数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM-设置"><span class="nav-number">4.</span> <span class="nav-text">JVM 设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#所有配置"><span class="nav-number">5.</span> <span class="nav-text">所有配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装完成"><span class="nav-number">6.</span> <span class="nav-text">安装完成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制面板"><span class="nav-number">7.</span> <span class="nav-text">控制面板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它问题"><span class="nav-number">8.</span> <span class="nav-text">其它问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器设置"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x670D;&#x52A1;&#x5668;&#x8BBE;&#x7F6E;" class="headerlink" title="&#x670D;&#x52A1;&#x5668;&#x8BBE;&#x7F6E;"></a>&#x670D;&#x52A1;&#x5668;&#x8BBE;&#x7F6E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制选项"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x590D;&#x5236;&#x9009;&#x9879;" class="headerlink" title="&#x590D;&#x5236;&#x9009;&#x9879;"></a>&#x590D;&#x5236;&#x9009;&#x9879;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化数据"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x521D;&#x59CB;&#x5316;&#x6570;&#x636E;" class="headerlink" title="&#x521D;&#x59CB;&#x5316;&#x6570;&#x636E;"></a>&#x521D;&#x59CB;&#x5316;&#x6570;&#x636E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM-设置"><span class="nav-number">4.</span> <span class="nav-text"><a href="#JVM-&#x8BBE;&#x7F6E;" class="headerlink" title="JVM &#x8BBE;&#x7F6E;"></a>JVM &#x8BBE;&#x7F6E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#所有配置"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x6240;&#x6709;&#x914D;&#x7F6E;" class="headerlink" title="&#x6240;&#x6709;&#x914D;&#x7F6E;"></a>&#x6240;&#x6709;&#x914D;&#x7F6E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装完成"><span class="nav-number">6.</span> <span class="nav-text"><a href="#&#x5B89;&#x88C5;&#x5B8C;&#x6210;" class="headerlink" title="&#x5B89;&#x88C5;&#x5B8C;&#x6210;"></a>&#x5B89;&#x88C5;&#x5B8C;&#x6210;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制面板"><span class="nav-number">7.</span> <span class="nav-text"><a href="#&#x63A7;&#x5236;&#x9762;&#x677F;" class="headerlink" title="&#x63A7;&#x5236;&#x9762;&#x677F;"></a>&#x63A7;&#x5236;&#x9762;&#x677F;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它问题"><span class="nav-number">8.</span> <span class="nav-text"><a href="#&#x5176;&#x5B83;&#x95EE;&#x9898;" class="headerlink" title="&#x5176;&#x5B83;&#x95EE;&#x9898;"></a>&#x5176;&#x5B83;&#x95EE;&#x9898;</span></a></li></ol></div>
             
           </div>
         </section>

@@ -91,11 +91,13 @@
 
 
 <meta name="description" content="这篇主要是讲 CAS 和 LDAP 集成时，如何返回一些特别的内容到 Spring Security 客户端。这样我们可以从 LDAP 取到 user 的 role，和 Spring Security 进行比对授权。但是，CAS 默认配置的 UsernamePasswordCredentialsToPrincipalResolver 不允许我们在与Spring Security 集成时传递回特别的">
+<meta name="keywords" content="ldap,cas">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自定义 CAS assertion 返回值">
 <meta property="og:url" content="http://batizhao.me/2012/07/19/setting-cas-assertion/index.html">
 <meta property="og:site_name" content="Gunner">
 <meta property="og:description" content="这篇主要是讲 CAS 和 LDAP 集成时，如何返回一些特别的内容到 Spring Security 客户端。这样我们可以从 LDAP 取到 user 的 role，和 Spring Security 进行比对授权。但是，CAS 默认配置的 UsernamePasswordCredentialsToPrincipalResolver 不允许我们在与Spring Security 集成时传递回特别的">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-11-04T08:53:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义 CAS assertion 返回值">
@@ -487,7 +489,7 @@ displayName:zhangsan
 </code></pre><p>这样在客户端的 Spring Security 中就可以实现授权比对</p>
 <pre><code>&lt;sec:intercept-url pattern=&quot;/user&quot; access=&quot;ROLE_USER&quot;/&gt;
 </code></pre><h2 id="4-参考"><a href="#4-参考" class="headerlink" title="4. 参考"></a>4. 参考</h2><ul>
-<li><a href="http://sishuok.com/forum/blogPost/list/3981.html" target="_blank" rel="external">高级CAS配置</a></li>
+<li><a href="http://sishuok.com/forum/blogPost/list/3981.html" target="_blank" rel="noopener">高级CAS配置</a></li>
 </ul>
 
       
@@ -627,7 +629,7 @@ displayName:zhangsan
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -644,7 +646,7 @@ displayName:zhangsan
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -715,7 +717,7 @@ displayName:zhangsan
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-deployerConfigContext-xml"><span class="nav-number">1.</span> <span class="nav-text">1. deployerConfigContext.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-默认返回值"><span class="nav-number">2.</span> <span class="nav-text">2. 默认返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-自定义返回值"><span class="nav-number">3.</span> <span class="nav-text">3. 自定义返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-参考"><span class="nav-number">4.</span> <span class="nav-text">4. 参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-deployerConfigContext-xml"><span class="nav-number">1.</span> <span class="nav-text"><a href="#1-deployerConfigContext-xml" class="headerlink" title="1. deployerConfigContext.xml"></a>1. deployerConfigContext.xml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-默认返回值"><span class="nav-number">2.</span> <span class="nav-text"><a href="#2-&#x9ED8;&#x8BA4;&#x8FD4;&#x56DE;&#x503C;" class="headerlink" title="2. &#x9ED8;&#x8BA4;&#x8FD4;&#x56DE;&#x503C;"></a>2. &#x9ED8;&#x8BA4;&#x8FD4;&#x56DE;&#x503C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-自定义返回值"><span class="nav-number">3.</span> <span class="nav-text"><a href="#3-&#x81EA;&#x5B9A;&#x4E49;&#x8FD4;&#x56DE;&#x503C;" class="headerlink" title="3. &#x81EA;&#x5B9A;&#x4E49;&#x8FD4;&#x56DE;&#x503C;"></a>3. &#x81EA;&#x5B9A;&#x4E49;&#x8FD4;&#x56DE;&#x503C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-参考"><span class="nav-number">4.</span> <span class="nav-text"><a href="#4-&#x53C2;&#x8003;" class="headerlink" title="4. &#x53C2;&#x8003;"></a>4. &#x53C2;&#x8003;</span></a></li></ol></div>
             
           </div>
         </section>

@@ -90,19 +90,18 @@
 
 
 
-<meta name="description" content="vsftpd 是一款在 Linux 发行版中最受推崇的 FTP 服务器程序。特点是小巧轻快，安全易用。vsftpd 的名字代表”very secure FTP daemon”, 安全是它的开发者 Chris Evans 考虑的首要问题之一。在这个 FTP 服务器设计开发的最开始的时候，高安全性就是一个目标。
-在初次安装过程中遇到了很多问题，主要是关于帐号设置的问题，这里纪录一下。">
+<meta name="description" content="vsftpd 是一款在 Linux 发行版中最受推崇的 FTP 服务器程序。特点是小巧轻快，安全易用。vsftpd 的名字代表”very secure FTP daemon”, 安全是它的开发者 Chris Evans 考虑的首要问题之一。在这个 FTP 服务器设计开发的最开始的时候，高安全性就是一个目标。 在初次安装过程中遇到了很多问题，主要是关于帐号设置的问题，这里纪录一下。">
+<meta name="keywords" content="linux,ftp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 CentOS6 上安装 vsftpd">
 <meta property="og:url" content="http://batizhao.me/2012/09/17/install-vsftpd-on-centos6/index.html">
 <meta property="og:site_name" content="Gunner">
-<meta property="og:description" content="vsftpd 是一款在 Linux 发行版中最受推崇的 FTP 服务器程序。特点是小巧轻快，安全易用。vsftpd 的名字代表”very secure FTP daemon”, 安全是它的开发者 Chris Evans 考虑的首要问题之一。在这个 FTP 服务器设计开发的最开始的时候，高安全性就是一个目标。
-在初次安装过程中遇到了很多问题，主要是关于帐号设置的问题，这里纪录一下。">
+<meta property="og:description" content="vsftpd 是一款在 Linux 发行版中最受推崇的 FTP 服务器程序。特点是小巧轻快，安全易用。vsftpd 的名字代表”very secure FTP daemon”, 安全是它的开发者 Chris Evans 考虑的首要问题之一。在这个 FTP 服务器设计开发的最开始的时候，高安全性就是一个目标。 在初次安装过程中遇到了很多问题，主要是关于帐号设置的问题，这里纪录一下。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-11-04T09:02:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 CentOS6 上安装 vsftpd">
-<meta name="twitter:description" content="vsftpd 是一款在 Linux 发行版中最受推崇的 FTP 服务器程序。特点是小巧轻快，安全易用。vsftpd 的名字代表”very secure FTP daemon”, 安全是它的开发者 Chris Evans 考虑的首要问题之一。在这个 FTP 服务器设计开发的最开始的时候，高安全性就是一个目标。
-在初次安装过程中遇到了很多问题，主要是关于帐号设置的问题，这里纪录一下。">
+<meta name="twitter:description" content="vsftpd 是一款在 Linux 发行版中最受推崇的 FTP 服务器程序。特点是小巧轻快，安全易用。vsftpd 的名字代表”very secure FTP daemon”, 安全是它的开发者 Chris Evans 考虑的首要问题之一。在这个 FTP 服务器设计开发的最开始的时候，高安全性就是一个目标。 在初次安装过程中遇到了很多问题，主要是关于帐号设置的问题，这里纪录一下。">
 
 
 
@@ -489,7 +488,7 @@ pam_service_name=vsftpd
 <li><p>550 Permission denied</p>
 <p>  这个问题可能是多种原因造成的，最常见的是缺少</p>
 <pre><code>write_enable=YES
-</code></pre><p>  但在我的环境中，出现这个问题是因为服务端 iptables、客户端防火墙、vsftpd pasv 三者之间的配置造成的。参考 <a href="http://blog.csdn.net/moreorless/article/details/5289147" target="_blank" rel="external">iptables 中配置 vsftp 的访问</a>    </p>
+</code></pre><p>  但在我的环境中，出现这个问题是因为服务端 iptables、客户端防火墙、vsftpd pasv 三者之间的配置造成的。参考 <a href="http://blog.csdn.net/moreorless/article/details/5289147" target="_blank" rel="noopener">iptables 中配置 vsftp 的访问</a>    </p>
 <ul>
 <li><p>主动模式下，客户连接 TCP/21，服务器通过 TCP/20 连接客户的随机端口。这种情况下，通过状态防火墙可以解决 </p>
 <p>  iptables -A INPUT -m state –state NEW,RELATED,ESTABLISHED -j ACCEPT</p>
@@ -653,7 +652,7 @@ pasv_max_port=2322
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -670,7 +669,7 @@ pasv_max_port=2322
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -741,7 +740,7 @@ pasv_max_port=2322
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-安装-vsftpd"><span class="nav-number">1.</span> <span class="nav-text">1. 安装 vsftpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-配置-vsftpd"><span class="nav-number">2.</span> <span class="nav-text">2. 配置 vsftpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-问题"><span class="nav-number">3.</span> <span class="nav-text">3. 问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-安装-vsftpd"><span class="nav-number">1.</span> <span class="nav-text"><a href="#1-&#x5B89;&#x88C5;-vsftpd" class="headerlink" title="1. &#x5B89;&#x88C5; vsftpd"></a>1. &#x5B89;&#x88C5; vsftpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-配置-vsftpd"><span class="nav-number">2.</span> <span class="nav-text"><a href="#2-&#x914D;&#x7F6E;-vsftpd" class="headerlink" title="2. &#x914D;&#x7F6E; vsftpd"></a>2. &#x914D;&#x7F6E; vsftpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-问题"><span class="nav-number">3.</span> <span class="nav-text"><a href="#3-&#x95EE;&#x9898;" class="headerlink" title="3. &#x95EE;&#x9898;"></a>3. &#x95EE;&#x9898;</span></a></li></ol></div>
             
           </div>
         </section>

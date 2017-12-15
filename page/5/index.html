@@ -96,6 +96,7 @@
 <meta property="og:url" content="http://batizhao.me/page/5/index.html">
 <meta property="og:site_name" content="Gunner">
 <meta property="og:description" content="心中总有个梦想，想英雄一样地走过这世界。">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gunner">
 <meta name="twitter:description" content="心中总有个梦想，想英雄一样地走过这世界。">
@@ -307,8 +308,131 @@
             
               
                 
-                <a class="post-title-link" href="/2012/03/29/install-java-on-rhel6/" itemprop="url">
-                  在 RHEL6 上安装 Java
+                <a class="post-title-link" href="/2012/04/05/install-openam-on-rhel6/" itemprop="url">
+                  在 RHEL6 上安装 OpenAM
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-04-05T00:00:00+08:00" content="2012-04-05">
+              2012-04-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/04/05/install-openam-on-rhel6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/04/05/install-openam-on-rhel6/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>由于参加 Cloud Foundry 和清明假期，这个系列中断了几天。从今天开始继续。<br>官网“provides the community with a new home for Sun Microsystems’ OpenSSO product.”<br>和 <a href="http://www.jasig.org/cas" target="_blank" rel="noopener">CAS</a> 类似，也是 SSO 的一个实现。本人也简单玩过 CAS，相对来讲，<br>OpenAM 提供了图形安装界面，CAS 基本都需要修改配置文件。并且 OpenAM 对应用系统的侵入性可能更小一些。 </p>
+<p>这里使用了 <a href="http://download.forgerock.org/downloads/openam/openam_20120228.war" target="_blank" rel="noopener">Nightly Build</a>，因为<br>9 以前的版本默认还不支持 OpenDJ。具体的安装过程可以看 <a href="http://openam.forgerock.org/doc/install-guide/index/chap-install-core.html" target="_blank" rel="noopener">Installing OpenAM Core Services</a>，<br>这里只写一些关键点。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/04/05/install-openam-on-rhel6/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2012/03/29/install-opendj-directory-server-on-rhel6/" itemprop="url">
+                  在 RHEL6 上安装 OpenDJ
                 </a>
               
             
@@ -351,8 +475,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2012/03/29/install-java-on-rhel6/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/03/29/install-java-on-rhel6/" itemprop="commentsCount"></span>
+                <a href="/2012/03/29/install-opendj-directory-server-on-rhel6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/03/29/install-opendj-directory-server-on-rhel6/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -376,13 +500,9 @@
 
       
         
-          <p>卸载老版本的 Java</p>
-<pre><code># java -version
-# rpm -qa|grep java
-# rpm -e --nodeps java-1.5.0-gcj-1.5.0.0-29.1.el6.x86_64
-</code></pre>
+          <p>官网”OpenDJ is a extension of the Sun Microsystems’ initiated OpenDS project and offers a fully supported product for it.”<br>接下来的这几篇文章会介绍 ForgeRock Open Platform 的 OpenDJ、OpenIDM、OpenAM 三个产品的安装、配置，<br>以及如何使用他们来搭建企业用户管理、访问认证的基础平台。</p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2012/03/29/install-java-on-rhel6/#more" rel="contents">
+            <a class="btn" href="/2012/03/29/install-opendj-directory-server-on-rhel6/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -502,9 +622,135 @@
 
       
         
-          <p>最近在配置 OpenAM ，在参考<a href="https://wikis.forgerock.org/confluence/display/openam/Add+Authentication+to+a+Website+using+OpenAM">这篇文章</a><br>时遇到了一个 <code>[error] Certificate not found: &#39;Server-Cert&#39;</code> 的问题。在尝试很多次之后无解，所以下载最新的 apache2.2.22 替换系统自带的 apache2.2.15，看能不能解决问题。</p>
+          <p>最近在配置 OpenAM ，在参考<a href="https://wikis.forgerock.org/confluence/display/openam/Add+Authentication+to+a+Website+using+OpenAM" target="_blank" rel="noopener">这篇文章</a><br>时遇到了一个 <code>[error] Certificate not found: &#39;Server-Cert&#39;</code> 的问题。在尝试很多次之后无解，所以下载最新的 apache2.2.22 替换系统自带的 apache2.2.15，看能不能解决问题。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2012/03/29/install-apache2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2012/03/29/install-java-on-rhel6/" itemprop="url">
+                  在 RHEL6 上安装 Java
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-03-29T00:00:00+08:00" content="2012-03-29">
+              2012-03-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/03/29/install-java-on-rhel6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/03/29/install-java-on-rhel6/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>卸载老版本的 Java</p>
+<pre><code># java -version
+# rpm -qa|grep java
+# rpm -e --nodeps java-1.5.0-gcj-1.5.0.0-29.1.el6.x86_64
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/03/29/install-java-on-rhel6/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -885,8 +1131,8 @@ New password:
 Re-enter new password:
 </code></pre><p>参考 </p>
 <ul>
-<li>RHEL6 <a href="http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/ch-Directory_Servers.html" target="_blank" rel="external">官方文档</a>。</li>
-<li>OpenLDAP <a href="http://www.openldap.org/doc/admin24/" target="_blank" rel="external">官方文档</a>。</li>
+<li>RHEL6 <a href="http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/ch-Directory_Servers.html" target="_blank" rel="noopener">官方文档</a>。</li>
+<li>OpenLDAP <a href="http://www.openldap.org/doc/admin24/" target="_blank" rel="noopener">官方文档</a>。</li>
 </ul>
 
           
@@ -1212,7 +1458,7 @@ Nothing to do
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1229,7 +1475,7 @@ Nothing to do
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

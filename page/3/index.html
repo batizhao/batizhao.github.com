@@ -96,6 +96,7 @@
 <meta property="og:url" content="http://batizhao.me/page/3/index.html">
 <meta property="og:site_name" content="Gunner">
 <meta property="og:description" content="心中总有个梦想，想英雄一样地走过这世界。">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gunner">
 <meta name="twitter:description" content="心中总有个梦想，想英雄一样地走过这世界。">
@@ -285,6 +286,260 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2012/09/18/installing-activemq-as-a-service-on-centos6/" itemprop="url">
+                  在 CentOS6 上安装 ActiveMQ Service
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-09-18T00:00:00+08:00" content="2012-09-18">
+              2012-09-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/09/18/installing-activemq-as-a-service-on-centos6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/18/installing-activemq-as-a-service-on-centos6/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这里主要讲一下在 CentOS6 x64 上如何把 ActiveMQ5.5 添加到 Service 里自动启动。</p>
+<p>打开配置文件</p>
+<pre><code># vim /opt/activemq    /bin/linux-x86-64/wrapper.conf
+</code></pre><p>修改两个参数</p>
+<pre><code>set.default.ACTIVEMQ_HOME=/opt/activemq
+</code></pre><p>  set.default.ACTIVEMQ_BASE=/opt/activemq</p>
+<p>建立一个软链接（用全路径）</p>
+<pre><code># ln -s /opt/activemq/bin/linux-x86-64/activemq /etc/init.d/activemq    
+</code></pre><p>加入到启动项</p>
+<pre><code># chkconfig --add activemq
+</code></pre><p>使用服务</p>
+<pre><code># service activemq start|stop|status
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2012/09/17/install-vsftpd-on-centos6/" itemprop="url">
+                  在 CentOS6 上安装 vsftpd
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-09-17T00:00:00+08:00" content="2012-09-17">
+              2012-09-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/09/17/install-vsftpd-on-centos6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/17/install-vsftpd-on-centos6/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>vsftpd 是一款在 Linux 发行版中最受推崇的 FTP 服务器程序。特点是小巧轻快，安全易用。<br>vsftpd 的名字代表”very secure FTP daemon”, 安全是它的开发者 Chris Evans 考虑的首要问题之一。在这个 FTP 服务器设计开发的最开始的时候，高安全性就是一个目标。</p>
+<p>在初次安装过程中遇到了很多问题，主要是关于帐号设置的问题，这里纪录一下。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/09/17/install-vsftpd-on-centos6/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1013,7 +1268,7 @@ libevent-headers.noarch                1.4.13-4.el6
 
       
         
-          <p>之前有一篇有讲到<a href="http://batizhao.github.com/linux/2012/03/29/install-opendj-directory-server-on-rhel6/">在 RHEL6 上安装 OpenDJ</a>，<br>主要是讲通过命令行的方式安装，这次讲一下通过图形界面安装。</p>
+          <p>之前有一篇有讲到<a href="http://batizhao.github.com/linux/2012/03/29/install-opendj-directory-server-on-rhel6/" target="_blank" rel="noopener">在 RHEL6 上安装 OpenDJ</a>，<br>主要是讲通过命令行的方式安装，这次讲一下通过图形界面安装。</p>
 <h2 id="服务器设置"><a href="#服务器设置" class="headerlink" title="服务器设置"></a>服务器设置</h2><p>这一步主要是 host name 的设置。要确保这个域名可以被解析，否则会抛出 javax.naming.CommunicationException: 0.0.0.0:4444 的异常。<br>临时解决办法是在 hosts 中增加一条纪录 127.0.0.1   idams</p>
 <p><img src="/images/2012-07-13-install-opendj-on-centos6-with-gui-1.png" alt=""></p>
           <div class="post-more-link text-center">
@@ -1301,258 +1556,6 @@ libevent-headers.noarch                1.4.13-4.el6
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/06/15/opendj-error-code-53/" itemprop="url">
-                  OpenDJ error code 53
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-06-15T00:00:00+08:00" content="2012-06-15">
-              2012-06-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ldap/" itemprop="url" rel="index">
-                    <span itemprop="name">ldap</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/06/15/opendj-error-code-53/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/06/15/opendj-error-code-53/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>By default, the OpenDJ LDAP directory server password policy is set to reject encrypted passwords.<br>So when adding or importing data with encrypted passwords, the server returns some error like this:</p>
-<pre><code>LDAP: error code 53 – Pre-encoded passwords are not allowed for the password attribute userPassword
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/06/15/opendj-error-code-53/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/05/08/identity-management/" itemprop="url">
-                  统一身份管理和单点登录
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-05-08T00:00:00+08:00" content="2012-05-08">
-              2012-05-08
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/05/08/identity-management/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/05/08/identity-management/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="1-方案一"><a href="#1-方案一" class="headerlink" title="1. 方案一"></a>1. 方案一</h2><ul>
-<li>调用 OpenIDM REST API 管理组织、用户（CRUD，需要开发）。</li>
-<li>通过 OpenIDM Core Service 推送数据到 OpenDJ（LDAP）、业务系统数据库。</li>
-<li>需要至少提供两台 Linux（RHEL6）主机，增加的系统服务有 OpenDJ、OpenIDM、OpenAM、MySQL、身份管理 Web 服务。</li>
-<li>OpenDJ 和 MySQL 在一台机器（做数据备份），其余在另外一台。OpenDJ 和 OpenAM 交叉 HA。</li>
-</ul>
-<p><img src="/images/2012-05-08-identity-management-1.png" alt=""></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/05/08/identity-management/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1598,7 +1601,7 @@ libevent-headers.noarch                1.4.13-4.el6
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1615,7 +1618,7 @@ libevent-headers.noarch                1.4.13-4.el6
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

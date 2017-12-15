@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ldap,sso,java," />
+  <meta name="keywords" content="ldap,java,sso," />
 
 
 
@@ -90,26 +90,19 @@
 
 
 
-<meta name="description" content="在 Agent 安装完成之后，可以使用自带的 agentsample 应用登录。这里主要讲一下如何在 SSO之后拿到 SSOToken，以及相关 Session 信息的获取。完整的代码在 Github。
-Agent 的安装在上一篇已经介绍，这里需要先配置一个 Policies，然后在客户端项目 web.xml 中加入
-&amp;lt;filter&amp;gt;
-    &amp;lt;filter-name&amp;gt;Ag">
+<meta name="description" content="在 Agent 安装完成之后，可以使用自带的 agentsample 应用登录。这里主要讲一下如何在 SSO之后拿到 SSOToken，以及相关 Session 信息的获取。完整的代码在 Github。 Agent 的安装在上一篇已经介绍，这里需要先配置一个 Policies，然后在客户端项目 web.xml 中加入 &amp;lt;filter&amp;gt;     &amp;lt;filter-name&amp;gt;Ag">
+<meta name="keywords" content="ldap,java,sso">
 <meta property="og:type" content="article">
 <meta property="og:title" content="开发 OpenAM Java 客户端应用">
 <meta property="og:url" content="http://batizhao.me/2012/04/12/using-openam-develop-dlient-applications/index.html">
 <meta property="og:site_name" content="Gunner">
-<meta property="og:description" content="在 Agent 安装完成之后，可以使用自带的 agentsample 应用登录。这里主要讲一下如何在 SSO之后拿到 SSOToken，以及相关 Session 信息的获取。完整的代码在 Github。
-Agent 的安装在上一篇已经介绍，这里需要先配置一个 Policies，然后在客户端项目 web.xml 中加入
-&amp;lt;filter&amp;gt;
-    &amp;lt;filter-name&amp;gt;Ag">
+<meta property="og:description" content="在 Agent 安装完成之后，可以使用自带的 agentsample 应用登录。这里主要讲一下如何在 SSO之后拿到 SSOToken，以及相关 Session 信息的获取。完整的代码在 Github。 Agent 的安装在上一篇已经介绍，这里需要先配置一个 Policies，然后在客户端项目 web.xml 中加入 &amp;lt;filter&amp;gt;     &amp;lt;filter-name&amp;gt;Ag">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://batizhao.me/images/2012-04-12-using-openam-develop-dlient-applications.png">
 <meta property="og:updated_time" content="2016-11-04T08:46:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发 OpenAM Java 客户端应用">
-<meta name="twitter:description" content="在 Agent 安装完成之后，可以使用自带的 agentsample 应用登录。这里主要讲一下如何在 SSO之后拿到 SSOToken，以及相关 Session 信息的获取。完整的代码在 Github。
-Agent 的安装在上一篇已经介绍，这里需要先配置一个 Policies，然后在客户端项目 web.xml 中加入
-&amp;lt;filter&amp;gt;
-    &amp;lt;filter-name&amp;gt;Ag">
+<meta name="twitter:description" content="在 Agent 安装完成之后，可以使用自带的 agentsample 应用登录。这里主要讲一下如何在 SSO之后拿到 SSOToken，以及相关 Session 信息的获取。完整的代码在 Github。 Agent 的安装在上一篇已经介绍，这里需要先配置一个 Policies，然后在客户端项目 web.xml 中加入 &amp;lt;filter&amp;gt;     &amp;lt;filter-name&amp;gt;Ag">
 <meta name="twitter:image" content="http://batizhao.me/images/2012-04-12-using-openam-develop-dlient-applications.png">
 
 
@@ -382,7 +375,7 @@ Agent 的安装在上一篇已经介绍，这里需要先配置一个 Policies�
       
 
       
-        <p>在 Agent 安装完成之后，可以使用自带的 agentsample 应用登录。这里主要讲一下如何在 SSO<br>之后拿到 SSOToken，以及相关 Session 信息的获取。完整的代码在 <a href="https://github.com/batizhao/openam-java-sample" target="_blank" rel="external">Github</a>。</p>
+        <p>在 Agent 安装完成之后，可以使用自带的 agentsample 应用登录。这里主要讲一下如何在 SSO<br>之后拿到 SSOToken，以及相关 Session 信息的获取。完整的代码在 <a href="https://github.com/batizhao/openam-java-sample" target="_blank" rel="noopener">Github</a>。</p>
 <p>Agent 的安装在上一篇已经介绍，这里需要先配置一个 Policies，然后在客户端项目 web.xml 中加入</p>
 <pre><code>&lt;filter&gt;
     &lt;filter-name&gt;Agent&lt;/filter-name&gt;
@@ -413,8 +406,8 @@ if (manager.isValidToken(token)) {
 </code></pre><p>分别部署两个相同的应用到 Tomcat，取名 Client1，Client2。访问任意应用，另外一个应用也自动登录。</p>
 <p><img src="/images/2012-04-12-using-openam-develop-dlient-applications.png" alt=""></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="http://openam.forgerock.org/doc/dev-guide/index.html#chap-client-dev" target="_blank" rel="external">OpenAM 10.0.0 Developer’s Guide</a></li>
-<li><a href="http://openam.forgerock.org/doc/install-guide/index.html" target="_blank" rel="external">OpenAM 10.0.0 Installation Guide</a></li>
+<li><a href="http://openam.forgerock.org/doc/dev-guide/index.html#chap-client-dev" target="_blank" rel="noopener">OpenAM 10.0.0 Developer’s Guide</a></li>
+<li><a href="http://openam.forgerock.org/doc/install-guide/index.html" target="_blank" rel="noopener">OpenAM 10.0.0 Installation Guide</a></li>
 </ul>
 
       
@@ -440,9 +433,9 @@ if (manager.isValidToken(token)) {
           
             <a href="/tags/ldap/" rel="tag">#ldap</a>
           
-            <a href="/tags/sso/" rel="tag">#sso</a>
-          
             <a href="/tags/java/" rel="tag">#java</a>
+          
+            <a href="/tags/sso/" rel="tag">#sso</a>
           
         </div>
       
@@ -556,7 +549,7 @@ if (manager.isValidToken(token)) {
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -573,7 +566,7 @@ if (manager.isValidToken(token)) {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -644,7 +637,7 @@ if (manager.isValidToken(token)) {
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</span></a></li></ol></div>
             
           </div>
         </section>

@@ -96,6 +96,7 @@
 <meta property="og:url" content="http://batizhao.me/page/4/index.html">
 <meta property="og:site_name" content="Gunner">
 <meta property="og:description" content="心中总有个梦想，想英雄一样地走过这世界。">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gunner">
 <meta name="twitter:description" content="心中总有个梦想，想英雄一样地走过这世界。">
@@ -285,6 +286,258 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2012/06/15/opendj-error-code-53/" itemprop="url">
+                  OpenDJ error code 53
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-06-15T00:00:00+08:00" content="2012-06-15">
+              2012-06-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ldap/" itemprop="url" rel="index">
+                    <span itemprop="name">ldap</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/06/15/opendj-error-code-53/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/06/15/opendj-error-code-53/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>By default, the OpenDJ LDAP directory server password policy is set to reject encrypted passwords.<br>So when adding or importing data with encrypted passwords, the server returns some error like this:</p>
+<pre><code>LDAP: error code 53 – Pre-encoded passwords are not allowed for the password attribute userPassword
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/06/15/opendj-error-code-53/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2012/05/08/identity-management/" itemprop="url">
+                  统一身份管理和单点登录
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-05-08T00:00:00+08:00" content="2012-05-08">
+              2012-05-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/05/08/identity-management/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/05/08/identity-management/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="1-方案一"><a href="#1-方案一" class="headerlink" title="1. 方案一"></a>1. 方案一</h2><ul>
+<li>调用 OpenIDM REST API 管理组织、用户（CRUD，需要开发）。</li>
+<li>通过 OpenIDM Core Service 推送数据到 OpenDJ（LDAP）、业务系统数据库。</li>
+<li>需要至少提供两台 Linux（RHEL6）主机，增加的系统服务有 OpenDJ、OpenIDM、OpenAM、MySQL、身份管理 Web 服务。</li>
+<li>OpenDJ 和 MySQL 在一台机器（做数据备份），其余在另外一台。OpenDJ 和 OpenAM 交叉 HA。</li>
+</ul>
+<p><img src="/images/2012-05-08-identity-management-1.png" alt=""></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/05/08/identity-management/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -510,7 +763,7 @@ http://openam.example.com:9090/openidm/managed/organizationUnit/?_query-id=query
 
       
         
-          <h2 id="1-From-OpenIDM-To-MySQL"><a href="#1-From-OpenIDM-To-MySQL" class="headerlink" title="1. From OpenIDM To MySQL"></a>1. From OpenIDM To MySQL</h2><p>以 samples/sample3 为模板，把新增加的 use,organization 分别同步到 MySQL 的 Users,Organizations 表。<br>如果你看过 <a href="http://localhost:4000/java/2012/04/20/using-openidm-with-rest-api/">使用 OpenIDM RESTful API</a> ,<br>这时在 managedobjects 表中应该有两条数据。</p>
+          <h2 id="1-From-OpenIDM-To-MySQL"><a href="#1-From-OpenIDM-To-MySQL" class="headerlink" title="1. From OpenIDM To MySQL"></a>1. From OpenIDM To MySQL</h2><p>以 samples/sample3 为模板，把新增加的 use,organization 分别同步到 MySQL 的 Users,Organizations 表。<br>如果你看过 <a href="http://localhost:4000/java/2012/04/20/using-openidm-with-rest-api/" target="_blank" rel="noopener">使用 OpenIDM RESTful API</a> ,<br>这时在 managedobjects 表中应该有两条数据。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2012/05/02/step-by-step-one-openidm/#more" rel="contents">
               阅读全文 &raquo;
@@ -1020,7 +1273,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01, mixed mode)
       
         
           
-            <p>在开始 Maven 之前，需要先引入一个包，这个包的作用和原来的 Agent 的功能是一样的。这个包需要自己从<a href="http://sources.forgerock.org/browse/openam/trunk/opensso/extensions/spring2provider/provider?r=HEAD" target="_blank" rel="external">源码</a>编译，<br><code>mvn install</code> 或者 <code>mvn deploy</code> 加入到自己的仓库中。这样在 pom.xml 中可以引入</p>
+            <p>在开始 Maven 之前，需要先引入一个包，这个包的作用和原来的 Agent 的功能是一样的。这个包需要自己从<a href="http://sources.forgerock.org/browse/openam/trunk/opensso/extensions/spring2provider/provider?r=HEAD" target="_blank" rel="noopener">源码</a>编译，<br><code>mvn install</code> 或者 <code>mvn deploy</code> 加入到自己的仓库中。这样在 pom.xml 中可以引入</p>
 <pre><code>&lt;dependency&gt;
     &lt;groupId&gt;com.sun.identity.provider&lt;/groupId&gt;
     &lt;artifactId&gt;opensso-springsecurity&lt;/artifactId&gt;
@@ -1028,7 +1281,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01, mixed mode)
 &lt;/dependency&gt;
 </code></pre><p>确保 AMConfig.properties 和 applicationContext-security.xml 里的 OpenAM 相关配置正确。</p>
 <pre><code>com.sun.identity.loginurl=http://openam.example.com:8080/openam/UI/Login
-</code></pre><p>然后运行 <code>mvn package</code>，打包以后放到 Tomcat 运行。这里要确认没有配置 Tomcat Agent<br>的全局 OpenAM Filter，这里也不需要在项目的 web.xml 中增加 Filter 配置。<br>完整的代码在 <a href="https://github.com/batizhao/openam-java-sample" target="_blank" rel="external">Github</a>。</p>
+</code></pre><p>然后运行 <code>mvn package</code>，打包以后放到 Tomcat 运行。这里要确认没有配置 Tomcat Agent<br>的全局 OpenAM Filter，这里也不需要在项目的 web.xml 中增加 Filter 配置。<br>完整的代码在 <a href="https://github.com/batizhao/openam-java-sample" target="_blank" rel="noopener">Github</a>。</p>
 
           
         
@@ -1147,7 +1400,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01, mixed mode)
 
       
         
-          <p>在 Agent 安装完成之后，可以使用自带的 agentsample 应用登录。这里主要讲一下如何在 SSO<br>之后拿到 SSOToken，以及相关 Session 信息的获取。完整的代码在 <a href="https://github.com/batizhao/openam-java-sample">Github</a>。</p>
+          <p>在 Agent 安装完成之后，可以使用自带的 agentsample 应用登录。这里主要讲一下如何在 SSO<br>之后拿到 SSOToken，以及相关 Session 信息的获取。完整的代码在 <a href="https://github.com/batizhao/openam-java-sample" target="_blank" rel="noopener">Github</a>。</p>
 <p>Agent 的安装在上一篇已经介绍，这里需要先配置一个 Policies，然后在客户端项目 web.xml 中加入</p>
 <pre><code>&lt;filter&gt;
     &lt;filter-name&gt;Agent&lt;/filter-name&gt;
@@ -1286,7 +1539,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01, mixed mode)
 
       
         
-          <p>本文参照 <a href="http://openam.forgerock.org/doc/agent-install-guide/index.html#chap-apache-tomcat">Installing the Apache Tomcat Policy Agent</a>，在开始之前必须停止 Tomcat。</p>
+          <p>本文参照 <a href="http://openam.forgerock.org/doc/agent-install-guide/index.html#chap-apache-tomcat" target="_blank" rel="noopener">Installing the Apache Tomcat Policy Agent</a>，在开始之前必须停止 Tomcat。</p>
 <h2 id="在-OpenAM-中配置-Tomcat-Agent"><a href="#在-OpenAM-中配置-Tomcat-Agent" class="headerlink" title="在 OpenAM 中配置 Tomcat Agent"></a>在 OpenAM 中配置 Tomcat Agent</h2><p>登录 OpenAM，Access Control - Top Level Realm - Agents - J2EE，在 Agent 下边点击按钮 New</p>
 <pre><code>Name: tomcatAgent
 Password: 123456
@@ -1296,251 +1549,6 @@ Agent URL: http://website.example.com:8080/agentapp
 </code></pre>
           <div class="post-more-link text-center">
             <a class="btn" href="/2012/04/06/installing-the-apache-tomcat-policy-agent/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/04/05/install-openam-on-rhel6/" itemprop="url">
-                  在 RHEL6 上安装 OpenAM
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-04-05T00:00:00+08:00" content="2012-04-05">
-              2012-04-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/04/05/install-openam-on-rhel6/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/04/05/install-openam-on-rhel6/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>由于参加 Cloud Foundry 和清明假期，这个系列中断了几天。从今天开始继续。<br>官网“provides the community with a new home for Sun Microsystems’ OpenSSO product.”<br>和 <a href="http://www.jasig.org/cas">CAS</a> 类似，也是 SSO 的一个实现。本人也简单玩过 CAS，相对来讲，<br>OpenAM 提供了图形安装界面，CAS 基本都需要修改配置文件。并且 OpenAM 对应用系统的侵入性可能更小一些。 </p>
-<p>这里使用了 <a href="http://download.forgerock.org/downloads/openam/openam_20120228.war">Nightly Build</a>，因为<br>9 以前的版本默认还不支持 OpenDJ。具体的安装过程可以看 <a href="http://openam.forgerock.org/doc/install-guide/index/chap-install-core.html">Installing OpenAM Core Services</a>，<br>这里只写一些关键点。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/04/05/install-openam-on-rhel6/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/03/29/install-opendj-directory-server-on-rhel6/" itemprop="url">
-                  在 RHEL6 上安装 OpenDJ
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-03-29T00:00:00+08:00" content="2012-03-29">
-              2012-03-29
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/03/29/install-opendj-directory-server-on-rhel6/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/03/29/install-opendj-directory-server-on-rhel6/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>官网”OpenDJ is a extension of the Sun Microsystems’ initiated OpenDS project and offers a fully supported product for it.”<br>接下来的这几篇文章会介绍 ForgeRock Open Platform 的 OpenDJ、OpenIDM、OpenAM 三个产品的安装、配置，<br>以及如何使用他们来搭建企业用户管理、访问认证的基础平台。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/03/29/install-opendj-directory-server-on-rhel6/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1615,7 +1623,7 @@ Agent URL: http://website.example.com:8080/agentapp
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1632,7 +1640,7 @@ Agent URL: http://website.example.com:8080/agentapp
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

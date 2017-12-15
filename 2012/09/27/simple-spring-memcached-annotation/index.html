@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="java,memcached,spring,mybatis," />
+  <meta name="keywords" content="java,spring,memcached,mybatis," />
 
 
 
@@ -91,11 +91,13 @@
 
 
 <meta name="description" content="因为公司有的项目还运行在 MyBatis2 上边，并且 SSM 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 mybatis-memcached 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代">
+<meta name="keywords" content="java,spring,memcached,mybatis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用 Simple-Spring-Memcached Annotation">
 <meta property="og:url" content="http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/index.html">
 <meta property="og:site_name" content="Gunner">
 <meta property="og:description" content="因为公司有的项目还运行在 MyBatis2 上边，并且 SSM 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 mybatis-memcached 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-11-04T09:04:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Simple-Spring-Memcached Annotation">
@@ -371,7 +373,7 @@
       
 
       
-        <p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/" target="_blank" rel="external">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/" target="_blank" rel="external">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached" target="_blank" rel="external">ssm3-mybatis2-memcached</a>。</p>
+        <p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/" target="_blank" rel="noopener">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/" target="_blank" rel="noopener">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached" target="_blank" rel="noopener">ssm3-mybatis2-memcached</a>。</p>
 <h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
 <p>Java Code:</p>
 <pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
@@ -424,7 +426,7 @@ public void updateUser(@ParameterValueKeyProvider @ParameterDataUpdateContent Us
 @UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
 @ReturnDataUpdateContent
 public void updateUser(@ParameterValueKeyProvider User user)
-</code></pre><p>参考：<a href="http://www.colorfuldays.org/program/java/ssm_memcache/" target="_blank" rel="external">使用SSM注解做缓存操作</a></p>
+</code></pre><p>参考：<a href="http://www.colorfuldays.org/program/java/ssm_memcache/" target="_blank" rel="noopener">使用SSM注解做缓存操作</a></p>
 
       
     </div>
@@ -449,9 +451,9 @@ public void updateUser(@ParameterValueKeyProvider User user)
           
             <a href="/tags/java/" rel="tag">#java</a>
           
-            <a href="/tags/memcached/" rel="tag">#memcached</a>
-          
             <a href="/tags/spring/" rel="tag">#spring</a>
+          
+            <a href="/tags/memcached/" rel="tag">#memcached</a>
           
             <a href="/tags/mybatis/" rel="tag">#mybatis</a>
           
@@ -462,16 +464,16 @@ public void updateUser(@ParameterValueKeyProvider User user)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2012/09/27/using-simple-spring-memcached-two/" rel="next" title="使用 Simple-Spring-Memcached: MultiCache">
-                <i class="fa fa-chevron-left"></i> 使用 Simple-Spring-Memcached: MultiCache
+              <a href="/2012/09/18/installing-activemq-as-a-service-on-centos6/" rel="next" title="在 CentOS6 上安装 ActiveMQ Service">
+                <i class="fa fa-chevron-left"></i> 在 CentOS6 上安装 ActiveMQ Service
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2012/09/28/using-simple-spring-memcached-three/" rel="prev" title="使用 Simple-Spring-Memcached: AssignCache">
-                使用 Simple-Spring-Memcached: AssignCache <i class="fa fa-chevron-right"></i>
+              <a href="/2012/09/27/using-simple-spring-memcached-one/" rel="prev" title="使用 Simple-Spring-Memcached: SingleCache">
+                使用 Simple-Spring-Memcached: SingleCache <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -567,7 +569,7 @@ public void updateUser(@ParameterValueKeyProvider User user)
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">47</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -584,7 +586,7 @@ public void updateUser(@ParameterValueKeyProvider User user)
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -655,7 +657,7 @@ public void updateUser(@ParameterValueKeyProvider User user)
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-SSM-Annotation"><span class="nav-number">1.</span> <span class="nav-text">1. SSM Annotation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SingleCache-类"><span class="nav-number">1.1.</span> <span class="nav-text">SingleCache 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MultiCache-类"><span class="nav-number">1.2.</span> <span class="nav-text">MultiCache 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AssignCache-类"><span class="nav-number">1.3.</span> <span class="nav-text">AssignCache 类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-SingleCache-Annotation"><span class="nav-number">2.</span> <span class="nav-text">2. SingleCache Annotation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ReadThroughSingleCache"><span class="nav-number">2.1.</span> <span class="nav-text">@ReadThroughSingleCache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InvalidateSingleCache"><span class="nav-number">2.2.</span> <span class="nav-text">@InvalidateSingleCache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UpdateSingleCache"><span class="nav-number">2.3.</span> <span class="nav-text">@UpdateSingleCache</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-SSM-Annotation"><span class="nav-number">1.</span> <span class="nav-text"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SingleCache-类"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#SingleCache-&#x7C7B;" class="headerlink" title="SingleCache &#x7C7B;"></a>SingleCache &#x7C7B;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MultiCache-类"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#MultiCache-&#x7C7B;" class="headerlink" title="MultiCache &#x7C7B;"></a>MultiCache &#x7C7B;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AssignCache-类"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#AssignCache-&#x7C7B;" class="headerlink" title="AssignCache &#x7C7B;"></a>AssignCache &#x7C7B;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-SingleCache-Annotation"><span class="nav-number">2.</span> <span class="nav-text"><a href="#2-SingleCache-Annotation" class="headerlink" title="2. SingleCache Annotation"></a>2. SingleCache Annotation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ReadThroughSingleCache"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#ReadThroughSingleCache" class="headerlink" title="@ReadThroughSingleCache"></a>@ReadThroughSingleCache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InvalidateSingleCache"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#InvalidateSingleCache" class="headerlink" title="@InvalidateSingleCache"></a>@InvalidateSingleCache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UpdateSingleCache"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#UpdateSingleCache" class="headerlink" title="@UpdateSingleCache"></a>@UpdateSingleCache</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
