@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://batizhao.me/"/>
-  <updated>2017-12-15T07:31:59.468Z</updated>
+  <updated>2017-12-15T08:18:19.466Z</updated>
   <id>http://batizhao.me/</id>
   
   <author>
@@ -14,6 +14,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在 kubernetes 1.8 上安装 Harbor 仓库</title>
+    <link href="http://batizhao.me/2017/12/15/install-harbor-to-k8s/"/>
+    <id>http://batizhao.me/2017/12/15/install-harbor-to-k8s/</id>
+    <published>2017-12-15T07:42:14.000Z</published>
+    <updated>2017-12-15T08:18:19.466Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>当前最新版本是 1.2.2</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://harbor.orientsoft.cn/harbor-1.2.2/harbor-offline-installer-v1.2.2.tgz</span><br></pre></td></tr></table></figure>
+<h2 id="准备-Docker-镜像"><a href="#准备-Docker-镜像" class="headerlink" title="准备 Docker 镜像"></a>准备 Docker 镜像</h2><p>解压以后要把所有镜像上传到 k8s 工作节点。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ tar -vxf harbor-offline-installer-v1.2.2.tgz</span><br><span class="line">$ <span class="built_in">cd</span> harbor/ </span><br><span class="line">$ scp harbor.v1.2.2.tar.gz k8s-node</span><br><span class="line">$ docker load -i harbor.v1.2.2.tar.gz</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="准备配置文件"><a href="#准备配置文件" class="headerlink" title="准备配置文件"></a>准备配置文件</h2><p>下载源码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/vmware/harbor.git</span><br></pre></td></tr></table></figure></p>
+<p>在以下目录中所有的 rc.yaml 中镜像替换成正确的镜像地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make/kubernetes/**/*.rc.yaml</span><br></pre></td></tr></table></figure></p>
+<p>在以下目录文件中设置存储的容量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make/kubernetes/pv/*.pvc.yaml </span><br></pre></td></tr></table></figure><br>如果你改变了 PVC 的容量，那么你也需要相应的设置 PV 的容量。</p>
+<p>如果想让外部访问，需要修改两个地方</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vim make/harbor.cfg</span><br><span class="line">hostname = 172.31.21.226</span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">$</span> <span class="string">vim</span> <span class="string">make/kubernetes/nginx/nginx.svc.yaml</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">nginx-apps</span></span><br><span class="line"><span class="attr">  externalIPs:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">172.31</span><span class="number">.21</span><span class="number">.226</span></span><br></pre></td></tr></table></figure>
+<p>如果部署了 ingress，可以不用管上边两步</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">harbor-ui</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">  - host:</span> <span class="string">hub.xxx.com</span></span><br><span class="line"><span class="attr">    http:</span></span><br><span class="line"><span class="attr">      paths:</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          serviceName:</span> <span class="string">harbor-ui</span></span><br><span class="line"><span class="attr">          servicePort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>  
+<p>生成安装脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python make/kubernetes/k8s-prepare</span><br></pre></td></tr></table></figure></p>
+<p>脚本执行完成后会生成下面的一些文件：</p>
+<ul>
+<li>make/kubernetes/jobservice/jobservice.cm.yaml</li>
+<li>make/kubernetes/mysql/mysql.cm.yaml</li>
+<li>make/kubernetes/nginx/nginx.cm.yaml</li>
+<li>make/kubernetes/registry/registry.cm.yaml</li>
+<li>make/kubernetes/ui/ui.cm.yaml</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create pv &amp; pvc</span></span><br><span class="line">kubectl apply -f make/kubernetes/pv/log.pv.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/pv/registry.pv.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/pv/storage.pv.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/pv/log.pvc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/pv/registry.pvc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/pv/storage.pvc.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># create config map</span></span><br><span class="line">kubectl apply -f make/kubernetes/adminserver/adminserver.cm.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/jobservice/jobservice.cm.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/mysql/mysql.cm.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/registry/registry.cm.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/ui/ui.cm.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/nginx/nginx.cm.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># create service</span></span><br><span class="line">kubectl apply -f make/kubernetes/adminserver/adminserver.svc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/jobservice/jobservice.svc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/mysql/mysql.svc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/registry/registry.svc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/ui/ui.svc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/nginx/nginx.svc.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># create k8s rc</span></span><br><span class="line">kubectl apply -f make/kubernetes/registry/registry.rc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/mysql/mysql.rc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/jobservice/jobservice.rc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/ui/ui.rc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/nginx/nginx.rc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/adminserver/adminserver.rc.yaml</span><br></pre></td></tr></table></figure>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="Error-response-from-daemon-Get-https-myregistrydomain-com-v1-users-dial-tcp-myregistrydomain-com-443-getsockopt-connection-refused"><a href="#Error-response-from-daemon-Get-https-myregistrydomain-com-v1-users-dial-tcp-myregistrydomain-com-443-getsockopt-connection-refused" class="headerlink" title="Error response from daemon: Get https://myregistrydomain.com/v1/users/: dial tcp myregistrydomain.com:443 getsockopt: connection refused."></a>Error response from daemon: Get <a href="https://myregistrydomain.com/v1/users/" target="_blank" rel="noopener">https://myregistrydomain.com/v1/users/</a>: dial tcp myregistrydomain.com:443 getsockopt: connection refused.</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/docker/daemon.json</span><br><span class="line"><span class="string">"insecure-registries"</span>: [<span class="string">"172.31.21.226"</span>]</span><br><span class="line"></span><br><span class="line">$ cat /etc/docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"insecure-registries"</span>: [<span class="string">"172.31.21.226"</span>],</span><br><span class="line">  <span class="string">"registry-mirrors"</span>: [<span class="string">"https://xxx.mirror.aliyuncs.com"</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$ sudo systemctl daemon-reload &amp;&amp; systemctl restart docker</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;下载&lt;/h2&gt;&lt;p&gt;当前最新版本是 1.2.2&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ wget http://harbor.orientsoft.cn/harbor-1.2.2/harbor-offline-installer-v1.2.2.tgz&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;准备-Docker-镜像&quot;&gt;&lt;a href=&quot;#准备-Docker-镜像&quot; class=&quot;headerlink&quot; title=&quot;准备 Docker 镜像&quot;&gt;&lt;/a&gt;准备 Docker 镜像&lt;/h2&gt;&lt;p&gt;解压以后要把所有镜像上传到 k8s 工作节点。&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ tar -vxf harbor-offline-installer-v1.2.2.tgz&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; harbor/ &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ scp harbor.v1.2.2.tar.gz k8s-node&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ docker load -i harbor.v1.2.2.tar.gz&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="centos" scheme="http://batizhao.me/tags/centos/"/>
+    
+      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+    
+      <category term="harbor" scheme="http://batizhao.me/tags/harbor/"/>
+    
+  </entry>
   
   <entry>
     <title>在 CentOS 上使用 kubeadm 安装 kubernetes 1.8.4</title>
@@ -833,9 +887,9 @@ To complete the activation, please logout then log back in
       <category term="java" scheme="http://batizhao.me/categories/java/"/>
     
     
-      <category term="jdk7" scheme="http://batizhao.me/tags/jdk7/"/>
-    
       <category term="mac" scheme="http://batizhao.me/tags/mac/"/>
+    
+      <category term="jdk7" scheme="http://batizhao.me/tags/jdk7/"/>
     
   </entry>
   
@@ -1103,9 +1157,9 @@ public List&amp;lt;User&amp;gt; getUsersByRoleIds(@ParameterValueKeyProvider fin
     
       <category term="java" scheme="http://batizhao.me/tags/java/"/>
     
-      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
-    
       <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
+    
+      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
     
       <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
     
@@ -1268,9 +1322,9 @@ set user/getUsersByRoleIds:1002 8 60 121
     
       <category term="java" scheme="http://batizhao.me/tags/java/"/>
     
-      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
-    
       <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
+    
+      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
     
       <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
     
@@ -1521,99 +1575,9 @@ public class RoleManagerImpl implements RoleManager {
     
       <category term="java" scheme="http://batizhao.me/tags/java/"/>
     
-      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
-    
       <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
     
-      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 Simple-Spring-Memcached Annotation</title>
-    <link href="http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/"/>
-    <id>http://batizhao.me/2012/09/27/simple-spring-memcached-annotation/</id>
-    <published>2012-09-26T16:00:00.000Z</published>
-    <updated>2016-11-04T09:04:40.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/" target="_blank" rel="noopener">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/" target="_blank" rel="noopener">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached" target="_blank" rel="noopener">ssm3-mybatis2-memcached</a>。</p>
-<h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
-public User getUser(@ParameterValueKeyProvider Long id)
-</code></pre><p>Memcache Log:</p>
-<pre><code>get user:1
-set user:1
-</code></pre><a id="more"></a>
-<h2 id="MultiCache-类"><a href="#MultiCache-类" class="headerlink" title="MultiCache 类"></a>MultiCache 类</h2><p>操作 List 型的 Cache 数据（看做是 SingleCache 的批处理），由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughMultiCache(namespace = &quot;user/getUsersByUserIds&quot;, expiration = 600)
-public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids)
-</code></pre><p>If ids=[1,2,3], Then Memcache Log:</p>
-<pre><code>get user:1 user:2 user:3
-set user:1
-set user:2
-set user:3        
-</code></pre><h2 id="AssignCache-类"><a href="#AssignCache-类" class="headerlink" title="AssignCache 类"></a>AssignCache 类</h2><p>操作所有类型的 Cache 数据。适用于无参方法或者需要自定义 Key 的场景。指定 key 操作 Cache 数据，由 annotation 中的 assignedKey 指定 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughAssignCache(assignedKey = &quot;user/getAllUsers&quot;, namespace = &quot;role&quot;, expiration = 600)
-public List&lt;User&gt; getAllUsers()
-</code></pre><h1 id="2-SingleCache-Annotation"><a href="#2-SingleCache-Annotation" class="headerlink" title="2. SingleCache Annotation"></a>2. SingleCache Annotation</h1><h2 id="ReadThroughSingleCache"><a href="#ReadThroughSingleCache" class="headerlink" title="@ReadThroughSingleCache"></a>@ReadThroughSingleCache</h2><p>作用：生成 Cache。</p>
-<p>过程：</p>
-<ul>
-<li>在执行方法之前先检查缓存。</li>
-<li>如果找到相应的 Key，返回 Value，方法 return。</li>
-<li>如果没有找到相应的 Key，查询数据库，再 set cache，方法 return。</li>
-</ul>
-<p>Key 生成规则：ParameterValueKeyProvider 指定的参数，如果该参数对象中包含 CacheKeyMethod 注解的方法，则调用其方法，否则调用 toString 方法。</p>
-<h2 id="InvalidateSingleCache"><a href="#InvalidateSingleCache" class="headerlink" title="@InvalidateSingleCache"></a>@InvalidateSingleCache</h2><p>作用：清除 Cache 中的数据。</p>
-<p>key 生成规则：</p>
-<ul>
-<li>使用 ParameterValueKeyProvider 注解时，与 ReadThroughSingleCache 一致。</li>
-<li>使用 ReturnValueKeyProvider 注解时，key 为返回的对象的 CacheKeyMethod 或 toString 方法生成。</li>
-</ul>
-<p>Java Code:</p>
-<pre><code>@InvalidateSingleCache(namespace = &quot;user/list&quot;)
-public void invalidateGetUsersByRoleId(@ParameterValueKeyProvider Long id)        
-</code></pre><h2 id="UpdateSingleCache"><a href="#UpdateSingleCache" class="headerlink" title="@UpdateSingleCache"></a>@UpdateSingleCache</h2><p>作用：更新 Cache 中的数据。</p>
-<p>Key 生成规则：ParameterValueKeyProvider 指定。</p>
-<ul>
-<li>ParameterDataUpdateContent：方法参数中的数据，作为更新缓存的数据。</li>
-<li>ReturnDataUpdateContent：方法调用后生成的数据，作为更新缓存的数据。</li>
-<li>上述两个注解，必须与 Update* 系列的注解一起使用。</li>
-</ul>
-<p>Java Code:</p>
-<pre><code>@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
-public void updateUser(@ParameterValueKeyProvider @ParameterDataUpdateContent User user)
-
-@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
-@ReturnDataUpdateContent
-public void updateUser(@ParameterValueKeyProvider User user)
-</code></pre><p>参考：<a href="http://www.colorfuldays.org/program/java/ssm_memcache/" target="_blank" rel="noopener">使用SSM注解做缓存操作</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;因为公司有的项目还运行在 MyBatis2 上边，并且 &lt;a href=&quot;http://code.google.com/p/simple-spring-memcached/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;SSM&lt;/a&gt; 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 &lt;a href=&quot;http://www.mybatis.org/caches/memcached/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;mybatis-memcached&lt;/a&gt; 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 &lt;a href=&quot;https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;ssm3-mybatis2-memcached&lt;/a&gt;。&lt;/p&gt;
-&lt;h1 id=&quot;1-SSM-Annotation&quot;&gt;&lt;a href=&quot;#1-SSM-Annotation&quot; class=&quot;headerlink&quot; title=&quot;1. SSM Annotation&quot;&gt;&lt;/a&gt;1. SSM Annotation&lt;/h1&gt;&lt;h2 id=&quot;SingleCache-类&quot;&gt;&lt;a href=&quot;#SingleCache-类&quot; class=&quot;headerlink&quot; title=&quot;SingleCache 类&quot;&gt;&lt;/a&gt;SingleCache 类&lt;/h2&gt;&lt;p&gt;操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。&lt;/p&gt;
-&lt;p&gt;Java Code:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@ReadThroughSingleCache(namespace = &amp;quot;user&amp;quot;, expiration = 600)
-public User getUser(@ParameterValueKeyProvider Long id)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Memcache Log:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;get user:1
-set user:1
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://batizhao.me/categories/java/"/>
-    
-    
-      <category term="java" scheme="http://batizhao.me/tags/java/"/>
-    
       <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
-    
-      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
     
       <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
     

@@ -308,6 +308,131 @@
             
               
                 
+                <a class="post-title-link" href="/2017/12/15/install-harbor-to-k8s/" itemprop="url">
+                  在 kubernetes 1.8 上安装 Harbor 仓库
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-12-15T15:42:14+08:00" content="2017-12-15">
+              2017-12-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/12/15/install-harbor-to-k8s/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/15/install-harbor-to-k8s/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>当前最新版本是 1.2.2</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://harbor.orientsoft.cn/harbor-1.2.2/harbor-offline-installer-v1.2.2.tgz</span><br></pre></td></tr></table></figure>
+<h2 id="准备-Docker-镜像"><a href="#准备-Docker-镜像" class="headerlink" title="准备 Docker 镜像"></a>准备 Docker 镜像</h2><p>解压以后要把所有镜像上传到 k8s 工作节点。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ tar -vxf harbor-offline-installer-v1.2.2.tgz</span><br><span class="line">$ <span class="built_in">cd</span> harbor/ </span><br><span class="line">$ scp harbor.v1.2.2.tar.gz k8s-node</span><br><span class="line">$ docker load -i harbor.v1.2.2.tar.gz</span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/12/15/install-harbor-to-k8s/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/" itemprop="url">
                   在 CentOS 上使用 kubeadm 安装 kubernetes 1.8.4
                 </a>
@@ -1384,129 +1509,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/04/15/edx-course-management/" itemprop="url">
-                  edX 学习三：开始课程制作之前
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-04-15T00:00:00+08:00" content="2014-04-15">
-              2014-04-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/mooc/" itemprop="url" rel="index">
-                    <span itemprop="name">mooc</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/04/15/edx-course-management/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/15/edx-course-management/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在制作课程之前，先要知道下 <a href="https://www.edx.org/" target="_blank" rel="noopener">edX.org</a> 和 <a href="https://edge.edx.org" target="_blank" rel="noopener">edX Edge</a> 的关系。</p>
-<h2 id="edX-org-和-edX-Edge"><a href="#edX-org-和-edX-Edge" class="headerlink" title="edX.org 和 edX Edge"></a>edX.org 和 edX Edge</h2><p>从外观来看，这两个站点几乎是一样的，但内容和目的不同。这是两个完全独立的站点，包括所有用户信息、课程数据、数据库、服务器都是独立的。现在有很多的课程都即将在 Edge 毕业，在将来成为 edX 上的正式公开课程。但也有很多课程不需要经过 Edge，而直接在 edX 上开课。官方建议在 edX 上正式开课前，先在 Edge 上做一些测试和学习。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/04/15/edx-course-management/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1552,7 +1554,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-count">50</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1569,7 +1571,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
