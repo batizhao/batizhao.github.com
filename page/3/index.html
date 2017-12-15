@@ -308,6 +308,311 @@
             
               
                 
+                <a class="post-title-link" href="/2012/09/27/using-simple-spring-memcached-two/" itemprop="url">
+                  使用 Simple-Spring-Memcached: MultiCache
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-09-27T00:00:00+08:00" content="2012-09-27">
+              2012-09-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/09/27/using-simple-spring-memcached-two/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/27/using-simple-spring-memcached-two/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。</p>
+<h2 id="Namespace-和-Key"><a href="#Namespace-和-Key" class="headerlink" title="Namespace 和 Key"></a>Namespace 和 Key</h2><p>这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是</p>
+<ul>
+<li><p>get user:id</p>
+<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
+</li>
+<li><p>set user:id</p>
+<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
+</li>
+</ul>
+<p>如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是</p>
+<ul>
+<li>缓存命中率（大大影响缓存使用效率）</li>
+<li>内容空间（占用更多的内存）</li>
+<li>需要更多的清除操作（程序复杂度增加）</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/09/27/using-simple-spring-memcached-two/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2012/09/27/using-simple-spring-memcached-one/" itemprop="url">
+                  使用 Simple-Spring-Memcached: SingleCache
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-09-27T00:00:00+08:00" content="2012-09-27">
+              2012-09-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/09/27/using-simple-spring-memcached-one/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/27/using-simple-spring-memcached-one/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。</p>
+<h2 id="首先是接下来的几个内容都会用到的两个-POJO"><a href="#首先是接下来的几个内容都会用到的两个-POJO" class="headerlink" title="首先是接下来的几个内容都会用到的两个 POJO"></a>首先是接下来的几个内容都会用到的两个 POJO</h2><p>Role Model:</p>
+<pre><code>public class Role implements Serializable {
+
+    private static final long serialVersionUID = -4708064835003250669L;
+
+    private Long id;
+
+    private String name;
+
+    @CacheKeyMethod
+    public String cacheKey() {
+        return id.toString();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(
+                this, obj);
+    }
+
+    public int hashCode() {
+        return HashCodeBuilder
+                .reflectionHashCode(this);
+    }
+
+    public String toString() {
+        return ToStringBuilder.reflectionToString(
+                this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+}
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/09/27/using-simple-spring-memcached-one/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2012/09/27/simple-spring-memcached-annotation/" itemprop="url">
                   使用 Simple-Spring-Memcached Annotation
                 </a>
@@ -1308,262 +1613,11 @@ libevent-headers.noarch                1.4.13-4.el6
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/07/13/install-opendj-on-centos6-with-gui/" itemprop="url">
-                  在 CentOS6 上安装 OpenDJ（GUI）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-07-13T00:00:00+08:00" content="2012-07-13">
-              2012-07-13
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/07/13/install-opendj-on-centos6-with-gui/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/07/13/install-opendj-on-centos6-with-gui/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>之前有一篇有讲到<a href="http://batizhao.github.com/linux/2012/03/29/install-opendj-directory-server-on-rhel6/" target="_blank" rel="noopener">在 RHEL6 上安装 OpenDJ</a>，<br>主要是讲通过命令行的方式安装，这次讲一下通过图形界面安装。</p>
-<h2 id="服务器设置"><a href="#服务器设置" class="headerlink" title="服务器设置"></a>服务器设置</h2><p>这一步主要是 host name 的设置。要确保这个域名可以被解析，否则会抛出 javax.naming.CommunicationException: 0.0.0.0:4444 的异常。<br>临时解决办法是在 hosts 中增加一条纪录 127.0.0.1   idams</p>
-<p><img src="/images/2012-07-13-install-opendj-on-centos6-with-gui-1.png" alt=""></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/07/13/install-opendj-on-centos6-with-gui/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/07/12/install-vncserver-for-centos63/" itemprop="url">
-                  在 CentOS6 上安装 vncserver
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-07-12T00:00:00+08:00" content="2012-07-12">
-              2012-07-12
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/07/12/install-vncserver-for-centos63/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/07/12/install-vncserver-for-centos63/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在 CentOS 安装好之后，如果想要通过图形界面访问远程主机，需要安装 vnc server。</p>
-<p>先查看本机是否有安装vnc：</p>
-<pre><code># rpm -q vnc-server
-</code></pre><p>如果没有安装</p>
-<pre><code># yum install vnc-server
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/07/12/install-vncserver-for-centos63/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1604,7 +1658,7 @@ libevent-headers.noarch                1.4.13-4.el6
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1621,7 +1675,7 @@ libevent-headers.noarch                1.4.13-4.el6
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

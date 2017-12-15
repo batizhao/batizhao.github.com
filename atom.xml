@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://batizhao.me/"/>
-  <updated>2017-12-15T08:18:19.466Z</updated>
+  <updated>2017-12-15T09:26:11.884Z</updated>
   <id>http://batizhao.me/</id>
   
   <author>
@@ -16,11 +16,110 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>在 kubernetes 1.8 上部署 ingress</title>
+    <link href="http://batizhao.me/2017/12/15/install-ingress-to-k8s/"/>
+    <id>http://batizhao.me/2017/12/15/install-ingress-to-k8s/</id>
+    <published>2017-12-15T09:10:41.000Z</published>
+    <updated>2017-12-15T09:26:11.884Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>本文所需代码在<a href="https://github.com/batizhao/dockerfile/tree/master/k8s/ingress" target="_blank" rel="noopener">这里</a></p>
+<p>先查看集群状态<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get nodes</span><br><span class="line">NAME         STATUS    ROLES     AGE       VERSION</span><br><span class="line">k8s-master   Ready     master    15d       v1.8.4</span><br><span class="line">k8s-node-1   Ready     &lt;none&gt;    15d       v1.8.4</span><br><span class="line">k8s-node-2   Ready     &lt;none&gt;    15d       v1.8.4</span><br></pre></td></tr></table></figure></p>
+<p>ingress 有多种方式</p>
+<ul>
+<li>deployment 自由调度</li>
+<li>daemonset 全局调度</li>
+</ul>
+<p>官方部署现在是 deployment 方式。在 deployment 自由调度过程中，由于我们需要约束 controller 调度到指定的 node 中，所以需要对 node 进行 label 标签。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl label nodes k8s-node-1 ingress=proxy</span><br><span class="line">node <span class="string">"k8s-node-1"</span> labeled</span><br><span class="line">$ kubectl label nodes k8s-node-2 ingress=proxy</span><br><span class="line">node <span class="string">"k8s-node-2” labeled</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">$ kubectl get nodes --show-labels</span></span><br><span class="line"><span class="string">NAME         STATUS    ROLES     AGE       VERSION   LABELS</span></span><br><span class="line"><span class="string">k8s-master   Ready     master    15d       v1.8.4    beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/hostname=k8s-master,node-role.kubernetes.io/master=</span></span><br><span class="line"><span class="string">k8s-node-1   Ready     &lt;none&gt;    15d       v1.8.4    beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,ingress=proxy,kubernetes.io/hostname=k8s-node-1</span></span><br><span class="line"><span class="string">k8s-node-2   Ready     &lt;none&gt;    15d       v1.8.4    beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,ingress=proxy,kubernetes.io/hostname=k8s-node-2</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f namespace.yaml </span><br><span class="line">$ kubectl apply -f default-backend.yaml </span><br><span class="line">$ kubectl apply -f configmap.yaml </span><br><span class="line">$ kubectl apply -f tcp-services-configmap.yaml </span><br><span class="line">$ kubectl apply -f udp-services-configmap.yaml </span><br><span class="line">$ kubectl apply -f rbac.yaml </span><br><span class="line">$ kubectl apply -f with-rbac.yaml</span><br><span class="line"></span><br><span class="line">$ kubectl get pods --all-namespaces -l app=ingress-nginx -o wide</span><br><span class="line">NAMESPACE       NAME                                        READY     STATUS    RESTARTS   AGE       IP              NODE</span><br><span class="line">ingress-nginx   nginx-ingress-controller-64f7567b77-dv7cn   1/1       Running   0          6h        172.31.21.148   k8s-node-2</span><br><span class="line">ingress-nginx   nginx-ingress-controller-64f7567b77-zcvkt   1/1       Running   0          6h        172.31.21.147   k8s-node-1</span><br></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="jenkins"><a href="#jenkins" class="headerlink" title="jenkins"></a>jenkins</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">jenkins-ui</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">  - host:</span> <span class="string">jenkins.idealsoftone.com</span></span><br><span class="line"><span class="attr">    http:</span></span><br><span class="line"><span class="attr">      paths:</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          serviceName:</span> <span class="string">jenkins-ui</span></span><br><span class="line"><span class="attr">          servicePort:</span> <span class="number">8080</span></span><br></pre></td></tr></table></figure>
+<h3 id="harbor"><a href="#harbor" class="headerlink" title="harbor"></a>harbor</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">harbor-ui</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">  - host:</span> <span class="string">hub.idealsoftone.com</span></span><br><span class="line"><span class="attr">    http:</span></span><br><span class="line"><span class="attr">      paths:</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          serviceName:</span> <span class="string">harbor-ui</span></span><br><span class="line"><span class="attr">          servicePort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;准备&quot;&gt;&lt;a href=&quot;#准备&quot; class=&quot;headerlink&quot; title=&quot;准备&quot;&gt;&lt;/a&gt;准备&lt;/h2&gt;&lt;p&gt;本文所需代码在&lt;a href=&quot;https://github.com/batizhao/dockerfile/tree/master/k8s/ingress&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;先查看集群状态&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ kubectl get nodes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;NAME         STATUS    ROLES     AGE       VERSION&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;k8s-master   Ready     master    15d       v1.8.4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;k8s-node-1   Ready     &amp;lt;none&amp;gt;    15d       v1.8.4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;k8s-node-2   Ready     &amp;lt;none&amp;gt;    15d       v1.8.4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;ingress 有多种方式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;deployment 自由调度&lt;/li&gt;
+&lt;li&gt;daemonset 全局调度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;官方部署现在是 deployment 方式。在 deployment 自由调度过程中，由于我们需要约束 controller 调度到指定的 node 中，所以需要对 node 进行 label 标签。&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ kubectl label nodes k8s-node-1 ingress=proxy&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;node &lt;span class=&quot;string&quot;&gt;&quot;k8s-node-1&quot;&lt;/span&gt; labeled&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ kubectl label nodes k8s-node-2 ingress=proxy&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;node &lt;span class=&quot;string&quot;&gt;&quot;k8s-node-2” labeled&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;$ kubectl get nodes --show-labels&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;NAME         STATUS    ROLES     AGE       VERSION   LABELS&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;k8s-master   Ready     master    15d       v1.8.4    beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/hostname=k8s-master,node-role.kubernetes.io/master=&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;k8s-node-1   Ready     &amp;lt;none&amp;gt;    15d       v1.8.4    beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,ingress=proxy,kubernetes.io/hostname=k8s-node-1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;k8s-node-2   Ready     &amp;lt;none&amp;gt;    15d       v1.8.4    beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,ingress=proxy,kubernetes.io/hostname=k8s-node-2&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="centos" scheme="http://batizhao.me/tags/centos/"/>
+    
+      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+    
+      <category term="ingress" scheme="http://batizhao.me/tags/ingress/"/>
+    
+      <category term="nginx" scheme="http://batizhao.me/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 kubernetes 1.8 上部署 Jenkins 动态集群</title>
+    <link href="http://batizhao.me/2017/12/15/install-jenkins-to-k8s/"/>
+    <id>http://batizhao.me/2017/12/15/install-jenkins-to-k8s/</id>
+    <published>2017-12-15T08:25:42.000Z</published>
+    <updated>2017-12-15T09:19:32.949Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文的目的是通过在 Kubernetes 集群上创建并配置 Jenkins Server ，实现应用开发管理的 CI/CD 流程，并且利用 Kubernetes-Jenkins-Plugin 实现动态的按需扩展 jenkins-slave。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>本文所需代码在<a href="https://github.com/batizhao/dockerfile/tree/master/k8s/jenkins" target="_blank" rel="noopener">这里</a></p>
+<h3 id="推送-Jenkins-Master-Docker-镜像到-Harbor"><a href="#推送-Jenkins-Master-Docker-镜像到-Harbor" class="headerlink" title="推送 Jenkins Master Docker 镜像到 Harbor"></a>推送 Jenkins Master Docker 镜像到 Harbor</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> master</span><br><span class="line">$ docker build -t 172.31.21.226/ideal/jenkins:lts .</span><br><span class="line">$ docker push 172.31.21.226/ideal/jenkins:lts</span><br></pre></td></tr></table></figure>
+<h3 id="推送-Jenkins-Slave-Docker-镜像到-Harbor"><a href="#推送-Jenkins-Slave-Docker-镜像到-Harbor" class="headerlink" title="推送 Jenkins Slave Docker 镜像到 Harbor"></a>推送 Jenkins Slave Docker 镜像到 Harbor</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> slave</span><br><span class="line">$ docker build -t 172.31.21.226/ideal/jnlp-slave:latest .</span><br><span class="line">$ docker push 172.31.21.226/ideal/jnlp-slave:latest</span><br></pre></td></tr></table></figure>
+<h3 id="安装-Jenkins"><a href="#安装-Jenkins" class="headerlink" title="安装 Jenkins"></a>安装 Jenkins</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f https://raw.githubusercontent.com/batizhao/dockerfile/master/k8s/jenkins/service-account.yml</span><br><span class="line">$ kubectl apply -f ./</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="Kubernetes-插件"><a href="#Kubernetes-插件" class="headerlink" title="Kubernetes 插件"></a>Kubernetes 插件</h2><h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><p>略过。</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>系统管理 - 系统设置 - 云 - Kubernetes</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Name: kubernetes</span><br><span class="line">Kubernetes URL: https://kubernetes.default</span><br><span class="line">Jenkins URL: http://jenkins.default:8080</span><br></pre></td></tr></table></figure>
+<p>如果 service account 没有问题，点击 test，应该可以看到 Connection test successful。</p>
+<p><img src="/images/2017-12-15-install-jenkins-to-k8s-3.png" alt=""></p>
+<p>系统管理 - 系统设置 - 云 - Kubernetes - Add Pod Template<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">images - Add Pod Template:</span><br><span class="line">Name: jnlp-slave</span><br><span class="line">Labels: jnlp-slave</span><br><span class="line"></span><br><span class="line">Containers:</span><br><span class="line">Name: jnlp </span><br><span class="line">Docker image: 172.31.21.226/ideal/jnlp-slave:latest</span><br><span class="line">Always pull image: yes</span><br><span class="line">Jenkins slave root directory: /home/jenkins</span><br><span class="line">Host path: /var/run/docker.sock</span><br><span class="line">Mount path: /var/run/docker.sock</span><br></pre></td></tr></table></figure><br><img src="/images/2017-12-15-install-jenkins-to-k8s-4.png" alt=""><br><img src="/images/2017-12-15-install-jenkins-to-k8s-5.png" alt=""></p>
+<h2 id="Jenkins-Job"><a href="#Jenkins-Job" class="headerlink" title="Jenkins Job"></a>Jenkins Job</h2><h3 id="非-pipeline-方式"><a href="#非-pipeline-方式" class="headerlink" title="非 pipeline 方式"></a>非 pipeline 方式</h3><p><img src="/images/2017-12-15-install-jenkins-to-k8s-6.png" alt=""><br><img src="/images/2017-12-15-install-jenkins-to-k8s-7.png" alt=""><br><img src="/images/2017-12-15-install-jenkins-to-k8s-8.png" alt=""></p>
+<h3 id="pipeline-方式"><a href="#pipeline-方式" class="headerlink" title="pipeline 方式"></a>pipeline 方式</h3><p>直接实现 groovy 脚本，可以放到 git 中管理。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">podTemplate(<span class="string">label:</span> <span class="string">'jnlp-slave'</span>) &#123;</span><br><span class="line">  node(<span class="string">'jnlp-slave'</span>)&#123;</span><br><span class="line">    git <span class="string">branch:</span> <span class="string">'master'</span>, <span class="string">credentialsId:</span> <span class="string">'e242d1e1-58b5-4645-a84e-64f957e32016'</span>, <span class="string">url:</span> <span class="string">'https://gitee.com/idealsoftone/poseidon.git'</span></span><br><span class="line">    sh <span class="string">'sleep 120'</span></span><br><span class="line">    build_tag = sh(<span class="string">returnStdout:</span> <span class="literal">true</span>, <span class="string">script:</span> <span class="string">'git rev-parse --short HEAD'</span>).trim()</span><br><span class="line">    echo build_tag</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里指定 jenkins slave 为插件中配置的 jnlp-slave。</p>
+<p><img src="/images/2017-12-15-install-jenkins-to-k8s-9.png" alt=""><br><img src="/images/2017-12-15-install-jenkins-to-k8s-10.png" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文的目的是通过在 Kubernetes 集群上创建并配置 Jenkins Server ，实现应用开发管理的 CI/CD 流程，并且利用 Kubernetes-Jenkins-Plugin 实现动态的按需扩展 jenkins-slave。&lt;/p&gt;
+&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;p&gt;本文所需代码在&lt;a href=&quot;https://github.com/batizhao/dockerfile/tree/master/k8s/jenkins&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;推送-Jenkins-Master-Docker-镜像到-Harbor&quot;&gt;&lt;a href=&quot;#推送-Jenkins-Master-Docker-镜像到-Harbor&quot; class=&quot;headerlink&quot; title=&quot;推送 Jenkins Master Docker 镜像到 Harbor&quot;&gt;&lt;/a&gt;推送 Jenkins Master Docker 镜像到 Harbor&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; master&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ docker build -t 172.31.21.226/ideal/jenkins:lts .&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ docker push 172.31.21.226/ideal/jenkins:lts&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;推送-Jenkins-Slave-Docker-镜像到-Harbor&quot;&gt;&lt;a href=&quot;#推送-Jenkins-Slave-Docker-镜像到-Harbor&quot; class=&quot;headerlink&quot; title=&quot;推送 Jenkins Slave Docker 镜像到 Harbor&quot;&gt;&lt;/a&gt;推送 Jenkins Slave Docker 镜像到 Harbor&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; slave&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ docker build -t 172.31.21.226/ideal/jnlp-slave:latest .&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ docker push 172.31.21.226/ideal/jnlp-slave:latest&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;安装-Jenkins&quot;&gt;&lt;a href=&quot;#安装-Jenkins&quot; class=&quot;headerlink&quot; title=&quot;安装 Jenkins&quot;&gt;&lt;/a&gt;安装 Jenkins&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ kubectl apply -f https://raw.githubusercontent.com/batizhao/dockerfile/master/k8s/jenkins/service-account.yml&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ kubectl apply -f ./&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="centos" scheme="http://batizhao.me/tags/centos/"/>
+    
+      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+    
+      <category term="jenkins" scheme="http://batizhao.me/tags/jenkins/"/>
+    
+  </entry>
+  
+  <entry>
     <title>在 kubernetes 1.8 上安装 Harbor 仓库</title>
     <link href="http://batizhao.me/2017/12/15/install-harbor-to-k8s/"/>
     <id>http://batizhao.me/2017/12/15/install-harbor-to-k8s/</id>
     <published>2017-12-15T07:42:14.000Z</published>
-    <updated>2017-12-15T08:18:19.466Z</updated>
+    <updated>2017-12-15T08:29:02.296Z</updated>
     
     <content type="html"><![CDATA[<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>当前最新版本是 1.2.2</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://harbor.orientsoft.cn/harbor-1.2.2/harbor-offline-installer-v1.2.2.tgz</span><br></pre></td></tr></table></figure>
@@ -32,9 +131,9 @@
 <p>在以下目录文件中设置存储的容量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make/kubernetes/pv/*.pvc.yaml </span><br></pre></td></tr></table></figure><br>如果你改变了 PVC 的容量，那么你也需要相应的设置 PV 的容量。</p>
 <p>如果想让外部访问，需要修改两个地方</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vim make/harbor.cfg</span><br><span class="line">hostname = 172.31.21.226</span><br></pre></td></tr></table></figure>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">$</span> <span class="string">vim</span> <span class="string">make/kubernetes/nginx/nginx.svc.yaml</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">nginx-apps</span></span><br><span class="line"><span class="attr">  externalIPs:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">172.31</span><span class="number">.21</span><span class="number">.226</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">$</span> <span class="string">vim</span> <span class="string">make/kubernetes/nginx/nginx.svc.yaml</span></span><br><span class="line"><span class="string">...</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">      selector:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">nginx-apps</span></span><br><span class="line"><span class="attr">      externalIPs:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">172.31</span><span class="number">.21</span><span class="number">.226</span></span><br><span class="line">      </span><br></pre></td></tr></table></figure>
 <p>如果部署了 ingress，可以不用管上边两步</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">harbor-ui</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">  - host:</span> <span class="string">hub.xxx.com</span></span><br><span class="line"><span class="attr">    http:</span></span><br><span class="line"><span class="attr">      paths:</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          serviceName:</span> <span class="string">harbor-ui</span></span><br><span class="line"><span class="attr">          servicePort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>  
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">harbor-ui</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">  - host:</span> <span class="string">hub.xxx.com</span></span><br><span class="line"><span class="attr">    http:</span></span><br><span class="line"><span class="attr">      paths:</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          serviceName:</span> <span class="string">harbor-ui</span></span><br><span class="line"><span class="attr">          servicePort:</span> <span class="number">80</span></span><br><span class="line">        </span><br></pre></td></tr></table></figure>  
 <p>生成安装脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python make/kubernetes/k8s-prepare</span><br></pre></td></tr></table></figure></p>
 <p>脚本执行完成后会生成下面的一些文件：</p>
 <ul>
@@ -45,6 +144,7 @@
 <li>make/kubernetes/ui/ui.cm.yaml</li>
 </ul>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># create pv &amp; pvc</span></span><br><span class="line">kubectl apply -f make/kubernetes/pv/log.pv.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/pv/registry.pv.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/pv/storage.pv.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/pv/log.pvc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/pv/registry.pvc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/pv/storage.pvc.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># create config map</span></span><br><span class="line">kubectl apply -f make/kubernetes/adminserver/adminserver.cm.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/jobservice/jobservice.cm.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/mysql/mysql.cm.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/registry/registry.cm.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/ui/ui.cm.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/nginx/nginx.cm.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># create service</span></span><br><span class="line">kubectl apply -f make/kubernetes/adminserver/adminserver.svc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/jobservice/jobservice.svc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/mysql/mysql.svc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/registry/registry.svc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/ui/ui.svc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/nginx/nginx.svc.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># create k8s rc</span></span><br><span class="line">kubectl apply -f make/kubernetes/registry/registry.rc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/mysql/mysql.rc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/jobservice/jobservice.rc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/ui/ui.rc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/nginx/nginx.rc.yaml &amp;&amp;\</span><br><span class="line">kubectl apply -f make/kubernetes/adminserver/adminserver.rc.yaml</span><br></pre></td></tr></table></figure>
+<p><img src="/images/2017-12-15-install-harbor-to-k8s.png" alt=""></p>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><h3 id="Error-response-from-daemon-Get-https-myregistrydomain-com-v1-users-dial-tcp-myregistrydomain-com-443-getsockopt-connection-refused"><a href="#Error-response-from-daemon-Get-https-myregistrydomain-com-v1-users-dial-tcp-myregistrydomain-com-443-getsockopt-connection-refused" class="headerlink" title="Error response from daemon: Get https://myregistrydomain.com/v1/users/: dial tcp myregistrydomain.com:443 getsockopt: connection refused."></a>Error response from daemon: Get <a href="https://myregistrydomain.com/v1/users/" target="_blank" rel="noopener">https://myregistrydomain.com/v1/users/</a>: dial tcp myregistrydomain.com:443 getsockopt: connection refused.</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/docker/daemon.json</span><br><span class="line"><span class="string">"insecure-registries"</span>: [<span class="string">"172.31.21.226"</span>]</span><br><span class="line"></span><br><span class="line">$ cat /etc/docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"insecure-registries"</span>: [<span class="string">"172.31.21.226"</span>],</span><br><span class="line">  <span class="string">"registry-mirrors"</span>: [<span class="string">"https://xxx.mirror.aliyuncs.com"</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$ sudo systemctl daemon-reload &amp;&amp; systemctl restart docker</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
@@ -1148,424 +1248,6 @@ public List&amp;lt;User&amp;gt; getUsersByRoleIds(@ParameterValueKeyProvider fin
         #ids[]#
     &amp;lt;/iterate&amp;gt;) order by r.id
 &amp;lt;/select&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://batizhao.me/categories/java/"/>
-    
-    
-      <category term="java" scheme="http://batizhao.me/tags/java/"/>
-    
-      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
-    
-      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
-    
-      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 Simple-Spring-Memcached: MultiCache</title>
-    <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/"/>
-    <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-two/</id>
-    <published>2012-09-26T16:00:00.000Z</published>
-    <updated>2016-11-04T09:03:57.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。</p>
-<h2 id="Namespace-和-Key"><a href="#Namespace-和-Key" class="headerlink" title="Namespace 和 Key"></a>Namespace 和 Key</h2><p>这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是</p>
-<ul>
-<li><p>get user:id</p>
-<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
-</li>
-<li><p>set user:id</p>
-<p>  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}</p>
-</li>
-</ul>
-<p>如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是</p>
-<ul>
-<li>缓存命中率（大大影响缓存使用效率）</li>
-<li>内容空间（占用更多的内存）</li>
-<li>需要更多的清除操作（程序复杂度增加）</li>
-</ul>
-<a id="more"></a>
-<h2 id="场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存"><a href="#场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存" class="headerlink" title="场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存"></a>场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存</h2><p>Method:</p>
-<pre><code>@Override
-@ReadThroughMultiCache(namespace = &quot;user&quot;, expiration = 60)
-public List&lt;User&gt; getUsersByUserIds(@ParameterValueKeyProvider List&lt;Long&gt; ids) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByUserIds&quot;, ids);
-}
-</code></pre><p>SQL:</p>
-<pre><code>&lt;select id=&quot;getUsersByUserIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
-    SELECT u.id, u.name
-    FROM user u
-    WHERE u.id in
-    (&lt;iterate conjunction=&quot;,&quot;&gt;
-        #ids[]#
-    &lt;/iterate&gt;)
-&lt;/select&gt;
-</code></pre><p>Memcached Log:</p>
-<pre><code>&lt;21 get user:1000 user:1001
-&gt;21 sending key user:1000
-&gt;21 END
-&lt;21 set user:1001
-&gt;21 STORED
-</code></pre><p>更新。这里 Batch 调用 updateUser，因为方法没有返回值，所以只能使用 @ParameterDataUpdateContent</p>
-<pre><code>@Override
-@UpdateMultiCache(namespace = &quot;user&quot;, expiration = 60)
-public void updateUsersByUserIds(@ParameterValueKeyProvider @ParameterDataUpdateContent final List&lt;User&gt; users) {
-    sqlMapClientTemplate.execute(new SqlMapClientCallback() {
-        @Override
-        public Object doInSqlMapClient(SqlMapExecutor executor) throws SQLException {
-            executor.startBatch();
-
-            for(User user: users){
-                executor.update(&quot;updateUser&quot;, user);
-            }
-
-            executor.executeBatch();
-
-            return null;
-
-        }
-    });
-}    
-</code></pre><p>看一下 Memcached Log，user:1000 直接从 Cache 返回，只有 user:1001 做了数据库操作。这是因为我在执行    getUsersByUserIds 之前，执行了上一篇中的 getUser(1000L)，先生成了 Cache。        </p>
-<h2 id="场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效"><a href="#场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效" class="headerlink" title="场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效"></a>场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效</h2><p>Method:</p>
-<pre><code>@Override
-@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60)
-public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
-}
-</code></pre><p><em>这里为什么不用 namespace = “user”？</em>   </p>
-<p>SQL:</p>
-<pre><code>&lt;select id=&quot;getUsersByRoleIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
-    SELECT u.id, u.name, r.id as &quot;role.id&quot;, r.name as &quot;role.name&quot;
-    FROM user u, user_role ur, role r
-    WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid in
-    (&lt;iterate conjunction=&quot;,&quot;&gt;
-        #ids[]#
-    &lt;/iterate&gt;)
-&lt;/select&gt;
-</code></pre><p>看一下返回的结果集：</p>
-<pre><code>+------+-------+---------+------------+
-| id   | name  | role.id | role.name  |
-+------+-------+---------+------------+
-| 1000 | Tom   |       1 | ROLE_ADMIN |
-| 1001 | Jerry |       2 | ROLE_USER  |
-| 1002 | Jack  |       1 | ROLE_ADMIN |
-+------+-------+---------+------------+ 
-</code></pre><p>测试代码是这样的：</p>
-<pre><code>@Test
-public void testGetUsersByRoleIds() throws Exception {
-    List&lt;Long&gt; list = Arrays.asList(1L, 2L);
-
-    List users = userDao.getUsersByRoleIds(list);
-
-    log.info(&quot;users: &quot; + users);
-
-    assertNotNull(users);
-    assertEquals(3, users.size());
-}    
-</code></pre><p>这个方法不会生成任何缓存。SSM 会告诉你</p>
-<pre><code>com.google.code.ssm.aop.ReadThroughMultiCacheAdvice: Did not receive a correlated amount of data from the target method.
-</code></pre><p>因为 SSM 会先根据结果集生成缓存（使用返回对象 User 的 @CacheKeyMethod 方法）</p>
-<pre><code>set user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
-</code></pre><p>但是返回的结果集中没有 1 和 2，就算有，也不是我们想要的 role.id，而是 user.id。刚开始我尝试和 SSM 的开发者沟通<a href="http://code.google.com/p/simple-spring-memcached/issues/detail?id=10" target="_blank" rel="noopener">这个问题</a>。他让我尝试修改一下 annotation</p>
-<pre><code>@Override
-@ReadThroughMultiCache(namespace = &quot;user/getUsersByRoleIds&quot;, expiration = 60, option = @ReadThroughMultiCacheOption(generateKeysFromResult = true))
-public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
-}
-</code></pre><p>之后变成这个样子：</p>
-<pre><code>get user/getUsersByRoleIds:1 user/getUsersByRoleIds:2
-
-set user/getUsersByRoleIds:1000 8 60 120
-{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1000,&quot;name&quot;:&quot;Tom&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
-
-set user/getUsersByRoleIds:1001 8 60 121
-{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1001,&quot;name&quot;:&quot;Jerry&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:2,&quot;name&quot;:&quot;ROLE_USER&quot;}}}}}
-
-set user/getUsersByRoleIds:1002 8 60 121
-{&quot;v&quot;:{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1002,&quot;name&quot;:&quot;Jack&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}}}
-</code></pre><p>在这个返回的 List 中，role.id 不可以做为 Key，因为不是唯一的。试了一下返回 HaspMap，@ReadThroughMultiCache 只支持 List。所以想到两种解决办法：</p>
-<ul>
-<li>循环调用上一篇中的 getUsersByRoleId 方法。</li>
-<li>使用 @ReadThroughAssignCache（缺点是缓存做为一整块，不能像 @ReadThroughMultiCache 一样对单个 User 做操作了），到时只能整体清除。</li>
-</ul>
-<p>第一个方案可以自行试验一下，下一篇讲 AssignCache 如何解决这个问题。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;上一篇讲了 SingleCache ，这篇主要讲一下 MultiCache 的使用。在此之前，要先理解一下 Namespace 和 Key 两个参数。在 Memcached，读写数据都是根据 namespace 和 key 来进行的。&lt;/p&gt;
-&lt;h2 id=&quot;Namespace-和-Key&quot;&gt;&lt;a href=&quot;#Namespace-和-Key&quot; class=&quot;headerlink&quot; title=&quot;Namespace 和 Key&quot;&gt;&lt;/a&gt;Namespace 和 Key&lt;/h2&gt;&lt;p&gt;这里首先要理解 SSM 中的 namespace 这个参数。其实这个参数主要是和你的方法返回结果相关。在这篇和上一篇联系起来看，可以使用同一个 namespace。这里可以把 MultiCache 看成 SingleCache 的批量操作。因为无论是 SingleCache 还是 MultiCache ，最终的 Cache 操作其实就是&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;get user:id&lt;/p&gt;
-&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;set user:id&lt;/p&gt;
-&lt;p&gt;  {“v”:{“me.batizhao.model.User”:{“id”:1000,”name”:”Messi”}}}&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如果不理解 namespace 和 ParameterValueKeyProvider，会带来的问题是&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;缓存命中率（大大影响缓存使用效率）&lt;/li&gt;
-&lt;li&gt;内容空间（占用更多的内存）&lt;/li&gt;
-&lt;li&gt;需要更多的清除操作（程序复杂度增加）&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://batizhao.me/categories/java/"/>
-    
-    
-      <category term="java" scheme="http://batizhao.me/tags/java/"/>
-    
-      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
-    
-      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
-    
-      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 Simple-Spring-Memcached: SingleCache</title>
-    <link href="http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/"/>
-    <id>http://batizhao.me/2012/09/27/using-simple-spring-memcached-one/</id>
-    <published>2012-09-26T16:00:00.000Z</published>
-    <updated>2016-11-04T09:03:43.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。</p>
-<h2 id="首先是接下来的几个内容都会用到的两个-POJO"><a href="#首先是接下来的几个内容都会用到的两个-POJO" class="headerlink" title="首先是接下来的几个内容都会用到的两个 POJO"></a>首先是接下来的几个内容都会用到的两个 POJO</h2><p>Role Model:</p>
-<pre><code>public class Role implements Serializable {
-
-    private static final long serialVersionUID = -4708064835003250669L;
-
-    private Long id;
-
-    private String name;
-
-    @CacheKeyMethod
-    public String cacheKey() {
-        return id.toString();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(
-                this, obj);
-    }
-
-    public int hashCode() {
-        return HashCodeBuilder
-                .reflectionHashCode(this);
-    }
-
-    public String toString() {
-        return ToStringBuilder.reflectionToString(
-                this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-}
-</code></pre><a id="more"></a>
-<p>User Model:</p>
-<pre><code>public class User implements Serializable {
-
-    private static final long serialVersionUID = -822125371522084989L;
-
-    private Long id;
-
-    private String name;
-
-    private Role role;
-
-    @CacheKeyMethod
-    public String cacheKey() {
-        return id.toString();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(
-                this, obj);
-    }
-
-    public int hashCode() {
-        return HashCodeBuilder
-                .reflectionHashCode(this);
-    }
-
-    public String toString() {
-        return ToStringBuilder.reflectionToString(
-                this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-}
-</code></pre><h2 id="场景一：根据某个-user-ID-查询某个-User。在更新时，更新缓存中的这个-User。"><a href="#场景一：根据某个-user-ID-查询某个-User。在更新时，更新缓存中的这个-User。" class="headerlink" title="场景一：根据某个 user ID 查询某个 User。在更新时，更新缓存中的这个 User。"></a>场景一：根据某个 user ID 查询某个 User。在更新时，更新缓存中的这个 User。</h2><p>Method:</p>
-<pre><code>@Override
-@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
-public User getUser(@ParameterValueKeyProvider Long id) {
-    return (User) sqlMapClientTemplate.queryForObject(&quot;getUser&quot;, id);
-}
-
-@Override
-@UpdateSingleCache(namespace = &quot;user&quot;, expiration = 60)
-public void updateUser(@ParameterValueKeyProvider @ParameterDataUpdateContent User user) {
-    sqlMapClientTemplate.update(&quot;updateUser&quot;, user);
-}
-</code></pre><p>SQL:</p>
-<pre><code>&lt;update id=&quot;updateUser&quot; parameterClass=&quot;user&quot;&gt;
-    UPDATE user
-    SET name = #name#
-    WHERE id = #id#
-&lt;/update&gt;
-
-&lt;select id=&quot;getUser&quot; parameterClass=&quot;java.lang.Long&quot; resultClass=&quot;user&quot;&gt;
-    SELECT * FROM user WHERE id = #id#
-&lt;/select&gt;
-</code></pre><p>只要有相同的 namespace</p>
-<ul>
-<li>在 getUser 时，会根据 @ParameterValueKeyProvider 找到 User 对象的 @CacheKeyMethod 方法，到 Memcached 中 get user:id。</li>
-<li>在 updateUser 时，会根据 @ParameterValueKeyProvider 找到 User 对象的 @CacheKeyMethod 方法，到 Memcached 中 set user:id    </li>
-</ul>
-<h2 id="场景二：根据某个-role-ID-查询所有的-User。查询关联两个以上的-Model（User，Role），在更新-Role-时，需要让相关的缓存失效。"><a href="#场景二：根据某个-role-ID-查询所有的-User。查询关联两个以上的-Model（User，Role），在更新-Role-时，需要让相关的缓存失效。" class="headerlink" title="场景二：根据某个 role ID 查询所有的 User。查询关联两个以上的 Model（User，Role），在更新  Role 时，需要让相关的缓存失效。"></a>场景二：根据某个 role ID 查询所有的 User。查询关联两个以上的 Model（User，Role），在更新  Role 时，需要让相关的缓存失效。</h2><p>Method:</p>
-<pre><code>@ReadThroughSingleCache(namespace = &quot;user/list&quot;, expiration = 600)
-public List&lt;User&gt; getUsersByRoleId(@ParameterValueKeyProvider Long id) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleId&quot;, id);
-}
-</code></pre><p>SQL:</p>
-<pre><code>&lt;select id=&quot;getUsersByRoleId&quot; parameterClass=&quot;java.lang.Long&quot; resultClass=&quot;user&quot;&gt;
-    SELECT u.id, u.name, r.id as &quot;role.id&quot;, r.name as &quot;role.name&quot;
-      FROM user u, user_role ur, role r
-     WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid = #id#
-&lt;/select&gt;     
-</code></pre><p>当更新 Role 时:</p>
-<pre><code>@UpdateSingleCache(namespace = &quot;role&quot;, expiration = 60)
-public void updateRole(@ParameterValueKeyProvider @ParameterDataUpdateContent Role role) {
-    sqlMapClientTemplate.update(&quot;updateRole&quot;, role);
-} 
-</code></pre><p>需要让 getUsersByRoleId 的缓存失效。这时最简单的办法是直接使用 annotation  @InvalidateSingleCache</p>
-<pre><code>@UpdateSingleCache(namespace = &quot;role&quot;, expiration = 60)
-@InvalidateSingleCache(namespace = &quot;user/list&quot;)
-public void updateRole(@ParameterValueKeyProvider @ParameterDataUpdateContent Role role) {
-    sqlMapClientTemplate.update(&quot;updateRole&quot;, role);
-}
-</code></pre><p>但是，如果有多个类似的 Cache 需要清除，那这种办法就不适用了。这时可以每个 POJO 定义一个专门用来 invalidate 的类：</p>
-<pre><code>@Component
-public class UserCache {
-
-    @InvalidateSingleCache(namespace = &quot;user/list&quot;)
-    public void invalidateGetUsersByRoleId(@ParameterValueKeyProvider Long id){
-    }
-
-｝
-</code></pre><p>在 Service 中调用相关的方法：</p>
-<pre><code>@Service
-public class RoleManagerImpl implements RoleManager {
-
-    @Autowired
-    private RoleDao roleDao;
-
-    @Autowired
-    private UserCache userCache;
-
-    @Override
-    public void updateRole(Role role) {
-        roleDao.updateRole(role);
-        userCache.invalidateGetUsersByRoleId(role.getId());
-        groupCache.invalidate(role.getId());
-        ...
-    }
-} 
-</code></pre><p>下一篇会讲一下 MultiCache 的使用。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。&lt;/p&gt;
-&lt;h2 id=&quot;首先是接下来的几个内容都会用到的两个-POJO&quot;&gt;&lt;a href=&quot;#首先是接下来的几个内容都会用到的两个-POJO&quot; class=&quot;headerlink&quot; title=&quot;首先是接下来的几个内容都会用到的两个 POJO&quot;&gt;&lt;/a&gt;首先是接下来的几个内容都会用到的两个 POJO&lt;/h2&gt;&lt;p&gt;Role Model:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;public class Role implements Serializable {
-
-    private static final long serialVersionUID = -4708064835003250669L;
-
-    private Long id;
-
-    private String name;
-
-    @CacheKeyMethod
-    public String cacheKey() {
-        return id.toString();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(
-                this, obj);
-    }
-
-    public int hashCode() {
-        return HashCodeBuilder
-                .reflectionHashCode(this);
-    }
-
-    public String toString() {
-        return ToStringBuilder.reflectionToString(
-                this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-}
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>

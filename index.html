@@ -308,6 +308,262 @@
             
               
                 
+                <a class="post-title-link" href="/2017/12/15/install-ingress-to-k8s/" itemprop="url">
+                  在 kubernetes 1.8 上部署 ingress
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-12-15T17:10:41+08:00" content="2017-12-15">
+              2017-12-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/12/15/install-ingress-to-k8s/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/15/install-ingress-to-k8s/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>本文所需代码在<a href="https://github.com/batizhao/dockerfile/tree/master/k8s/ingress" target="_blank" rel="noopener">这里</a></p>
+<p>先查看集群状态<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get nodes</span><br><span class="line">NAME         STATUS    ROLES     AGE       VERSION</span><br><span class="line">k8s-master   Ready     master    15d       v1.8.4</span><br><span class="line">k8s-node-1   Ready     &lt;none&gt;    15d       v1.8.4</span><br><span class="line">k8s-node-2   Ready     &lt;none&gt;    15d       v1.8.4</span><br></pre></td></tr></table></figure></p>
+<p>ingress 有多种方式</p>
+<ul>
+<li>deployment 自由调度</li>
+<li>daemonset 全局调度</li>
+</ul>
+<p>官方部署现在是 deployment 方式。在 deployment 自由调度过程中，由于我们需要约束 controller 调度到指定的 node 中，所以需要对 node 进行 label 标签。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl label nodes k8s-node-1 ingress=proxy</span><br><span class="line">node <span class="string">"k8s-node-1"</span> labeled</span><br><span class="line">$ kubectl label nodes k8s-node-2 ingress=proxy</span><br><span class="line">node <span class="string">"k8s-node-2” labeled</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">$ kubectl get nodes --show-labels</span></span><br><span class="line"><span class="string">NAME         STATUS    ROLES     AGE       VERSION   LABELS</span></span><br><span class="line"><span class="string">k8s-master   Ready     master    15d       v1.8.4    beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/hostname=k8s-master,node-role.kubernetes.io/master=</span></span><br><span class="line"><span class="string">k8s-node-1   Ready     &lt;none&gt;    15d       v1.8.4    beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,ingress=proxy,kubernetes.io/hostname=k8s-node-1</span></span><br><span class="line"><span class="string">k8s-node-2   Ready     &lt;none&gt;    15d       v1.8.4    beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,ingress=proxy,kubernetes.io/hostname=k8s-node-2</span></span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/12/15/install-ingress-to-k8s/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/12/15/install-jenkins-to-k8s/" itemprop="url">
+                  在 kubernetes 1.8 上部署 Jenkins 动态集群
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-12-15T16:25:42+08:00" content="2017-12-15">
+              2017-12-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/12/15/install-jenkins-to-k8s/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/15/install-jenkins-to-k8s/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>本文的目的是通过在 Kubernetes 集群上创建并配置 Jenkins Server ，实现应用开发管理的 CI/CD 流程，并且利用 Kubernetes-Jenkins-Plugin 实现动态的按需扩展 jenkins-slave。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>本文所需代码在<a href="https://github.com/batizhao/dockerfile/tree/master/k8s/jenkins" target="_blank" rel="noopener">这里</a></p>
+<h3 id="推送-Jenkins-Master-Docker-镜像到-Harbor"><a href="#推送-Jenkins-Master-Docker-镜像到-Harbor" class="headerlink" title="推送 Jenkins Master Docker 镜像到 Harbor"></a>推送 Jenkins Master Docker 镜像到 Harbor</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> master</span><br><span class="line">$ docker build -t 172.31.21.226/ideal/jenkins:lts .</span><br><span class="line">$ docker push 172.31.21.226/ideal/jenkins:lts</span><br></pre></td></tr></table></figure>
+<h3 id="推送-Jenkins-Slave-Docker-镜像到-Harbor"><a href="#推送-Jenkins-Slave-Docker-镜像到-Harbor" class="headerlink" title="推送 Jenkins Slave Docker 镜像到 Harbor"></a>推送 Jenkins Slave Docker 镜像到 Harbor</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> slave</span><br><span class="line">$ docker build -t 172.31.21.226/ideal/jnlp-slave:latest .</span><br><span class="line">$ docker push 172.31.21.226/ideal/jnlp-slave:latest</span><br></pre></td></tr></table></figure>
+<h3 id="安装-Jenkins"><a href="#安装-Jenkins" class="headerlink" title="安装 Jenkins"></a>安装 Jenkins</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f https://raw.githubusercontent.com/batizhao/dockerfile/master/k8s/jenkins/service-account.yml</span><br><span class="line">$ kubectl apply -f ./</span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/12/15/install-jenkins-to-k8s/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/12/15/install-harbor-to-k8s/" itemprop="url">
                   在 kubernetes 1.8 上安装 Harbor 仓库
                 </a>
@@ -1259,261 +1515,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/14/docker-one-install/" itemprop="url">
-                  Docker 实战（一）：在 Mac 上安装配置 Docker
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-14T17:19:58+08:00" content="2016-11-14">
-              2016-11-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/11/14/docker-one-install/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/14/docker-one-install/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="在安装之前"><a href="#在安装之前" class="headerlink" title="在安装之前"></a>在安装之前</h2><p>最新的 Docker 版本建议安装 <a href="https://www.docker.com" target="_blank" rel="noopener">Docker for Mac</a>，原先的 Docker Toolbox 方式已经不建议使用。</p>
-<blockquote><p>If you already have an installation of Docker Toolbox, please read these topics first to learn how Docker for Mac and Docker Toolbox differ, and how they can coexist.</p>
-<footer><strong>新老两种方法对比以及 Toolbox 的卸载</strong><cite><a href="https://docs.docker.com/docker-for-mac/docker-toolbox/" target="_blank" rel="noopener">Docker for Mac vs. Docker Toolbox</a></cite></footer></blockquote>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/14/docker-one-install/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/04/18/building-a-course/" itemprop="url">
-                  edX 学习四：制作课程
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-04-18T00:00:00+08:00" content="2014-04-18">
-              2014-04-18
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/mooc/" itemprop="url" rel="index">
-                    <span itemprop="name">mooc</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/04/18/building-a-course/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/18/building-a-course/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>前边提到，主要有两种方式制作课程：Studio 和 LMS(+Github)。这里对这两种方式做简单的说明。</p>
-<h2 id="Studio"><a href="#Studio" class="headerlink" title="Studio"></a>Studio</h2><p>如果取得制作课程的权限，第一次登录的时候是这样的</p>
-<p><img src="/images/2014-04-18-building-a-course-edx4edx_lite-Studio-1.png" alt=""></p>
-<p>填入课程具体名称、组织、代码（因为需要根据这些信息生成 URL，所以要注意长度和不能包含特殊字符、空格等）</p>
-<p><img src="/images/2014-04-18-building-a-course-edx4edx_lite-Studio-2.png" alt=""></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/04/18/building-a-course/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1554,7 +1560,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1571,7 +1577,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

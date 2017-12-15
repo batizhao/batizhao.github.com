@@ -308,6 +308,273 @@
             
               
                 
+                <a class="post-title-link" href="/2012/04/16/openam-integrate-with-spring-security-3/" itemprop="url">
+                  开发 OpenAM Spring Security 3 客户端应用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-04-16T00:00:00+08:00" content="2012-04-16">
+              2012-04-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/04/16/openam-integrate-with-spring-security-3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/04/16/openam-integrate-with-spring-security-3/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在开始 Maven 之前，需要先引入一个包，这个包的作用和原来的 Agent 的功能是一样的。这个包需要自己从<a href="http://sources.forgerock.org/browse/openam/trunk/opensso/extensions/spring2provider/provider?r=HEAD" target="_blank" rel="noopener">源码</a>编译，<br><code>mvn install</code> 或者 <code>mvn deploy</code> 加入到自己的仓库中。这样在 pom.xml 中可以引入</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.sun.identity.provider&lt;/groupId&gt;
+    &lt;artifactId&gt;opensso-springsecurity&lt;/artifactId&gt;
+    &lt;version&gt;0.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre><p>确保 AMConfig.properties 和 applicationContext-security.xml 里的 OpenAM 相关配置正确。</p>
+<pre><code>com.sun.identity.loginurl=http://openam.example.com:8080/openam/UI/Login
+</code></pre><p>然后运行 <code>mvn package</code>，打包以后放到 Tomcat 运行。这里要确认没有配置 Tomcat Agent<br>的全局 OpenAM Filter，这里也不需要在项目的 web.xml 中增加 Filter 配置。<br>完整的代码在 <a href="https://github.com/batizhao/openam-java-sample" target="_blank" rel="noopener">Github</a>。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2012/04/12/using-openam-develop-dlient-applications/" itemprop="url">
+                  开发 OpenAM Java 客户端应用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-04-12T00:00:00+08:00" content="2012-04-12">
+              2012-04-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/04/12/using-openam-develop-dlient-applications/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/04/12/using-openam-develop-dlient-applications/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在 Agent 安装完成之后，可以使用自带的 agentsample 应用登录。这里主要讲一下如何在 SSO<br>之后拿到 SSOToken，以及相关 Session 信息的获取。完整的代码在 <a href="https://github.com/batizhao/openam-java-sample" target="_blank" rel="noopener">Github</a>。</p>
+<p>Agent 的安装在上一篇已经介绍，这里需要先配置一个 Policies，然后在客户端项目 web.xml 中加入</p>
+<pre><code>&lt;filter&gt;
+    &lt;filter-name&gt;Agent&lt;/filter-name&gt;
+    &lt;display-name&gt;Agent&lt;/display-name&gt;
+    &lt;description&gt;SJS Access Manager Tomcat Policy Agent Filter&lt;/description&gt;
+    &lt;filter-class&gt;com.sun.identity.agents.filter.AmAgentFilter&lt;/filter-class&gt;
+&lt;/filter&gt;
+
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;Agent&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;dispatcher&gt;REQUEST&lt;/dispatcher&gt;
+    &lt;dispatcher&gt;INCLUDE&lt;/dispatcher&gt;
+    &lt;dispatcher&gt;FORWARD&lt;/dispatcher&gt;
+    &lt;dispatcher&gt;ERROR&lt;/dispatcher&gt;
+&lt;/filter-mapping&gt;
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/04/12/using-openam-develop-dlient-applications/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2012/04/06/installing-the-apache-tomcat-policy-agent/" itemprop="url">
                   安装 Tomcat Policy Agent
                 </a>
@@ -682,6 +949,128 @@ Agent URL: http://website.example.com:8080/agentapp
             
               
                 
+                <a class="post-title-link" href="/2012/03/29/install-apache2/" itemprop="url">
+                  在 RHEL6 上安装 Apache2 
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-03-29T00:00:00+08:00" content="2012-03-29">
+              2012-03-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/03/29/install-apache2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/03/29/install-apache2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近在配置 OpenAM ，在参考<a href="https://wikis.forgerock.org/confluence/display/openam/Add+Authentication+to+a+Website+using+OpenAM" target="_blank" rel="noopener">这篇文章</a><br>时遇到了一个 <code>[error] Certificate not found: &#39;Server-Cert&#39;</code> 的问题。在尝试很多次之后无解，所以下载最新的 apache2.2.22 替换系统自带的 apache2.2.15，看能不能解决问题。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/03/29/install-apache2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2012/03/29/install-java-on-rhel6/" itemprop="url">
                   在 RHEL6 上安装 Java
                 </a>
@@ -758,128 +1147,6 @@ Agent URL: http://website.example.com:8080/agentapp
 </code></pre>
           <div class="post-more-link text-center">
             <a class="btn" href="/2012/03/29/install-java-on-rhel6/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/03/29/install-apache2/" itemprop="url">
-                  在 RHEL6 上安装 Apache2 
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-03-29T00:00:00+08:00" content="2012-03-29">
-              2012-03-29
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/03/29/install-apache2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/03/29/install-apache2/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>最近在配置 OpenAM ，在参考<a href="https://wikis.forgerock.org/confluence/display/openam/Add+Authentication+to+a+Website+using+OpenAM" target="_blank" rel="noopener">这篇文章</a><br>时遇到了一个 <code>[error] Certificate not found: &#39;Server-Cert&#39;</code> 的问题。在尝试很多次之后无解，所以下载最新的 apache2.2.22 替换系统自带的 apache2.2.15，看能不能解决问题。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/03/29/install-apache2/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1291,262 +1558,11 @@ Re-enter new password:
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/03/08/config-yum-on-rhel6/" itemprop="url">
-                  配置 RHEL6 本地源
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-03-08T00:00:00+08:00" content="2012-03-08">
-              2012-03-08
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/03/08/config-yum-on-rhel6/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/03/08/config-yum-on-rhel6/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>如果你没有注册或没有配置本地源的话，一般都会出现下面的情况：</p>
-<pre><code>Loaded plugins: product-id, refresh-packagekit, security, subscription-manager
-Updating certificate-based repositories.
-Setting up Install Process
-Nothing to do
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/03/08/config-yum-on-rhel6/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/03/07/install-rhel6/" itemprop="url">
-                  在 Parallels for Mac 上安装 RHEL6
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-03-07T00:00:00+08:00" content="2012-03-07">
-              2012-03-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/03/07/install-rhel6/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/03/07/install-rhel6/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>昨天想测试一下 RHEL6 上的 lvs 和 piranha，所以在自己的 Mac 上使用 Parallels 安装了两个虚拟机。<br>在安装过程中，遇到了一些问题，记录一下安装过程。</p>
-<p>设置 Parallels VM</p>
-<p><img src="/images/RHEL-00.jpg" alt="Parallels VM"></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/03/07/install-rhel6/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1587,7 +1603,7 @@ Nothing to do
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1604,7 +1620,7 @@ Nothing to do
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

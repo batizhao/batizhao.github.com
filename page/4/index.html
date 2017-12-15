@@ -308,6 +308,257 @@
             
               
                 
+                <a class="post-title-link" href="/2012/07/13/install-opendj-on-centos6-with-gui/" itemprop="url">
+                  在 CentOS6 上安装 OpenDJ（GUI）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-07-13T00:00:00+08:00" content="2012-07-13">
+              2012-07-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/07/13/install-opendj-on-centos6-with-gui/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/07/13/install-opendj-on-centos6-with-gui/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>之前有一篇有讲到<a href="http://batizhao.github.com/linux/2012/03/29/install-opendj-directory-server-on-rhel6/" target="_blank" rel="noopener">在 RHEL6 上安装 OpenDJ</a>，<br>主要是讲通过命令行的方式安装，这次讲一下通过图形界面安装。</p>
+<h2 id="服务器设置"><a href="#服务器设置" class="headerlink" title="服务器设置"></a>服务器设置</h2><p>这一步主要是 host name 的设置。要确保这个域名可以被解析，否则会抛出 javax.naming.CommunicationException: 0.0.0.0:4444 的异常。<br>临时解决办法是在 hosts 中增加一条纪录 127.0.0.1   idams</p>
+<p><img src="/images/2012-07-13-install-opendj-on-centos6-with-gui-1.png" alt=""></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/07/13/install-opendj-on-centos6-with-gui/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2012/07/12/install-vncserver-for-centos63/" itemprop="url">
+                  在 CentOS6 上安装 vncserver
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-07-12T00:00:00+08:00" content="2012-07-12">
+              2012-07-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/07/12/install-vncserver-for-centos63/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/07/12/install-vncserver-for-centos63/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在 CentOS 安装好之后，如果想要通过图形界面访问远程主机，需要安装 vnc server。</p>
+<p>先查看本机是否有安装vnc：</p>
+<pre><code># rpm -q vnc-server
+</code></pre><p>如果没有安装</p>
+<pre><code># yum install vnc-server
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/07/12/install-vncserver-for-centos63/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2012/07/06/custom-cas-theme/" itemprop="url">
                   自定义 CAS 主题
                 </a>
@@ -1309,278 +1560,11 @@ Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01, mixed mode)
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/04/16/openam-integrate-with-spring-security-3/" itemprop="url">
-                  开发 OpenAM Spring Security 3 客户端应用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-04-16T00:00:00+08:00" content="2012-04-16">
-              2012-04-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/04/16/openam-integrate-with-spring-security-3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/04/16/openam-integrate-with-spring-security-3/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在开始 Maven 之前，需要先引入一个包，这个包的作用和原来的 Agent 的功能是一样的。这个包需要自己从<a href="http://sources.forgerock.org/browse/openam/trunk/opensso/extensions/spring2provider/provider?r=HEAD" target="_blank" rel="noopener">源码</a>编译，<br><code>mvn install</code> 或者 <code>mvn deploy</code> 加入到自己的仓库中。这样在 pom.xml 中可以引入</p>
-<pre><code>&lt;dependency&gt;
-    &lt;groupId&gt;com.sun.identity.provider&lt;/groupId&gt;
-    &lt;artifactId&gt;opensso-springsecurity&lt;/artifactId&gt;
-    &lt;version&gt;0.2&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre><p>确保 AMConfig.properties 和 applicationContext-security.xml 里的 OpenAM 相关配置正确。</p>
-<pre><code>com.sun.identity.loginurl=http://openam.example.com:8080/openam/UI/Login
-</code></pre><p>然后运行 <code>mvn package</code>，打包以后放到 Tomcat 运行。这里要确认没有配置 Tomcat Agent<br>的全局 OpenAM Filter，这里也不需要在项目的 web.xml 中增加 Filter 配置。<br>完整的代码在 <a href="https://github.com/batizhao/openam-java-sample" target="_blank" rel="noopener">Github</a>。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/04/12/using-openam-develop-dlient-applications/" itemprop="url">
-                  开发 OpenAM Java 客户端应用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-04-12T00:00:00+08:00" content="2012-04-12">
-              2012-04-12
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/04/12/using-openam-develop-dlient-applications/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/04/12/using-openam-develop-dlient-applications/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在 Agent 安装完成之后，可以使用自带的 agentsample 应用登录。这里主要讲一下如何在 SSO<br>之后拿到 SSOToken，以及相关 Session 信息的获取。完整的代码在 <a href="https://github.com/batizhao/openam-java-sample" target="_blank" rel="noopener">Github</a>。</p>
-<p>Agent 的安装在上一篇已经介绍，这里需要先配置一个 Policies，然后在客户端项目 web.xml 中加入</p>
-<pre><code>&lt;filter&gt;
-    &lt;filter-name&gt;Agent&lt;/filter-name&gt;
-    &lt;display-name&gt;Agent&lt;/display-name&gt;
-    &lt;description&gt;SJS Access Manager Tomcat Policy Agent Filter&lt;/description&gt;
-    &lt;filter-class&gt;com.sun.identity.agents.filter.AmAgentFilter&lt;/filter-class&gt;
-&lt;/filter&gt;
-
-&lt;filter-mapping&gt;
-    &lt;filter-name&gt;Agent&lt;/filter-name&gt;
-    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
-    &lt;dispatcher&gt;REQUEST&lt;/dispatcher&gt;
-    &lt;dispatcher&gt;INCLUDE&lt;/dispatcher&gt;
-    &lt;dispatcher&gt;FORWARD&lt;/dispatcher&gt;
-    &lt;dispatcher&gt;ERROR&lt;/dispatcher&gt;
-&lt;/filter-mapping&gt;
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/04/12/using-openam-develop-dlient-applications/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1621,7 +1605,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01, mixed mode)
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1638,7 +1622,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 20.6-b01, mixed mode)
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

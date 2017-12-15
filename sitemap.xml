@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://batizhao.me/2017/12/15/install-ingress-to-k8s/</loc>
+    
+    <lastmod>2017-12-15T09:26:11.884Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://batizhao.me/2017/12/15/install-jenkins-to-k8s/</loc>
+    
+    <lastmod>2017-12-15T09:19:32.949Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://batizhao.me/2017/12/15/install-harbor-to-k8s/</loc>
     
-    <lastmod>2017-12-15T08:18:19.466Z</lastmod>
+    <lastmod>2017-12-15T08:29:02.296Z</lastmod>
     
   </url>
   
