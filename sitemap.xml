@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://batizhao.me/2018/01/18/Running-Kubernetes-Locally-via-Minikube/</loc>
+    
+    <lastmod>2018-01-18T09:03:25.755Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://batizhao.me/2017/12/15/install-harbor-to-k8s/</loc>
     
     <lastmod>2017-12-19T04:29:24.318Z</lastmod>
@@ -18,14 +25,14 @@
   <url>
     <loc>http://batizhao.me/2017/12/15/install-jenkins-to-k8s/</loc>
     
-    <lastmod>2017-12-15T09:19:32.949Z</lastmod>
+    <lastmod>2017-12-15T09:19:32.950Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://batizhao.me/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/</loc>
     
-    <lastmod>2017-12-15T07:31:59.468Z</lastmod>
+    <lastmod>2017-12-15T07:31:59.469Z</lastmod>
     
   </url>
   
@@ -114,14 +121,14 @@
   </url>
   
   <url>
-    <loc>http://batizhao.me/categories/index.html</loc>
+    <loc>http://batizhao.me/tags/index.html</loc>
     
     <lastmod>2016-11-09T02:28:59.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://batizhao.me/tags/index.html</loc>
+    <loc>http://batizhao.me/categories/index.html</loc>
     
     <lastmod>2016-11-09T02:28:59.000Z</lastmod>
     

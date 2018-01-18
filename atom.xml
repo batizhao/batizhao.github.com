@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://batizhao.me/"/>
-  <updated>2017-12-15T09:26:11.884Z</updated>
+  <updated>2018-01-18T09:03:25.755Z</updated>
   <id>http://batizhao.me/</id>
   
   <author>
@@ -14,6 +14,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在 Mac 上通过 Minikube 安装本地 K8s 集群</title>
+    <link href="http://batizhao.me/2018/01/18/Running-Kubernetes-Locally-via-Minikube/"/>
+    <id>http://batizhao.me/2018/01/18/Running-Kubernetes-Locally-via-Minikube/</id>
+    <published>2018-01-18T08:41:33.000Z</published>
+    <updated>2018-01-18T09:03:25.755Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="安装-xhyve-驱动程序。"><a href="#安装-xhyve-驱动程序。" class="headerlink" title="安装 xhyve 驱动程序。"></a>安装 xhyve 驱动程序。</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> brew install docker-machine-driver-xhyve</span><br><span class="line"><span class="meta">$</span> sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve</span><br><span class="line"><span class="meta">$</span> sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve</span><br></pre></td></tr></table></figure>
+<h3 id="安装-kubectl"><a href="#安装-kubectl" class="headerlink" title="安装 kubectl"></a>安装 kubectl</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/darwin/amd64/kubectl</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> chmod +x ./kubectl</span><br><span class="line"><span class="meta">$</span> sudo mv ./kubectl /usr/local/bin/kubectl</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> kubectl version</span><br><span class="line">Client Version: version.Info&#123;Major:"1", Minor:"9", GitVersion:"v1.9.1", GitCommit:"3a1c9449a956b6026f075fa3134ff92f7d55f812", GitTreeState:"clean", BuildDate:"2018-01-04T11:52:23Z", GoVersion:"go1.9.2", Compiler:"gc", Platform:"darwin/amd64"&#125;</span><br><span class="line">Server Version: version.Info&#123;Major:"1", Minor:"8", GitVersion:"v1.8.0", GitCommit:"0b9efaeb34a2fc51ff8e4d34ad9bc6375459c4a4", GitTreeState:"clean", BuildDate:"2017-11-29T22:43:34Z", GoVersion:"go1.9.1", Compiler:"gc", Platform:"linux/amd64"&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="安装-Minikube"><a href="#安装-Minikube" class="headerlink" title="安装 Minikube"></a>安装 Minikube</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.24.1/minikube-darwin-amd64 &amp;&amp; chmod +x minikube &amp;&amp; sudo mv minikube /usr/local/bin/</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> minikube version</span><br><span class="line">minikube version: v0.24.1</span><br></pre></td></tr></table></figure>
+<p>启动集群</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> minikube start --vm-driver=xhyve --registry-mirror=https://registry.docker-cn.com</span><br></pre></td></tr></table></figure>
+<p>进入集群</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ minikube ssh</span><br></pre></td></tr></table></figure>
+<p>或者使用 Minikube Docker 守护进程：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> eval $(minikube docker-env)</span><br></pre></td></tr></table></figure>
+<p>如果不使用 Minikube，可以通过运行 eval $(minikube docker-env -u) 来撤消此更改。</p>
+<p>确保以下镜像已经预先下载（查源码），可以使用<a href="https://raw.githubusercontent.com/batizhao/dockerfile/master/k8s/minikube/pull_minikube_img.sh" target="_blank" rel="noopener">这个脚本</a>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gcr.io/google_containers/pause-amd64:3.0</span><br><span class="line">gcr.io/google_containers/k8s-dns-kube-dns-amd64:1.14.5</span><br><span class="line"></span><br><span class="line">gcr.io/google-containers/kube-addon-manager:v6.4-beta.2</span><br><span class="line">gcr.io/google_containers/k8s-dns-dnsmasq-nanny-amd64:1.14.5</span><br><span class="line">gcr.io/google_containers/k8s-dns-sidecar-amd64:1.14.5</span><br><span class="line">gcr.io/google_containers/kubernetes-dashboard-amd64:v1.8.0</span><br><span class="line">gcr.io/k8s-minikube/storage-provisioner:v1.8.1</span><br><span class="line">quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.9.0-beta.17</span><br><span class="line">gcr.io/google_containers/defaultbackend:1.4</span><br></pre></td></tr></table></figure>
+<p>确认所有服务就绪<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> kubectl get pod --all-namespaces</span><br><span class="line">NAMESPACE     NAME                             READY     STATUS    RESTARTS   AGE</span><br><span class="line">kube-system   default-http-backend-qd455       1/1       Running   1          47m</span><br><span class="line">kube-system   kube-addon-manager-minikube      1/1       Running   3          13d</span><br><span class="line">kube-system   kube-dns-86f6f55dd5-wkbxj        3/3       Running   9          47m</span><br><span class="line">kube-system   kubernetes-dashboard-qn4tw       1/1       Running   3          47m</span><br><span class="line">kube-system   nginx-ingress-controller-jvbtg   1/1       Running   2          47m</span><br><span class="line">kube-system   storage-provisioner              1/1       Running   1          47m</span><br></pre></td></tr></table></figure></p>
+<p>访问 Dashboard</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> minikube dashboard</span><br><span class="line">Opening kubernetes dashboard in default browser...</span><br></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h2&gt;&lt;h3 id=&quot;安装-xhyve-驱动程序。&quot;&gt;&lt;a href=&quot;#安装-xhyve-驱动程序。&quot; class=&quot;headerli
+    
+    </summary>
+    
+      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+    
+    
+      <category term="mac" scheme="http://batizhao.me/tags/mac/"/>
+    
+      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+    
+  </entry>
   
   <entry>
     <title>在 kubernetes 1.8 上部署 ingress</title>
@@ -70,7 +109,7 @@
     <link href="http://batizhao.me/2017/12/15/install-jenkins-to-k8s/"/>
     <id>http://batizhao.me/2017/12/15/install-jenkins-to-k8s/</id>
     <published>2017-12-15T08:25:42.000Z</published>
-    <updated>2017-12-15T09:19:32.949Z</updated>
+    <updated>2017-12-15T09:19:32.950Z</updated>
     
     <content type="html"><![CDATA[<p>本文的目的是通过在 Kubernetes 集群上创建并配置 Jenkins Server ，实现应用开发管理的 CI/CD 流程，并且利用 Kubernetes-Jenkins-Plugin 实现动态的按需扩展 jenkins-slave。</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>本文所需代码在<a href="https://github.com/batizhao/dockerfile/tree/master/k8s/jenkins" target="_blank" rel="noopener">这里</a></p>
@@ -174,7 +213,7 @@
     <link href="http://batizhao.me/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/"/>
     <id>http://batizhao.me/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/</id>
     <published>2017-12-15T06:08:21.000Z</published>
-    <updated>2017-12-15T07:31:59.468Z</updated>
+    <updated>2017-12-15T07:31:59.469Z</updated>
     
     <content type="html"><![CDATA[<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在所有主机执行以下工作。</p>
 <h3 id="配置主机"><a href="#配置主机" class="headerlink" title="配置主机"></a>配置主机</h3><h4 id="修改主机名称"><a href="#修改主机名称" class="headerlink" title="修改主机名称"></a>修改主机名称</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hostnamectl --static <span class="built_in">set</span>-hostname k8s-master</span><br><span class="line">$ hostnamectl --static <span class="built_in">set</span>-hostname k8s-node-1</span><br><span class="line">$ hostnamectl --static <span class="built_in">set</span>-hostname k8s-node-2</span><br></pre></td></tr></table></figure>
@@ -1140,128 +1179,6 @@ For other containers, the corresponding directory should be used.
       <category term="solr" scheme="http://batizhao.me/tags/solr/"/>
     
       <category term="jetty" scheme="http://batizhao.me/tags/jetty/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用 Simple-Spring-Memcached: AssignCache</title>
-    <link href="http://batizhao.me/2012/09/28/using-simple-spring-memcached-three/"/>
-    <id>http://batizhao.me/2012/09/28/using-simple-spring-memcached-three/</id>
-    <published>2012-09-27T16:00:00.000Z</published>
-    <updated>2016-11-04T09:05:34.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>接上一篇的 MultiCache ，这篇主要讲一下 AssignCache 的使用。继续解决上一个场景中没有解决的问题。</p>
-<p>根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效</p>
-<p>Method:</p>
-<pre><code>@Override
-@ReadThroughAssignCache(assignedKey = &quot;user/getUsersByRoleIds&quot;, namespace = &quot;user&quot;, expiration = 60)
-public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
-    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
-}
-</code></pre><p>SQL:</p>
-<pre><code>&lt;select id=&quot;getUsersByRoleIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
-    SELECT u.id, u.name, r.id as &quot;role.id&quot;, r.name as &quot;role.name&quot;
-    FROM user u, user_role ur, role r
-    WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid in
-    (&lt;iterate conjunction=&quot;,&quot;&gt;
-        #ids[]#
-    &lt;/iterate&gt;) order by r.id
-&lt;/select&gt;
-</code></pre><a id="more"></a>
-<p>Unit Test:</p>
-<pre><code>@Test
-public void testGetUsersByRoleIds() throws Exception {
-    List&lt;Long&gt; list = Arrays.asList(1L, 2L);
-
-    List users = userDao.getUsersByRoleIds(list);
-
-    log.info(&quot;users: &quot; + users);
-
-    assertNotNull(users);
-    assertEquals(3, users.size());
-}    
-</code></pre><p>Log4j log:</p>
-<pre><code>set user:user/getUsersByRoleIds 8 60 378
-
-{&quot;v&quot;:{&quot;java.util.ArrayList&quot;:[{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1000,&quot;name&quot;:&quot;Tom&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}},{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1002,&quot;name&quot;:&quot;Jack&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:1,&quot;name&quot;:&quot;ROLE_ADMIN&quot;}}}},{&quot;me.batizhao.model.User&quot;:{&quot;id&quot;:1001,&quot;name&quot;:&quot;Jerry&quot;,&quot;role&quot;:{&quot;me.batizhao.model.Role&quot;:{&quot;id&quot;:2,&quot;name&quot;:&quot;ROLE_USER&quot;}}}}]}}
-</code></pre><p>这个场景不太适合做 @UpdateAssignCache，这里使用 <a href="/java/2012/09/27/using-simple-spring-memcached-one/">Simple-Spring-Memcached: SingleCache</a> 中的 UserCache 类，增加一个方法</p>
-<pre><code>@InvalidateAssignCache(assignedKey = &quot;user/getUsersByRoleIds&quot;, namespace = &quot;user&quot;)
-public void invalidategetUsersByRoleIds(){
-}
-</code></pre><p>然后在 RoleManagerImpl.updateRole() 中增加一句</p>
-<pre><code>userCache.invalidategetUsersByRoleIds();
-</code></pre><p>先执行 DAO Unit Test:</p>
-<pre><code>@Test
-public void testGetUsersByRoleIds() throws Exception {
-    List&lt;Long&gt; list = Arrays.asList(1L, 2L);
-
-    List users = userDao.getUsersByRoleIds(list);
-
-    log.info(&quot;users: &quot; + users);
-
-    assertNotNull(users);
-    assertEquals(3, users.size());
-}
-</code></pre><p>Memcached Log:</p>
-<pre><code>&lt;21 get user:user/getUsersByRoleIds
-&gt;21 END
-&lt;21 set user:user/getUsersByRoleIds 8 60 378
-&gt;21 STORED    
-</code></pre><p>再执行 Service Unit Test:</p>
-<pre><code>@Test
-public void testUpdateRole() throws Exception {
-    Role role = new Role();
-    role.setId(1L);
-    role.setName(&quot;ROLE_ADMIN&quot;);
-
-    roleManager.updateRole(role);
-
-    role = roleManager.getRole(1L);
-
-    log.info(&quot;Role: &quot; + role);
-
-    assertEquals(&quot;ROLE_ADMIN&quot;, role.getName());
-
-}
-</code></pre><p>Memcached Log:</p>
-<pre><code>&lt;21 delete user:user/getUsersByRoleIds
-&gt;21 DELETED            
-</code></pre><p>以上章节的所有代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached" target="_blank" rel="noopener">Github</a>.</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;接上一篇的 MultiCache ，这篇主要讲一下 AssignCache 的使用。继续解决上一个场景中没有解决的问题。&lt;/p&gt;
-&lt;p&gt;根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效&lt;/p&gt;
-&lt;p&gt;Method:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;@Override
-@ReadThroughAssignCache(assignedKey = &amp;quot;user/getUsersByRoleIds&amp;quot;, namespace = &amp;quot;user&amp;quot;, expiration = 60)
-public List&amp;lt;User&amp;gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&amp;lt;Long&amp;gt; ids) {
-    return (List&amp;lt;User&amp;gt;) sqlMapClientTemplate.queryForList(&amp;quot;getUsersByRoleIds&amp;quot;, ids);
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;SQL:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;select id=&amp;quot;getUsersByRoleIds&amp;quot; parameterClass=&amp;quot;list&amp;quot; resultClass=&amp;quot;user&amp;quot;&amp;gt;
-    SELECT u.id, u.name, r.id as &amp;quot;role.id&amp;quot;, r.name as &amp;quot;role.name&amp;quot;
-    FROM user u, user_role ur, role r
-    WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid in
-    (&amp;lt;iterate conjunction=&amp;quot;,&amp;quot;&amp;gt;
-        #ids[]#
-    &amp;lt;/iterate&amp;gt;) order by r.id
-&amp;lt;/select&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://batizhao.me/categories/java/"/>
-    
-    
-      <category term="java" scheme="http://batizhao.me/tags/java/"/>
-    
-      <category term="memcached" scheme="http://batizhao.me/tags/memcached/"/>
-    
-      <category term="spring" scheme="http://batizhao.me/tags/spring/"/>
-    
-      <category term="mybatis" scheme="http://batizhao.me/tags/mybatis/"/>
     
   </entry>
   

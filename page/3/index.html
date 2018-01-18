@@ -308,6 +308,145 @@
             
               
                 
+                <a class="post-title-link" href="/2012/09/28/using-simple-spring-memcached-three/" itemprop="url">
+                  使用 Simple-Spring-Memcached: AssignCache
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-09-28T00:00:00+08:00" content="2012-09-28">
+              2012-09-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/09/28/using-simple-spring-memcached-three/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/28/using-simple-spring-memcached-three/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>接上一篇的 MultiCache ，这篇主要讲一下 AssignCache 的使用。继续解决上一个场景中没有解决的问题。</p>
+<p>根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效</p>
+<p>Method:</p>
+<pre><code>@Override
+@ReadThroughAssignCache(assignedKey = &quot;user/getUsersByRoleIds&quot;, namespace = &quot;user&quot;, expiration = 60)
+public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&lt;Long&gt; ids) {
+    return (List&lt;User&gt;) sqlMapClientTemplate.queryForList(&quot;getUsersByRoleIds&quot;, ids);
+}
+</code></pre><p>SQL:</p>
+<pre><code>&lt;select id=&quot;getUsersByRoleIds&quot; parameterClass=&quot;list&quot; resultClass=&quot;user&quot;&gt;
+    SELECT u.id, u.name, r.id as &quot;role.id&quot;, r.name as &quot;role.name&quot;
+    FROM user u, user_role ur, role r
+    WHERE u.id = ur.userid and r.id = ur.roleid and ur.roleid in
+    (&lt;iterate conjunction=&quot;,&quot;&gt;
+        #ids[]#
+    &lt;/iterate&gt;) order by r.id
+&lt;/select&gt;
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/09/28/using-simple-spring-memcached-three/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2012/09/27/using-simple-spring-memcached-two/" itemprop="url">
                   使用 Simple-Spring-Memcached: MultiCache
                 </a>
@@ -1486,133 +1625,6 @@ libevent-headers.noarch                1.4.13-4.el6
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/07/16/install-dns-server-on-centos6/" itemprop="url">
-                  在 CentOS6 上安装 BIND（DNS Server）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-07-16T00:00:00+08:00" content="2012-07-16">
-              2012-07-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/07/16/install-dns-server-on-centos6/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/07/16/install-dns-server-on-centos6/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="1-DNS-安装"><a href="#1-DNS-安装" class="headerlink" title="1. DNS 安装"></a>1. DNS 安装</h2><p>方式一：从官方下载最新的 Release 版本编译安装（生产环境推荐，后边的配置步骤也会以这种方式说明，和 yum 安装的路径不同）</p>
-<p>在安装之前需要先安装 gcc</p>
-<pre><code># yum install gcc.x86_64 gcc-c++.x86_64 gcc-objc++.x86_64
-</code></pre><p>还需要有 openssl</p>
-<pre><code># yum install openssl openssl-devel
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/07/16/install-dns-server-on-centos6/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1658,7 +1670,7 @@ libevent-headers.noarch                1.4.13-4.el6
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1754,7 +1766,7 @@ libevent-headers.noarch                1.4.13-4.el6
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

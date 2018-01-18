@@ -308,6 +308,140 @@
             
               
                 
+                <a class="post-title-link" href="/2018/01/18/Running-Kubernetes-Locally-via-Minikube/" itemprop="url">
+                  在 Mac 上通过 Minikube 安装本地 K8s 集群
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-01-18T16:41:33+08:00" content="2018-01-18">
+              2018-01-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/01/18/Running-Kubernetes-Locally-via-Minikube/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/01/18/Running-Kubernetes-Locally-via-Minikube/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="安装-xhyve-驱动程序。"><a href="#安装-xhyve-驱动程序。" class="headerlink" title="安装 xhyve 驱动程序。"></a>安装 xhyve 驱动程序。</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> brew install docker-machine-driver-xhyve</span><br><span class="line"><span class="meta">$</span> sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve</span><br><span class="line"><span class="meta">$</span> sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve</span><br></pre></td></tr></table></figure>
+<h3 id="安装-kubectl"><a href="#安装-kubectl" class="headerlink" title="安装 kubectl"></a>安装 kubectl</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/darwin/amd64/kubectl</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> chmod +x ./kubectl</span><br><span class="line"><span class="meta">$</span> sudo mv ./kubectl /usr/local/bin/kubectl</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> kubectl version</span><br><span class="line">Client Version: version.Info&#123;Major:"1", Minor:"9", GitVersion:"v1.9.1", GitCommit:"3a1c9449a956b6026f075fa3134ff92f7d55f812", GitTreeState:"clean", BuildDate:"2018-01-04T11:52:23Z", GoVersion:"go1.9.2", Compiler:"gc", Platform:"darwin/amd64"&#125;</span><br><span class="line">Server Version: version.Info&#123;Major:"1", Minor:"8", GitVersion:"v1.8.0", GitCommit:"0b9efaeb34a2fc51ff8e4d34ad9bc6375459c4a4", GitTreeState:"clean", BuildDate:"2017-11-29T22:43:34Z", GoVersion:"go1.9.1", Compiler:"gc", Platform:"linux/amd64"&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="安装-Minikube"><a href="#安装-Minikube" class="headerlink" title="安装 Minikube"></a>安装 Minikube</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.24.1/minikube-darwin-amd64 &amp;&amp; chmod +x minikube &amp;&amp; sudo mv minikube /usr/local/bin/</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span> minikube version</span><br><span class="line">minikube version: v0.24.1</span><br></pre></td></tr></table></figure>
+<p>启动集群</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> minikube start --vm-driver=xhyve --registry-mirror=https://registry.docker-cn.com</span><br></pre></td></tr></table></figure>
+<p>进入集群</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ minikube ssh</span><br></pre></td></tr></table></figure>
+<p>或者使用 Minikube Docker 守护进程：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> eval $(minikube docker-env)</span><br></pre></td></tr></table></figure>
+<p>如果不使用 Minikube，可以通过运行 eval $(minikube docker-env -u) 来撤消此更改。</p>
+<p>确保以下镜像已经预先下载（查源码），可以使用<a href="https://raw.githubusercontent.com/batizhao/dockerfile/master/k8s/minikube/pull_minikube_img.sh" target="_blank" rel="noopener">这个脚本</a>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gcr.io/google_containers/pause-amd64:3.0</span><br><span class="line">gcr.io/google_containers/k8s-dns-kube-dns-amd64:1.14.5</span><br><span class="line"></span><br><span class="line">gcr.io/google-containers/kube-addon-manager:v6.4-beta.2</span><br><span class="line">gcr.io/google_containers/k8s-dns-dnsmasq-nanny-amd64:1.14.5</span><br><span class="line">gcr.io/google_containers/k8s-dns-sidecar-amd64:1.14.5</span><br><span class="line">gcr.io/google_containers/kubernetes-dashboard-amd64:v1.8.0</span><br><span class="line">gcr.io/k8s-minikube/storage-provisioner:v1.8.1</span><br><span class="line">quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.9.0-beta.17</span><br><span class="line">gcr.io/google_containers/defaultbackend:1.4</span><br></pre></td></tr></table></figure>
+<p>确认所有服务就绪<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> kubectl get pod --all-namespaces</span><br><span class="line">NAMESPACE     NAME                             READY     STATUS    RESTARTS   AGE</span><br><span class="line">kube-system   default-http-backend-qd455       1/1       Running   1          47m</span><br><span class="line">kube-system   kube-addon-manager-minikube      1/1       Running   3          13d</span><br><span class="line">kube-system   kube-dns-86f6f55dd5-wkbxj        3/3       Running   9          47m</span><br><span class="line">kube-system   kubernetes-dashboard-qn4tw       1/1       Running   3          47m</span><br><span class="line">kube-system   nginx-ingress-controller-jvbtg   1/1       Running   2          47m</span><br><span class="line">kube-system   storage-provisioner              1/1       Running   1          47m</span><br></pre></td></tr></table></figure></p>
+<p>访问 Dashboard</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> minikube dashboard</span><br><span class="line">Opening kubernetes dashboard in default browser...</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/12/15/install-ingress-to-k8s/" itemprop="url">
                   在 kubernetes 1.8 上部署 ingress
                 </a>
@@ -1392,129 +1526,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/15/dokcer-two-dockerfile/" itemprop="url">
-                  Docker 实战（二）：基于 Dockerfile 构建基础镜像
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-15T12:10:16+08:00" content="2016-11-15">
-              2016-11-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/11/15/dokcer-two-dockerfile/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/15/dokcer-two-dockerfile/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>这里使用 Dockerfile 构建一个 Ubuntu 的基础镜像，并且安装了 OpenSSH、Supervisor 等基础服务。使用 Supervisor 可以更好的同时控制多个我们希望执行的程序。</p>
-<p>最新的 Docker 版本建议安装 <a href="https://www.docker.com" target="_blank" rel="noopener">Docker for Mac</a>，原先的 Docker Toolbox 方式已经不建议使用。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/15/dokcer-two-dockerfile/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1560,7 +1571,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1656,7 +1667,7 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
