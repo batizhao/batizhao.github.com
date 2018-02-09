@@ -540,8 +540,8 @@ set user/getUsersByRoleIds:1002 8 60 121
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2012/09/28/using-simple-spring-memcached-three/" rel="prev" title="使用 Simple-Spring-Memcached: AssignCache">
-                使用 Simple-Spring-Memcached: AssignCache <i class="fa fa-chevron-right"></i>
+              <a href="/2012/09/27/simple-spring-memcached-annotation/" rel="prev" title="使用 Simple-Spring-Memcached Annotation">
+                使用 Simple-Spring-Memcached Annotation <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -637,7 +637,7 @@ set user/getUsersByRoleIds:1002 8 60 121
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -654,7 +654,7 @@ set user/getUsersByRoleIds:1002 8 60 121
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -725,7 +725,7 @@ set user/getUsersByRoleIds:1002 8 60 121
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Namespace-和-Key"><span class="nav-number">1.</span> <span class="nav-text"><a href="#Namespace-&#x548C;-Key" class="headerlink" title="Namespace &#x548C; Key"></a>Namespace &#x548C; Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x573A;&#x666F;&#x4E00;&#xFF1A;&#x6839;&#x636E;&#x67D0;&#x51E0;&#x4E2A;-user-ID-&#x67E5;&#x8BE2;&#x6240;&#x6709;&#x7684;-User&#x3002;&#x5728;&#x66F4;&#x65B0;&#x67D0;&#x4E2A;-user-&#x65F6;&#xFF0C;&#x540C;&#x65F6;&#x66F4;&#x65B0;&#x76F8;&#x5173;&#x7684;&#x7F13;&#x5B58;" class="headerlink" title="&#x573A;&#x666F;&#x4E00;&#xFF1A;&#x6839;&#x636E;&#x67D0;&#x51E0;&#x4E2A; user ID &#x67E5;&#x8BE2;&#x6240;&#x6709;&#x7684; User&#x3002;&#x5728;&#x66F4;&#x65B0;&#x67D0;&#x4E2A; user &#x65F6;&#xFF0C;&#x540C;&#x65F6;&#x66F4;&#x65B0;&#x76F8;&#x5173;&#x7684;&#x7F13;&#x5B58;"></a>&#x573A;&#x666F;&#x4E00;&#xFF1A;&#x6839;&#x636E;&#x67D0;&#x51E0;&#x4E2A; user ID &#x67E5;&#x8BE2;&#x6240;&#x6709;&#x7684; User&#x3002;&#x5728;&#x66F4;&#x65B0;&#x67D0;&#x4E2A; user &#x65F6;&#xFF0C;&#x540C;&#x65F6;&#x66F4;&#x65B0;&#x76F8;&#x5173;&#x7684;&#x7F13;&#x5B58;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x573A;&#x666F;&#x4E8C;&#xFF1A;&#x6839;&#x636E;&#x67D0;&#x51E0;&#x4E2A;-role-ID-&#x67E5;&#x8BE2;&#x6240;&#x6709;&#x7684;-User&#x3002;&#x67E5;&#x8BE2;&#x5173;&#x8054;&#x4E24;&#x4E2A;&#x4EE5;&#x4E0A;&#x7684;-Model&#xFF0C;&#x5728;&#x66F4;&#x65B0;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x8BA9;&#x76F8;&#x5173;&#x7684;&#x7F13;&#x5B58;&#x5931;&#x6548;" class="headerlink" title="&#x573A;&#x666F;&#x4E8C;&#xFF1A;&#x6839;&#x636E;&#x67D0;&#x51E0;&#x4E2A; role ID &#x67E5;&#x8BE2;&#x6240;&#x6709;&#x7684; User&#x3002;&#x67E5;&#x8BE2;&#x5173;&#x8054;&#x4E24;&#x4E2A;&#x4EE5;&#x4E0A;&#x7684; Model&#xFF0C;&#x5728;&#x66F4;&#x65B0;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x8BA9;&#x76F8;&#x5173;&#x7684;&#x7F13;&#x5B58;&#x5931;&#x6548;"></a>&#x573A;&#x666F;&#x4E8C;&#xFF1A;&#x6839;&#x636E;&#x67D0;&#x51E0;&#x4E2A; role ID &#x67E5;&#x8BE2;&#x6240;&#x6709;&#x7684; User&#x3002;&#x67E5;&#x8BE2;&#x5173;&#x8054;&#x4E24;&#x4E2A;&#x4EE5;&#x4E0A;&#x7684; Model&#xFF0C;&#x5728;&#x66F4;&#x65B0;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x8BA9;&#x76F8;&#x5173;&#x7684;&#x7F13;&#x5B58;&#x5931;&#x6548;</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Namespace-和-Key"><span class="nav-number">1.</span> <span class="nav-text">Namespace 和 Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#场景一：根据某几个-user-ID-查询所有的-User。在更新某个-user-时，同时更新相关的缓存"><span class="nav-number">2.</span> <span class="nav-text">场景一：根据某几个 user ID 查询所有的 User。在更新某个 user 时，同时更新相关的缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#场景二：根据某几个-role-ID-查询所有的-User。查询关联两个以上的-Model，在更新其中一个时，需要让相关的缓存失效"><span class="nav-number">3.</span> <span class="nav-text">场景二：根据某几个 role ID 查询所有的 User。查询关联两个以上的 Model，在更新其中一个时，需要让相关的缓存失效</span></a></li></ol></div>
             
           </div>
         </section>
