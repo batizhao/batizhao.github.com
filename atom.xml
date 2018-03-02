@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://batizhao.me/"/>
-  <updated>2018-02-11T07:14:53.600Z</updated>
+  <updated>2018-03-02T08:34:11.299Z</updated>
   <id>http://batizhao.me/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在 Kubernetes 环境中 debug Java 程序</title>
+    <link href="http://batizhao.me/2018/03/02/debug-in-k8s/"/>
+    <id>http://batizhao.me/2018/03/02/debug-in-k8s/</id>
+    <published>2018-03-02T08:19:23.000Z</published>
+    <updated>2018-03-02T08:34:11.299Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><p>Docker 镜像启动命令</p><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CMD</span> ["java", "-Dfile.encoding=utf-8", "-jar", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005", "/opt/app.jar"]</span><br></pre></td></tr></table></figure><p>K8s pod</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">oss</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        titans:</span> <span class="string">oss</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">titans-oss</span></span><br><span class="line"><span class="attr">        image:</span> <span class="number">172.31</span><span class="number">.21</span><span class="number">.226</span><span class="string">/isoftone/titans-oss</span></span><br><span class="line"><span class="attr">        imagePullPolicy:</span> <span class="string">Always</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">8008</span></span><br><span class="line"><span class="attr">          name:</span> <span class="string">"web"</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">5005</span></span><br><span class="line"><span class="attr">          name:</span> <span class="string">"jvm-debug"</span></span><br></pre></td></tr></table></figure><a id="more"></a><p>启动以后查看 pod</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get pod -o wide</span><br><span class="line">NAME                       READY     STATUS    RESTARTS   AGE       IP             NODE</span><br><span class="line">oss-d74785795-fb2h2        1/1       Running   0          15m       10.244.1.112   k8s-node-1</span><br></pre></td></tr></table></figure><h2 id="本地"><a href="#本地" class="headerlink" title="本地"></a>本地</h2><p>连接<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> kubectl port-forward oss-d74785795-fb2h2 5005:5005</span><br><span class="line">Forwarding from 127.0.0.1:5005 -&gt; 5005</span><br></pre></td></tr></table></figure></p><p>打开 IDEA，确保以下参数，然后 debug</p><p><img src="/images/2018-03-02-debug-in-k8s.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;服务端&quot;&gt;&lt;a href=&quot;#服务端&quot; class=&quot;headerlink&quot; title=&quot;服务端&quot;&gt;&lt;/a&gt;服务端&lt;/h2&gt;&lt;p&gt;Docker 镜像启动命令&lt;/p&gt;
+&lt;figure class=&quot;highlight dockerfile&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;CMD&lt;/span&gt; [&quot;java&quot;, &quot;-Dfile.encoding=utf-8&quot;, &quot;-jar&quot;, &quot;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005&quot;, &quot;/opt/app.jar&quot;]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;K8s pod&lt;/p&gt;
+&lt;figure class=&quot;highlight yaml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;apiVersion:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;apps/v1beta1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;kind:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;Deployment&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;metadata:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;  name:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;oss&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;spec:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;  replicas:&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;  template:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;    metadata:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;      labels:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;        titans:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;oss&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;    spec:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;      containers:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;      - name:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;titans-oss&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;        image:&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;172.31&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.21&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.226&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;/isoftone/titans-oss&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;        imagePullPolicy:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;Always&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;        ports:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;        - containerPort:&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;8008&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;          name:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;web&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;        - containerPort:&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;5005&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;attr&quot;&gt;          name:&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;jvm-debug&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+    
+      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+    
+  </entry>
   
   <entry>
     <title>使用 Gluster FS 做 Kubernetes 持久化存储</title>
@@ -407,9 +436,9 @@
       <category term="mooc" scheme="http://batizhao.me/categories/mooc/"/>
     
     
-      <category term="edx" scheme="http://batizhao.me/tags/edx/"/>
-    
       <category term="mooc" scheme="http://batizhao.me/tags/mooc/"/>
+    
+      <category term="edx" scheme="http://batizhao.me/tags/edx/"/>
     
   </entry>
   
@@ -432,9 +461,9 @@
       <category term="mooc" scheme="http://batizhao.me/categories/mooc/"/>
     
     
-      <category term="edx" scheme="http://batizhao.me/tags/edx/"/>
-    
       <category term="mooc" scheme="http://batizhao.me/tags/mooc/"/>
+    
+      <category term="edx" scheme="http://batizhao.me/tags/edx/"/>
     
   </entry>
   
@@ -466,9 +495,9 @@
       <category term="mooc" scheme="http://batizhao.me/categories/mooc/"/>
     
     
-      <category term="edx" scheme="http://batizhao.me/tags/edx/"/>
-    
       <category term="mooc" scheme="http://batizhao.me/tags/mooc/"/>
+    
+      <category term="edx" scheme="http://batizhao.me/tags/edx/"/>
     
   </entry>
   
@@ -491,9 +520,9 @@
       <category term="mooc" scheme="http://batizhao.me/categories/mooc/"/>
     
     
-      <category term="edx" scheme="http://batizhao.me/tags/edx/"/>
-    
       <category term="mooc" scheme="http://batizhao.me/tags/mooc/"/>
+    
+      <category term="edx" scheme="http://batizhao.me/tags/edx/"/>
     
   </entry>
   
@@ -547,38 +576,6 @@
       <category term="jdk7" scheme="http://batizhao.me/tags/jdk7/"/>
     
       <category term="mac" scheme="http://batizhao.me/tags/mac/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Solr（二）: 整合 MySQL</title>
-    <link href="http://batizhao.me/2013/06/28/solr-and--mysql/"/>
-    <id>http://batizhao.me/2013/06/28/solr-and--mysql/</id>
-    <published>2013-06-27T16:00:00.000Z</published>
-    <updated>2016-11-04T09:08:26.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>找到配置文件：</p><pre><code>${solr/home}/collection1/conf/solrconfig.xml</code></pre><p>增加以下配置：    </p><pre><code>&lt;requestHandler name=&quot;/dataimport&quot; class=&quot;org.apache.solr.handler.dataimport.DataImportHandler&quot;&gt;      &lt;lst name=&quot;defaults&quot;&gt;            &lt;str name=&quot;config&quot;&gt;data-config.xml&lt;/str&gt;      &lt;/lst&gt;&lt;/requestHandler&gt;</code></pre><a id="more"></a><p>在 conf 下新建 data-config.xml</p><pre><code>&lt;dataConfig&gt;    &lt;dataSource             type=&quot;JdbcDataSource&quot;             driver=&quot;com.mysql.jdbc.Driver&quot;            url=&quot;jdbc:mysql://localhost:3306/test?useUnicode=true&amp;amp;characterEncoding=utf8&quot;             user=&quot;root&quot;             password=&quot;&quot; /&gt;    &lt;document name=&quot;documents&quot;&gt;        &lt;entity name=&quot;user&quot; pk=&quot;id&quot;            query=&quot;select * from user&quot;            deltaImportQuery=&quot;select * from user where id=&apos;${dataimporter.delta.id}&apos;&quot;            deltaQuery=&quot;select id from user where last_modified &gt; &apos;${dataimporter.last_index_time}&apos;&quot;            &lt;field column=&quot;id&quot; name=&quot;id&quot; /&gt;            &lt;field column=&quot;username&quot; name=&quot;username&quot; /&gt;        &lt;/entity&gt;    &lt;/document&gt;&lt;/dataConfig&gt;</code></pre><p>复制相关的 jar 包到 solr lib</p><pre><code>cp /opt/solr/dist/solr-dataimporthandler-4.3.0.jar /opt/tomcat/webapps/solr/WEB-INF/lib    cp /opt/solr/dist/solr-dataimporthandler-extras-4.3.0.jar /opt/tomcat/webapps/solr/WEB-INF/libcp /opt/solr/example/solr-webapp/webapp/WEB-INF/lib/mysql-connector-java-5.1.6.jar /opt/tomcat/webapps/solr/WEB-INF/lib</code></pre><p>修改 schema.xml（其它的字段已经存在）</p><pre><code>&lt;field name=&quot;username&quot; type=&quot;text_general&quot; indexed=&quot;true&quot; stored=&quot;true&quot; /&gt;</code></pre><p>MySQL 脚本</p><pre><code>CREATE TABLE `user` (      `id` int(11) unsigned NOT NULL AUTO_INCREMENT,      `username` varchar(50) DEFAULT NULL,      `last_modified` timestamp NULL DEFAULT CURRENT_TIMESTAMP,      PRIMARY KEY (`id`));INSERT INTO `user` (`id`, `username`, `last_modified`)VALUES(1001,&apos;zhangsan&apos;,&apos;2013-06-27 13:01:44&apos;),(1002,&apos;lisi&apos;,&apos;2013-06-28 14:00:22&apos;),(1003,&apos;wangwu&apos;,&apos;2013-06-28 11:04:23&apos;);</code></pre><p>批量导入（full-import）：</p><pre><code>http://localhost:8080/solr/dataimport?command=full-import&amp;commit=true </code></pre><p>增量导入（delta-import）：</p><pre><code>http://localhost:8080/solr/dataimport?command=delta-import&amp;commit=true</code></pre><p>导入状态查询（status）：</p><pre><code>http://localhost:8080/solr/dataimport </code></pre><p>重新装载配置文件（reload-config）：</p><pre><code>http://localhost:8080/solr/dataimport?command=reload-config </code></pre><p>终止导入（abort）：</p><pre><code>http://localhost:8080/solr/dataimport?command=abort                </code></pre>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;找到配置文件：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;${solr/home}/collection1/conf/solrconfig.xml
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;增加以下配置：    &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;requestHandler name=&amp;quot;/dataimport&amp;quot; class=&amp;quot;org.apache.solr.handler.dataimport.DataImportHandler&amp;quot;&amp;gt;
-      &amp;lt;lst name=&amp;quot;defaults&amp;quot;&amp;gt;
-            &amp;lt;str name=&amp;quot;config&amp;quot;&amp;gt;data-config.xml&amp;lt;/str&amp;gt;
-      &amp;lt;/lst&amp;gt;
-&amp;lt;/requestHandler&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="solr" scheme="http://batizhao.me/categories/solr/"/>
-    
-    
-      <category term="mysql" scheme="http://batizhao.me/tags/mysql/"/>
-    
-      <category term="solr" scheme="http://batizhao.me/tags/solr/"/>
     
   </entry>
   
