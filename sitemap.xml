@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://batizhao.me/2018/03/02/debug-in-k8s/</loc>
+    <loc>http://batizhao.me/2018/02/08/installing-glusterfs/</loc>
     
-    <lastmod>2018-03-02T08:34:11.299Z</lastmod>
+    <lastmod>2018-03-09T07:19:07.410Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://batizhao.me/2018/02/08/installing-glusterfs/</loc>
+    <loc>http://batizhao.me/2018/03/02/debug-in-k8s/</loc>
     
-    <lastmod>2018-02-11T07:14:53.600Z</lastmod>
+    <lastmod>2018-03-02T08:34:11.299Z</lastmod>
     
   </url>
   
