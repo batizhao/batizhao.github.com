@@ -308,6 +308,134 @@
             
               
                 
+                <a class="post-title-link" href="/2012/08/22/maven-package/" itemprop="url">
+                  Maven 自动化构建（dev, test, prod）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-08-22T00:00:00+08:00" content="2012-08-22">
+              2012-08-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/maven/" itemprop="url" rel="index">
+                    <span itemprop="name">maven</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/08/22/maven-package/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/08/22/maven-package/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="1-需求描述"><a href="#1-需求描述" class="headerlink" title="1. 需求描述"></a>1. 需求描述</h2><ul>
+<li>在项目构建时，需要根据环境的不同生成不同的安装包。不希望每次通过人工修改配置。</li>
+<li>有非常多的不同的 prod 环境配置，100+。</li>
+<li>在 Maven 的多模块项目中，需要有一个完整的 properties 来定义各个不同的环境，而不是分散在各个 Module 中。</li>
+<li>不希望这些 properties 定义在 pom 中，而是需要独立出来，通过动态参数加载。</li>
+<li>最终可以通过 mvn package -Pdev, mvn package -Ptest, mvn package -Pprod 完成各种环境的构建。</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/08/22/maven-package/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2012/07/19/setting-cas-assertion/" itemprop="url">
                   自定义 CAS assertion 返回值
                 </a>
@@ -1428,128 +1556,6 @@ http://openam.example.com:9090/openidm/managed/organizationUnit/?_query-id=query
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/05/02/step-by-step-one-openidm/" itemprop="url">
-                  进阶使用 OpenIDM 【一】
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-05-02T00:00:00+08:00" content="2012-05-02">
-              2012-05-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/05/02/step-by-step-one-openidm/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/05/02/step-by-step-one-openidm/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="1-From-OpenIDM-To-MySQL"><a href="#1-From-OpenIDM-To-MySQL" class="headerlink" title="1. From OpenIDM To MySQL"></a>1. From OpenIDM To MySQL</h2><p>以 samples/sample3 为模板，把新增加的 use,organization 分别同步到 MySQL 的 Users,Organizations 表。<br>如果你看过 <a href="http://localhost:4000/java/2012/04/20/using-openidm-with-rest-api/" target="_blank" rel="noopener">使用 OpenIDM RESTful API</a> ,<br>这时在 managedobjects 表中应该有两条数据。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/05/02/step-by-step-one-openidm/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1595,7 +1601,7 @@ http://openam.example.com:9090/openidm/managed/organizationUnit/?_query-id=query
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-count">56</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

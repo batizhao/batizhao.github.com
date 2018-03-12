@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://batizhao.me/"/>
-  <updated>2018-03-02T08:34:11.299Z</updated>
+  <updated>2018-03-12T05:35:58.248Z</updated>
   <id>http://batizhao.me/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在 Mac 上设置 kubectl 工具</title>
+    <link href="http://batizhao.me/2018/03/12/setup-kubectl-config/"/>
+    <id>http://batizhao.me/2018/03/12/setup-kubectl-config/</id>
+    <published>2018-03-12T05:23:33.000Z</published>
+    <updated>2018-03-12T05:35:58.248Z</updated>
+    
+    <content type="html"><![CDATA[<p>kubectl 是 k8s 集群的命令行工具，集群安装好以后，可以在集群外部操作相关命令。</p><p>最简单的情况，在 Mac 上安装好 kubectl 工具后，可以直接 scp 集群中的 config 文件到本地，这样就有了访问和管理 k8s 集群的能力。但是，如果你有好几个集群同时需要管理，这种方式可能不是最好。</p><p>可能通过以下方式优雅的加入相关配置到 config 中。</p><h2 id="设置-cluster"><a href="#设置-cluster" class="headerlink" title="设置 cluster"></a>设置 cluster</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> kubectl config set-cluster kubernetes \</span><br><span class="line">  --certificate-authority=/etc/kubernetes/ssl/ca.pem \</span><br><span class="line">  --embed-certs=true \</span><br><span class="line">  --server=https://172.31.21.173:8443</span><br></pre></td></tr></table></figure><p>如果遇到 x509 的错误，可以使用以下命令代替<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> kubectl config set-cluster kubernetes \</span><br><span class="line">        --insecure-skip-tls-verify=true \</span><br><span class="line">        --server=https://172.31.21.173:8443</span><br></pre></td></tr></table></figure></p><h2 id="设置-credentials"><a href="#设置-credentials" class="headerlink" title="设置 credentials"></a>设置 credentials</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> kubectl config set-credentials admin \</span><br><span class="line">        --client-certificate=/etc/kubernetes/ssl/admin.pem \</span><br><span class="line">        --embed-certs=true \</span><br><span class="line">        --client-key=/etc/kubernetes/ssl/admin-key.pem</span><br></pre></td></tr></table></figure><h2 id="设置-context"><a href="#设置-context" class="headerlink" title="设置 context"></a>设置 context</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> kubectl config set-context kubernetes \</span><br><span class="line">        --cluster=kubernetes --user=admin</span><br></pre></td></tr></table></figure><h2 id="设置默认-context"><a href="#设置默认-context" class="headerlink" title="设置默认 context"></a>设置默认 context</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> kubectl config use-context kubernetes</span><br></pre></td></tr></table></figure><p>生成的内容会增加到 ~/.kube/config 中。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;kubectl 是 k8s 集群的命令行工具，集群安装好以后，可以在集群外部操作相关命令。&lt;/p&gt;
+&lt;p&gt;最简单的情况，在 Mac 上安装好 kubectl 工具后，可以直接 scp 集群中的 config 文件到本地，这样就有了访问和管理 k8s 集群的能力。但是，如果你
+      
+    
+    </summary>
+    
+      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+    
+    
+      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+    
+      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+    
+      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+    
+  </entry>
   
   <entry>
     <title>在 Kubernetes 环境中 debug Java 程序</title>
@@ -552,30 +582,6 @@
       <category term="jdk7" scheme="http://batizhao.me/tags/jdk7/"/>
     
       <category term="android" scheme="http://batizhao.me/tags/android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在 Mac10.9 和 JDK7 环境中运行 IntelliJ IDEA</title>
-    <link href="http://batizhao.me/2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/"/>
-    <id>http://batizhao.me/2013/10/31/how-do-i-run-idea-intellij-on-mac-os-x-with-jdk-7/</id>
-    <published>2013-10-30T16:00:00.000Z</published>
-    <updated>2016-11-15T07:21:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>升级到 Mavericks 之后，需要自行安装 JDK 环境。如果你安装了 JDK7，那么在安装之后，在命令行中运行 javac、java 命令没有问题，但是 Eclipse 和 IDEA 都无法启动，系统要求安装 JDK6。</p><a id="more"></a><h2 id="修改-jdk-Info-plist"><a href="#修改-jdk-Info-plist" class="headerlink" title="修改 jdk Info.plist"></a>修改 jdk Info.plist</h2><h3 id="增加后边的-4-个-string。"><a href="#增加后边的-4-个-string。" class="headerlink" title="增加后边的 4 个 string。"></a>增加后边的 4 个 string。</h3><figure class="highlight xml"><figcaption><span>/Library/Java/JavaVirtualMachines/jdk1.7.0_XX.jdk/Contents/Info.plist</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>CommandLine<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>JNI<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>BundledApp<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>WebStart<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>Applets<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br></pre></td></tr></table></figure><h3 id="修改-IDEA-Info-plist，修改-JVMVersion-从-1-6-到-1-7-。"><a href="#修改-IDEA-Info-plist，修改-JVMVersion-从-1-6-到-1-7-。" class="headerlink" title="修改 IDEA Info.plist，修改 JVMVersion 从 1.6* 到 1.7*。"></a>修改 IDEA Info.plist，修改 JVMVersion 从 1.6* 到 1.7*。</h3><figure class="highlight xml"><figcaption><span>/Applications/IntelliJ IDEA XXX.app/Contents/Info.plist file</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>JVMVersion<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">string</span>&gt;</span>1.7*<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br></pre></td></tr></table></figure><h3 id="启动-IDEA12，按以下步骤选择相应的-JDK-Home。"><a href="#启动-IDEA12，按以下步骤选择相应的-JDK-Home。" class="headerlink" title="启动 IDEA12，按以下步骤选择相应的 JDK Home。"></a>启动 IDEA12，按以下步骤选择相应的 JDK Home。</h3><pre><code>File - Project Structure - Project - New - JDK</code></pre><p>如果是 Eclipse，那做完第一步就可以正常启动了；如果是 IDEA，那么需要三步都做完整。</p><h2 id="修复-mvn-v-错误"><a href="#修复-mvn-v-错误" class="headerlink" title="修复 mvn -v 错误"></a>修复 mvn -v 错误</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ mvn -v</span><br><span class="line"></span><br><span class="line">Error: JAVA_HOME is not defined correctly.</span><br><span class="line">  We cannot execute /System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home/bin/java</span><br><span class="line"></span><br><span class="line">$  vim /etc/profile</span><br><span class="line"></span><br><span class="line">export JAVA_HOME=`/usr/libexec/java_home -v 1.7`</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line">$  source /etc/profile</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;升级到 Mavericks 之后，需要自行安装 JDK 环境。如果你安装了 JDK7，那么在安装之后，在命令行中运行 javac、java 命令没有问题，但是 Eclipse 和 IDEA 都无法启动，系统要求安装 JDK6。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://batizhao.me/categories/java/"/>
-    
-    
-      <category term="jdk7" scheme="http://batizhao.me/tags/jdk7/"/>
-    
-      <category term="mac" scheme="http://batizhao.me/tags/mac/"/>
     
   </entry>
   

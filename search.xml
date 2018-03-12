@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[在 Mac 上设置 kubectl 工具]]></title>
+    <url>%2F2018%2F03%2F12%2Fsetup-kubectl-config%2F</url>
+    <content type="text"><![CDATA[kubectl 是 k8s 集群的命令行工具，集群安装好以后，可以在集群外部操作相关命令。 最简单的情况，在 Mac 上安装好 kubectl 工具后，可以直接 scp 集群中的 config 文件到本地，这样就有了访问和管理 k8s 集群的能力。但是，如果你有好几个集群同时需要管理，这种方式可能不是最好。 可能通过以下方式优雅的加入相关配置到 config 中。 设置 cluster1234$ kubectl config set-cluster kubernetes \ --certificate-authority=/etc/kubernetes/ssl/ca.pem \ --embed-certs=true \ --server=https://172.31.21.173:8443 如果遇到 x509 的错误，可以使用以下命令代替123$ kubectl config set-cluster kubernetes \ --insecure-skip-tls-verify=true \ --server=https://172.31.21.173:8443 设置 credentials1234$ kubectl config set-credentials admin \ --client-certificate=/etc/kubernetes/ssl/admin.pem \ --embed-certs=true \ --client-key=/etc/kubernetes/ssl/admin-key.pem 设置 context12$ kubectl config set-context kubernetes \ --cluster=kubernetes --user=admin 设置默认 context1$ kubectl config use-context kubernetes 生成的内容会增加到 ~/.kube/config 中。]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>java</tag>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[在 Kubernetes 环境中 debug Java 程序]]></title>
     <url>%2F2018%2F03%2F02%2Fdebug-in-k8s%2F</url>
     <content type="text"><![CDATA[服务端Docker 镜像启动命令 1CMD ["java", "-Dfile.encoding=utf-8", "-jar", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005", "/opt/app.jar"] K8s pod 1234567891011121314151617181920apiVersion: apps/v1beta1kind: Deploymentmetadata: name: ossspec: replicas: 1 template: metadata: labels: titans: oss spec: containers: - name: titans-oss image: 172.31.21.226/isoftone/titans-oss imagePullPolicy: Always ports: - containerPort: 8008 name: "web" - containerPort: 5005 name: "jvm-debug" 启动以后查看 pod 123$ kubectl get pod -o wideNAME READY STATUS RESTARTS AGE IP NODEoss-d74785795-fb2h2 1/1 Running 0 15m 10.244.1.112 k8s-node-1 本地连接12$ kubectl port-forward oss-d74785795-fb2h2 5005:5005Forwarding from 127.0.0.1:5005 -&gt; 5005 打开 IDEA，确保以下参数，然后 debug]]></content>
@@ -249,8 +262,8 @@
         <category>java</category>
       </categories>
       <tags>
-        <tag>jdk7</tag>
         <tag>mac</tag>
+        <tag>jdk7</tag>
       </tags>
   </entry>
   <entry>

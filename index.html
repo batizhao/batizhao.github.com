@@ -308,6 +308,134 @@
             
               
                 
+                <a class="post-title-link" href="/2018/03/12/setup-kubectl-config/" itemprop="url">
+                  在 Mac 上设置 kubectl 工具
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-03-12T13:23:33+08:00" content="2018-03-12">
+              2018-03-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/03/12/setup-kubectl-config/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/03/12/setup-kubectl-config/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>kubectl 是 k8s 集群的命令行工具，集群安装好以后，可以在集群外部操作相关命令。</p>
+<p>最简单的情况，在 Mac 上安装好 kubectl 工具后，可以直接 scp 集群中的 config 文件到本地，这样就有了访问和管理 k8s 集群的能力。但是，如果你有好几个集群同时需要管理，这种方式可能不是最好。</p>
+<p>可能通过以下方式优雅的加入相关配置到 config 中。</p>
+<h2 id="设置-cluster"><a href="#设置-cluster" class="headerlink" title="设置 cluster"></a>设置 cluster</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> kubectl config set-cluster kubernetes \</span><br><span class="line">  --certificate-authority=/etc/kubernetes/ssl/ca.pem \</span><br><span class="line">  --embed-certs=true \</span><br><span class="line">  --server=https://172.31.21.173:8443</span><br></pre></td></tr></table></figure>
+<p>如果遇到 x509 的错误，可以使用以下命令代替<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> kubectl config set-cluster kubernetes \</span><br><span class="line">        --insecure-skip-tls-verify=true \</span><br><span class="line">        --server=https://172.31.21.173:8443</span><br></pre></td></tr></table></figure></p>
+<h2 id="设置-credentials"><a href="#设置-credentials" class="headerlink" title="设置 credentials"></a>设置 credentials</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> kubectl config set-credentials admin \</span><br><span class="line">        --client-certificate=/etc/kubernetes/ssl/admin.pem \</span><br><span class="line">        --embed-certs=true \</span><br><span class="line">        --client-key=/etc/kubernetes/ssl/admin-key.pem</span><br></pre></td></tr></table></figure>
+<h2 id="设置-context"><a href="#设置-context" class="headerlink" title="设置 context"></a>设置 context</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> kubectl config set-context kubernetes \</span><br><span class="line">        --cluster=kubernetes --user=admin</span><br></pre></td></tr></table></figure>
+<h2 id="设置默认-context"><a href="#设置默认-context" class="headerlink" title="设置默认 context"></a>设置默认 context</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> kubectl config use-context kubernetes</span><br></pre></td></tr></table></figure>
+<p>生成的内容会增加到 ~/.kube/config 中。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/03/02/debug-in-k8s/" itemprop="url">
                   在 Kubernetes 环境中 debug Java 程序
                 </a>
@@ -1397,128 +1525,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/02/docker-five-swarm-mode/" itemprop="url">
-                  Docker 实战（五）：Docker Swarm Mode
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-12-02T07:39:15+08:00" content="2016-12-02">
-              2016-12-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/12/02/docker-five-swarm-mode/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/02/docker-five-swarm-mode/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在 <a href="http://batizhao.me/2016/12/01/docker-four-docker-compose/">Docker Compose</a> 中，我们可以在单台机器上操作多个相关联的 Docker 容器组成负载均衡集群。<br>那如果我们需要一个分布式的环境中，跨多台主机呢？<br>在 Docker 1.12 以上版本中，有个新的东西叫做 <a href="https://docs.docker.com/engine/swarm/" target="_blank" rel="noopener">Swarm Mode</a>。<br>不同于之前版本的 <a href="https://docs.docker.com/swarm/" target="_blank" rel="noopener">Docker Swarm</a>（还需要 pull swarm），Swarm Mode 已经集成在 Docker Engine 中。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/12/02/docker-five-swarm-mode/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1564,7 +1570,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-count">56</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
