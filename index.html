@@ -308,6 +308,268 @@
             
               
                 
+                <a class="post-title-link" href="/2018/08/13/deploy-fabric-on-kubernetes-two/" itemprop="url">
+                  在 Kubernetes 上部署 Hyperledger Fabric v1.2（二）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-08-13T09:27:04+08:00" content="2018-08-13">
+              2018-08-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/blockchain/" itemprop="url" rel="index">
+                    <span itemprop="name">blockchain</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/08/13/deploy-fabric-on-kubernetes-two/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/08/13/deploy-fabric-on-kubernetes-two/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在上一篇文章中，我们介绍了在 Kubernetes 上运行 Fabric 的机制。 这篇文章会详细讲解安装的具体步骤。</p>
+<p>在 v1.0 发布之后，时隔一年，在今年 7 月份，Fabric v1.2 版本发布。</p>
+<h2 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h2><h3 id="CMD-客户机"><a href="#CMD-客户机" class="headerlink" title="CMD 客户机"></a>CMD 客户机</h3><ul>
+<li>这里我用的是自己的 Mac</li>
+<li>可以通过 kubectl 操作远程的 Kubernetes 集群</li>
+<li>安装 Python3，部署脚本是用 Python 写的</li>
+</ul>
+<h3 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h3><ul>
+<li>v1.11.0，运行在 CentOS7 上</li>
+<li>Docker</li>
+</ul>
+<h3 id="NFS"><a href="#NFS" class="headerlink" title="NFS"></a>NFS</h3><ul>
+<li>给集群做共享存储，挂载证书和一些 channel 文件。</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/08/13/deploy-fabric-on-kubernetes-two/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/08/10/deploy-fabric-on-kubernetes/" itemprop="url">
+                  在 Kubernetes 上部署 Hyperledger Fabric v1.2（一）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-08-10T11:03:24+08:00" content="2018-08-10">
+              2018-08-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/blockchain/" itemprop="url" rel="index">
+                    <span itemprop="name">blockchain</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/08/10/deploy-fabric-on-kubernetes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/08/10/deploy-fabric-on-kubernetes/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Fabric 是 Hyperledger 超级账本中的一个子项目，由 Linux 基金会主办。它提供了一个开发区块链应用程序的框架。在 2017 年 1 月份 Fabric v1.0 发布，人们急于使用 Fabric 构建区块链应用程序来解决他们的业务问题。然而，由于部署和管理 Fabric 体系过于复杂，遇到很多的困难。</p>
+<p>为了简化操作，我们需要一些工具来帮助我们更好地管理 Fabric 分布式系统。Kubernetes 看起来似乎是理想的平台。需要注意的是，Kubernetes 是 CNCF 基金会下的头牌项目，并且也属于 Linux 基金会。</p>
+<p>首先，Fabric 建议是运行在 Docker 容器中的。它的 chaincode（智能合约）也利用容器运行在 sandbox 中。 Fabric 系统由在多个容器中运行的组件组成。 另一方面，Kubernetes 正在成为自动化、容器化应用程序的部署、扩展和管理的事实上的标准。两者有天然的契合。</p>
+<p>其次，Fabric 组件可以通过在 Kubernetes 上部署来实现高可用性。 Kubernetes 有一个名为 replicator 的功能，可以监控运行的 pod 并自动修复崩溃的 pod。</p>
+<p>第三，Kubernetes 支持多租户。我们可以在同一个 Kubernetes 平台上运行多个隔离的 Fabric 实例。 这有利于区块链应用程序的开发和测试。</p>
+<p>在以下部分中，我们介绍了在 Kubernetes 上部署 Fabric 的方法。 我们假设读者具有 Fabric，Docker 容器和Kubernetes 的基本知识。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/08/10/deploy-fabric-on-kubernetes/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/03/12/setup-kubectl-config/" itemprop="url">
                   在 Mac 上设置 kubectl 工具
                 </a>
@@ -1295,236 +1557,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/12/14/share-shasdowsocks-to-http/" itemprop="url">
-                  使用 Shasdowsocks + Privoxy 转 HTTP 代理
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-12-14T14:30:13+08:00" content="2017-12-14">
-              2017-12-14
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/12/14/share-shasdowsocks-to-http/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/14/share-shasdowsocks-to-http/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本文把 Mac 上的 Shadowsocks 转换为 http 代理，分享给其它人使用。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install privoxy</span><br></pre></td></tr></table></figure>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">'listen-address 0.0.0.0:8118'</span> &gt;&gt; /usr/<span class="built_in">local</span>/etc/privoxy/config</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">'forward-socks5 / localhost:1080 .'</span> &gt;&gt; /usr/<span class="built_in">local</span>/etc/privoxy/config</span><br></pre></td></tr></table></figure>
-<p>8118 是要监听的 http 端口<br>1082 是我自己本地的 shadowsocks 监听端口。</p>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ usr/<span class="built_in">local</span>/Cellar/privoxy/3.0.26/sbin/privoxy /usr/<span class="built_in">local</span>/etc/privoxy/config</span><br></pre></td></tr></table></figure>
-<h2 id="确认"><a href="#确认" class="headerlink" title="确认"></a>确认</h2><p>查进程<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps aux  | grep privoxy</span><br></pre></td></tr></table></figure></p>
-<p>查端口<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -an | grep 8118</span><br></pre></td></tr></table></figure></p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> http_proxy=http://ip:8118</span><br><span class="line">$ <span class="built_in">export</span> https_proxy=<span class="variable">$http_proxy</span></span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/09/docker-six-docker-compose-cluster/" itemprop="url">
-                  Docker 实战（六）：使用 Docker Compose 搭建 Web 集群
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-12-09T09:49:43+08:00" content="2016-12-09">
-              2016-12-09
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/12/09/docker-six-docker-compose-cluster/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/09/docker-six-docker-compose-cluster/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在 <a href="http://batizhao.me/2016/12/01/docker-four-docker-compose/">实战（四）</a> 中，使用 HAProxy 和 Tomcat 搭建了一个简单的 Tomcat 集群。<br>这节会去掉 Tomcat，使用 Spring Boot 和 MySQL 组成一个比较典型的负载均衡集群。</p>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">compose-haproxy-web</span><br><span class="line">- docker-compose.yml</span><br><span class="line">+ haproxy</span><br><span class="line">  - haproxy.cfg</span><br><span class="line">+ web</span><br><span class="line">  - paper-0.0.1-SNAPSHOT.jar</span><br></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/12/09/docker-six-docker-compose-cluster/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1570,7 +1602,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">56</span>
+              <span class="site-state-item-count">58</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1578,7 +1610,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1587,7 +1619,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

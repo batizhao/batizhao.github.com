@@ -1,0 +1,999 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="kubernetes,hyperledger," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Gunner" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="在上一篇文章中，我们介绍了在 Kubernetes 上运行 Fabric 的机制。 这篇文章会详细讲解安装的具体步骤。 在 v1.0 发布之后，时隔一年，在今年 7 月份，Fabric v1.2 版本发布。 准备环境CMD 客户机 这里我用的是自己的 Mac 可以通过 kubectl 操作远程的 Kubernetes 集群 安装 Python3，部署脚本是用 Python 写的  Kubernet">
+<meta name="keywords" content="kubernetes,hyperledger">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Kubernetes 上部署 Hyperledger Fabric v1.2（二）">
+<meta property="og:url" content="http://batizhao.me/2018/08/13/deploy-fabric-on-kubernetes-two/index.html">
+<meta property="og:site_name" content="Gunner">
+<meta property="og:description" content="在上一篇文章中，我们介绍了在 Kubernetes 上运行 Fabric 的机制。 这篇文章会详细讲解安装的具体步骤。 在 v1.0 发布之后，时隔一年，在今年 7 月份，Fabric v1.2 版本发布。 准备环境CMD 客户机 这里我用的是自己的 Mac 可以通过 kubectl 操作远程的 Kubernetes 集群 安装 Python3，部署脚本是用 Python 写的  Kubernet">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://batizhao.me/images/2018-08-10-deploy-fabric-on-kubernetes-two-1.jpeg">
+<meta property="og:image" content="http://batizhao.me/images/2018-08-10-deploy-fabric-on-kubernetes-two-2.jpeg">
+<meta property="og:updated_time" content="2018-08-13T09:06:29.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在 Kubernetes 上部署 Hyperledger Fabric v1.2（二）">
+<meta name="twitter:description" content="在上一篇文章中，我们介绍了在 Kubernetes 上运行 Fabric 的机制。 这篇文章会详细讲解安装的具体步骤。 在 v1.0 发布之后，时隔一年，在今年 7 月份，Fabric v1.2 版本发布。 准备环境CMD 客户机 这里我用的是自己的 Mac 可以通过 kubectl 操作远程的 Kubernetes 集群 安装 Python3，部署脚本是用 Python 写的  Kubernet">
+<meta name="twitter:image" content="http://batizhao.me/images/2018-08-10-deploy-fabric-on-kubernetes-two-1.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://batizhao.me/2018/08/13/deploy-fabric-on-kubernetes-two/"/>
+
+
+  <title> 在 Kubernetes 上部署 Hyperledger Fabric v1.2（二） | Gunner </title>
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?63e2ab19db6a1bc0e46e4926b399b2f2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">  
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Gunner</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">枪手</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                在 Kubernetes 上部署 Hyperledger Fabric v1.2（二）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-08-13T09:27:04+08:00" content="2018-08-13">
+              2018-08-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/blockchain/" itemprop="url" rel="index">
+                    <span itemprop="name">blockchain</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/08/13/deploy-fabric-on-kubernetes-two/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/08/13/deploy-fabric-on-kubernetes-two/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在上一篇文章中，我们介绍了在 Kubernetes 上运行 Fabric 的机制。 这篇文章会详细讲解安装的具体步骤。</p>
+<p>在 v1.0 发布之后，时隔一年，在今年 7 月份，Fabric v1.2 版本发布。</p>
+<h2 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h2><h3 id="CMD-客户机"><a href="#CMD-客户机" class="headerlink" title="CMD 客户机"></a>CMD 客户机</h3><ul>
+<li>这里我用的是自己的 Mac</li>
+<li>可以通过 kubectl 操作远程的 Kubernetes 集群</li>
+<li>安装 Python3，部署脚本是用 Python 写的</li>
+</ul>
+<h3 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h3><ul>
+<li>v1.11.0，运行在 CentOS7 上</li>
+<li>Docker</li>
+</ul>
+<h3 id="NFS"><a href="#NFS" class="headerlink" title="NFS"></a>NFS</h3><ul>
+<li>给集群做共享存储，挂载证书和一些 channel 文件。</li>
+</ul>
+<a id="more"></a>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>本文用到的代码在 <a href="https://github.com/batizhao/fabric-on-kubernetes" target="_blank" rel="noopener">https://github.com/batizhao/fabric-on-kubernetes</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fabric-on-kubernetes</span><br><span class="line"> |--README.md</span><br><span class="line"> |--generateALL.sh             // 生成 K8S yaml file</span><br><span class="line"> |--transform                  // 使用 kubectl 部署或者卸载 Fabric </span><br><span class="line"> |--templates                  // K8S yaml 模板</span><br><span class="line"> |--cluster-config.yaml        // Fabric 集群配置文件</span><br><span class="line"> |--configtx.yaml              // channel 和创世块配置</span><br></pre></td></tr></table></figure>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><h3 id="A-cluster-config-yaml"><a href="#A-cluster-config-yaml" class="headerlink" title="A. cluster-config.yaml"></a><strong>A. cluster-config.yaml</strong></h3><p>cryptogen 工具根据 cluster-config.yaml 来生成 Fabric 成员的证书，一个简单的例子如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">OrdererOrgs:</span></span><br><span class="line"><span class="attr">  - Name:</span> <span class="string">Orderer1</span></span><br><span class="line"><span class="attr">    Domain:</span> <span class="string">orgorderer1</span></span><br><span class="line"><span class="attr">    Template:</span></span><br><span class="line"><span class="attr">      Count:</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="attr">PeerOrgs:</span></span><br><span class="line"><span class="attr">  - Name:</span> <span class="string">Org1</span></span><br><span class="line"><span class="attr">    Domain:</span> <span class="string">org1</span></span><br><span class="line"><span class="attr">    EnableNodeOUs:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    Template:</span></span><br><span class="line"><span class="attr">      Count:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">    Users:</span></span><br><span class="line"><span class="attr">      Count:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  - Name:</span> <span class="string">Org2</span></span><br><span class="line"><span class="attr">    Domain:</span> <span class="string">org2</span></span><br><span class="line"><span class="attr">    EnableNodeOUs:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    Template:</span></span><br><span class="line"><span class="attr">      Count:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">    Users:</span></span><br><span class="line"><span class="attr">      Count:</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>其中 OrdererOrgs 和 PeerOrgs 关键字区分 organization 的类型，两种组织的内部结构如下：</p>
+<p>1) OrdererOrgs 中定义了一个名字为 Orderer ，域名为 orgorderer1 的 org ，并且它指定 template 中 count 的数值为 1，则在该 org 下只有一个 orderer ，其 id 为 orderer0 。</p>
+<p>2) PeerOrgs 中定义了两个 org ，分别为 Org1 和 Org2 ，对应的域名为 org1、 org2 与 orderer 类似，每个 org 生成了两个 peers ，虽然 org1 中 peer0 和 org2 中 peer0 的 ID 重复，但是他不属于同一个 org ，通过域名很容易就能区分出它们。</p>
+<p>需要注意的是，由于 K8S 中的 namespace 不支持 ‘.’ 和大写字母，因此各个组织的域名不能包含这些字符。</p>
+<p>更多关于 cluster-config.yaml 的配置方式，请参考 Fabric 源码中的关于 cryptogen 的描述 （ fabric/common/tools/cryptogen/main.go）</p>
+<p>cryptogen 工具会生成 crypto-config 目录，该目录的结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">crypto-config</span><br><span class="line">|--- ordererOrganizations</span><br><span class="line">|     |--- orgorderer1</span><br><span class="line">|           |--- msp</span><br><span class="line">|           |--- ca</span><br><span class="line">|           |--- tlsca</span><br><span class="line">|           |--- users</span><br><span class="line">|           |--- orderers</span><br><span class="line">|           |--- orderer0.orgorderer1</span><br><span class="line">|                 |--- msp</span><br><span class="line">|                 |--- tls</span><br><span class="line">|</span><br><span class="line">|--- peerOrganizations</span><br><span class="line">      |--- org1</span><br><span class="line">      |     |--- msp</span><br><span class="line">      |     |--- ca</span><br><span class="line">      |     |--- tlsca</span><br><span class="line">      |     |--- users</span><br><span class="line">      |     |--- peers</span><br><span class="line">      |           |--- peer0.org1</span><br><span class="line">      |           |     |--- msp</span><br><span class="line">      |           |     |--- tls</span><br><span class="line">      |           |--- peer1.org1</span><br><span class="line">      |                 |--- msp</span><br><span class="line">      |                 |--- tls</span><br><span class="line">      |--- org2</span><br><span class="line">            |--- msp</span><br><span class="line">            |--- ca</span><br><span class="line">            |--- tlsca</span><br><span class="line">            |--- users</span><br><span class="line">            |--- peers</span><br><span class="line">                   |--- peer0.org2</span><br><span class="line">                   |     |--- msp</span><br><span class="line">                   |     |--- tls</span><br><span class="line">                   |--- peer1.org2</span><br><span class="line">                         |--- msp</span><br><span class="line">                         |--- tls</span><br></pre></td></tr></table></figure>
+<p>可以看出，每个 org 都包含了 msp、 ca、 tlsca 和 users 目录，然后根据 org 类型的不同，还分别有 peers 和 orderers 目录，里面存放着 org 中每个成员的 msp 和 tls 文件。</p>
+<h3 id="B-configtx-yaml"><a href="#B-configtx-yaml" class="headerlink" title="B. configtx.yaml"></a><strong>B. configtx.yaml</strong></h3><p>configtxgen 工具根据该文件生成 Orderer 初始化的时候要使用的 genesis.block（创世块），获知 organization 的各种信息。因此，用户要根据 cluster-config.yaml 中关于 organization 的定义来修改 configtx.yaml 以生成合适的 genesis.block 。例如，用户在 cluster-config.yaml 中增加了一个 Org3 ，并且要创建一个包含 Org1， Org2， Org3 的集群，则应该通过以下两步修改 configtx.yaml ：</p>
+<p>在 profile 中增加 Org3:</p>
+<p><img src="/images/2018-08-10-deploy-fabric-on-kubernetes-two-1.jpeg" alt="图1"></p>
+<p>在 Organization 中增加 Org3 的 MSPDir</p>
+<p><img src="/images/2018-08-10-deploy-fabric-on-kubernetes-two-2.jpeg" alt="图2"></p>
+<p>注意的是每个 organization 中的 MSPDir 的值必须是这种形式：</p>
+<p>crypto-config/{OrgType}/{OrgName}/msp</p>
+<h2 id="模板文件"><a href="#模板文件" class="headerlink" title="模板文件"></a>模板文件</h2><p>在 Kubernetes 中部署 Fabric 时，需要为每个节点编写相应的配置文件。由于节点数可能很多，这是既复杂又易错的重复劳动。为提高效率，可通过模板自动生成配置文件。本文使用了 5 个模板文件，可用脚本替换其中的变量，均在笔者给出示例代码中的 templates 目录中，这些模板的作用如下：</p>
+<h3 id="A-namespace-yaml"><a href="#A-namespace-yaml" class="headerlink" title="A. namespace.yaml"></a><strong>A. namespace.yaml</strong></h3><p>定义 Fabric 集群在 K8s 中的 namespace ，它对应着 organization 的域名。为了在多节点共享证书等文件，使用了 NFS 服务器作为存储。在 K8s 中通过相应的 PV 和 PVC ，namespace 下的 Pod 可以通过 PVC 来获取与之相应的文件。</p>
+<h3 id="B-cli-yaml"><a href="#B-cli-yaml" class="headerlink" title="B. cli.yaml"></a><strong>B. cli.yaml</strong></h3><p>CLI pod 模板，每个 organization 中都配备了一个 CLI pod，目的是提供命令行界面，可统一管理组织内的所有 peer ，其中包括 channel 的创建， chaincode 的安装等。CLI Pod 的 CORE_PEER_ADDRESS 环境变量默认值为 org 中的第一个 peer，可以通过修改该环境变量来连接不同的 peer 。</p>
+<p>yaml 文件中的 command 是为了防止 CLI pod 自动退出，CLI 的默认工作目录为 /opt/gopath/src/github.com/hyperledger/fabric/peer 。由于该目录下的 channel-artifacts 挂载了 NFS 上 /opt/share/channel-artifacts，因此把创建 channel 时返回的 xxx.block 文件放在该目录下供所有 CLI Pod共享。</p>
+<h3 id="C-ca-yaml"><a href="#C-ca-yaml" class="headerlink" title="C. ca.yaml"></a><strong>C. ca.yaml</strong></h3><p>Fabric 的 CA 服务的 pod 定义模板，用于 organization 中的证书管理，其 yaml 文件除了定义 deployment 外，还定义了 service 。service 通过 selector 与 deployment 绑定，其中 deployment 中的 label 是 selector 与其绑定的根据。 </p>
+<h3 id="D-orderer-yaml"><a href="#D-orderer-yaml" class="headerlink" title="D. orderer.yaml"></a><strong>D. orderer.yaml</strong></h3><p>Orderer 的 pod 定义模板，需要注意的是，cryptogen 并不会生成 genesis.block ，然而缺少该文件时，orderer 会启动失败，因此在启动 orderer 之前需要预先生成 genesis.block ，并将其放在相应的 org 目录下。</p>
+<h3 id="E-peer-yaml"><a href="#E-peer-yaml" class="headerlink" title="E. peer.yaml"></a><strong>E. peer.yaml</strong></h3><p>每个 peer pod 的定义模板。在该 yaml 中分别定义了 peer 和 couchDB 两个 container 。在实例化 chaincode (cc) 时，peer 需要连接 Docker 引擎来创建 cc 容器，因此要把 worker 宿主机的 var/run/docker.sock 映射到 peer 容器内部。</p>
+<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><p>在 Fabric 设计中， chaincode 目前是以 Docker 容器的方式运行在 peer 容器所在的宿主机上，peer 容器需要调用 Docker 引擎的接口来构建和创建 chaincode 容器，调用接口是通过这个连接：</p>
+<p>unix:///var/run/docker.sock</p>
+<p>通过 docker.sock 创建的容器脱离在 Kubernetes 的体系之外，虽然它仍在 Flannel 的网络上，但却无法获得 peer 节点的 IP 地址。这是因为创建该容器的 Docker 引擎使用宿主机默认的 DNS 解析来 peer 的域名，所以无法找到。</p>
+<p>为了解决解析域名的问题，需要在每个 worker 的 DOCKER_OPTS 中加入相关参数，我的 kube-dns 的 IP 为10.68.0.2，宿主机网络 DNS 的 IP 地址假设为 10.4.246.1，为使得 chaincode 的容器可以解析到 peer 节点，在每个 Docker 节点，修改步骤如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> echo 'DOCKER_OPTS="--dns=10.68.0.2 --dns=10.4.246.1 --dns-search default.svc.cluster.local --dns-search svc.cluster.local --dns-opt ndots:2 --dns-opt timeout:2 --dns-opt attempts:2"' &gt;&gt; /etc/default/docker</span><br><span class="line"><span class="meta">#</span> echo 'EnvironmentFile=-/etc/default/docker' &gt;&gt; /etc/systemd/system/docker.service</span><br><span class="line"><span class="meta">#</span> systemctl daemon-reload &amp;&amp; systemctl restart docker &amp;&amp; systemctl status docker</span><br></pre></td></tr></table></figure>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>以下操作都在 CMD 客户机上进行，NFS 的共享目录为 /opt/share。</p>
+<h3 id="在-CMD-中挂载-NFS-目录"><a href="#在-CMD-中挂载-NFS-目录" class="headerlink" title="在 CMD 中挂载 NFS 目录"></a>在 CMD 中挂载 NFS 目录</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> showmount -e 172.31.21.208</span><br><span class="line">Exports list on 172.31.21.208:</span><br><span class="line">/opt/share                          172.31.21.0/24</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> mkdir -p /opt/share &amp;&amp; sudo chmod 777 /opt/share</span><br><span class="line"><span class="meta">#</span> sudo mount -t nfs 172.31.21.208:/opt/share /opt/share</span><br></pre></td></tr></table></figure>
+<h3 id="下载源码和-Fabric-脚本"><a href="#下载源码和-Fabric-脚本" class="headerlink" title="下载源码和 Fabric 脚本"></a>下载源码和 Fabric 脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> git clone https://github.com/batizhao/fabric-on-kubernetes.git</span><br><span class="line"><span class="meta">#</span> cd fabric-on-kubernetes</span><br><span class="line"><span class="meta">#</span> wget https://nexus.hyperledger.org/content/repositories/releases/org/hyperledger/fabric/hyperledger-fabric/darwin-amd64-1.2.0/hyperledger-fabric-darwin-amd64-1.2.0.tar.gz &amp;&amp; tar -zxvf hyperledger-fabric-darwin-amd64-1.2.0.tar.gz &amp;&amp; rm -rf hyperledger-fabric-darwin-amd64-1.2.0.tar.gz &amp;&amp; rm -rf config</span><br></pre></td></tr></table></figure>
+<p>这段会在当前目录下生成一个 bin 目录，包含了运行 Fabric 的二进制脚本和证书、创世块生成工具。</p>
+<p>在部署之前，还需要修改 cli 和 namespace 中的 nfs 地址。</p>
+<h3 id="部署-1"><a href="#部署-1" class="headerlink" title="部署"></a>部署</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> ./generateALL.sh</span><br><span class="line">org1</span><br><span class="line">org2</span><br><span class="line">2018-08-10 16:58:25.005 CST [common/tools/configtxgen] main -&gt; WARN 001 Omitting the channel ID for configtxgen is deprecated.  Explicitly passing the channel ID will be required in the future, defaulting to 'testchainid'.</span><br><span class="line">2018-08-10 16:58:25.005 CST [common/tools/configtxgen] main -&gt; INFO 002 Loading configuration</span><br><span class="line">2018-08-10 16:58:25.017 CST [common/tools/configtxgen/encoder] NewChannelGroup -&gt; WARN 003 Default policy emission is deprecated, please include policy specificiations for the channel group in configtx.yaml</span><br><span class="line">2018-08-10 16:58:25.018 CST [common/tools/configtxgen/encoder] NewOrdererGroup -&gt; WARN 004 Default policy emission is deprecated, please include policy specificiations for the orderer group in configtx.yaml</span><br><span class="line">2018-08-10 16:58:25.022 CST [common/tools/configtxgen/encoder] NewOrdererOrgGroup -&gt; WARN 005 Default policy emission is deprecated, please include policy specificiations for the orderer org group Orgorderer1MSP in configtx.yaml</span><br><span class="line">2018-08-10 16:58:25.025 CST [msp] getMspConfig -&gt; INFO 006 Loading NodeOUs</span><br><span class="line">2018-08-10 16:58:25.026 CST [common/tools/configtxgen/encoder] NewOrdererOrgGroup -&gt; WARN 007 Default policy emission is deprecated, please include policy specificiations for the orderer org group Org1MSP in configtx.yaml</span><br><span class="line">2018-08-10 16:58:25.028 CST [msp] getMspConfig -&gt; INFO 008 Loading NodeOUs</span><br><span class="line">2018-08-10 16:58:25.028 CST [common/tools/configtxgen/encoder] NewOrdererOrgGroup -&gt; WARN 009 Default policy emission is deprecated, please include policy specificiations for the orderer org group Org2MSP in configtx.yaml</span><br><span class="line">2018-08-10 16:58:25.029 CST [common/tools/configtxgen] doOutputBlock -&gt; INFO 00a Generating genesis block</span><br><span class="line">2018-08-10 16:58:25.030 CST [common/tools/configtxgen] doOutputBlock -&gt; INFO 00b Writing genesis block</span><br></pre></td></tr></table></figure>
+<p>这段调用 configtxgen 生成各组织的证书，调用 python 生成 Kubernetes 的 yaml 文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> python3 transform/run.py</span><br><span class="line">namespace "orgorderer1" created</span><br><span class="line">persistentvolume "orgorderer1-pv" created</span><br><span class="line">persistentvolumeclaim "orgorderer1-pv" created</span><br><span class="line">deployment "orderer0-orgorderer1" created</span><br><span class="line">service "orderer0" created</span><br><span class="line">namespace "org2" created</span><br><span class="line">persistentvolume "org2-pv" created</span><br><span class="line">persistentvolumeclaim "org2-pv" created</span><br><span class="line">deployment "ca" created</span><br><span class="line">service "ca" created</span><br><span class="line">persistentvolume "org2-artifacts-pv" created</span><br><span class="line">persistentvolumeclaim "org2-artifacts-pv" created</span><br><span class="line">deployment "cli" created</span><br><span class="line">deployment "peer0-org2" created</span><br><span class="line">service "peer0" created</span><br><span class="line">deployment "peer1-org2" created</span><br><span class="line">service "peer1" created</span><br><span class="line">namespace "org1" created</span><br><span class="line">persistentvolume "org1-pv" created</span><br><span class="line">persistentvolumeclaim "org1-pv" created</span><br><span class="line">deployment "ca" created</span><br><span class="line">service "ca" created</span><br><span class="line">persistentvolume "org1-artifacts-pv" created</span><br><span class="line">persistentvolumeclaim "org1-artifacts-pv" created</span><br><span class="line">deployment "cli" created</span><br><span class="line">deployment "peer0-org1" created</span><br><span class="line">service "peer0" created</span><br><span class="line">deployment "peer1-org1" created</span><br><span class="line">service "peer1" created</span><br></pre></td></tr></table></figure>
+<p>这段会通过 python 脚本调用 kubectl 在 Kubernetes 上创建 Fabric 集群。</p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> kubectl get pod --all-namespaces</span><br><span class="line">NAMESPACE     NAME                                   READY     STATUS    RESTARTS   AGE</span><br><span class="line">org1          ca-744f5bfdbb-nb5pj                    1/1       Running   0          4m</span><br><span class="line">org1          cli-59d46f884-p5grk                    1/1       Running   0          4m</span><br><span class="line">org1          peer0-org1-6f8bd58fc8-dfvxp            2/2       Running   1          4m</span><br><span class="line">org1          peer1-org1-554b6d8fb-kjrqj             2/2       Running   0          4m</span><br><span class="line">org2          ca-6bd89dbc8d-zdgnb                    1/1       Running   1          4m</span><br><span class="line">org2          cli-7798868bf9-htkk2                   1/1       Running   0          4m</span><br><span class="line">org2          peer0-org2-f9fb8b694-7qhm8             2/2       Running   0          4m</span><br><span class="line">org2          peer1-org2-7b9854f9fb-xmps4            2/2       Running   0          4m</span><br><span class="line">orgorderer1   orderer0-orgorderer1-df4769577-mtzmp   1/1       Running   0          4m</span><br></pre></td></tr></table></figure>
+<p>几分钟以后，可以看到所有 Pod 都 Running 了。</p>
+<h2 id="测试-Fabric-集群"><a href="#测试-Fabric-集群" class="headerlink" title="测试 Fabric 集群"></a>测试 Fabric 集群</h2><p>当所有 Pod Running 之后，可以进入开发、部署 chaincode 的阶段。</p>
+<h3 id="生成-channel-相关文件"><a href="#生成-channel-相关文件" class="headerlink" title="生成 channel 相关文件"></a>生成 channel 相关文件</h3><p>回到 CMD 的源码根目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> cd fabric-on-kubernetes</span><br></pre></td></tr></table></figure>
+<p>创建 channel 的 channel.tx 文件，该 channel 的 ID 为 mychannel</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> bin/configtxgen -profile TwoOrgsChannel \</span><br><span class="line">                -outputCreateChannelTx channel-artifacts/channel.tx \</span><br><span class="line">                -channelID mychannel</span><br><span class="line">2018-08-13 10:40:17.795 CST [common/tools/configtxgen] main -&gt; INFO 001 Loading configuration</span><br><span class="line">2018-08-13 10:40:17.808 CST [common/tools/configtxgen] doOutputChannelCreateTx -&gt; INFO 002 Generating new channel configtx</span><br><span class="line">2018-08-13 10:40:17.808 CST [common/tools/configtxgen/encoder] NewApplicationGroup -&gt; WARN 003 Default policy emission is deprecated, please include policy specificiations for the application group in configtx.yaml</span><br><span class="line">2018-08-13 10:40:17.812 CST [msp] getMspConfig -&gt; INFO 004 Loading NodeOUs</span><br><span class="line">2018-08-13 10:40:17.812 CST [common/tools/configtxgen/encoder] NewApplicationOrgGroup -&gt; WARN 005 Default policy emission is deprecated, please include policy specificiations for the application org group Org1MSP in configtx.yaml</span><br><span class="line">2018-08-13 10:40:17.814 CST [msp] getMspConfig -&gt; INFO 006 Loading NodeOUs</span><br><span class="line">2018-08-13 10:40:17.814 CST [common/tools/configtxgen/encoder] NewApplicationOrgGroup -&gt; WARN 007 Default policy emission is deprecated, please include policy specificiations for the application org group Org2MSP in configtx.yaml</span><br><span class="line">2018-08-13 10:40:17.816 CST [common/tools/configtxgen] doOutputChannelCreateTx -&gt; INFO 008 Writing new channel tx</span><br></pre></td></tr></table></figure>
+<p>创建 channel 的升级文件，该文件用于更新 mychannel 中 Org1 的 anchor peer</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> bin/configtxgen -profile TwoOrgsChannel \</span><br><span class="line">                -outputAnchorPeersUpdate channel-artifacts/Org1MSPanchors.tx \</span><br><span class="line">                -channelID mychannel \</span><br><span class="line">                -asOrg Org1MSP</span><br><span class="line">2018-08-13 10:40:39.150 CST [common/tools/configtxgen] main -&gt; INFO 001 Loading configuration</span><br><span class="line">2018-08-13 10:40:39.160 CST [common/tools/configtxgen] doOutputAnchorPeersUpdate -&gt; INFO 002 Generating anchor peer update</span><br><span class="line">2018-08-13 10:40:39.161 CST [common/tools/configtxgen] doOutputAnchorPeersUpdate -&gt; INFO 003 Writing anchor peer update</span><br></pre></td></tr></table></figure>
+<p>创建 channel 的升级文件，该文件用于更新 mychannel 中 Org2 的 anchor peer</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bin/configtxgen -profile TwoOrgsChannel \</span><br><span class="line">                -outputAnchorPeersUpdate channel-artifacts/Org2MSPanchors.tx \</span><br><span class="line">                -channelID mychannel \</span><br><span class="line">                -asOrg Org2MSP</span><br><span class="line">2018-08-13 10:40:53.609 CST [common/tools/configtxgen] main -&gt; INFO 001 Loading configuration</span><br><span class="line">2018-08-13 10:40:53.618 CST [common/tools/configtxgen] doOutputAnchorPeersUpdate -&gt; INFO 002 Generating anchor peer update</span><br><span class="line">2018-08-13 10:40:53.619 CST [common/tools/configtxgen] doOutputAnchorPeersUpdate -&gt; INFO 003 Writing anchor peer update</span><br></pre></td></tr></table></figure>
+<p>由于每个 Org 的 CLI Pod 需要用到以上步骤创建的文件，可以通过 NFS 来跟 CLI Pod 共享这些文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> sudo cp -r ./channel-artifacts /opt/share/</span><br></pre></td></tr></table></figure>
+<p>完成以上工作后，就可以通过各组织的 CLI Pod 来测试集群是否正常运行。</p>
+<h3 id="进入-CLI-容器"><a href="#进入-CLI-容器" class="headerlink" title="进入 CLI 容器"></a>进入 CLI 容器</h3><h4 id="A-查找-org1-下边的容器"><a href="#A-查找-org1-下边的容器" class="headerlink" title="A. 查找 org1 下边的容器"></a>A. 查找 org1 下边的容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> kubectl get pod -n org1</span><br><span class="line">NAME                          READY     STATUS    RESTARTS   AGE</span><br><span class="line">ca-744f5bfdbb-nb5pj           1/1       Running   0          2d</span><br><span class="line">cli-59d46f884-p5grk           1/1       Running   0          2d</span><br><span class="line">peer0-org1-6f8bd58fc8-dfvxp   2/2       Running   1          2d</span><br><span class="line">peer1-org1-554b6d8fb-kjrqj    2/2       Running   0          2d</span><br></pre></td></tr></table></figure>
+<p>登录 org1 cli 容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> kubectl exec -it cli-59d46f884-p5grk bash -n org1</span><br><span class="line">root@cli-59d46f884-p5grk:/opt/gopath/src/github.com/hyperledger/fabric/peer#</span><br></pre></td></tr></table></figure>
+<p>创建channel </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> peer channel create -o orderer0.orgorderer1:7050 -c mychannel -f ./channel-artifacts/channel.tx </span><br><span class="line">...</span><br><span class="line">2018-08-13 11:00:22.265 UTC [cli/common] readBlock -&gt; INFO 05e Received block: 0</span><br></pre></td></tr></table></figure>
+<p>拷贝 mychannel.block 到 channel-artifacts 目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> cp mychannel.block channel-artifacts</span><br></pre></td></tr></table></figure>
+<p>加入 mychannel</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> peer channel join -b channel-artifacts/mychannel.block</span><br><span class="line">...</span><br><span class="line">2018-08-13 11:02:54.961 UTC [channelCmd] executeJoin -&gt; INFO 041 Successfully submitted proposal to join channel</span><br></pre></td></tr></table></figure>
+<p>更新 anchor peer，每个 org 只需执行一次</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> peer channel update -o orderer0.orgorderer1:7050 -c mychannel -f./channel-artifacts/Org1MSPanchors.tx</span><br><span class="line">...</span><br><span class="line">2018-08-13 11:03:47.907 UTC [channelCmd] update -&gt; INFO 04d Successfully submitted channel update</span><br></pre></td></tr></table></figure>
+<h4 id="B-查找-org2-下边的容器"><a href="#B-查找-org2-下边的容器" class="headerlink" title="B. 查找 org2 下边的容器"></a>B. 查找 org2 下边的容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> kubectl get pod -n org2</span><br><span class="line">NAME                          READY     STATUS    RESTARTS   </span><br><span class="line">ca-8665cf9b9b-v5m8p           1/1       Running   0          </span><br><span class="line">cli-7798868bf9-zmq8d          1/1       Running   1          </span><br><span class="line">peer0-org2-f9fb8b694-mw54z    2/2       Running   0          </span><br><span class="line">peer1-org2-7b9854f9fb-t5plg   2/2       Running   0</span><br></pre></td></tr></table></figure>
+<p>登录 org2 cli 容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> kubectl exec -it cli-7798868bf9-zmq8d bash -n org2</span><br><span class="line">root@cli-7798868bf9-zmq8d:/opt/gopath/src/github.com/hyperledger/fabric/peer#</span><br></pre></td></tr></table></figure>
+<p>加入 mychannel</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> peer channel join -b channel-artifacts/mychannel.block</span><br><span class="line">...</span><br><span class="line">2018-08-13 11:02:54.961 UTC [channelCmd] executeJoin -&gt; INFO 041 Successfully submitted proposal to join channel</span><br></pre></td></tr></table></figure>
+<p>更新 anchor peer，每个 org 只需执行一次</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> peer channel update -o orderer0.orgorderer1:7050 -c mychannel -f./channel-artifacts/Org2MSPanchors.tx</span><br><span class="line">...</span><br><span class="line">2018-08-13 11:06:48.166 UTC [channelCmd] update -&gt; INFO 04d Successfully submitted channel update</span><br></pre></td></tr></table></figure>
+<h3 id="安装-chaincode"><a href="#安装-chaincode" class="headerlink" title="安装 chaincode"></a>安装 chaincode</h3><p>在 CMD 客户机</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> git clone git@github.com:hyperledger/fabric-samples.git &amp;&amp; cd fabric-samples</span><br><span class="line"><span class="meta">#</span> sudo mkdir -p /opt/share/channel-artifacts/chaincode_example02</span><br><span class="line"><span class="meta">#</span> sudo cp -r chaincode/chaincode_example02/* /opt/share/channel-artifacts/chaincode_example02</span><br></pre></td></tr></table></figure>
+<p>分别登录 org1 cli ，org2 cli 容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> kubectl exec -it cli-59d46f884-p5grk bash -n org1</span><br><span class="line">root@cli-59d46f884-p5grk:/opt/gopath/src/github.com/hyperledger/fabric/peer#</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> kubectl exec -it cli-7798868bf9-zmq8d bash -n org2</span><br><span class="line">root@cli-7798868bf9-zmq8d:/opt/gopath/src/github.com/hyperledger/fabric/peer#</span><br></pre></td></tr></table></figure>
+<p>安装 chaincode</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> peer chaincode install -n mycc -v 1.0 -p github.com/hyperledger/fabric/peer/channel-artifacts/chaincode_example02/go</span><br><span class="line">...</span><br><span class="line">2018-08-13 13:29:05.614 UTC [chaincodeCmd] install -&gt; INFO 050 Installed remotely response:&lt;status:200 payload:"OK" &gt;</span><br></pre></td></tr></table></figure>
+<p>实例化 chaincode（只要在任意 org 执行一次）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> peer chaincode instantiate -o orderer0.orgorderer1:7050 \</span><br><span class="line">                             -C mychannel -n mycc -v 1.0 \</span><br><span class="line">                             -c '&#123;"Args":["init","a", "100", "b","200"]&#125;' \</span><br><span class="line">                             -P "OR ('Org1MSP.peer','Org2MSP.peer')"</span><br><span class="line">...                             </span><br><span class="line">2018-08-13 13:39:28.069 UTC [chaincodeCmd] checkChaincodeCmdParams -&gt; INFO 04a Using default escc</span><br><span class="line">2018-08-13 13:39:28.069 UTC [chaincodeCmd] checkChaincodeCmdParams -&gt; INFO 04b Using default vscc</span><br><span class="line">2018-08-13 13:39:28.069 UTC [chaincodeCmd] getChaincodeSpec -&gt; DEBU 04c java chaincode disabled</span><br><span class="line">2018-08-13 13:39:28.069 UTC [msp/identity] Sign -&gt; DEBU 04d Sign: plaintext: 0A8D070A6608031A0B089094C6DB0510...535010030A04657363630A0476736363</span><br><span class="line">2018-08-13 13:39:28.069 UTC [msp/identity] Sign -&gt; DEBU 04e Sign: digest: F5EB7F5FEB4C3CE151402B3A43E285BA2FD7B0FA6FBC355376417407BC9CAC27</span><br><span class="line">2018-08-13 13:39:34.045 UTC [msp/identity] Sign -&gt; DEBU 04f Sign: plaintext: 0A8D070A6608031A0B089094C6DB0510...394757C502AA08930A47A8BF4BA9263D</span><br><span class="line">2018-08-13 13:39:34.045 UTC [msp/identity] Sign -&gt; DEBU 050 Sign: digest: F55A876EC071C16D5FE5CEB6A155F075B65A9EBAEFD26B5D916D10921A25D6A8</span><br></pre></td></tr></table></figure>
+<p>查询账本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> peer chaincode query -C mychannel -n mycc -c '&#123;"Args":["query","a"]&#125;'</span><br><span class="line">100</span><br></pre></td></tr></table></figure>
+<p>a to b 转帐 10</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> peer chaincode invoke -o orderer0.orgorderer1:7050\</span><br><span class="line">                        -C mychannel -n mycc \</span><br><span class="line">                        --peerAddresses peer0.org1:7051 \</span><br><span class="line">                        -c '&#123;"Args":["invoke","a","b","10"]&#125;'</span><br><span class="line">...</span><br><span class="line">2018-08-13 13:54:46.298 UTC [chaincodeCmd] chaincodeInvokeOrQuery -&gt; INFO 050 Chaincode invoke successful. result: status:200</span><br></pre></td></tr></table></figure>
+<p>查询账本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> peer chaincode query -C mychannel -n mycc -c '&#123;"Args":["query","a"]&#125;'</span><br><span class="line">90</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> peer chaincode query -C mychannel -n mycc -c '&#123;"Args":["query","b"]&#125;'</span><br><span class="line">210</span><br></pre></td></tr></table></figure>
+<h2 id="清除集群"><a href="#清除集群" class="headerlink" title="清除集群"></a>清除集群</h2><p>当需要删除集群的时候，可以通过 transform 目录下的 delete.py 脚本来清理环境，该脚本会遍历 crypto-config 目录，找出所有的 yaml 文件，并通过 kuberclt delete -f xxx.yaml 的方式将资源逐个删除。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> python3 transform/delete.py</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文介绍的部署方法，是基于 Kubernetes 容器云平台实现 BaaS 的基础步骤。先介绍了 Fabric 的架构、详细部署过程，之后介绍了 chaincode 的部署和调用。在此之上，可以增加更多的区块链层管理功能，图形化运维界面，使得开发人员投入更多的精力到应用的业务逻辑上。</p>
+<p>在此之前，有试用过 <a href="https://github.com/hyperledger/cello" target="_blank" rel="noopener">Heperledger Cello</a>，发现这个项目还没法用。在网上找到 <a href="https://medium.com/@zhanghenry/how-to-deploy-hyperledger-fabric-on-kubernetes-2-751abf44c807" target="_blank" rel="noopener">How to Deploy Hyperledger Fabric on Kubernetes</a> 这篇博文，和国内这篇 <a href="https://blog.csdn.net/Blockchain_lemon/article/details/77744173" target="_blank" rel="noopener">用Kubernetes部署超级账本Fabric的区块链即服务</a> 做参考，应该是同一个人写的。只不过写于 2017 年 Fabric v1.0 的时候，现在已经是 v1.2，所以对项目做了些修改才能运行。这应该也是目前唯一的 Fabric v1.2 on Kubernetes 中文部署指引。后续会通过实现一些 chaincode 来更深入的理解 Fabric 原理。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kubernetes/" rel="tag">#kubernetes</a>
+          
+            <a href="/tags/hyperledger/" rel="tag">#hyperledger</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/10/deploy-fabric-on-kubernetes/" rel="next" title="在 Kubernetes 上部署 Hyperledger Fabric v1.2（一）">
+                <i class="fa fa-chevron-left"></i> 在 Kubernetes 上部署 Hyperledger Fabric v1.2（一）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/08/13/deploy-fabric-on-kubernetes-two/"
+           data-title="在 Kubernetes 上部署 Hyperledger Fabric v1.2（二）" data-url="http://batizhao.me/2018/08/13/deploy-fabric-on-kubernetes-two/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="巴蒂" />
+          <p class="site-author-name" itemprop="name">巴蒂</p>
+          <p class="site-description motion-element" itemprop="description">心中总有个梦想，想英雄一样地走过这世界。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">58</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/batizhao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/batizhao" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/zhaobati" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备环境"><span class="nav-number">1.</span> <span class="nav-text">准备环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CMD-客户机"><span class="nav-number">1.1.</span> <span class="nav-text">CMD 客户机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kubernetes"><span class="nav-number">1.2.</span> <span class="nav-text">Kubernetes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NFS"><span class="nav-number">1.3.</span> <span class="nav-text">NFS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置文件"><span class="nav-number">3.</span> <span class="nav-text">配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-cluster-config-yaml"><span class="nav-number">3.1.</span> <span class="nav-text">A. cluster-config.yaml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-configtx-yaml"><span class="nav-number">3.2.</span> <span class="nav-text">B. configtx.yaml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板文件"><span class="nav-number">4.</span> <span class="nav-text">模板文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-namespace-yaml"><span class="nav-number">4.1.</span> <span class="nav-text">A. namespace.yaml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-cli-yaml"><span class="nav-number">4.2.</span> <span class="nav-text">B. cli.yaml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-ca-yaml"><span class="nav-number">4.3.</span> <span class="nav-text">C. ca.yaml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#D-orderer-yaml"><span class="nav-number">4.4.</span> <span class="nav-text">D. orderer.yaml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#E-peer-yaml"><span class="nav-number">4.5.</span> <span class="nav-text">E. peer.yaml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS"><span class="nav-number">5.</span> <span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">6.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在-CMD-中挂载-NFS-目录"><span class="nav-number">6.1.</span> <span class="nav-text">在 CMD 中挂载 NFS 目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载源码和-Fabric-脚本"><span class="nav-number">6.2.</span> <span class="nav-text">下载源码和 Fabric 脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署-1"><span class="nav-number">6.3.</span> <span class="nav-text">部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证"><span class="nav-number">6.4.</span> <span class="nav-text">验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-Fabric-集群"><span class="nav-number">7.</span> <span class="nav-text">测试 Fabric 集群</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成-channel-相关文件"><span class="nav-number">7.1.</span> <span class="nav-text">生成 channel 相关文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进入-CLI-容器"><span class="nav-number">7.2.</span> <span class="nav-text">进入 CLI 容器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-查找-org1-下边的容器"><span class="nav-number">7.2.1.</span> <span class="nav-text">A. 查找 org1 下边的容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B-查找-org2-下边的容器"><span class="nav-number">7.2.2.</span> <span class="nav-text">B. 查找 org2 下边的容器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-chaincode"><span class="nav-number">7.3.</span> <span class="nav-text">安装 chaincode</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清除集群"><span class="nav-number">8.</span> <span class="nav-text">清除集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">巴蒂</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"batizhao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = false;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = decodeURIComponent(data.url);
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title >= 0 || index_content >= 0 ){
+                                isMatch = true;
+								if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            } 
+							
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>

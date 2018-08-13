@@ -308,6 +308,268 @@
             
               
                 
+                <a class="post-title-link" href="/2012/05/08/identity-management/" itemprop="url">
+                  统一身份管理和单点登录
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-05-08T00:00:00+08:00" content="2012-05-08">
+              2012-05-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/05/08/identity-management/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/05/08/identity-management/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="1-方案一"><a href="#1-方案一" class="headerlink" title="1. 方案一"></a>1. 方案一</h2><ul>
+<li>调用 OpenIDM REST API 管理组织、用户（CRUD，需要开发）。</li>
+<li>通过 OpenIDM Core Service 推送数据到 OpenDJ（LDAP）、业务系统数据库。</li>
+<li>需要至少提供两台 Linux（RHEL6）主机，增加的系统服务有 OpenDJ、OpenIDM、OpenAM、MySQL、身份管理 Web 服务。</li>
+<li>OpenDJ 和 MySQL 在一台机器（做数据备份），其余在另外一台。OpenDJ 和 OpenAM 交叉 HA。</li>
+</ul>
+<p><img src="/images/2012-05-08-identity-management-1.png" alt=""></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/05/08/identity-management/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2012/05/03/step-by-step-two-openidm/" itemprop="url">
+                  进阶使用 OpenIDM 【二】
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-05-03T00:00:00+08:00" content="2012-05-03">
+              2012-05-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/05/03/step-by-step-two-openidm/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/05/03/step-by-step-two-openidm/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在正式的企业场景中，组织一般具有父子关系。我们来看一下在这种情况下，OpenIDM 如何配置。</p>
+<h2 id="1-增加新的类型-organizationUnit"><a href="#1-增加新的类型-organizationUnit" class="headerlink" title="1. 增加新的类型 organizationUnit"></a>1. 增加新的类型 organizationUnit</h2><p>在 openidm/conf/managed.json 中增加</p>
+<pre><code>{
+    &quot;name&quot; : &quot;organizationUnit&quot;
+}
+</code></pre><p>查询 organizationUnit</p>
+<pre><code># curl \
+--header &quot;X-OpenIDM-Username: openidm-admin&quot; \
+--header &quot;X-OpenIDM-Password: openidm-admin&quot; \
+http://openam.example.com:9090/openidm/managed/organizationUnit/?_query-id=query-all-ids
+</code></pre><p>结果</p>
+<pre><code>{&quot;query-time-ms&quot;:6,&quot;result&quot;:[]}
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/05/03/step-by-step-two-openidm/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2012/05/02/step-by-step-one-openidm/" itemprop="url">
                   进阶使用 OpenIDM 【一】
                 </a>
@@ -1315,254 +1577,6 @@ Agent URL: http://website.example.com:8080/agentapp
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/03/29/install-opendj-directory-server-on-rhel6/" itemprop="url">
-                  在 RHEL6 上安装 OpenDJ
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-03-29T00:00:00+08:00" content="2012-03-29">
-              2012-03-29
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/03/29/install-opendj-directory-server-on-rhel6/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/03/29/install-opendj-directory-server-on-rhel6/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>官网”OpenDJ is a extension of the Sun Microsystems’ initiated OpenDS project and offers a fully supported product for it.”<br>接下来的这几篇文章会介绍 ForgeRock Open Platform 的 OpenDJ、OpenIDM、OpenAM 三个产品的安装、配置，<br>以及如何使用他们来搭建企业用户管理、访问认证的基础平台。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/03/29/install-opendj-directory-server-on-rhel6/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2012/03/29/install-java-on-rhel6/" itemprop="url">
-                  在 RHEL6 上安装 Java
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-03-29T00:00:00+08:00" content="2012-03-29">
-              2012-03-29
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/03/29/install-java-on-rhel6/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/03/29/install-java-on-rhel6/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>卸载老版本的 Java</p>
-<pre><code># java -version
-# rpm -qa|grep java
-# rpm -e --nodeps java-1.5.0-gcj-1.5.0.0-29.1.el6.x86_64
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/03/29/install-java-on-rhel6/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1608,7 +1622,7 @@ Agent URL: http://website.example.com:8080/agentapp
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">56</span>
+              <span class="site-state-item-count">58</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1616,7 +1630,7 @@ Agent URL: http://website.example.com:8080/agentapp
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1625,7 +1639,7 @@ Agent URL: http://website.example.com:8080/agentapp
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
