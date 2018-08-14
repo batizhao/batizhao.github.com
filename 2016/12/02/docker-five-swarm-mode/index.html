@@ -100,7 +100,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://batizhao.github.io/images/ingress-routing-mesh.png">
 <meta property="og:image" content="http://batizhao.github.io/images/ingress-lb.png">
-<meta property="og:updated_time" content="2016-12-05T02:50:28.000Z">
+<meta property="og:updated_time" content="2018-08-14T02:10:01.727Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 实战（五）：Docker Swarm Mode">
 <meta name="twitter:description" content="在 Docker Compose 中，我们可以在单台机器上操作多个相关联的 Docker 容器组成负载均衡集群。那如果我们需要一个分布式的环境中，跨多台主机呢？在 Docker 1.12 以上版本中，有个新的东西叫做 Swarm Mode。不同于之前版本的 Docker Swarm（还需要 pull swarm），Swarm Mode 已经集成在 Docker Engine 中。">
@@ -376,7 +376,7 @@
       
 
       
-        <p>在 <a href="http://batizhao.me/2016/12/01/docker-four-docker-compose/" target="_blank" rel="noopener">Docker Compose</a> 中，我们可以在单台机器上操作多个相关联的 Docker 容器组成负载均衡集群。<br>那如果我们需要一个分布式的环境中，跨多台主机呢？<br>在 Docker 1.12 以上版本中，有个新的东西叫做 <a href="https://docs.docker.com/engine/swarm/" target="_blank" rel="noopener">Swarm Mode</a>。<br>不同于之前版本的 <a href="https://docs.docker.com/swarm/" target="_blank" rel="noopener">Docker Swarm</a>（还需要 pull swarm），Swarm Mode 已经集成在 Docker Engine 中。</p>
+        <p>在 <a href="http://batizhao.github.io/2016/12/01/docker-four-docker-compose/">Docker Compose</a> 中，我们可以在单台机器上操作多个相关联的 Docker 容器组成负载均衡集群。<br>那如果我们需要一个分布式的环境中，跨多台主机呢？<br>在 Docker 1.12 以上版本中，有个新的东西叫做 <a href="https://docs.docker.com/engine/swarm/" target="_blank" rel="noopener">Swarm Mode</a>。<br>不同于之前版本的 <a href="https://docs.docker.com/swarm/" target="_blank" rel="noopener">Docker Swarm</a>（还需要 pull swarm），Swarm Mode 已经集成在 Docker Engine 中。</p>
 <a id="more"></a>
 <h2 id="主要特性"><a href="#主要特性" class="headerlink" title="主要特性"></a>主要特性</h2><h3 id="内置于-Docker-Engine-的集群管理"><a href="#内置于-Docker-Engine-的集群管理" class="headerlink" title="内置于 Docker Engine 的集群管理"></a>内置于 Docker Engine 的集群管理</h3><p>可以直接用 Docker Engine CLI 来创建 Swarm 集群，并在该集群上部署服务。你不再需要额外的编排软件来创建或管理 Swarm 集群了。</p>
 <h3 id="去中心化设计"><a href="#去中心化设计" class="headerlink" title="去中心化设计"></a>去中心化设计</h3><p>不同于在部署时就确定节点之间的关系, 新的 Swarm 模式选择在运行时动态地处理这些关系, 你可以用 Docker Engine 部署 manager 和 worker 这两种不同的节点。 这意味着你可以从一个磁盘镜像搭建整个 Swarm 。</p>
