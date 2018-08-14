@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://batizhao.github.io/404.html</loc>
+    
+    <lastmod>2018-08-14T02:30:33.458Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://batizhao.github.io/about/index.html</loc>
     
     <lastmod>2018-08-14T02:23:44.667Z</lastmod>
@@ -163,14 +170,14 @@
   </url>
   
   <url>
-    <loc>http://batizhao.github.io/tags/index.html</loc>
+    <loc>http://batizhao.github.io/categories/index.html</loc>
     
     <lastmod>2016-11-09T02:28:59.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://batizhao.github.io/categories/index.html</loc>
+    <loc>http://batizhao.github.io/tags/index.html</loc>
     
     <lastmod>2016-11-09T02:28:59.000Z</lastmod>
     
@@ -425,13 +432,6 @@
     <loc>http://batizhao.github.io/2012/03/09/install-openldap/</loc>
     
     <lastmod>2016-11-04T07:53:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://batizhao.github.io/404.html</loc>
-    
-    <lastmod>2016-11-04T06:19:36.000Z</lastmod>
     
   </url>
   
