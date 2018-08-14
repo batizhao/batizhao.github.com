@@ -132,7 +132,7 @@
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?63e2ab19db6a1bc0e46e4926b399b2f2";
+      hm.src = "//hm.baidu.com/hm.js?4e3ffdab4387b8ef0d7c7c587e39xxxx";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();
@@ -1079,8 +1079,8 @@ public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&
             
               
                 
-                <a class="post-title-link" href="/2012/09/27/simple-spring-memcached-annotation/" itemprop="url">
-                  使用 Simple-Spring-Memcached Annotation
+                <a class="post-title-link" href="/2012/09/27/using-simple-spring-memcached-one/" itemprop="url">
+                  使用 Simple-Spring-Memcached: SingleCache
                 </a>
               
             
@@ -1123,8 +1123,8 @@ public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2012/09/27/simple-spring-memcached-annotation/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/27/simple-spring-memcached-annotation/" itemprop="commentsCount"></span>
+                <a href="/2012/09/27/using-simple-spring-memcached-one/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/27/using-simple-spring-memcached-one/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1148,17 +1148,55 @@ public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&
 
       
         
-          <p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/" target="_blank" rel="noopener">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/" target="_blank" rel="noopener">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached" target="_blank" rel="noopener">ssm3-mybatis2-memcached</a>。</p>
-<h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
-<p>Java Code:</p>
-<pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
-public User getUser(@ParameterValueKeyProvider Long id)
-</code></pre><p>Memcache Log:</p>
-<pre><code>get user:1
-set user:1
+          <p>上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。</p>
+<h2 id="首先是接下来的几个内容都会用到的两个-POJO"><a href="#首先是接下来的几个内容都会用到的两个-POJO" class="headerlink" title="首先是接下来的几个内容都会用到的两个 POJO"></a>首先是接下来的几个内容都会用到的两个 POJO</h2><p>Role Model:</p>
+<pre><code>public class Role implements Serializable {
+
+    private static final long serialVersionUID = -4708064835003250669L;
+
+    private Long id;
+
+    private String name;
+
+    @CacheKeyMethod
+    public String cacheKey() {
+        return id.toString();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(
+                this, obj);
+    }
+
+    public int hashCode() {
+        return HashCodeBuilder
+                .reflectionHashCode(this);
+    }
+
+    public String toString() {
+        return ToStringBuilder.reflectionToString(
+                this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+}
 </code></pre>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2012/09/27/simple-spring-memcached-annotation/#more" rel="contents">
+            <a class="btn" href="/2012/09/27/using-simple-spring-memcached-one/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1346,8 +1384,8 @@ set user:1
             
               
                 
-                <a class="post-title-link" href="/2012/09/27/using-simple-spring-memcached-one/" itemprop="url">
-                  使用 Simple-Spring-Memcached: SingleCache
+                <a class="post-title-link" href="/2012/09/27/simple-spring-memcached-annotation/" itemprop="url">
+                  使用 Simple-Spring-Memcached Annotation
                 </a>
               
             
@@ -1390,8 +1428,8 @@ set user:1
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2012/09/27/using-simple-spring-memcached-one/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/27/using-simple-spring-memcached-one/" itemprop="commentsCount"></span>
+                <a href="/2012/09/27/simple-spring-memcached-annotation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/27/simple-spring-memcached-annotation/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1415,55 +1453,17 @@ set user:1
 
       
         
-          <p>上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。</p>
-<h2 id="首先是接下来的几个内容都会用到的两个-POJO"><a href="#首先是接下来的几个内容都会用到的两个-POJO" class="headerlink" title="首先是接下来的几个内容都会用到的两个 POJO"></a>首先是接下来的几个内容都会用到的两个 POJO</h2><p>Role Model:</p>
-<pre><code>public class Role implements Serializable {
-
-    private static final long serialVersionUID = -4708064835003250669L;
-
-    private Long id;
-
-    private String name;
-
-    @CacheKeyMethod
-    public String cacheKey() {
-        return id.toString();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(
-                this, obj);
-    }
-
-    public int hashCode() {
-        return HashCodeBuilder
-                .reflectionHashCode(this);
-    }
-
-    public String toString() {
-        return ToStringBuilder.reflectionToString(
-                this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-}
+          <p>因为公司有的项目还运行在 MyBatis2 上边，并且 <a href="http://code.google.com/p/simple-spring-memcached/" target="_blank" rel="noopener">SSM</a> 暂时还不可以直接使用在 MyBatis3 上边（可以通过 Spring Cache 或者直接使用 <a href="http://www.mybatis.org/caches/memcached/" target="_blank" rel="noopener">mybatis-memcached</a> 来实现，但后一种方式不适合那种需要对 Cache 进行精细控制的场景）。所以这里主要写一下 SSM3 Annotation 的使用。完整的Spring3 + Memcached + MyBatis2 代码在 <a href="https://github.com/batizhao/spring-mybatis-memcached/tree/master/ssm3-mybatis2-memcached" target="_blank" rel="noopener">ssm3-mybatis2-memcached</a>。</p>
+<h1 id="1-SSM-Annotation"><a href="#1-SSM-Annotation" class="headerlink" title="1. SSM Annotation"></a>1. SSM Annotation</h1><h2 id="SingleCache-类"><a href="#SingleCache-类" class="headerlink" title="SingleCache 类"></a>SingleCache 类</h2><p>操作单个 POJO 的 Cache 数据，由 ParameterValueKeyProvider 和 CacheKeyMethod 来标识组装 key。</p>
+<p>Java Code:</p>
+<pre><code>@ReadThroughSingleCache(namespace = &quot;user&quot;, expiration = 600)
+public User getUser(@ParameterValueKeyProvider Long id)
+</code></pre><p>Memcache Log:</p>
+<pre><code>get user:1
+set user:1
 </code></pre>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2012/09/27/using-simple-spring-memcached-one/#more" rel="contents">
+            <a class="btn" href="/2012/09/27/simple-spring-memcached-annotation/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
