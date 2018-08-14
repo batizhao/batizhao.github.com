@@ -5,9 +5,9 @@
   <subtitle>枪手</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://batizhao.me/"/>
+  <link href="http://batizhao.github.io/"/>
   <updated>2018-08-14T02:02:04.422Z</updated>
-  <id>http://batizhao.me/</id>
+  <id>http://batizhao.github.io/</id>
   
   <author>
     <name>巴蒂</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>在 Kubernetes 上部署 Hyperledger Fabric v1.2（二）</title>
-    <link href="http://batizhao.me/2018/08/13/deploy-fabric-on-kubernetes-two/"/>
-    <id>http://batizhao.me/2018/08/13/deploy-fabric-on-kubernetes-two/</id>
+    <link href="http://batizhao.github.io/2018/08/13/deploy-fabric-on-kubernetes-two/"/>
+    <id>http://batizhao.github.io/2018/08/13/deploy-fabric-on-kubernetes-two/</id>
     <published>2018-08-13T01:27:04.000Z</published>
     <updated>2018-08-14T02:02:04.422Z</updated>
     
@@ -44,19 +44,19 @@
     
     </summary>
     
-      <category term="blockchain" scheme="http://batizhao.me/categories/blockchain/"/>
+      <category term="blockchain" scheme="http://batizhao.github.io/categories/blockchain/"/>
     
     
-      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+      <category term="kubernetes" scheme="http://batizhao.github.io/tags/kubernetes/"/>
     
-      <category term="hyperledger" scheme="http://batizhao.me/tags/hyperledger/"/>
+      <category term="hyperledger" scheme="http://batizhao.github.io/tags/hyperledger/"/>
     
   </entry>
   
   <entry>
     <title>在 Kubernetes 上部署 Hyperledger Fabric v1.2（一）</title>
-    <link href="http://batizhao.me/2018/08/10/deploy-fabric-on-kubernetes/"/>
-    <id>http://batizhao.me/2018/08/10/deploy-fabric-on-kubernetes/</id>
+    <link href="http://batizhao.github.io/2018/08/10/deploy-fabric-on-kubernetes/"/>
+    <id>http://batizhao.github.io/2018/08/10/deploy-fabric-on-kubernetes/</id>
     <published>2018-08-10T03:03:24.000Z</published>
     <updated>2018-08-14T01:57:28.615Z</updated>
     
@@ -73,19 +73,19 @@
     
     </summary>
     
-      <category term="blockchain" scheme="http://batizhao.me/categories/blockchain/"/>
+      <category term="blockchain" scheme="http://batizhao.github.io/categories/blockchain/"/>
     
     
-      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+      <category term="kubernetes" scheme="http://batizhao.github.io/tags/kubernetes/"/>
     
-      <category term="hyperledger" scheme="http://batizhao.me/tags/hyperledger/"/>
+      <category term="hyperledger" scheme="http://batizhao.github.io/tags/hyperledger/"/>
     
   </entry>
   
   <entry>
     <title>在 Mac 上设置 kubectl 工具</title>
-    <link href="http://batizhao.me/2018/03/12/setup-kubectl-config/"/>
-    <id>http://batizhao.me/2018/03/12/setup-kubectl-config/</id>
+    <link href="http://batizhao.github.io/2018/03/12/setup-kubectl-config/"/>
+    <id>http://batizhao.github.io/2018/03/12/setup-kubectl-config/</id>
     <published>2018-03-12T05:23:33.000Z</published>
     <updated>2018-03-12T05:35:58.248Z</updated>
     
@@ -101,21 +101,21 @@
     
     </summary>
     
-      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/categories/docker/"/>
     
     
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+      <category term="linux" scheme="http://batizhao.github.io/tags/linux/"/>
     
-      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+      <category term="java" scheme="http://batizhao.github.io/tags/java/"/>
     
-      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+      <category term="kubernetes" scheme="http://batizhao.github.io/tags/kubernetes/"/>
     
   </entry>
   
   <entry>
     <title>在 Kubernetes 环境中 debug Java 程序</title>
-    <link href="http://batizhao.me/2018/03/02/debug-in-k8s/"/>
-    <id>http://batizhao.me/2018/03/02/debug-in-k8s/</id>
+    <link href="http://batizhao.github.io/2018/03/02/debug-in-k8s/"/>
+    <id>http://batizhao.github.io/2018/03/02/debug-in-k8s/</id>
     <published>2018-03-02T08:19:23.000Z</published>
     <updated>2018-03-02T08:34:11.299Z</updated>
     
@@ -130,21 +130,21 @@
     
     </summary>
     
-      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/categories/docker/"/>
     
     
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+      <category term="linux" scheme="http://batizhao.github.io/tags/linux/"/>
     
-      <category term="java" scheme="http://batizhao.me/tags/java/"/>
+      <category term="java" scheme="http://batizhao.github.io/tags/java/"/>
     
-      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+      <category term="kubernetes" scheme="http://batizhao.github.io/tags/kubernetes/"/>
     
   </entry>
   
   <entry>
     <title>使用 Gluster FS 做 Kubernetes 持久化存储</title>
-    <link href="http://batizhao.me/2018/02/08/installing-glusterfs/"/>
-    <id>http://batizhao.me/2018/02/08/installing-glusterfs/</id>
+    <link href="http://batizhao.github.io/2018/02/08/installing-glusterfs/"/>
+    <id>http://batizhao.github.io/2018/02/08/installing-glusterfs/</id>
     <published>2018-02-08T06:28:41.000Z</published>
     <updated>2018-03-09T07:19:07.410Z</updated>
     
@@ -156,21 +156,21 @@
     
     </summary>
     
-      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/categories/docker/"/>
     
     
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+      <category term="linux" scheme="http://batizhao.github.io/tags/linux/"/>
     
-      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+      <category term="kubernetes" scheme="http://batizhao.github.io/tags/kubernetes/"/>
     
-      <category term="glusterfs" scheme="http://batizhao.me/tags/glusterfs/"/>
+      <category term="glusterfs" scheme="http://batizhao.github.io/tags/glusterfs/"/>
     
   </entry>
   
   <entry>
     <title>在 Mac 上通过 Minikube 安装本地 K8s 集群</title>
-    <link href="http://batizhao.me/2018/01/18/Running-Kubernetes-Locally-via-Minikube/"/>
-    <id>http://batizhao.me/2018/01/18/Running-Kubernetes-Locally-via-Minikube/</id>
+    <link href="http://batizhao.github.io/2018/01/18/Running-Kubernetes-Locally-via-Minikube/"/>
+    <id>http://batizhao.github.io/2018/01/18/Running-Kubernetes-Locally-via-Minikube/</id>
     <published>2018-01-18T08:41:33.000Z</published>
     <updated>2018-01-18T09:13:33.166Z</updated>
     
@@ -184,19 +184,19 @@
     
     </summary>
     
-      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/categories/docker/"/>
     
     
-      <category term="mac" scheme="http://batizhao.me/tags/mac/"/>
+      <category term="mac" scheme="http://batizhao.github.io/tags/mac/"/>
     
-      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+      <category term="kubernetes" scheme="http://batizhao.github.io/tags/kubernetes/"/>
     
   </entry>
   
   <entry>
     <title>在 kubernetes 1.8 上部署 ingress</title>
-    <link href="http://batizhao.me/2017/12/15/install-ingress-to-k8s/"/>
-    <id>http://batizhao.me/2017/12/15/install-ingress-to-k8s/</id>
+    <link href="http://batizhao.github.io/2017/12/15/install-ingress-to-k8s/"/>
+    <id>http://batizhao.github.io/2017/12/15/install-ingress-to-k8s/</id>
     <published>2017-12-15T09:10:41.000Z</published>
     <updated>2017-12-15T09:26:11.884Z</updated>
     
@@ -216,25 +216,25 @@
     
     </summary>
     
-      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/categories/docker/"/>
     
     
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+      <category term="linux" scheme="http://batizhao.github.io/tags/linux/"/>
     
-      <category term="centos" scheme="http://batizhao.me/tags/centos/"/>
+      <category term="centos" scheme="http://batizhao.github.io/tags/centos/"/>
     
-      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+      <category term="kubernetes" scheme="http://batizhao.github.io/tags/kubernetes/"/>
     
-      <category term="ingress" scheme="http://batizhao.me/tags/ingress/"/>
+      <category term="ingress" scheme="http://batizhao.github.io/tags/ingress/"/>
     
-      <category term="nginx" scheme="http://batizhao.me/tags/nginx/"/>
+      <category term="nginx" scheme="http://batizhao.github.io/tags/nginx/"/>
     
   </entry>
   
   <entry>
     <title>在 kubernetes 1.8 上部署 Jenkins 动态集群</title>
-    <link href="http://batizhao.me/2017/12/15/install-jenkins-to-k8s/"/>
-    <id>http://batizhao.me/2017/12/15/install-jenkins-to-k8s/</id>
+    <link href="http://batizhao.github.io/2017/12/15/install-jenkins-to-k8s/"/>
+    <id>http://batizhao.github.io/2017/12/15/install-jenkins-to-k8s/</id>
     <published>2017-12-15T08:25:42.000Z</published>
     <updated>2017-12-15T09:19:32.950Z</updated>
     
@@ -250,23 +250,23 @@
     
     </summary>
     
-      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/categories/docker/"/>
     
     
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+      <category term="linux" scheme="http://batizhao.github.io/tags/linux/"/>
     
-      <category term="centos" scheme="http://batizhao.me/tags/centos/"/>
+      <category term="centos" scheme="http://batizhao.github.io/tags/centos/"/>
     
-      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+      <category term="kubernetes" scheme="http://batizhao.github.io/tags/kubernetes/"/>
     
-      <category term="jenkins" scheme="http://batizhao.me/tags/jenkins/"/>
+      <category term="jenkins" scheme="http://batizhao.github.io/tags/jenkins/"/>
     
   </entry>
   
   <entry>
     <title>在 kubernetes 1.8 上安装 Harbor 仓库</title>
-    <link href="http://batizhao.me/2017/12/15/install-harbor-to-k8s/"/>
-    <id>http://batizhao.me/2017/12/15/install-harbor-to-k8s/</id>
+    <link href="http://batizhao.github.io/2017/12/15/install-harbor-to-k8s/"/>
+    <id>http://batizhao.github.io/2017/12/15/install-harbor-to-k8s/</id>
     <published>2017-12-15T07:42:14.000Z</published>
     <updated>2017-12-19T04:29:24.318Z</updated>
     
@@ -281,23 +281,23 @@
     
     </summary>
     
-      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/categories/docker/"/>
     
     
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+      <category term="linux" scheme="http://batizhao.github.io/tags/linux/"/>
     
-      <category term="centos" scheme="http://batizhao.me/tags/centos/"/>
+      <category term="centos" scheme="http://batizhao.github.io/tags/centos/"/>
     
-      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+      <category term="kubernetes" scheme="http://batizhao.github.io/tags/kubernetes/"/>
     
-      <category term="harbor" scheme="http://batizhao.me/tags/harbor/"/>
+      <category term="harbor" scheme="http://batizhao.github.io/tags/harbor/"/>
     
   </entry>
   
   <entry>
     <title>在 CentOS 上使用 kubeadm 安装 kubernetes 1.8.4</title>
-    <link href="http://batizhao.me/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/"/>
-    <id>http://batizhao.me/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/</id>
+    <link href="http://batizhao.github.io/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/"/>
+    <id>http://batizhao.github.io/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/</id>
     <published>2017-12-15T06:08:21.000Z</published>
     <updated>2017-12-15T07:31:59.469Z</updated>
     
@@ -315,23 +315,23 @@
     
     </summary>
     
-      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/categories/docker/"/>
     
     
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+      <category term="linux" scheme="http://batizhao.github.io/tags/linux/"/>
     
-      <category term="centos" scheme="http://batizhao.me/tags/centos/"/>
+      <category term="centos" scheme="http://batizhao.github.io/tags/centos/"/>
     
-      <category term="kubernetes" scheme="http://batizhao.me/tags/kubernetes/"/>
+      <category term="kubernetes" scheme="http://batizhao.github.io/tags/kubernetes/"/>
     
-      <category term="heapster" scheme="http://batizhao.me/tags/heapster/"/>
+      <category term="heapster" scheme="http://batizhao.github.io/tags/heapster/"/>
     
   </entry>
   
   <entry>
     <title>使用 Shasdowsocks + Privoxy 转 HTTP 代理</title>
-    <link href="http://batizhao.me/2017/12/14/share-shasdowsocks-to-http/"/>
-    <id>http://batizhao.me/2017/12/14/share-shasdowsocks-to-http/</id>
+    <link href="http://batizhao.github.io/2017/12/14/share-shasdowsocks-to-http/"/>
+    <id>http://batizhao.github.io/2017/12/14/share-shasdowsocks-to-http/</id>
     <published>2017-12-14T06:30:13.000Z</published>
     <updated>2017-12-15T06:41:53.348Z</updated>
     
@@ -348,18 +348,18 @@
     </summary>
     
     
-      <category term="shadowsocks" scheme="http://batizhao.me/tags/shadowsocks/"/>
+      <category term="shadowsocks" scheme="http://batizhao.github.io/tags/shadowsocks/"/>
     
-      <category term="privoxy" scheme="http://batizhao.me/tags/privoxy/"/>
+      <category term="privoxy" scheme="http://batizhao.github.io/tags/privoxy/"/>
     
-      <category term="http" scheme="http://batizhao.me/tags/http/"/>
+      <category term="http" scheme="http://batizhao.github.io/tags/http/"/>
     
   </entry>
   
   <entry>
     <title>Docker 实战（六）：使用 Docker Compose 搭建 Web 集群</title>
-    <link href="http://batizhao.me/2016/12/09/docker-six-docker-compose-cluster/"/>
-    <id>http://batizhao.me/2016/12/09/docker-six-docker-compose-cluster/</id>
+    <link href="http://batizhao.github.io/2016/12/09/docker-six-docker-compose-cluster/"/>
+    <id>http://batizhao.github.io/2016/12/09/docker-six-docker-compose-cluster/</id>
     <published>2016-12-09T01:49:43.000Z</published>
     <updated>2016-12-09T02:33:41.000Z</updated>
     
@@ -372,25 +372,25 @@
     
     </summary>
     
-      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/categories/docker/"/>
     
     
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+      <category term="linux" scheme="http://batizhao.github.io/tags/linux/"/>
     
-      <category term="mysql" scheme="http://batizhao.me/tags/mysql/"/>
+      <category term="mysql" scheme="http://batizhao.github.io/tags/mysql/"/>
     
-      <category term="tomcat" scheme="http://batizhao.me/tags/tomcat/"/>
+      <category term="tomcat" scheme="http://batizhao.github.io/tags/tomcat/"/>
     
-      <category term="docker" scheme="http://batizhao.me/tags/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/tags/docker/"/>
     
-      <category term="haproxy" scheme="http://batizhao.me/tags/haproxy/"/>
+      <category term="haproxy" scheme="http://batizhao.github.io/tags/haproxy/"/>
     
   </entry>
   
   <entry>
     <title>Docker 实战（五）：Docker Swarm Mode</title>
-    <link href="http://batizhao.me/2016/12/02/docker-five-swarm-mode/"/>
-    <id>http://batizhao.me/2016/12/02/docker-five-swarm-mode/</id>
+    <link href="http://batizhao.github.io/2016/12/02/docker-five-swarm-mode/"/>
+    <id>http://batizhao.github.io/2016/12/02/docker-five-swarm-mode/</id>
     <published>2016-12-01T23:39:15.000Z</published>
     <updated>2016-12-05T02:50:28.000Z</updated>
     
@@ -402,19 +402,19 @@
     
     </summary>
     
-      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/categories/docker/"/>
     
     
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+      <category term="linux" scheme="http://batizhao.github.io/tags/linux/"/>
     
-      <category term="docker" scheme="http://batizhao.me/tags/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/tags/docker/"/>
     
   </entry>
   
   <entry>
     <title>Docker 实战（四）：Docker Compose</title>
-    <link href="http://batizhao.me/2016/12/01/docker-four-docker-compose/"/>
-    <id>http://batizhao.me/2016/12/01/docker-four-docker-compose/</id>
+    <link href="http://batizhao.github.io/2016/12/01/docker-four-docker-compose/"/>
+    <id>http://batizhao.github.io/2016/12/01/docker-four-docker-compose/</id>
     <published>2016-12-01T05:31:47.000Z</published>
     <updated>2016-12-05T02:49:29.000Z</updated>
     
@@ -426,19 +426,19 @@
     
     </summary>
     
-      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/categories/docker/"/>
     
     
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+      <category term="linux" scheme="http://batizhao.github.io/tags/linux/"/>
     
-      <category term="docker" scheme="http://batizhao.me/tags/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/tags/docker/"/>
     
   </entry>
   
   <entry>
     <title>Docker 实战（三）：Docker 常用命令</title>
-    <link href="http://batizhao.me/2016/11/24/docker-three-command/"/>
-    <id>http://batizhao.me/2016/11/24/docker-three-command/</id>
+    <link href="http://batizhao.github.io/2016/11/24/docker-three-command/"/>
+    <id>http://batizhao.github.io/2016/11/24/docker-three-command/</id>
     <published>2016-11-24T08:52:03.000Z</published>
     <updated>2017-08-03T04:51:37.000Z</updated>
     
@@ -450,19 +450,19 @@
     
     </summary>
     
-      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/categories/docker/"/>
     
     
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+      <category term="linux" scheme="http://batizhao.github.io/tags/linux/"/>
     
-      <category term="docker" scheme="http://batizhao.me/tags/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/tags/docker/"/>
     
   </entry>
   
   <entry>
     <title>Docker 实战（二）：基于 Dockerfile 构建基础镜像</title>
-    <link href="http://batizhao.me/2016/11/15/dokcer-two-dockerfile/"/>
-    <id>http://batizhao.me/2016/11/15/dokcer-two-dockerfile/</id>
+    <link href="http://batizhao.github.io/2016/11/15/dokcer-two-dockerfile/"/>
+    <id>http://batizhao.github.io/2016/11/15/dokcer-two-dockerfile/</id>
     <published>2016-11-15T04:10:16.000Z</published>
     <updated>2016-11-15T07:37:42.000Z</updated>
     
@@ -475,19 +475,19 @@
     
     </summary>
     
-      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/categories/docker/"/>
     
     
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+      <category term="linux" scheme="http://batizhao.github.io/tags/linux/"/>
     
-      <category term="docker" scheme="http://batizhao.me/tags/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/tags/docker/"/>
     
   </entry>
   
   <entry>
     <title>Docker 实战（一）：在 Mac 上安装配置 Docker</title>
-    <link href="http://batizhao.me/2016/11/14/docker-one-install/"/>
-    <id>http://batizhao.me/2016/11/14/docker-one-install/</id>
+    <link href="http://batizhao.github.io/2016/11/14/docker-one-install/"/>
+    <id>http://batizhao.github.io/2016/11/14/docker-one-install/</id>
     <published>2016-11-14T09:19:58.000Z</published>
     <updated>2016-11-15T07:37:08.000Z</updated>
     
@@ -501,19 +501,19 @@
     
     </summary>
     
-      <category term="docker" scheme="http://batizhao.me/categories/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/categories/docker/"/>
     
     
-      <category term="linux" scheme="http://batizhao.me/tags/linux/"/>
+      <category term="linux" scheme="http://batizhao.github.io/tags/linux/"/>
     
-      <category term="docker" scheme="http://batizhao.me/tags/docker/"/>
+      <category term="docker" scheme="http://batizhao.github.io/tags/docker/"/>
     
   </entry>
   
   <entry>
     <title>edX 学习四：制作课程</title>
-    <link href="http://batizhao.me/2014/04/18/building-a-course/"/>
-    <id>http://batizhao.me/2014/04/18/building-a-course/</id>
+    <link href="http://batizhao.github.io/2014/04/18/building-a-course/"/>
+    <id>http://batizhao.github.io/2014/04/18/building-a-course/</id>
     <published>2014-04-17T16:00:00.000Z</published>
     <updated>2016-11-04T09:11:55.000Z</updated>
     
@@ -529,19 +529,19 @@
     
     </summary>
     
-      <category term="mooc" scheme="http://batizhao.me/categories/mooc/"/>
+      <category term="mooc" scheme="http://batizhao.github.io/categories/mooc/"/>
     
     
-      <category term="mooc" scheme="http://batizhao.me/tags/mooc/"/>
+      <category term="mooc" scheme="http://batizhao.github.io/tags/mooc/"/>
     
-      <category term="edx" scheme="http://batizhao.me/tags/edx/"/>
+      <category term="edx" scheme="http://batizhao.github.io/tags/edx/"/>
     
   </entry>
   
   <entry>
     <title>edX 学习三：开始课程制作之前</title>
-    <link href="http://batizhao.me/2014/04/15/edx-course-management/"/>
-    <id>http://batizhao.me/2014/04/15/edx-course-management/</id>
+    <link href="http://batizhao.github.io/2014/04/15/edx-course-management/"/>
+    <id>http://batizhao.github.io/2014/04/15/edx-course-management/</id>
     <published>2014-04-14T16:00:00.000Z</published>
     <updated>2016-11-15T07:25:16.000Z</updated>
     
@@ -554,19 +554,19 @@
     
     </summary>
     
-      <category term="mooc" scheme="http://batizhao.me/categories/mooc/"/>
+      <category term="mooc" scheme="http://batizhao.github.io/categories/mooc/"/>
     
     
-      <category term="mooc" scheme="http://batizhao.me/tags/mooc/"/>
+      <category term="mooc" scheme="http://batizhao.github.io/tags/mooc/"/>
     
-      <category term="edx" scheme="http://batizhao.me/tags/edx/"/>
+      <category term="edx" scheme="http://batizhao.github.io/tags/edx/"/>
     
   </entry>
   
   <entry>
     <title>edX 学习二：搭建 edX 平台</title>
-    <link href="http://batizhao.me/2014/04/14/quick-start-to-working-with-the-edx-platform/"/>
-    <id>http://batizhao.me/2014/04/14/quick-start-to-working-with-the-edx-platform/</id>
+    <link href="http://batizhao.github.io/2014/04/14/quick-start-to-working-with-the-edx-platform/"/>
+    <id>http://batizhao.github.io/2014/04/14/quick-start-to-working-with-the-edx-platform/</id>
     <published>2014-04-13T16:00:00.000Z</published>
     <updated>2016-11-04T09:10:54.000Z</updated>
     
@@ -588,12 +588,12 @@
     
     </summary>
     
-      <category term="mooc" scheme="http://batizhao.me/categories/mooc/"/>
+      <category term="mooc" scheme="http://batizhao.github.io/categories/mooc/"/>
     
     
-      <category term="mooc" scheme="http://batizhao.me/tags/mooc/"/>
+      <category term="mooc" scheme="http://batizhao.github.io/tags/mooc/"/>
     
-      <category term="edx" scheme="http://batizhao.me/tags/edx/"/>
+      <category term="edx" scheme="http://batizhao.github.io/tags/edx/"/>
     
   </entry>
   

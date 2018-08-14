@@ -94,26 +94,26 @@
 <meta name="keywords" content="linux,ldap,sso">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 CentOS6 上安装 OpenDJ（GUI）">
-<meta property="og:url" content="http://batizhao.me/2012/07/13/install-opendj-on-centos6-with-gui/index.html">
+<meta property="og:url" content="http://batizhao.github.io/2012/07/13/install-opendj-on-centos6-with-gui/index.html">
 <meta property="og:site_name" content="Gunner">
 <meta property="og:description" content="之前有一篇有讲到在 RHEL6 上安装 OpenDJ，主要是讲通过命令行的方式安装，这次讲一下通过图形界面安装。 服务器设置这一步主要是 host name 的设置。要确保这个域名可以被解析，否则会抛出 javax.naming.CommunicationException: 0.0.0.0:4444 的异常。临时解决办法是在 hosts 中增加一条纪录 127.0.0.1   idams">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-1.png">
-<meta property="og:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-2.png">
-<meta property="og:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-3.png">
-<meta property="og:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-4.png">
-<meta property="og:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-5.png">
-<meta property="og:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-6.png">
-<meta property="og:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-7.png">
-<meta property="og:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-8.png">
-<meta property="og:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-9.png">
-<meta property="og:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-10.png">
-<meta property="og:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-11.png">
+<meta property="og:image" content="http://batizhao.github.io/images/2012-07-13-install-opendj-on-centos6-with-gui-1.png">
+<meta property="og:image" content="http://batizhao.github.io/images/2012-07-13-install-opendj-on-centos6-with-gui-2.png">
+<meta property="og:image" content="http://batizhao.github.io/images/2012-07-13-install-opendj-on-centos6-with-gui-3.png">
+<meta property="og:image" content="http://batizhao.github.io/images/2012-07-13-install-opendj-on-centos6-with-gui-4.png">
+<meta property="og:image" content="http://batizhao.github.io/images/2012-07-13-install-opendj-on-centos6-with-gui-5.png">
+<meta property="og:image" content="http://batizhao.github.io/images/2012-07-13-install-opendj-on-centos6-with-gui-6.png">
+<meta property="og:image" content="http://batizhao.github.io/images/2012-07-13-install-opendj-on-centos6-with-gui-7.png">
+<meta property="og:image" content="http://batizhao.github.io/images/2012-07-13-install-opendj-on-centos6-with-gui-8.png">
+<meta property="og:image" content="http://batizhao.github.io/images/2012-07-13-install-opendj-on-centos6-with-gui-9.png">
+<meta property="og:image" content="http://batizhao.github.io/images/2012-07-13-install-opendj-on-centos6-with-gui-10.png">
+<meta property="og:image" content="http://batizhao.github.io/images/2012-07-13-install-opendj-on-centos6-with-gui-11.png">
 <meta property="og:updated_time" content="2016-11-04T08:52:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 CentOS6 上安装 OpenDJ（GUI）">
 <meta name="twitter:description" content="之前有一篇有讲到在 RHEL6 上安装 OpenDJ，主要是讲通过命令行的方式安装，这次讲一下通过图形界面安装。 服务器设置这一步主要是 host name 的设置。要确保这个域名可以被解析，否则会抛出 javax.naming.CommunicationException: 0.0.0.0:4444 的异常。临时解决办法是在 hosts 中增加一条纪录 127.0.0.1   idams">
-<meta name="twitter:image" content="http://batizhao.me/images/2012-07-13-install-opendj-on-centos6-with-gui-1.png">
+<meta name="twitter:image" content="http://batizhao.github.io/images/2012-07-13-install-opendj-on-centos6-with-gui-1.png">
 
 
 
@@ -134,7 +134,7 @@
 
 
 
-  <link rel="canonical" href="http://batizhao.me/2012/07/13/install-opendj-on-centos6-with-gui/"/>
+  <link rel="canonical" href="http://batizhao.github.io/2012/07/13/install-opendj-on-centos6-with-gui/"/>
 
 
   <title> 在 CentOS6 上安装 OpenDJ（GUI） | Gunner </title>
@@ -506,7 +506,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2012/07/13/install-opendj-on-centos6-with-gui/"
-           data-title="在 CentOS6 上安装 OpenDJ（GUI）" data-url="http://batizhao.me/2012/07/13/install-opendj-on-centos6-with-gui/">
+           data-title="在 CentOS6 上安装 OpenDJ（GUI）" data-url="http://batizhao.github.io/2012/07/13/install-opendj-on-centos6-with-gui/">
       </div>
     
   </div>
