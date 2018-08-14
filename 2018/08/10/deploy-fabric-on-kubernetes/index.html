@@ -90,13 +90,13 @@
 
 
 
-<meta name="description" content="概述Fabric 是 Hyperledger 超级账本中的一个子项目，由 Linux 基金会主办。它提供了一个开发区块链应用程序的框架。在 2017 年 1 月份 Fabric v1.0 发布，人们急于使用 Fabric 构建区块链应用程序来解决他们的业务问题。然而，由于部署和管理 Fabric 体系过于复杂，遇到很多的困难。 为了简化操作，我们需要一些工具来帮助我们更好地管理 Fabric 分布">
+<meta name="description" content="概述Fabric 是 Hyperledger 超级账本中的一个子项目，由 Linux 基金会主办。它提供了一个开发区块链应用程序的框架。在 2017 年 1 月份 Fabric v1.0 发布，人们急于使用 Fabric 构建区块链应用程序来解决他们的业务问题。然而，由于部署和管理 Fabric 体系过于复杂，遇到很多的困难。在 v1.0 发布之后，时隔一年，在今年 7 月份，Fabric v1.">
 <meta name="keywords" content="kubernetes,hyperledger">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 Kubernetes 上部署 Hyperledger Fabric v1.2（一）">
 <meta property="og:url" content="http://batizhao.me/2018/08/10/deploy-fabric-on-kubernetes/index.html">
 <meta property="og:site_name" content="Gunner">
-<meta property="og:description" content="概述Fabric 是 Hyperledger 超级账本中的一个子项目，由 Linux 基金会主办。它提供了一个开发区块链应用程序的框架。在 2017 年 1 月份 Fabric v1.0 发布，人们急于使用 Fabric 构建区块链应用程序来解决他们的业务问题。然而，由于部署和管理 Fabric 体系过于复杂，遇到很多的困难。 为了简化操作，我们需要一些工具来帮助我们更好地管理 Fabric 分布">
+<meta property="og:description" content="概述Fabric 是 Hyperledger 超级账本中的一个子项目，由 Linux 基金会主办。它提供了一个开发区块链应用程序的框架。在 2017 年 1 月份 Fabric v1.0 发布，人们急于使用 Fabric 构建区块链应用程序来解决他们的业务问题。然而，由于部署和管理 Fabric 体系过于复杂，遇到很多的困难。在 v1.0 发布之后，时隔一年，在今年 7 月份，Fabric v1.">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://batizhao.me/images/2018-08-10-deploy-fabric-on-kubernetes-1.png">
 <meta property="og:image" content="http://batizhao.me/images/2018-08-10-deploy-fabric-on-kubernetes-2.png">
@@ -104,10 +104,10 @@
 <meta property="og:image" content="http://batizhao.me/images/2018-08-10-deploy-fabric-on-kubernetes-4.png">
 <meta property="og:image" content="http://batizhao.me/images/2018-08-10-deploy-fabric-on-kubernetes-5.png">
 <meta property="og:image" content="http://batizhao.me/images/2018-08-10-deploy-fabric-on-kubernetes-6.png">
-<meta property="og:updated_time" content="2018-08-10T07:30:57.346Z">
+<meta property="og:updated_time" content="2018-08-14T01:57:28.615Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 Kubernetes 上部署 Hyperledger Fabric v1.2（一）">
-<meta name="twitter:description" content="概述Fabric 是 Hyperledger 超级账本中的一个子项目，由 Linux 基金会主办。它提供了一个开发区块链应用程序的框架。在 2017 年 1 月份 Fabric v1.0 发布，人们急于使用 Fabric 构建区块链应用程序来解决他们的业务问题。然而，由于部署和管理 Fabric 体系过于复杂，遇到很多的困难。 为了简化操作，我们需要一些工具来帮助我们更好地管理 Fabric 分布">
+<meta name="twitter:description" content="概述Fabric 是 Hyperledger 超级账本中的一个子项目，由 Linux 基金会主办。它提供了一个开发区块链应用程序的框架。在 2017 年 1 月份 Fabric v1.0 发布，人们急于使用 Fabric 构建区块链应用程序来解决他们的业务问题。然而，由于部署和管理 Fabric 体系过于复杂，遇到很多的困难。在 v1.0 发布之后，时隔一年，在今年 7 月份，Fabric v1.">
 <meta name="twitter:image" content="http://batizhao.me/images/2018-08-10-deploy-fabric-on-kubernetes-1.png">
 
 
@@ -380,8 +380,8 @@
       
 
       
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Fabric 是 Hyperledger 超级账本中的一个子项目，由 Linux 基金会主办。它提供了一个开发区块链应用程序的框架。在 2017 年 1 月份 Fabric v1.0 发布，人们急于使用 Fabric 构建区块链应用程序来解决他们的业务问题。然而，由于部署和管理 Fabric 体系过于复杂，遇到很多的困难。</p>
-<p>为了简化操作，我们需要一些工具来帮助我们更好地管理 Fabric 分布式系统。Kubernetes 看起来似乎是理想的平台。需要注意的是，Kubernetes 是 CNCF 基金会下的头牌项目，并且也属于 Linux 基金会。</p>
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Fabric 是 Hyperledger 超级账本中的一个子项目，由 Linux 基金会主办。它提供了一个开发区块链应用程序的框架。在 2017 年 1 月份 Fabric v1.0 发布，人们急于使用 Fabric 构建区块链应用程序来解决他们的业务问题。然而，由于部署和管理 Fabric 体系过于复杂，遇到很多的困难。在 v1.0 发布之后，时隔一年，在今年 7 月份，Fabric v1.2 版本发布。</p>
+<p>为了简化操作，我们需要一些工具来帮助我们更好地管理 Fabric 分布式系统。Kubernetes 看起来似乎是理想的平台。需要注意的是，Kubernetes 是 CNCF 基金会下的头牌项目，并且 Linux 基金会也是 CNCF 基金会的成员之一。</p>
 <p>首先，Fabric 建议是运行在 Docker 容器中的。它的 chaincode（智能合约）也利用容器运行在 sandbox 中。 Fabric 系统由在多个容器中运行的组件组成。 另一方面，Kubernetes 正在成为自动化、容器化应用程序的部署、扩展和管理的事实上的标准。两者有天然的契合。</p>
 <p>其次，Fabric 组件可以通过在 Kubernetes 上部署来实现高可用性。 Kubernetes 有一个名为 replicator 的功能，可以监控运行的 pod 并自动修复崩溃的 pod。</p>
 <p>第三，Kubernetes 支持多租户。我们可以在同一个 Kubernetes 平台上运行多个隔离的 Fabric 实例。 这有利于区块链应用程序的开发和测试。</p>
