@@ -1079,174 +1079,6 @@ public List&lt;User&gt; getUsersByRoleIds(@ParameterValueKeyProvider final List&
             
               
                 
-                <a class="post-title-link" href="/2012/09/27/using-simple-spring-memcached-one/" itemprop="url">
-                  使用 Simple-Spring-Memcached: SingleCache
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2012-09-27T00:00:00+08:00" content="2012-09-27">
-              2012-09-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2012/09/27/using-simple-spring-memcached-one/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/27/using-simple-spring-memcached-one/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。</p>
-<h2 id="首先是接下来的几个内容都会用到的两个-POJO"><a href="#首先是接下来的几个内容都会用到的两个-POJO" class="headerlink" title="首先是接下来的几个内容都会用到的两个 POJO"></a>首先是接下来的几个内容都会用到的两个 POJO</h2><p>Role Model:</p>
-<pre><code>public class Role implements Serializable {
-
-    private static final long serialVersionUID = -4708064835003250669L;
-
-    private Long id;
-
-    private String name;
-
-    @CacheKeyMethod
-    public String cacheKey() {
-        return id.toString();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(
-                this, obj);
-    }
-
-    public int hashCode() {
-        return HashCodeBuilder
-                .reflectionHashCode(this);
-    }
-
-    public String toString() {
-        return ToStringBuilder.reflectionToString(
-                this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-}
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2012/09/27/using-simple-spring-memcached-one/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2012/09/27/using-simple-spring-memcached-two/" itemprop="url">
                   使用 Simple-Spring-Memcached: MultiCache
                 </a>
@@ -1464,6 +1296,174 @@ set user:1
 </code></pre>
           <div class="post-more-link text-center">
             <a class="btn" href="/2012/09/27/simple-spring-memcached-annotation/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2012/09/27/using-simple-spring-memcached-one/" itemprop="url">
+                  使用 Simple-Spring-Memcached: SingleCache
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2012-09-27T00:00:00+08:00" content="2012-09-27">
+              2012-09-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2012/09/27/using-simple-spring-memcached-one/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2012/09/27/using-simple-spring-memcached-one/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>上一篇大概讲了一下 SSM anotation。这章详细看一下 SingleCache 的使用。</p>
+<h2 id="首先是接下来的几个内容都会用到的两个-POJO"><a href="#首先是接下来的几个内容都会用到的两个-POJO" class="headerlink" title="首先是接下来的几个内容都会用到的两个 POJO"></a>首先是接下来的几个内容都会用到的两个 POJO</h2><p>Role Model:</p>
+<pre><code>public class Role implements Serializable {
+
+    private static final long serialVersionUID = -4708064835003250669L;
+
+    private Long id;
+
+    private String name;
+
+    @CacheKeyMethod
+    public String cacheKey() {
+        return id.toString();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(
+                this, obj);
+    }
+
+    public int hashCode() {
+        return HashCodeBuilder
+                .reflectionHashCode(this);
+    }
+
+    public String toString() {
+        return ToStringBuilder.reflectionToString(
+                this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+}
+</code></pre>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2012/09/27/using-simple-spring-memcached-one/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
