@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="Hyperledger Fabric 目前支持两种共识机制，上篇讲到了 Solo 共识的部署，适用于开发环境。这篇讲一下 Kafka 共识。原理可以看这两篇：  Fabric基于Kafka的共识机制剖析 超级账本1.0基于kafka的共识  准备工作在部署之前清除上篇所有的数据。 12# python3 transform/delete.py# rm -rf /opt/data/&amp;#123;ord">
+<meta name="description" content="Hyperledger Fabric 目前支持两种共识机制，上篇讲到了 Solo 共识的部署，适用于开发环境。这篇讲一下 Kafka 共识。 Kafka 共识原理 Fabric基于Kafka的共识机制剖析 超级账本1.0基于kafka的共识 基于Kafka的Fabric排序服务  准备工作在部署之前清除上篇所有的数据。 12# python3 transform/delete.py# rm -rf">
 <meta name="keywords" content="kubernetes,hyperledger">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 Kubernetes 上部署 Hyperledger Fabric v1.2 Kafka（三）">
 <meta property="og:url" content="http://batizhao.github.io/2018/09/13/deploy-fabric-on-kubernetes-three/index.html">
 <meta property="og:site_name" content="Gunner">
-<meta property="og:description" content="Hyperledger Fabric 目前支持两种共识机制，上篇讲到了 Solo 共识的部署，适用于开发环境。这篇讲一下 Kafka 共识。原理可以看这两篇：  Fabric基于Kafka的共识机制剖析 超级账本1.0基于kafka的共识  准备工作在部署之前清除上篇所有的数据。 12# python3 transform/delete.py# rm -rf /opt/data/&amp;#123;ord">
+<meta property="og:description" content="Hyperledger Fabric 目前支持两种共识机制，上篇讲到了 Solo 共识的部署，适用于开发环境。这篇讲一下 Kafka 共识。 Kafka 共识原理 Fabric基于Kafka的共识机制剖析 超级账本1.0基于kafka的共识 基于Kafka的Fabric排序服务  准备工作在部署之前清除上篇所有的数据。 12# python3 transform/delete.py# rm -rf">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-13T03:22:51.513Z">
+<meta property="og:updated_time" content="2018-09-13T06:32:06.937Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 Kubernetes 上部署 Hyperledger Fabric v1.2 Kafka（三）">
-<meta name="twitter:description" content="Hyperledger Fabric 目前支持两种共识机制，上篇讲到了 Solo 共识的部署，适用于开发环境。这篇讲一下 Kafka 共识。原理可以看这两篇：  Fabric基于Kafka的共识机制剖析 超级账本1.0基于kafka的共识  准备工作在部署之前清除上篇所有的数据。 12# python3 transform/delete.py# rm -rf /opt/data/&amp;#123;ord">
+<meta name="twitter:description" content="Hyperledger Fabric 目前支持两种共识机制，上篇讲到了 Solo 共识的部署，适用于开发环境。这篇讲一下 Kafka 共识。 Kafka 共识原理 Fabric基于Kafka的共识机制剖析 超级账本1.0基于kafka的共识 基于Kafka的Fabric排序服务  准备工作在部署之前清除上篇所有的数据。 12# python3 transform/delete.py# rm -rf">
 
 
 
@@ -373,10 +373,11 @@
       
 
       
-        <p>Hyperledger Fabric 目前支持两种共识机制，上篇讲到了 Solo 共识的部署，适用于开发环境。这篇讲一下 Kafka 共识。原理可以看这两篇：</p>
-<ul>
+        <p>Hyperledger Fabric 目前支持两种共识机制，上篇讲到了 Solo 共识的部署，适用于开发环境。这篇讲一下 Kafka 共识。</p>
+<h2 id="Kafka-共识原理"><a href="#Kafka-共识原理" class="headerlink" title="Kafka 共识原理"></a>Kafka 共识原理</h2><ul>
 <li><a href="https://zhuanlan.zhihu.com/p/29671493" target="_blank" rel="noopener">Fabric基于Kafka的共识机制剖析</a></li>
 <li><a href="https://www.jianshu.com/p/f1a671be69a4" target="_blank" rel="noopener">超级账本1.0基于kafka的共识</a></li>
+<li><a href="http://wutongtree.github.io/translations/Kafka-based-Ordering-Service_zh" target="_blank" rel="noopener">基于Kafka的Fabric排序服务</a></li>
 </ul>
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在部署之前清除上篇所有的数据。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> python3 transform/delete.py</span><br><span class="line"><span class="meta">#</span> rm -rf /opt/data/&#123;orderer,peer&#125;</span><br></pre></td></tr></table></figure>
@@ -612,7 +613,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置文件"><span class="nav-number">2.</span> <span class="nav-text">配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#crypto-config-yaml"><span class="nav-number">2.1.</span> <span class="nav-text">crypto-config.yaml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">3.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka-和-Zookeeper-集群"><span class="nav-number">3.1.</span> <span class="nav-text">Kafka 和 Zookeeper 集群</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清除集群"><span class="nav-number">4.</span> <span class="nav-text">清除集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遗留问题"><span class="nav-number">5.</span> <span class="nav-text">遗留问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka-共识原理"><span class="nav-number">1.</span> <span class="nav-text">Kafka 共识原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置文件"><span class="nav-number">3.</span> <span class="nav-text">配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#crypto-config-yaml"><span class="nav-number">3.1.</span> <span class="nav-text">crypto-config.yaml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">4.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka-和-Zookeeper-集群"><span class="nav-number">4.1.</span> <span class="nav-text">Kafka 和 Zookeeper 集群</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清除集群"><span class="nav-number">5.</span> <span class="nav-text">清除集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遗留问题"><span class="nav-number">6.</span> <span class="nav-text">遗留问题</span></a></li></ol></div>
             
           </div>
         </section>

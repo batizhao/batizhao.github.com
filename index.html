@@ -377,10 +377,11 @@
 
       
         
-          <p>Hyperledger Fabric 目前支持两种共识机制，上篇讲到了 Solo 共识的部署，适用于开发环境。这篇讲一下 Kafka 共识。原理可以看这两篇：</p>
-<ul>
+          <p>Hyperledger Fabric 目前支持两种共识机制，上篇讲到了 Solo 共识的部署，适用于开发环境。这篇讲一下 Kafka 共识。</p>
+<h2 id="Kafka-共识原理"><a href="#Kafka-共识原理" class="headerlink" title="Kafka 共识原理"></a>Kafka 共识原理</h2><ul>
 <li><a href="https://zhuanlan.zhihu.com/p/29671493" target="_blank" rel="noopener">Fabric基于Kafka的共识机制剖析</a></li>
 <li><a href="https://www.jianshu.com/p/f1a671be69a4" target="_blank" rel="noopener">超级账本1.0基于kafka的共识</a></li>
+<li><a href="http://wutongtree.github.io/translations/Kafka-based-Ordering-Service_zh" target="_blank" rel="noopener">基于Kafka的Fabric排序服务</a></li>
 </ul>
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在部署之前清除上篇所有的数据。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> python3 transform/delete.py</span><br><span class="line"><span class="meta">#</span> rm -rf /opt/data/&#123;orderer,peer&#125;</span><br></pre></td></tr></table></figure>
