@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="准备工作在部署之前清除上篇所有的数据。 12# python3 transform/delete.py# rm -rf /opt/data/&amp;#123;orderer,peer&amp;#125; 配置文件crypto-config.yaml修改 OrdererType Solo 为 kafka 12345678910111213141516171819202122Profiles:    TwoOrgs">
+<meta name="description" content="Hyperledger Fabric 目前支持两种共识机制，上篇讲到了 Solo 共识的部署，适用于开发环境。这篇讲一下 Kafka 共识。原理可以看这两篇：  Fabric基于Kafka的共识机制剖析 超级账本1.0基于kafka的共识  准备工作在部署之前清除上篇所有的数据。 12# python3 transform/delete.py# rm -rf /opt/data/&amp;#123;ord">
 <meta name="keywords" content="kubernetes,hyperledger">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 Kubernetes 上部署 Hyperledger Fabric v1.2 Kafka（三）">
 <meta property="og:url" content="http://batizhao.github.io/2018/09/13/deploy-fabric-on-kubernetes-three/index.html">
 <meta property="og:site_name" content="Gunner">
-<meta property="og:description" content="准备工作在部署之前清除上篇所有的数据。 12# python3 transform/delete.py# rm -rf /opt/data/&amp;#123;orderer,peer&amp;#125; 配置文件crypto-config.yaml修改 OrdererType Solo 为 kafka 12345678910111213141516171819202122Profiles:    TwoOrgs">
+<meta property="og:description" content="Hyperledger Fabric 目前支持两种共识机制，上篇讲到了 Solo 共识的部署，适用于开发环境。这篇讲一下 Kafka 共识。原理可以看这两篇：  Fabric基于Kafka的共识机制剖析 超级账本1.0基于kafka的共识  准备工作在部署之前清除上篇所有的数据。 12# python3 transform/delete.py# rm -rf /opt/data/&amp;#123;ord">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-13T03:05:18.477Z">
+<meta property="og:updated_time" content="2018-09-13T03:22:51.513Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 Kubernetes 上部署 Hyperledger Fabric v1.2 Kafka（三）">
-<meta name="twitter:description" content="准备工作在部署之前清除上篇所有的数据。 12# python3 transform/delete.py# rm -rf /opt/data/&amp;#123;orderer,peer&amp;#125; 配置文件crypto-config.yaml修改 OrdererType Solo 为 kafka 12345678910111213141516171819202122Profiles:    TwoOrgs">
+<meta name="twitter:description" content="Hyperledger Fabric 目前支持两种共识机制，上篇讲到了 Solo 共识的部署，适用于开发环境。这篇讲一下 Kafka 共识。原理可以看这两篇：  Fabric基于Kafka的共识机制剖析 超级账本1.0基于kafka的共识  准备工作在部署之前清除上篇所有的数据。 12# python3 transform/delete.py# rm -rf /opt/data/&amp;#123;ord">
 
 
 
@@ -373,7 +373,12 @@
       
 
       
-        <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在部署之前清除上篇所有的数据。</p>
+        <p>Hyperledger Fabric 目前支持两种共识机制，上篇讲到了 Solo 共识的部署，适用于开发环境。这篇讲一下 Kafka 共识。原理可以看这两篇：</p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/29671493" target="_blank" rel="noopener">Fabric基于Kafka的共识机制剖析</a></li>
+<li><a href="https://www.jianshu.com/p/f1a671be69a4" target="_blank" rel="noopener">超级账本1.0基于kafka的共识</a></li>
+</ul>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在部署之前清除上篇所有的数据。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> python3 transform/delete.py</span><br><span class="line"><span class="meta">#</span> rm -rf /opt/data/&#123;orderer,peer&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><h3 id="crypto-config-yaml"><a href="#crypto-config-yaml" class="headerlink" title="crypto-config.yaml"></a><strong>crypto-config.yaml</strong></h3><p>修改 OrdererType Solo 为 kafka</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Profiles:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    TwoOrgsOrdererGenesis:</span></span><br><span class="line">        <span class="string">&lt;&lt;:</span> <span class="meta">*ChannelDefaults</span></span><br><span class="line"><span class="attr">        Orderer:</span></span><br><span class="line">            <span class="string">&lt;&lt;:</span> <span class="meta">*OrdererDefaults</span></span><br><span class="line"><span class="attr">            OrdererType:</span> <span class="string">kafka</span></span><br><span class="line"><span class="attr">            Organizations:</span></span><br><span class="line"><span class="bullet">                -</span> <span class="meta">*OrdererOrg</span></span><br><span class="line"><span class="attr">        Consortiums:</span></span><br><span class="line"><span class="attr">            SampleConsortium:</span></span><br><span class="line"><span class="attr">                Organizations:</span></span><br><span class="line"><span class="bullet">                    -</span> <span class="meta">*Org1</span></span><br><span class="line"><span class="bullet">                    -</span> <span class="meta">*Org2</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    TwoOrgsChannel:</span></span><br><span class="line"><span class="attr">        Consortium:</span> <span class="string">SampleConsortium</span></span><br><span class="line"><span class="attr">        Application:</span></span><br><span class="line">            <span class="string">&lt;&lt;:</span> <span class="meta">*ApplicationDefaults</span></span><br><span class="line"><span class="attr">            Organizations:</span></span><br><span class="line"><span class="bullet">                -</span> <span class="meta">*Org1</span></span><br><span class="line"><span class="bullet">                -</span> <span class="meta">*Org2</span></span><br></pre></td></tr></table></figure>
@@ -385,7 +390,6 @@
 <h2 id="清除集群"><a href="#清除集群" class="headerlink" title="清除集群"></a>清除集群</h2><p>先按上篇方法清除 Fabric 集群，然后：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> cd kafka</span><br><span class="line"><span class="meta">#</span> ./delete.sh</span><br><span class="line"><span class="meta">#</span> sudo rm -rf /opt/data/kafka</span><br></pre></td></tr></table></figure>
 <h2 id="遗留问题"><a href="#遗留问题" class="headerlink" title="遗留问题"></a>遗留问题</h2><p>这里使用默认的 LevelDB。使用 CouchDB 的话，在 Kafka 共识中链码操作会有问题，但安装和实例化都正常，在 peer 日志中会看到相关写入报错，但原因未知。在 Solo 模式下，CouchDB 写入正常。</p>
-<p>### </p>
 
       
     </div>
