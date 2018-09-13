@@ -308,6 +308,134 @@
             
               
                 
+                <a class="post-title-link" href="/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/" itemprop="url">
+                  在 CentOS 上使用 kubeadm 安装 kubernetes 1.8.4
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-12-15T14:08:21+08:00" content="2017-12-15">
+              2017-12-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/15/install-kubernetes-1-8-4-use-kubeadm/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在所有主机执行以下工作。</p>
+<h3 id="配置主机"><a href="#配置主机" class="headerlink" title="配置主机"></a>配置主机</h3><h4 id="修改主机名称"><a href="#修改主机名称" class="headerlink" title="修改主机名称"></a>修改主机名称</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hostnamectl --static <span class="built_in">set</span>-hostname k8s-master</span><br><span class="line">$ hostnamectl --static <span class="built_in">set</span>-hostname k8s-node-1</span><br><span class="line">$ hostnamectl --static <span class="built_in">set</span>-hostname k8s-node-2</span><br></pre></td></tr></table></figure>
+<h4 id="配-hosts"><a href="#配-hosts" class="headerlink" title="配 hosts"></a>配 hosts</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"172.31.21.226  k8s-master</span></span><br><span class="line"><span class="string">172.31.21.147  k8s-node-1</span></span><br><span class="line"><span class="string">172.31.21.148  k8s-node-2"</span> &gt;&gt; /etc/hosts</span><br></pre></td></tr></table></figure>
+<h4 id="关防火墙和-selinux"><a href="#关防火墙和-selinux" class="headerlink" title="关防火墙和 selinux"></a>关防火墙和 selinux</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl stop firewalld &amp;&amp; systemctl <span class="built_in">disable</span> firewalld</span><br><span class="line">$ iptables -P FORWARD ACCEPT</span><br><span class="line">$ sed -i <span class="string">'s/SELINUX=enforcing/SELINUX=disabled/g'</span> /etc/selinux/config</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"net.bridge.bridge-nf-call-ip6tables = 1</span></span><br><span class="line"><span class="string">net.bridge.bridge-nf-call-iptables = 1</span></span><br><span class="line"><span class="string">vm.swappiness=0"</span> &gt;&gt; /etc/sysctl.d/k8s.conf</span><br><span class="line">$ sysctl -p /etc/sysctl.d/k8s.conf</span><br></pre></td></tr></table></figure>
+<h4 id="关闭-swap"><a href="#关闭-swap" class="headerlink" title="关闭 swap"></a>关闭 swap</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ swapoff -a</span><br></pre></td></tr></table></figure>
+<p>永久关闭，注释 swap 相关内容<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/fstab</span><br></pre></td></tr></table></figure></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/12/14/share-shasdowsocks-to-http/" itemprop="url">
                   使用 Shasdowsocks + Privoxy 转 HTTP 代理
                 </a>
@@ -1379,138 +1507,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2014/04/14/quick-start-to-working-with-the-edx-platform/" itemprop="url">
-                  edX 学习二：搭建 edX 平台
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2014-04-14T00:00:00+08:00" content="2014-04-14">
-              2014-04-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/mooc/" itemprop="url" rel="index">
-                    <span itemprop="name">mooc</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2014/04/14/quick-start-to-working-with-the-edx-platform/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/04/14/quick-start-to-working-with-the-edx-platform/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>折腾了好几天，试过官方的 <a href="https://github.com/edx/configuration/wiki/edX-Developer-Stack" target="_blank" rel="noopener">edX Developer Stack</a> 和 <a href="https://github.com/edx/configuration/wiki/edX-Ubuntu-12.04-Installation" target="_blank" rel="noopener">edX Ubuntu 12.04 installation</a> 两种方法没成功之后，终于按照 <a href="https://people.csail.mit.edu/ichuang/edx" target="_blank" rel="noopener">Quick Start to working with the edX Platform</a> 这篇文章搞定，缺点就是不是最新的 edX 环境。</p>
-<p>按照官方文档，在安装时主要会卡在两个地方（主要还是网络问题）：</p>
-<ul>
-<li>安装 MongoDB（这个地方时间长点还可以执行下去，大概 10 几个小时）</li>
-</ul>
-<p><img src="/images/2014-04-14-quick-start-to-working-with-the-edx-platform-1.png" alt=""></p>
-<ul>
-<li>安装 ORA（花了一天一夜也没执行下去）</li>
-</ul>
-<p><img src="/images/2014-04-14-quick-start-to-working-with-the-edx-platform-2.png" alt=""></p>
-<p>最后这两种方法都放弃，使用了直接下载 box 的方式。就是 box 文件下载需要点时间，我家里 20M 光纤用了 4 个小时左右。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2014/04/14/quick-start-to-working-with-the-edx-platform/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1556,7 +1552,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">58</span>
+              <span class="site-state-item-count">59</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

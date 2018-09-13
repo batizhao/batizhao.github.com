@@ -308,8 +308,133 @@
             
               
                 
+                <a class="post-title-link" href="/2018/09/13/deploy-fabric-on-kubernetes-three/" itemprop="url">
+                  在 Kubernetes 上部署 Hyperledger Fabric v1.2 Kafka（三）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-09-13T10:24:45+08:00" content="2018-09-13">
+              2018-09-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/blockchain/" itemprop="url" rel="index">
+                    <span itemprop="name">blockchain</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/09/13/deploy-fabric-on-kubernetes-three/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/09/13/deploy-fabric-on-kubernetes-three/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在部署之前清除上篇所有的数据。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> python3 transform/delete.py</span><br><span class="line"><span class="meta">#</span> rm -rf /opt/data/&#123;orderer,peer&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><h3 id="crypto-config-yaml"><a href="#crypto-config-yaml" class="headerlink" title="crypto-config.yaml"></a><strong>crypto-config.yaml</strong></h3><p>修改 OrdererType Solo 为 kafka</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Profiles:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    TwoOrgsOrdererGenesis:</span></span><br><span class="line">        <span class="string">&lt;&lt;:</span> <span class="meta">*ChannelDefaults</span></span><br><span class="line"><span class="attr">        Orderer:</span></span><br><span class="line">            <span class="string">&lt;&lt;:</span> <span class="meta">*OrdererDefaults</span></span><br><span class="line"><span class="attr">            OrdererType:</span> <span class="string">kafka</span></span><br><span class="line"><span class="attr">            Organizations:</span></span><br><span class="line"><span class="bullet">                -</span> <span class="meta">*OrdererOrg</span></span><br><span class="line"><span class="attr">        Consortiums:</span></span><br><span class="line"><span class="attr">            SampleConsortium:</span></span><br><span class="line"><span class="attr">                Organizations:</span></span><br><span class="line"><span class="bullet">                    -</span> <span class="meta">*Org1</span></span><br><span class="line"><span class="bullet">                    -</span> <span class="meta">*Org2</span></span><br><span class="line"></span><br><span class="line"><span class="attr">    TwoOrgsChannel:</span></span><br><span class="line"><span class="attr">        Consortium:</span> <span class="string">SampleConsortium</span></span><br><span class="line"><span class="attr">        Application:</span></span><br><span class="line">            <span class="string">&lt;&lt;:</span> <span class="meta">*ApplicationDefaults</span></span><br><span class="line"><span class="attr">            Organizations:</span></span><br><span class="line"><span class="bullet">                -</span> <span class="meta">*Org1</span></span><br><span class="line"><span class="bullet">                -</span> <span class="meta">*Org2</span></span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/09/13/deploy-fabric-on-kubernetes-three/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/08/13/deploy-fabric-on-kubernetes-two/" itemprop="url">
-                  在 Kubernetes 上部署 Hyperledger Fabric v1.2（二）
+                  在 Kubernetes 上部署 Hyperledger Fabric v1.2 Solo（二）
                 </a>
               
             
@@ -387,6 +512,7 @@
 <li>CentOS7</li>
 <li>Kubernetes v1.11.0</li>
 <li>Docker 18.03.1-ce</li>
+<li>Fabric 1.2.0</li>
 </ul>
 <h3 id="NFS"><a href="#NFS" class="headerlink" title="NFS"></a>NFS</h3><ul>
 <li>给集群做共享存储，挂载证书和一些 channel 文件。</li>
@@ -1429,134 +1555,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/" itemprop="url">
-                  在 CentOS 上使用 kubeadm 安装 kubernetes 1.8.4
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-12-15T14:08:21+08:00" content="2017-12-15">
-              2017-12-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/15/install-kubernetes-1-8-4-use-kubeadm/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在所有主机执行以下工作。</p>
-<h3 id="配置主机"><a href="#配置主机" class="headerlink" title="配置主机"></a>配置主机</h3><h4 id="修改主机名称"><a href="#修改主机名称" class="headerlink" title="修改主机名称"></a>修改主机名称</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hostnamectl --static <span class="built_in">set</span>-hostname k8s-master</span><br><span class="line">$ hostnamectl --static <span class="built_in">set</span>-hostname k8s-node-1</span><br><span class="line">$ hostnamectl --static <span class="built_in">set</span>-hostname k8s-node-2</span><br></pre></td></tr></table></figure>
-<h4 id="配-hosts"><a href="#配-hosts" class="headerlink" title="配 hosts"></a>配 hosts</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"172.31.21.226  k8s-master</span></span><br><span class="line"><span class="string">172.31.21.147  k8s-node-1</span></span><br><span class="line"><span class="string">172.31.21.148  k8s-node-2"</span> &gt;&gt; /etc/hosts</span><br></pre></td></tr></table></figure>
-<h4 id="关防火墙和-selinux"><a href="#关防火墙和-selinux" class="headerlink" title="关防火墙和 selinux"></a>关防火墙和 selinux</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl stop firewalld &amp;&amp; systemctl <span class="built_in">disable</span> firewalld</span><br><span class="line">$ iptables -P FORWARD ACCEPT</span><br><span class="line">$ sed -i <span class="string">'s/SELINUX=enforcing/SELINUX=disabled/g'</span> /etc/selinux/config</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="string">"net.bridge.bridge-nf-call-ip6tables = 1</span></span><br><span class="line"><span class="string">net.bridge.bridge-nf-call-iptables = 1</span></span><br><span class="line"><span class="string">vm.swappiness=0"</span> &gt;&gt; /etc/sysctl.d/k8s.conf</span><br><span class="line">$ sysctl -p /etc/sysctl.d/k8s.conf</span><br></pre></td></tr></table></figure>
-<h4 id="关闭-swap"><a href="#关闭-swap" class="headerlink" title="关闭 swap"></a>关闭 swap</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ swapoff -a</span><br></pre></td></tr></table></figure>
-<p>永久关闭，注释 swap 相关内容<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/fstab</span><br></pre></td></tr></table></figure></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/12/15/install-kubernetes-1-8-4-use-kubeadm/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1602,7 +1600,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">58</span>
+              <span class="site-state-item-count">59</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
